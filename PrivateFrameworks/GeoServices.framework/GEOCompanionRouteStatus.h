@@ -3,10 +3,11 @@
  */
 
 @interface GEOCompanionRouteStatus : PBCodable <NSCopying> {
-    unsigned int _distanceRemainingOnRoute;
-    unsigned int _distanceToManeuver;
-    unsigned int _distanceToRoute;
-    int _feedbackType;
+    unsigned int  _distanceRemainingOnRoute;
+    unsigned int  _distanceToManeuver;
+    unsigned int  _distanceToRoute;
+    int  _feedbackType;
+    BOOL  _guidancePromptsEnabled;
     struct { 
         unsigned int timestamp : 1; 
         unsigned int distanceRemainingOnRoute : 1; 
@@ -17,15 +18,21 @@
         unsigned int routeLocationIndex : 1; 
         unsigned int routeLocationOffset : 1; 
         unsigned int stepID : 1; 
-    } _has;
-    GEOLocation *_location;
-    unsigned int _remainingTime;
-    NSData *_routeID;
-    unsigned int _routeLocationIndex;
-    float _routeLocationOffset;
-    GEOLatLng *_routeMatchCoordinate;
-    unsigned int _stepID;
-    double _timestamp;
+        unsigned int guidancePromptsEnabled : 1; 
+    }  _has;
+    GEOLocation * _location;
+    unsigned int  _remainingTime;
+    NSData * _routeID;
+    unsigned int  _routeLocationIndex;
+    float  _routeLocationOffset;
+    GEOLatLng * _routeMatchCoordinate;
+    struct { 
+        unsigned int *list; 
+        unsigned int count; 
+        unsigned int size; 
+    }  _selectedRideIndexs;
+    unsigned int  _stepID;
+    double  _timestamp;
 }
 
 @property (nonatomic) unsigned int distanceRemainingOnRoute;
@@ -34,12 +41,14 @@
 @property (nonatomic, readonly) unsigned int effectiveDistanceToManeuver;
 @property (nonatomic, readonly) unsigned int effectiveStepID;
 @property (nonatomic) int feedbackType;
+@property (nonatomic) BOOL guidancePromptsEnabled;
 @property (nonatomic) BOOL hasDistanceRemainingOnRoute;
 @property (nonatomic) BOOL hasDistanceToManeuver;
 @property (nonatomic) BOOL hasDistanceToRoute;
 @property (nonatomic, readonly) BOOL hasEffectiveDistanceToManeuver;
 @property (nonatomic, readonly) BOOL hasEffectiveStepID;
 @property (nonatomic) BOOL hasFeedbackType;
+@property (nonatomic) BOOL hasGuidancePromptsEnabled;
 @property (nonatomic, readonly) BOOL hasLocation;
 @property (nonatomic) BOOL hasRemainingTime;
 @property (nonatomic, readonly) BOOL hasRouteID;
@@ -56,9 +65,16 @@
 @property (nonatomic) unsigned int routeLocationIndex;
 @property (nonatomic) float routeLocationOffset;
 @property (nonatomic, retain) GEOLatLng *routeMatchCoordinate;
+@property (nonatomic, readonly) unsigned int*selectedRideIndexs;
+@property (nonatomic, readonly) unsigned int selectedRideIndexsCount;
+@property (nonatomic, readonly) NSArray *selectedRideIndices;
 @property (nonatomic) unsigned int stepID;
 @property (nonatomic) double timestamp;
 
+- (int)StringAsFeedbackType:(id)arg1;
+- (void)_updateClusteredSectionSelectedRideIndicesFromRoute:(id)arg1;
+- (void)addSelectedRideIndex:(unsigned int)arg1;
+- (void)clearSelectedRideIndexs;
 - (void)copyTo:(id)arg1;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
 - (void)dealloc;
@@ -70,12 +86,15 @@
 - (unsigned int)effectiveDistanceToManeuver;
 - (unsigned int)effectiveStepID;
 - (int)feedbackType;
+- (id)feedbackTypeAsString:(int)arg1;
+- (BOOL)guidancePromptsEnabled;
 - (BOOL)hasDistanceRemainingOnRoute;
 - (BOOL)hasDistanceToManeuver;
 - (BOOL)hasDistanceToRoute;
 - (BOOL)hasEffectiveDistanceToManeuver;
 - (BOOL)hasEffectiveStepID;
 - (BOOL)hasFeedbackType;
+- (BOOL)hasGuidancePromptsEnabled;
 - (BOOL)hasLocation;
 - (BOOL)hasRemainingTime;
 - (BOOL)hasRouteID;
@@ -98,14 +117,20 @@
 - (unsigned int)routeLocationIndex;
 - (float)routeLocationOffset;
 - (id)routeMatchCoordinate;
+- (unsigned int)selectedRideIndexAtIndex:(unsigned int)arg1;
+- (unsigned int*)selectedRideIndexs;
+- (unsigned int)selectedRideIndexsCount;
+- (id)selectedRideIndices;
 - (void)setDistanceRemainingOnRoute:(unsigned int)arg1;
 - (void)setDistanceToManeuver:(unsigned int)arg1;
 - (void)setDistanceToRoute:(unsigned int)arg1;
 - (void)setFeedbackType:(int)arg1;
+- (void)setGuidancePromptsEnabled:(BOOL)arg1;
 - (void)setHasDistanceRemainingOnRoute:(BOOL)arg1;
 - (void)setHasDistanceToManeuver:(BOOL)arg1;
 - (void)setHasDistanceToRoute:(BOOL)arg1;
 - (void)setHasFeedbackType:(BOOL)arg1;
+- (void)setHasGuidancePromptsEnabled:(BOOL)arg1;
 - (void)setHasRemainingTime:(BOOL)arg1;
 - (void)setHasRouteLocationIndex:(BOOL)arg1;
 - (void)setHasRouteLocationOffset:(BOOL)arg1;
@@ -117,10 +142,12 @@
 - (void)setRouteLocationIndex:(unsigned int)arg1;
 - (void)setRouteLocationOffset:(float)arg1;
 - (void)setRouteMatchCoordinate:(id)arg1;
+- (void)setSelectedRideIndexs:(unsigned int*)arg1 count:(unsigned int)arg2;
 - (void)setStepID:(unsigned int)arg1;
 - (void)setTimestamp:(double)arg1;
 - (unsigned int)stepID;
 - (double)timestamp;
+- (void)updateClusteredSectionSelectedRideIndicesFromRoute:(id)arg1 routeID:(id)arg2;
 - (void)updateFeedbackWithNavigationState:(int)arg1 locationUnreliable:(BOOL)arg2 announcementStage:(unsigned int)arg3 nextAnnouncementStage:(unsigned int)arg4 nextAnnouncementTime:(double)arg5;
 - (void)updateWithRoute:(id)arg1 routeID:(id)arg2;
 - (void)writeTo:(id)arg1;

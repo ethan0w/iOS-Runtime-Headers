@@ -3,7 +3,7 @@
  */
 
 @interface GKAchievementChallengeInternal : GKChallengeInternal {
-    GKAchievementInternal *_achievement;
+    GKAchievementInternal * _achievement;
 }
 
 @property (nonatomic, copy) GKAchievementInternal *achievement;
@@ -15,6 +15,7 @@
 - (void)dealloc;
 - (id)serverRepresentationForReceivingPlayer:(id)arg1;
 - (void)setAchievement:(id)arg1;
+- (id)titleText;
 - (unsigned int)type;
 
 @end

@@ -3,7 +3,11 @@
  */
 
 @interface NSAutoLocale : NSLocale {
-    NSLocale *loc;
+    struct _opaque_pthread_mutex_t { 
+        long __sig; 
+        BOOL __opaque[40]; 
+    }  _lock;
+    NSLocale * loc;
 }
 
 + (BOOL)supportsSecureCoding;
@@ -19,6 +23,7 @@
 - (id)description;
 - (id)displayNameForKey:(id)arg1 value:(id)arg2;
 - (void)encodeWithCoder:(id)arg1;
+- (void)finalize;
 - (id)initWithCoder:(id)arg1;
 - (id)initWithLocaleIdentifier:(id)arg1;
 - (id)objectForKey:(id)arg1;

@@ -3,8 +3,8 @@
  */
 
 @interface SKRange : NSObject <NSCoding, NSCopying> {
-    float _lowerLimit;
-    float _upperLimit;
+    float  _lowerLimit;
+    float  _upperLimit;
 }
 
 @property float lowerLimit;
@@ -20,6 +20,7 @@
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
 - (id)description;
 - (void)encodeWithCoder:(id)arg1;
+- (id)init;
 - (id)initWithCoder:(id)arg1;
 - (id)initWithLowerLimit:(float)arg1 upperLimit:(float)arg2;
 - (float)lowerLimit;

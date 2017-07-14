@@ -3,9 +3,9 @@
  */
 
 @interface NPSDomainAccessor : NSObject {
-    NSObject<OS_dispatch_queue> *_externalQueue;
-    NPSDomainAccessorInternal *_internalAccessor;
-    NSObject<OS_dispatch_queue> *_invalidationQueue;
+    NSObject<OS_dispatch_queue> * _externalQueue;
+    NPSDomainAccessorInternal * _internalAccessor;
+    NSObject<OS_dispatch_queue> * _invalidationQueue;
 }
 
 @property (nonatomic, readonly) NSString *domain;
@@ -14,8 +14,11 @@
 @property (nonatomic, retain) NSObject<OS_dispatch_queue> *invalidationQueue;
 @property (nonatomic, readonly) NSUUID *pairingID;
 
+// Image: /System/Library/PrivateFrameworks/NanoPreferencesSync.framework/NanoPreferencesSync
+
 + (id)copyDomainList;
 + (id)copyDomainListForPairingID:(id)arg1 pairingDataStore:(id)arg2;
++ (void)initialize;
 + (void)resolveActivePairedDevicePairingID:(id*)arg1 pairingDataStore:(id*)arg2;
 
 - (void).cxx_destruct;
@@ -27,6 +30,7 @@
 - (id)dataForKey:(id)arg1;
 - (void)dealloc;
 - (id)dictionaryForKey:(id)arg1;
+- (id)dictionaryRepresentation;
 - (id)domain;
 - (double)doubleForKey:(id)arg1;
 - (double)doubleForKey:(id)arg1 keyExistsAndHasValidFormat:(BOOL*)arg2;
@@ -34,6 +38,7 @@
 - (float)floatForKey:(id)arg1;
 - (float)floatForKey:(id)arg1 keyExistsAndHasValidFormat:(BOOL*)arg2;
 - (id)initWithDomain:(id)arg1;
+- (id)initWithDomain:(id)arg1 pairedDevice:(id)arg2;
 - (id)initWithDomain:(id)arg1 pairingID:(id)arg2 pairingDataStore:(id)arg3;
 - (id)initWithDomain:(id)arg1 queue:(id)arg2;
 - (id)initWithDomain:(id)arg1 queue:(id)arg2 pairingID:(id)arg3 pairingDataStore:(id)arg4;
@@ -64,5 +69,9 @@
 - (id)stringForKey:(id)arg1;
 - (id)synchronize;
 - (void)synchronizeWithCompletionHandler:(id /* block */)arg1;
+
+// Image: /System/Library/PrivateFrameworks/NanoPhotosUICompanion.framework/NanoPhotosUICompanion
+
++ (id)_npto_sharedDomain;
 
 @end

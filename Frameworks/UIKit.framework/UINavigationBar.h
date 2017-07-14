@@ -3,20 +3,24 @@
  */
 
 @interface UINavigationBar : UIView <NSCoding, UIBarPositioning, UIGestureRecognizerDelegate, UIStatusBarTinting, _UIBarPositioningInternal, _UIBasicAnimationFactory, _UIShadowedView> {
-    NSMutableArray *__animationIds;
-    BOOL __condensed;
-    UIView *_accessoryView;
-    id _appearanceStorage;
-    UIImageView *_backIndicatorView;
-    NSString *_backdropViewLayerGroupName;
-    UIView *_backgroundView;
-    int _barPosition;
-    UIColor *_barTintColor;
-    id _currentAlert;
-    id _delegate;
-    NSMutableArray *_itemStack;
-    NSArray *_leftViews;
-    _UIViewControllerTransitionContext *_navControllerAnimatingContext;
+    NSMutableArray * __animationIds;
+    UIColor * _accessibilityButtonBackgroundTintColor;
+    UIView * _accessoryView;
+    id  _appearanceStorage;
+    UIImageView * _backIndicatorView;
+    _UIBarBackground * _barBackgroundView;
+    int  _barPosition;
+    UIColor * _barTintColor;
+    UIFocusContainerGuide * _contentFocusContainerGuide;
+    UIView * _contentView;
+    id  _currentAlert;
+    UIView * _currentCanvasView;
+    UIView * _customBackgroundView;
+    <_UINavigationBarDelegatePrivate> * _delegate;
+    NSMutableArray * _itemStack;
+    UIView * _leadingAffordanceView;
+    NSArray * _leftViews;
+    _UIViewControllerTransitionContext * _navControllerAnimatingContext;
     struct { 
         unsigned int animate : 1; 
         unsigned int animationDisabledCount : 10; 
@@ -45,38 +49,44 @@
         unsigned int cancelledTransition : 1; 
         unsigned int animationCount : 4; 
         unsigned int backgroundLayoutNeedsUpdate : 1; 
-    } _navbarFlags;
-    BOOL _needsUpdateBackIndicatorImage;
-    UISwipeGestureRecognizer *_popSwipeGestureRecognizer;
-    UIView *_prompt;
-    float _requestedMaxBackButtonWidth;
-    float _rightMargin;
-    NSArray *_rightViews;
-    NSMutableArray *_slideTransitionClippingViews;
-    unsigned int _state;
-    UIView *_titleView;
-    BOOL _wantsLetterpressContent;
+        unsigned int showsLeadingResizeAffordance : 1; 
+        unsigned int showsTrailingResizeAffordance : 1; 
+        unsigned int isInterruptibleTransition : 1; 
+    }  _navbarFlags;
+    BOOL  _needsUpdateBackIndicatorImage;
+    UISwipeGestureRecognizer * _popSwipeGestureRecognizer;
+    UIView * _prompt;
+    float  _requestedMaxBackButtonWidth;
+    float  _rightMargin;
+    NSArray * _rightViews;
+    NSMutableArray * _slideTransitionClippingViews;
+    unsigned int  _state;
+    UIView * _titleView;
+    UIView * _trailingAffordanceView;
+    <UIViewControllerTransitionCoordinator> * _transitionCoordinator;
+    UILayoutGuide * _userContentGuide;
+    NSLayoutConstraint * _userContentGuideLeading;
+    NSLayoutConstraint * _userContentGuideTrailing;
+    BOOL  _wantsLetterpressContent;
 }
 
+@property (setter=_setAccessibilityButtonBackgroundTintColor:, nonatomic, retain) UIColor *_accessibilityButtonBackgroundTintColor;
 @property (setter=_setAnimationIds:, nonatomic, retain) NSMutableArray *_animationIds;
 @property (setter=_setBackIndicatorImage:, nonatomic, retain) UIImage *_backIndicatorImage;
 @property (setter=_setBackIndicatorLeftMargin:, nonatomic) float _backIndicatorLeftMargin;
-@property (nonatomic, readonly, retain) NSString *_backdropViewLayerGroupName;
 @property (setter=_setBackdropViewLayerGroupName:, nonatomic, retain) NSString *_backdropViewLayerGroupName;
-@property (setter=_setBackgroundView:, nonatomic, retain) UIView *_backgroundView;
 @property (nonatomic, readonly) int _barTranslucence;
-@property (getter=_isCondensed, setter=_setCondensed:, nonatomic) BOOL _condensed;
 @property (nonatomic, readonly) float _heightIncludingBackground;
 @property (setter=_setNeedsUpdateBackIndicatorImage:, nonatomic) BOOL _needsUpdateBackIndicatorImage;
 @property (setter=_setRequestedMaxBackButtonWidth:, nonatomic) float _requestedMaxBackButtonWidth;
-@property (setter=_setShadowAlpha:, nonatomic) float _shadowAlpha;
 @property (setter=_setWantsLetterpressContent:, nonatomic) BOOL _wantsLetterpressContent;
 @property (nonatomic, retain) UIImage *backIndicatorImage;
 @property (nonatomic, retain) UIImage *backIndicatorTransitionMaskImage;
-@property (nonatomic, readonly, retain) UINavigationItem *backItem;
+@property (nonatomic, readonly) UINavigationItem *backItem;
 @property (nonatomic, readonly) int barPosition;
 @property (nonatomic) int barStyle;
 @property (nonatomic, retain) UIColor *barTintColor;
+@property (getter=_contentFocusContainerGuide, nonatomic, readonly) UIFocusContainerGuide *contentFocusContainerGuide;
 @property (readonly, copy) NSString *debugDescription;
 @property (nonatomic) <UINavigationBarDelegate> *delegate;
 @property (readonly, copy) NSString *description;
@@ -86,17 +96,22 @@
 @property (readonly) Class superclass;
 @property (nonatomic, retain) UIColor *tintColor;
 @property (nonatomic, copy) NSDictionary *titleTextAttributes;
-@property (nonatomic, readonly, retain) UINavigationItem *topItem;
+@property (nonatomic, readonly) UINavigationItem *topItem;
 @property (getter=isTranslucent, nonatomic) BOOL translucent;
 
 // Image: /System/Library/Frameworks/UIKit.framework/UIKit
 
 + (id)_bottomColorForBackgroundImage:(id)arg1 viewSize:(struct CGSize { float x1; float x2; })arg2;
++ (id)_defaultBackIndicatorImage;
++ (id)_defaultBackIndicatorTransitionMaskImage;
++ (id)_defaultVisualStyleForOrientation:(int)arg1;
 + (void)_initializeForIdiom:(int)arg1;
 + (void)_setUseCustomBackButtonAction:(BOOL)arg1;
 + (id)_statusBarBaseTintColorForStyle:(int)arg1 translucent:(BOOL)arg2 tintColor:(id)arg3;
 + (id)_statusBarBaseTintColorForStyle:(int)arg1 translucent:(BOOL)arg2 tintColor:(id)arg3 backgroundImage:(id)arg4 viewSize:(struct CGSize { float x1; float x2; })arg5;
++ (BOOL)_supportsCanvasView;
 + (BOOL)_useCustomBackButtonAction;
++ (id)_visualStyleForIdiom:(int)arg1 metrics:(int)arg2 isContainedInPopover:(BOOL)arg3 wantsLetterpressContent:(BOOL)arg4;
 + (id)defaultPromptFont;
 + (struct CGSize { float x1; float x2; })defaultSize;
 + (struct CGSize { float x1; float x2; })defaultSizeForOrientation:(int)arg1;
@@ -104,12 +119,16 @@
 + (struct CGSize { float x1; float x2; })defaultSizeWithPromptForOrientation:(int)arg1;
 + (void)setDefaultAnimationDuration:(double)arg1;
 
+- (void).cxx_destruct;
+- (id)_accessibilityButtonBackgroundTintColor;
 - (void)_accessibilityButtonShapesDidChangeNotification:(id)arg1;
 - (void)_accessibilityButtonShapesParametersDidChange;
 - (int)_activeBarMetrics;
+- (id)_activeVisualStyle;
 - (void)_addItem:(id)arg1 withEffectiveDelegate:(id)arg2 transition:(int)arg3;
 - (void)_addItems:(id)arg1 withEffectiveDelegate:(id)arg2 transition:(int)arg3;
 - (id)_allViews;
+- (BOOL)_allowInteractionDuringTransition;
 - (void)_animateOldBackButtonView:(id)arg1 toNewBackButtonView:(id)arg2 duration:(float)arg3 initialFrameForIncomingView:(id /* block */)arg4 destinationFrameForOutgoingView:(id /* block */)arg5 animationCleanup:(id /* block */)arg6;
 - (id)_animationIds;
 - (id)_appearanceStorage;
@@ -122,12 +141,11 @@
 - (float)_backTitleWidthOverTitleWidthForMatchingBackButtonView:(id)arg1 titleView:(id)arg2 withBackButtonWidth:(float)arg3;
 - (id)_backdropViewLayerGroupName;
 - (int)_backgroundBackdropStyle;
-- (void)_backgroundFadeDidFinish:(id)arg1 finished:(id)arg2 context:(id)arg3;
 - (id)_backgroundView;
 - (id)_backgroundViewForPalette:(id)arg1;
 - (BOOL)_backgroundViewSuppressesAdaptiveBackdrop;
 - (int)_barPosition;
-- (void)_barSizeDidChangeAndSoDidHeight:(BOOL)arg1;
+- (void)_barSizeDidChange;
 - (int)_barStyle:(BOOL)arg1;
 - (BOOL)_barStyleSuppressesAdaptiveBackdrop;
 - (int)_barTranslucence;
@@ -141,8 +159,13 @@
 - (void)_cancelInteractiveTransition:(float)arg1 completionSpeed:(float)arg2 completionCurve:(int)arg3;
 - (id)_commonHitTest:(struct CGPoint { float x1; float x2; })arg1 forView:(id)arg2;
 - (void)_commonNavBarInit;
+- (void)_completeTransitionFromCanvasView:(id)arg1 toCanvasView:(id)arg2 updateSize:(BOOL)arg3;
 - (void)_configurePaletteConstraintsIfNecessary;
+- (id)_contentFocusContainerGuide;
 - (BOOL)_contentHuggingDefault_isUsuallyFixedHeight;
+- (id)_contentView;
+- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_contentViewFrameInBounds:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1 style:(id)arg2;
+- (id)_createAffordanceView;
 - (void)_crossFadeToBarBackgroundImageForItem:(id)arg1;
 - (id)_currentBackButtonForNthItemFromTop:(unsigned int)arg1;
 - (int)_currentBarStyle;
@@ -156,10 +179,13 @@
 - (id)_defaultTitleFont;
 - (id)_defaultTitleFontFittingHeight:(float)arg1 withScaleAdjustment:(float)arg2;
 - (id)_defaultTitleFontWithScaleAdjustment:(float)arg1;
+- (id)_defaultVisualStyleForOrientation:(int)arg1;
 - (BOOL)_deferShadowToSearchBar;
+- (BOOL)_delegateWantsNavigationBarHidden;
 - (void)_didChangeFromIdiom:(int)arg1 onScreen:(id)arg2 traverseHierarchy:(BOOL)arg3;
 - (void)_didMoveFromWindow:(id)arg1 toWindow:(id)arg2;
 - (BOOL)_didVisibleItemsChangeWithNewItems:(id)arg1 oldItems:(id)arg2;
+- (BOOL)_disableBlurTinting;
 - (id)_effectiveBackIndicatorImage;
 - (float)_effectiveBackIndicatorLeftMargin;
 - (id)_effectiveBackIndicatorTransitionMaskImage;
@@ -167,14 +193,17 @@
 - (void)_effectiveBarTintColorDidChangeWithPreviousColor:(id)arg1;
 - (id)_effectiveDelegate;
 - (void)_evaluateBackIndicatorForHilightedState:(BOOL)arg1 ofBarButtonItem:(id)arg2 inNavigationItem:(id)arg3;
+- (float)_expectedHeightForNavigationItem:(id)arg1;
 - (void)_fadeAllViewsIn;
 - (void)_fadeAllViewsOut;
 - (void)_fadeViewOut:(id)arg1;
 - (void)_fadeViewsIn:(id)arg1;
 - (void)_fadeViewsOut:(id)arg1;
 - (void)_finishInteractiveTransition:(float)arg1 completionSpeed:(float)arg2 completionCurve:(int)arg3;
-- (id)_focusableViews;
+- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_frameForCanvasView:(id)arg1 inBounds:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg2;
 - (BOOL)_gestureRecognizerShouldBegin:(id)arg1;
+- (void)_getBackgroundImage:(id*)arg1 shouldRespectOversizedBackgroundImage:(BOOL*)arg2 actualBarMetrics:(int*)arg3 actualBarPosition:(int*)arg4;
+- (void)_getLeftMargin:(float*)arg1 rightMargin:(float*)arg2 forNavigationItem:(id)arg3 showingBackButton:(BOOL)arg4 visualStyle:(id)arg5;
 - (void)_getTitleViewFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; }*)arg1 leftViewFrames:(id)arg2 rightViewFrames:(id)arg3;
 - (void)_getTitleViewFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; }*)arg1 leftViewFrames:(id)arg2 rightViewFrames:(id)arg3 forItemAtIndex:(unsigned int)arg4;
 - (void)_getTitleViewFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; }*)arg1 leftViewFrames:(id)arg2 rightViewFrames:(id)arg3 forItemAtIndex:(unsigned int)arg4 returnedIdealWidthOfTextContent:(float*)arg5 availableLayoutWidthForTextContent:(float*)arg6 idealBackButtonWidth:(float*)arg7;
@@ -190,24 +219,27 @@
 - (void)_incrementAnimationCountIfNecessary;
 - (void)_intrinsicContentSizeInvalidatedForChildView:(id)arg1;
 - (BOOL)_isAlwaysHidden;
-- (BOOL)_isCondensed;
 - (BOOL)_isIncomingButtonSameAsOutgoingButtonOnLeft:(BOOL)arg1;
-- (id)_itemStack;
+- (BOOL)_isInterruptibleTransition;
 - (int)_itemStackCount;
-- (void)_layoutBackgroundViewConsideringAdaptiveBackdropAndChangedHeight:(BOOL)arg1;
 - (BOOL)_legacyIsTranslucent;
 - (BOOL)_modernIsTranslucent;
 - (void)_navBarButtonPressed:(id)arg1;
-- (void)_navigationAnimationDidFinish:(id)arg1 finished:(id)arg2 context:(id)arg3;
+- (void)_navigationAnimationDidFinish:(BOOL)arg1 context:(id)arg2;
+- (void)_navigationButtonsWantAccessibilityBlendModes:(BOOL)arg1 withTintColor:(id)arg2;
 - (BOOL)_needsUpdateBackIndicatorImage;
 - (id)_nthNavigationItemFromTop:(int)arg1;
 - (void)_palette:(id)arg1 isAttaching:(BOOL)arg2 didComplete:(BOOL)arg3;
+- (BOOL)_performCanvasViewTransitionFromItem:(id)arg1 toItem:(id)arg2;
 - (void)_popForTouchAtPoint:(struct CGPoint { float x1; float x2; })arg1;
 - (id)_popNavigationItemWithTransition:(int)arg1;
 - (void)_popNestedNavigationItem;
 - (void)_populateArchivedSubviews:(id)arg1;
+- (void)_positionAffordanceView:(id)arg1 leading:(BOOL)arg2;
+- (struct CGSize { float x1; float x2; })_preferredSize;
 - (void)_prepareForPopAnimationWithNewTopItem:(id)arg1;
 - (void)_prepareForPushAnimationWithItems:(id)arg1;
+- (BOOL)_prepareTransitionFromItem:(id)arg1 toItem:(id)arg2;
 - (void)_propagateEffectiveBarTintColorWithPreviousColor:(id)arg1;
 - (void)_pushNavigationItem:(id)arg1 transition:(int)arg2;
 - (void)_pushNestedNavigationItem:(id)arg1;
@@ -217,7 +249,8 @@
 - (void)_removeItemsFromSuperview:(id)arg1;
 - (float)_requestedMaxBackButtonWidth;
 - (void)_resetBackgroundImageAsNecessary;
-- (void)_setActiveBarMetrics:(int)arg1;
+- (void)_sendNavigationBarDidChangeStyle;
+- (void)_setAccessibilityButtonBackgroundTintColor:(id)arg1;
 - (void)_setAnimationIds:(id)arg1;
 - (void)_setAutoAdjustTitle:(BOOL)arg1;
 - (void)_setBackButtonBackgroundImage:(id)arg1 mini:(id)arg2 forStates:(unsigned int)arg3;
@@ -233,21 +266,27 @@
 - (void)_setButtonItemTextColor:(id)arg1 shadowColor:(id)arg2;
 - (void)_setButtonItemTextColor:(id)arg1 shadowColor:(id)arg2 forState:(unsigned int)arg3;
 - (void)_setButtonTextShadowOffset:(struct CGSize { float x1; float x2; })arg1;
-- (void)_setCondensed:(BOOL)arg1;
+- (void)_setDecodedItems:(id)arg1;
 - (void)_setDefaultBarMetrics:(int)arg1;
 - (void)_setDeferShadowToSearchBar:(BOOL)arg1;
+- (void)_setDisableBlurTinting:(BOOL)arg1;
 - (void)_setHidesShadow:(BOOL)arg1;
 - (void)_setIsContainedInPopover:(BOOL)arg1;
 - (void)_setItems:(id)arg1 transition:(int)arg2;
 - (void)_setItems:(id)arg1 transition:(int)arg2 reset:(BOOL)arg3;
-- (void)_setItemsUpToItem:(id)arg1 transition:(id)arg2;
+- (void)_setItems:(id)arg1 transition:(int)arg2 reset:(BOOL)arg3 resetOwningRelationship:(BOOL)arg4;
+- (void)_setItemsUpToItem:(id)arg1 transition:(int)arg2;
 - (void)_setLeftView:(id)arg1 rightView:(id)arg2;
 - (void)_setLeftViews:(id)arg1 rightViews:(id)arg2;
+- (void)_setNeedsBackgroundViewUpdate;
 - (void)_setNeedsUpdateBackIndicatorImage:(BOOL)arg1;
 - (void)_setPressedButtonItemTextColor:(id)arg1 shadowColor:(id)arg2;
 - (void)_setRequestedMaxBackButtonWidth:(float)arg1;
 - (void)_setReversesButtonTextShadowOffsetWhenPressed:(BOOL)arg1;
 - (void)_setShadowAlpha:(float)arg1;
+- (void)_setShowsLeadingResizeAffordance:(BOOL)arg1;
+- (void)_setShowsTrailingResizeAffordance:(BOOL)arg1;
+- (void)_setUpContentFocusContainerGuide;
 - (void)_setVisualAltitude:(float)arg1;
 - (void)_setVisualAltitudeBias:(struct CGSize { float x1; float x2; })arg1;
 - (void)_setWantsLetterpressContent:(BOOL)arg1;
@@ -256,7 +295,9 @@
 - (id)_shadowView;
 - (BOOL)_shouldPopForTouchAtPoint:(struct CGPoint { float x1; float x2; })arg1;
 - (BOOL)_shouldShowBackButtonForNavigationItem:(id)arg1;
-- (void)_showLeftRightButtonsAnimationDidStop:(id)arg1 finished:(id)arg2 context:(id)arg3;
+- (void)_showLeftRightButtonsAnimationDidFinish:(BOOL)arg1 context:(id)arg2;
+- (BOOL)_showsLeadingResizeAffordance;
+- (BOOL)_showsTrailingResizeAffordance;
 - (void)_startBarStyleAnimation:(int)arg1 withTintColor:(id)arg2;
 - (void)_startInteractiveNavigationBarTransition;
 - (void)_startPopAnimationFromItems:(id)arg1 fromBarStyle:(int)arg2 toItems:(id)arg3 toBarStyle:(int)arg4;
@@ -271,10 +312,11 @@
 - (void)_tintViewAppearanceDidChange;
 - (id)_titleTextColor;
 - (int)_transitionForOldItems:(id)arg1 newItems:(id)arg2;
+- (BOOL)_updateActiveBarMetricsIfNeededTo:(int)arg1;
 - (void)_updateBackIndicatorImage;
 - (void)_updateBackIndicatorViewTintColor;
-- (void)_updateBackgroundColor;
-- (void)_updateBackgroundImage;
+- (void)_updateBackgroundView;
+- (void)_updateBackgroundViewIgnoringFlag;
 - (void)_updateInteractiveStatusBarTransitionPercent:(float)arg1 isFinished:(BOOL)arg2 didComplete:(BOOL)arg3 completionSpeed:(float)arg4 completionCurve:(int)arg5;
 - (void)_updateInteractiveTransition:(float)arg1;
 - (void)_updateNavigationBarItem:(id)arg1 forStyle:(int)arg2;
@@ -282,8 +324,11 @@
 - (void)_updateNavigationBarItemsForStyle:(int)arg1;
 - (void)_updateNavigationBarItemsForStyle:(int)arg1 previousTintColor:(id)arg2;
 - (void)_updateOpacity;
+- (void)_updatePalette:(id)arg1;
 - (void)_updatePaletteBackgroundIfNecessary;
 - (void)_updateTitleView;
+- (id)_userContentGuide;
+- (id)_visualStyleForMetrics:(int)arg1;
 - (BOOL)_wantsAdaptiveBackdrop;
 - (BOOL)_wantsAdaptiveBackdropForPalette;
 - (BOOL)_wantsAdaptiveBackdropWhenNotHidden;
@@ -304,7 +349,6 @@
 - (id)barTintColor;
 - (id)buttonItemShadowColor;
 - (id)buttonItemTextColor;
-- (BOOL)canBecomeFocused;
 - (id)createButtonWithContents:(id)arg1 width:(float)arg2 barStyle:(int)arg3 buttonStyle:(int)arg4 isRight:(BOOL)arg5;
 - (id)currentBackButton;
 - (id)currentLeftView;
@@ -336,12 +380,13 @@
 - (BOOL)isMinibar;
 - (BOOL)isTranslucent;
 - (id)items;
+- (void)layoutSublayersOfLayer:(id)arg1;
 - (void)layoutSubviews;
 - (id)navigationItemAtPoint:(struct CGPoint { float x1; float x2; })arg1;
 - (id)navigationItems;
 - (void)popNavigationItem;
 - (id)popNavigationItemAnimated:(BOOL)arg1;
-- (id)preferredFocusedItem;
+- (id)preferredFocusedView;
 - (id)prompt;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })promptBounds;
 - (id)promptView;
@@ -349,7 +394,6 @@
 - (void)pushNavigationItem:(id)arg1 animated:(BOOL)arg2;
 - (void)removeConstraint:(id)arg1;
 - (void)setAccessoryView:(id)arg1 animate:(BOOL)arg2;
-- (void)setAutoresizingMask:(unsigned int)arg1;
 - (void)setBackIndicatorImage:(id)arg1;
 - (void)setBackIndicatorTransitionMaskImage:(id)arg1;
 - (void)setBackgroundImage:(id)arg1 forBarMetrics:(int)arg2;
@@ -370,6 +414,7 @@
 - (void)setNeedsLayout;
 - (void)setPrompt:(id)arg1;
 - (void)setRightMargin:(float)arg1;
+- (void)setSemanticContentAttribute:(int)arg1;
 - (void)setShadowImage:(id)arg1;
 - (void)setTintColor:(id)arg1;
 - (void)setTitleAutoresizesToFit:(BOOL)arg1;
@@ -398,12 +443,26 @@
 - (void)touchesCancelled:(id)arg1 withEvent:(id)arg2;
 - (void)touchesEnded:(id)arg1 withEvent:(id)arg2;
 - (void)touchesMoved:(id)arg1 withEvent:(id)arg2;
+- (void)traitCollectionDidChange:(id)arg1;
 - (void)updatePrompt;
 - (void)willRemoveSubview:(id)arg1;
+
+// Image: /System/Library/Frameworks/ContactsUI.framework/ContactsUI
+
+- (void)_cnui_applyContactStyle;
+
+// Image: /System/Library/PrivateFrameworks/ChatKit.framework/ChatKit
+
+- (void)setDarkEffectStyle:(BOOL)arg1;
 
 // Image: /System/Library/PrivateFrameworks/GameCenterUI.framework/GameCenterUI
 
 - (void)_gkApplyTheme:(id)arg1;
 - (void)_gkApplyTheme:(id)arg1 navbarStyle:(int)arg2;
+
+// Image: /System/Library/PrivateFrameworks/PassKitUI.framework/PassKitUI
+
+- (void)pk_applyAppearance:(id)arg1;
+- (id)pk_childrenForAppearance;
 
 @end

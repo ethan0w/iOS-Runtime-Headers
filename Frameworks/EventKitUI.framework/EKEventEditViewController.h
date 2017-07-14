@@ -3,13 +3,13 @@
  */
 
 @interface EKEventEditViewController : UINavigationController {
-    <EKEventEditViewDelegate> *_editViewDelegate;
-    EKEventEditor *_editor;
-    EKEvent *_event;
-    NSString *_eventId;
-    EKEventStore *_store;
-    EKEventEditViewController *_strongSelf;
-    int _transitionForModalViewPresentation;
+    <EKEventEditViewDelegate> * _editViewDelegate;
+    EKEventEditor * _editor;
+    EKEvent * _event;
+    NSString * _eventId;
+    EKEventStore * _store;
+    EKEventEditViewController * _strongSelf;
+    int  _transitionForModalViewPresentation;
 }
 
 @property (nonatomic) BOOL canHideDoneAndCancelButtons;
@@ -23,11 +23,14 @@
 @property (nonatomic) BOOL scrollToNotes;
 @property (nonatomic) BOOL showAttachments;
 @property (nonatomic, retain) EKEventEditViewController *strongSelf;
+@property (nonatomic) BOOL timeImplicitlySet;
 @property (nonatomic) int transitionForModalViewPresentation;
 
++ (id)eventEditViewControllerWithEvent:(id)arg1 eventStore:(id)arg2 editViewDelegate:(id)arg3;
 + (void)setDefaultDatesForEvent:(id)arg1;
 
 - (void).cxx_destruct;
+- (id)_eventEditorForTestingOnly;
 - (void)_storeChanged:(id)arg1;
 - (BOOL)canHideDoneAndCancelButtons;
 - (void)cancelEditing;
@@ -42,7 +45,9 @@
 - (float)editorNavBarRightContentInset;
 - (id)event;
 - (id)eventStore;
+- (void)focusAndSelectTitle;
 - (void)handleTapOutside;
+- (BOOL)hasUnsavedChanges;
 - (id)initWithNibName:(id)arg1 bundle:(id)arg2;
 - (struct CGSize { float x1; float x2; })preferredContentSize;
 - (void)refreshStartAndEndDates;
@@ -59,11 +64,13 @@
 - (void)setScrollToNotes:(BOOL)arg1;
 - (void)setShowAttachments:(BOOL)arg1;
 - (void)setStrongSelf:(id)arg1;
+- (void)setTimeImplicitlySet:(BOOL)arg1;
 - (void)setTransitionForModalViewPresentation:(int)arg1;
 - (BOOL)shouldAutorotate;
 - (BOOL)showAttachments;
 - (id)strongSelf;
 - (unsigned int)supportedInterfaceOrientations;
+- (BOOL)timeImplicitlySet;
 - (int)transitionForModalViewPresentation;
 - (BOOL)willPresentDialogOnSave;
 

@@ -3,34 +3,56 @@
  */
 
 @interface TIMecabraCandidate : TIKeyboardCandidate {
-    NSString *_candidate;
-    BOOL _emojiCandidate;
-    BOOL _extensionCandidate;
-    NSString *_input;
-    BOOL _isForShortcutConversion;
-    NSNumber *_mecabraCandidatePointerValue;
+    BOOL  _OTAWordListCandidate;
+    NSString * _candidate;
+    int  _cursorMovement;
+    unsigned int  _deleteCount;
+    BOOL  _emojiCandidate;
+    BOOL  _extensionCandidate;
+    NSString * _input;
+    BOOL  _isAutocorrection;
+    BOOL  _isForShortcutConversion;
+    NSNumber * _mecabraCandidatePointerValue;
 }
 
 @property (nonatomic, retain) NSNumber *mecabraCandidatePointerValue;
+
+// Image: /System/Library/PrivateFrameworks/TextInput.framework/TextInput
 
 + (BOOL)supportsSecureCoding;
 + (int)type;
 
 - (id)candidate;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
+- (int)cursorMovement;
 - (void)dealloc;
+- (unsigned int)deleteCount;
 - (void)encodeWithCandidateResultSetCoder:(id)arg1;
 - (void)encodeWithCoder:(id)arg1;
-- (id)initWithCandidate:(id)arg1 forInput:(id)arg2 mecabraCandidatePointerValue:(id)arg3 isExtension:(BOOL)arg4 isEmoji:(BOOL)arg5 isShortcut:(BOOL)arg6;
+- (id)initWithCandidate:(id)arg1 forInput:(id)arg2 mecabraCandidatePointerValue:(id)arg3 isExtension:(BOOL)arg4 isEmoji:(BOOL)arg5 isShortcut:(BOOL)arg6 isAutocorrection:(BOOL)arg7 isFromOTAWordList:(BOOL)arg8;
+- (id)initWithCandidate:(id)arg1 forInput:(id)arg2 mecabraCandidatePointerValue:(id)arg3 isExtension:(BOOL)arg4 isEmoji:(BOOL)arg5 isShortcut:(BOOL)arg6 isAutocorrection:(BOOL)arg7 isFromOTAWordList:(BOOL)arg8 deleteCount:(unsigned int)arg9;
+- (id)initWithCandidate:(id)arg1 forInput:(id)arg2 mecabraCandidatePointerValue:(id)arg3 isExtension:(BOOL)arg4 isEmoji:(BOOL)arg5 isShortcut:(BOOL)arg6 isAutocorrection:(BOOL)arg7 isFromOTAWordList:(BOOL)arg8 deleteCount:(unsigned int)arg9 cursorMovement:(int)arg10;
 - (id)initWithCandidateResultSetCoder:(id)arg1;
 - (id)initWithCoder:(id)arg1;
 - (id)initWithSurface:(id)arg1 input:(id)arg2 mecabraCandidatePointerValue:(id)arg3;
+- (id)initWithSurface:(id)arg1 input:(id)arg2 mecabraCandidatePointerValue:(id)arg3 isExtension:(BOOL)arg4;
 - (id)input;
+- (BOOL)isAutocorrection;
 - (BOOL)isEmojiCandidate;
 - (BOOL)isExtensionCandidate;
 - (BOOL)isForShortcutConversion;
 - (BOOL)isFullwidthCandidate;
+- (BOOL)isOTAWordListCandidate;
+- (id)label;
 - (id)mecabraCandidatePointerValue;
 - (void)setMecabraCandidatePointerValue:(id)arg1;
+
+// Image: /System/Library/TextInput/libTextInputCore.dylib
+
++ (id)convertedInputFromMecabraCandidate:(void*)arg1;
++ (id)displayReadingFromMecabraCandidate:(void*)arg1;
++ (id)mecabraCandidateWithCandidateRef:(const void*)arg1 autoconvertedCandidates:(id)arg2;
+
+- (id)initWithMecabraCandidate:(const void*)arg1;
 
 @end

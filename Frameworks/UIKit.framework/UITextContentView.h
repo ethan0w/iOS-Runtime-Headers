@@ -2,32 +2,32 @@
    Image: /System/Library/Frameworks/UIKit.framework/UIKit
  */
 
-@interface UITextContentView : UIView <UITextInput, UITextInputTraits, UITextLinkInteraction> {
-    BOOL m_allowsEditingTextAttributes;
-    BOOL m_becomesEditableWithGestures;
-    BOOL m_becomingFirstResponder;
-    DOMHTMLElement *m_body;
-    float m_bottomBufferHeight;
-    id m_delegate;
-    BOOL m_editable;
-    BOOL m_editing;
-    UIFont *m_font;
-    WebFrame *m_frame;
-    BOOL m_hasExplicitTextAlignment;
-    UITextInteractionAssistant *m_interactionAssistant;
-    int m_marginTop;
-    BOOL m_reentrancyGuard;
-    BOOL m_scrollsSelectionOnWebDocumentChanges;
+@interface UITextContentView : UIView <UITextInput, UITextInputTraits, UITextLinkInteraction, WebEditingDelegate, WebPolicyDelegate> {
+    BOOL  m_allowsEditingTextAttributes;
+    BOOL  m_becomesEditableWithGestures;
+    BOOL  m_becomingFirstResponder;
+    DOMHTMLElement * m_body;
+    float  m_bottomBufferHeight;
+    id  m_delegate;
+    BOOL  m_editable;
+    BOOL  m_editing;
+    UIFont * m_font;
+    WebFrame * m_frame;
+    BOOL  m_hasExplicitTextAlignment;
+    UITextInteractionAssistant * m_interactionAssistant;
+    int  m_marginTop;
+    BOOL  m_reentrancyGuard;
+    BOOL  m_scrollsSelectionOnWebDocumentChanges;
     struct UIEdgeInsets { 
         float top; 
         float left; 
         float bottom; 
         float right; 
-    } m_selectionInset;
-    int m_textAlignment;
-    UIColor *m_textColor;
-    BOOL m_usesAttributedText;
-    UIWebDocumentView *m_webView;
+    }  m_selectionInset;
+    int  m_textAlignment;
+    UIColor * m_textColor;
+    BOOL  m_usesAttributedText;
+    UIWebDocumentView * m_webView;
 }
 
 @property (nonatomic) BOOL allowsEditingTextAttributes;
@@ -43,8 +43,10 @@
 @property (nonatomic) BOOL enablesReturnKeyAutomatically;
 @property (nonatomic, readonly) UITextPosition *endOfDocument;
 @property (nonatomic, retain) UIFont *font;
+@property (nonatomic, readonly) BOOL hasText;
 @property (readonly) unsigned int hash;
 @property (nonatomic) <UITextInputDelegate> *inputDelegate;
+@property (nonatomic, readonly) id insertDictationResultPlaceholder;
 @property (nonatomic) int keyboardAppearance;
 @property (nonatomic) int keyboardType;
 @property (nonatomic, readonly) UITextRange *markedTextRange;
@@ -61,12 +63,13 @@
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic) int textAlignment;
 @property (nonatomic, retain) UIColor *textColor;
+@property (nonatomic, copy) NSString *textContentType;
 @property (nonatomic, readonly) UIView *textInputView;
 @property (nonatomic, readonly) <UITextInputTokenizer> *tokenizer;
 
+- (void).cxx_destruct;
 - (void)_addShortcut:(id)arg1;
 - (unsigned int)_allowedLinkTypes;
-- (id)_automationValue;
 - (void)_define:(id)arg1;
 - (void)_didScroll;
 - (void)_hideSelectionCommands;
@@ -77,10 +80,12 @@
 - (id)_proxyTextInput;
 - (void)_removeAttribute:(id)arg1 fromString:(id)arg2 andSetPropertyWith:(SEL)arg3 usingValueClass:(Class)arg4;
 - (void)_removeTextViewPropertiesFromText:(id)arg1;
+- (BOOL)_restoreFirstResponder;
 - (void)_scrollViewDidEndDecelerating;
 - (void)_scrollViewDidEndDraggingWithDeceleration:(BOOL)arg1;
 - (void)_scrollViewWillBeginDragging;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_selectionClipRect;
+- (void)_share:(id)arg1;
 - (void)_showTextStyleOptions:(id)arg1;
 - (void)_sizeChanged;
 - (void)_transliterateChinese:(id)arg1;

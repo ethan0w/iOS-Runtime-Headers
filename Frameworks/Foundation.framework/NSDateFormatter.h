@@ -2,11 +2,12 @@
    Image: /System/Library/Frameworks/Foundation.framework/Foundation
  */
 
-@interface NSDateFormatter : NSFormatter {
-    NSMutableDictionary *_attributes;
-    unsigned int _counter;
-    struct __CFDateFormatter { } *_formatter;
-    NSObject<OS_dispatch_semaphore> *_lock;
+@interface NSDateFormatter : NSFormatter <NSObservable, NSObserver> {
+    NSMutableDictionary * _attributes;
+    int  _cacheGeneration;
+    unsigned int  _counter;
+    struct __CFDateFormatter { } * _formatter;
+    NSObject<OS_dispatch_semaphore> * _lock;
 }
 
 @property (copy) NSString *AMSymbol;
@@ -14,13 +15,16 @@
 @property (copy) NSCalendar *calendar;
 @property (copy) NSString *dateFormat;
 @property unsigned int dateStyle;
+@property (readonly, copy) NSString *debugDescription;
 @property (copy) NSDate *defaultDate;
+@property (readonly, copy) NSString *description;
 @property BOOL doesRelativeDateFormatting;
 @property (copy) NSArray *eraSymbols;
 @property unsigned int formatterBehavior;
 @property int formattingContext;
 @property BOOL generatesCalendarDates;
 @property (copy) NSDate *gregorianStartDate;
+@property (readonly) unsigned int hash;
 @property (getter=isLenient) BOOL lenient;
 @property (copy) NSLocale *locale;
 @property (copy) NSArray *longEraSymbols;
@@ -35,6 +39,7 @@
 @property (copy) NSArray *standaloneMonthSymbols;
 @property (copy) NSArray *standaloneQuarterSymbols;
 @property (copy) NSArray *standaloneWeekdaySymbols;
+@property (readonly) Class superclass;
 @property unsigned int timeStyle;
 @property (copy) NSTimeZone *timeZone;
 @property (copy) NSDate *twoDigitStartDate;
@@ -46,6 +51,8 @@
 
 // Image: /System/Library/Frameworks/Foundation.framework/Foundation
 
++ (id)_componentsFromFormatString:(id)arg1;
++ (id)_formatStringFromComponents:(id)arg1;
 + (id)dateFormatFromTemplate:(id)arg1 options:(unsigned int)arg2 locale:(id)arg3;
 + (unsigned int)defaultFormatterBehavior;
 + (void)initialize;
@@ -54,10 +61,14 @@
 
 - (id)AMSymbol;
 - (id)PMSymbol;
+- (id)_attributedStringWithFieldsFromDate:(id)arg1;
+- (int)_cacheGenerationCount;
 - (void)_clearFormatter;
 - (id)_dateFormat;
 - (id)_getLocaleAlreadyLocked:(BOOL)arg1;
+- (void)_invalidateCache;
 - (id)_locale_forOldMethods;
+- (BOOL)_mayDecorateAttributedStringForObjectValue:(id)arg1;
 - (void)_regenerateFormatter;
 - (void)_regenerateFormatterIfAbsent;
 - (void)_reset;
@@ -66,6 +77,7 @@
 - (void)_setIsLenient:(BOOL)arg1;
 - (void)_setUsesCharacterDirection:(BOOL)arg1;
 - (id)_timeZone_forOldMethods;
+- (BOOL)_tracksCacheGenerationCount;
 - (BOOL)_usesCharacterDirection;
 - (id)calendar;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
@@ -77,7 +89,6 @@
 - (BOOL)doesRelativeDateFormatting;
 - (void)encodeWithCoder:(id)arg1;
 - (id)eraSymbols;
-- (void)finalize;
 - (unsigned int)formatterBehavior;
 - (int)formattingContext;
 - (BOOL)generatesCalendarDates;
@@ -91,6 +102,7 @@
 - (id)longEraSymbols;
 - (id)monthSymbols;
 - (id)quarterSymbols;
+- (void)receiveObservedValue:(id)arg1;
 - (void)setAMSymbol:(id)arg1;
 - (void)setCalendar:(id)arg1;
 - (void)setDateFormat:(id)arg1;
@@ -146,6 +158,10 @@
 - (id)veryShortWeekdaySymbols;
 - (id)weekdaySymbols;
 
+// Image: /System/Library/Frameworks/MapKit.framework/MapKit
+
+- (id)_mapkit_roundedPastUnitsStringFromDate:(id)arg1;
+
 // Image: /System/Library/Frameworks/MessageUI.framework/MessageUI
 
 + (id)mf_formatDate:(id)arg1 shortStyle:(BOOL)arg2;
@@ -160,13 +176,31 @@
 
 // Image: /System/Library/PrivateFrameworks/FitnessUI.framework/FitnessUI
 
-+ (id)FU_stringWithLongestStyleDate:(id)arg1 font:(id)arg2 maxWidth:(float)arg3;
-+ (id)FU_timeStringWithSpaceRemoved:(id)arg1 date:(id)arg2;
-+ (BOOL)_dateStringFits:(id)arg1 font:(id)arg2 maxWidth:(float)arg3;
-+ (void)_localeDidChange:(id)arg1;
+- (void)fu_observeTimeZoneAndLocaleChanges;
+
+// Image: /System/Library/PrivateFrameworks/HealthUI.framework/HealthUI
+
+- (id)hk_stringWithAMPMSpaceRemovedFromDate:(id)arg1;
 
 // Image: /System/Library/PrivateFrameworks/MobileTimer.framework/MobileTimer
 
 - (id)stringFromDate:(id)arg1 withRelativeToTimeZone:(id)arg2;
+
+// Image: /System/Library/PrivateFrameworks/Navigation.framework/Navigation
+
++ (id)_navigation_localizedTimestampStringForDepartureArrivalDate:(id)arg1 inTimeZone:(id)arg2 canIncludeDate:(BOOL)arg3;
++ (id)_navigation_localizedTimestampStringForDepartureArrivalDate:(id)arg1 inTimeZone:(id)arg2 canIncludeDate:(BOOL)arg3 relativeToTimeZone:(id)arg4;
++ (id)_navigation_localizedTimestampStringForDepartureArrivalDate:(id)arg1 inTimeZone:(id)arg2 canIncludeDate:(BOOL)arg3 showTimeZone:(BOOL)arg4 useShortFormat:(BOOL)arg5;
++ (id)_navigation_localizedTimestampStringForDepartureArrivalDate:(id)arg1 inTimeZone:(id)arg2 canIncludeDate:(BOOL)arg3 suppressTimeZoneDisplay:(BOOL)arg4 useShortFormat:(BOOL)arg5;
++ (id)_timestampFormatterForTimeZone:(id)arg1 displayTimeZone:(BOOL)arg2;
+
+// Image: /System/Library/PrivateFrameworks/NewsCore.framework/NewsCore
+
++ (id)dateFormatterWithFormat:(id)arg1;
++ (id)dateFormatterWithFormat:(id)arg1 localeIdentifier:(id)arg2;
++ (id)dateFormatterWithFormat:(id)arg1 localeIdentifier:(id)arg2 timezone:(id)arg3;
++ (id)dateFormatterWithFormat:(id)arg1 timezone:(id)arg2;
+
+- (id)initWithFormat:(id)arg1 localeIdentifier:(id)arg2;
 
 @end

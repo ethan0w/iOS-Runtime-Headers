@@ -3,11 +3,11 @@
  */
 
 @interface SKUISettingsGroupsDescription : NSObject <SKUISettingsGroupControllerDelegate> {
-    SKUIClientContext *_clientContext;
-    NSMapTable *_controllers;
-    <SKUISettingsGroupsDescriptionDelegate> *_delegate;
-    SKUISettingsObjectStore *_groupDescriptions;
-    SKUISettingsContext *_settingsContext;
+    SKUIClientContext * _clientContext;
+    NSMapTable * _controllers;
+    <SKUISettingsGroupsDescriptionDelegate> * _delegate;
+    SKUISettingsObjectStore * _groupDescriptions;
+    SKUISettingsContext * _settingsContext;
 }
 
 @property (nonatomic) SKUIClientContext *clientContext;
@@ -41,6 +41,7 @@
 - (id)initWithDelegate:(id)arg1 settingsContext:(id)arg2;
 - (unsigned int)numberOfGroups;
 - (unsigned int)numberOfSettingsInGroupAtIndex:(unsigned int)arg1;
+- (id)owningViewControllerForSettingsGroupController:(id)arg1;
 - (void)recycle;
 - (void)reloadData;
 - (void)requestLayoutForWidth:(float)arg1 context:(id)arg2;

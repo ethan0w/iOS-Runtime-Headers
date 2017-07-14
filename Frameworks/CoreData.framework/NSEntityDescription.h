@@ -3,8 +3,8 @@
  */
 
 @interface NSEntityDescription : NSObject <NSCoding, NSCopying, NSFastEnumeration> {
-    int _cd_rc;
-    NSString *_classNameForEntity;
+    int  _cd_rc;
+    NSString * _classNameForEntity;
     struct __entityDescriptionFlags { 
         unsigned int _isAbstract : 1; 
         unsigned int _shouldValidateOnSave : 1; 
@@ -16,25 +16,27 @@
         unsigned int _rangesAreInDataBlob : 1; 
         unsigned int _hasAttributesWithExternalDataReferences : 1; 
         unsigned int _hasNonstandardPrimitiveProperties : 2; 
-        unsigned int _reservedEntityDescription : 21; 
-    } _entityDescriptionFlags;
-    void *_extraIvars;
-    id _flattenedSubentities;
-    Class _instanceClass;
-    id **_kvcPropertyAccessors;
-    NSManagedObjectModel *_model;
-    long _modelsReferenceIDForEntity;
-    NSString *_name;
-    NSMutableDictionary *_properties;
-    id _propertyMapping;
-    struct _NSRange { unsigned int x1; unsigned int x2; } *_propertyRanges;
-    NSEntityDescription *_rootentity;
-    id _snapshotClass;
-    NSMutableDictionary *_subentities;
-    NSEntityDescription *_superentity;
-    NSMutableDictionary *_userInfo;
-    NSData *_versionHash;
-    NSString *_versionHashModifier;
+        unsigned int _hasUniqueProperties : 1; 
+        unsigned int _validationUniqueProperties : 1; 
+        unsigned int _reservedEntityDescription : 19; 
+    }  _entityDescriptionFlags;
+    void * _extraIvars;
+    id  _flattenedSubentities;
+    Class  _instanceClass;
+    id ** _kvcPropertyAccessors;
+    NSManagedObjectModel * _model;
+    long  _modelsReferenceIDForEntity;
+    NSString * _name;
+    NSMutableDictionary * _properties;
+    id  _propertyMapping;
+    struct _NSRange { unsigned int x1; unsigned int x2; } * _propertyRanges;
+    NSEntityDescription * _rootentity;
+    id  _snapshotClass;
+    NSMutableDictionary * _subentities;
+    NSEntityDescription * _superentity;
+    NSMutableDictionary * _userInfo;
+    NSData * _versionHash;
+    NSString * _versionHashModifier;
 }
 
 @property (getter=isAbstract) BOOL abstract;
@@ -43,16 +45,21 @@
 @property (copy) NSString *managedObjectClassName;
 @property (readonly) NSManagedObjectModel *managedObjectModel;
 @property (copy) NSString *name;
+@property (readonly) NSEntityDescription *ph_baseEntity;
 @property (retain) NSArray *properties;
 @property (readonly, copy) NSDictionary *propertiesByName;
+@property (getter=vs_referenceValueAttribute, setter=vs_setReferenceValueAttribute:, nonatomic, retain) NSAttributeDescription *referenceValueAttribute;
 @property (readonly, copy) NSDictionary *relationshipsByName;
 @property (copy) NSString *renamingIdentifier;
 @property (retain) NSArray *subentities;
 @property (readonly, copy) NSDictionary *subentitiesByName;
 @property (readonly) NSEntityDescription *superentity;
+@property (retain) NSArray *uniquenessConstraints;
 @property (nonatomic, retain) NSDictionary *userInfo;
 @property (readonly, copy) NSData *versionHash;
 @property (copy) NSString *versionHashModifier;
+
+// Image: /System/Library/Frameworks/CoreData.framework/CoreData
 
 + (id)_MOClassName;
 + (id)entityForName:(id)arg1 inManagedObjectContext:(id)arg2;
@@ -63,10 +70,14 @@
 - (void)_addSubentity:(id)arg1;
 - (id)_allPropertyNames;
 - (id)_attributeNamed:(id)arg1;
-- (struct __CFSet { }*)_collectSubentities;
+- (id)_checkForNonCascadeNoInverses;
+- (id)_collectSubentities;
+- (void)_commonCachesAndOptimizedState;
 - (id)_compoundIndexes;
+- (BOOL)_constraintIsExtension:(id)arg1;
 - (void)_createCachesAndOptimizeState;
 - (Class)_entityClass;
+- (id)_extensionsOfParentConstraint:(id)arg1;
 - (void)_flattenProperties;
 - (id)_flattenedSubentities;
 - (BOOL)_hasAttributesWithExternalDataReferences;
@@ -74,12 +85,19 @@
 - (BOOL)_hasPotentialHashSkew;
 - (BOOL)_hasPropertiesIndexedBySpotlight;
 - (BOOL)_hasPropertiesStoredInTruthFile;
+- (BOOL)_hasUniqueProperties;
+- (BOOL)_hasUniquePropertiesDownInheritanceHiearchy;
+- (BOOL)_hasUniquePropertiesUncached;
+- (BOOL)_hasUniquedAttributeWithName:(id)arg1;
 - (id)_initWithName:(id)arg1;
 - (BOOL)_isDeallocating;
 - (BOOL)_isEditable;
 - (BOOL)_isFlattened;
 - (BOOL)_isInheritedPropertyNamed:(id)arg1;
+- (BOOL)_isPathologicalForConstraintMerging:(id*)arg1;
 - (id)_keypathsForDeletions;
+- (id)_keypathsToPrefetchForDeletePropagation;
+- (id)_keypathsToPrefetchForDeletePropagationPrefixedWith:(id)arg1 toDepth:(int)arg2 processedEntities:(id)arg3;
 - (void*)_leopardStyleAttributesByName;
 - (void*)_leopardStyleRelationshipsByName;
 - (id)_localRelationshipNamed:(id)arg1;
@@ -115,6 +133,7 @@
 - (id)_subentityNamed:(id)arg1;
 - (void)_throwIfNotEditable;
 - (BOOL)_tryRetain;
+- (id)_uniquenessConstraints;
 - (id)_versionHashInStyle:(unsigned int)arg1;
 - (void)_writeIntoData:(id)arg1 propertiesDict:(id)arg2 uniquedPropertyNames:(id)arg3 uniquedStrings:(id)arg4 uniquedData:(id)arg5 uniquedMappings:(id)arg6 entities:(id)arg7;
 - (id)attributeKeys;
@@ -154,6 +173,7 @@
 - (void)setProperties:(id)arg1;
 - (void)setRenamingIdentifier:(id)arg1;
 - (void)setSubentities:(id)arg1;
+- (void)setUniquenessConstraints:(id)arg1;
 - (void)setUserInfo:(id)arg1;
 - (void)setVersionHashModifier:(id)arg1;
 - (id)subentities;
@@ -161,8 +181,22 @@
 - (id)superentity;
 - (id)toManyRelationshipKeys;
 - (id)toOneRelationshipKeys;
+- (id)uniquenessConstraints;
 - (id)userInfo;
 - (id)versionHash;
 - (id)versionHashModifier;
+
+// Image: /System/Library/Frameworks/Photos.framework/Photos
+
+- (id)ph_baseEntity;
+- (id)ph_relationshipDescriptionsForKeyPath:(id)arg1;
+
+// Image: /System/Library/Frameworks/VideoSubscriberAccount.framework/VideoSubscriberAccount
+
++ (id)vs_subscriptionEntityForVersion:(int)arg1;
+
+- (id)vs_referenceValueAttribute;
+- (void)vs_setReferenceValueAttribute:(id)arg1;
+- (void)vs_setUserInfoValue:(id)arg1 forKey:(id)arg2;
 
 @end

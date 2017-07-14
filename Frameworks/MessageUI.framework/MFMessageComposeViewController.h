@@ -3,15 +3,16 @@
  */
 
 @interface MFMessageComposeViewController : UINavigationController {
-    NSArray *_attachments;
-    NSString *_body;
-    unsigned int _currentAttachedAudioCount;
-    unsigned int _currentAttachedImageCount;
-    unsigned int _currentAttachedVideoCount;
-    <MFMessageComposeViewControllerDelegate> *_messageComposeDelegate;
-    NSMutableArray *_mutableAttachmentURLs;
-    NSArray *_recipients;
-    NSString *_subject;
+    NSArray * _attachments;
+    NSString * _body;
+    unsigned int  _currentAttachedAudioCount;
+    unsigned int  _currentAttachedImageCount;
+    unsigned int  _currentAttachedVideoCount;
+    MSMessage * _message;
+    <MFMessageComposeViewControllerDelegate> * _messageComposeDelegate;
+    NSMutableArray * _mutableAttachmentURLs;
+    NSArray * _recipients;
+    NSString * _subject;
 }
 
 @property (nonatomic, readonly, copy) NSArray *attachments;
@@ -19,12 +20,14 @@
 @property (nonatomic) unsigned int currentAttachedAudioCount;
 @property (nonatomic) unsigned int currentAttachedImageCount;
 @property (nonatomic) unsigned int currentAttachedVideoCount;
+@property (nonatomic, copy) MSMessage *message;
 @property (nonatomic) <MFMessageComposeViewControllerDelegate> *messageComposeDelegate;
 @property (nonatomic, copy) NSMutableArray *mutableAttachmentURLs;
 @property (nonatomic, copy) NSArray *recipients;
 @property (nonatomic, copy) NSString *subject;
 
 + (BOOL)_canSendText;
++ (id)_chatKitBundle;
 + (void)_serviceAvailabilityChanged:(id)arg1;
 + (void)_setupAccountMonitor;
 + (void)_startListeningForAvailabilityNotifications;
@@ -51,6 +54,7 @@
 - (BOOL)addAttachmentData:(id)arg1 typeIdentifier:(id)arg2 filename:(id)arg3;
 - (BOOL)addAttachmentData:(id)arg1 withAlternateFilename:(id)arg2;
 - (BOOL)addAttachmentURL:(id)arg1 withAlternateFilename:(id)arg2;
+- (BOOL)addRichLinkData:(id)arg1 withWebpageURL:(id)arg2;
 - (id)attachmentURLs;
 - (id)attachments;
 - (BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers;
@@ -62,6 +66,7 @@
 - (void)dealloc;
 - (void)disableUserAttachments;
 - (id)initWithNibName:(id)arg1 bundle:(id)arg2;
+- (id)message;
 - (id)messageComposeDelegate;
 - (id)mutableAttachmentURLs;
 - (id)recipients;
@@ -69,6 +74,7 @@
 - (void)setCurrentAttachedAudioCount:(unsigned int)arg1;
 - (void)setCurrentAttachedImageCount:(unsigned int)arg1;
 - (void)setCurrentAttachedVideoCount:(unsigned int)arg1;
+- (void)setMessage:(id)arg1;
 - (void)setMessageComposeDelegate:(id)arg1;
 - (void)setModalPresentationStyle:(int)arg1;
 - (void)setMutableAttachmentURLs:(id)arg1;
@@ -76,7 +82,9 @@
 - (void)setSubject:(id)arg1;
 - (void)smsComposeControllerCancelled:(id)arg1;
 - (void)smsComposeControllerSendStarted:(id)arg1;
+- (void)smsComposeControllerShouldSendMessageWithText:(id)arg1 toRecipients:(id)arg2 completion:(id /* block */)arg3;
 - (id)subject;
+- (void)viewDidAppear:(BOOL)arg1;
 - (void)viewWillAppear:(BOOL)arg1;
 
 @end

@@ -3,7 +3,7 @@
  */
 
 @interface NSProxy <NSObject> {
-    Class isa;
+    Class  isa;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -80,6 +80,18 @@
 - (BOOL)isFault;
 - (BOOL)isKindOfClass:(Class)arg1;
 - (BOOL)isMemberOfClass:(Class)arg1;
+- (BOOL)isNSArray__;
+- (BOOL)isNSCFConstantString__;
+- (BOOL)isNSData__;
+- (BOOL)isNSDate__;
+- (BOOL)isNSDictionary__;
+- (BOOL)isNSNumber__;
+- (BOOL)isNSObject__;
+- (BOOL)isNSOrderedSet__;
+- (BOOL)isNSSet__;
+- (BOOL)isNSString__;
+- (BOOL)isNSTimeZone__;
+- (BOOL)isNSValue__;
 - (BOOL)isProxy;
 - (id)methodSignatureForSelector:(SEL)arg1;
 - (id)performSelector:(SEL)arg1;

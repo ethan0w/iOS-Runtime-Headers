@@ -54,19 +54,9 @@
 - (id)mf_remainingString;
 - (BOOL)mf_scanUpToRegularExpression:(id)arg1;
 
-// Image: /System/Library/PrivateFrameworks/HealthDaemon.framework/HealthDaemon
+// Image: /System/Library/PrivateFrameworks/AnnotationKit.framework/AnnotationKit
 
-+ (id)SQLParsingScannerWithSQL:(id)arg1;
-
-- (BOOL)_scanBalancedSubstringFromCharacter:(unsigned short)arg1 appendToString:(id)arg2;
-- (BOOL)_scanSQLiteIdentifierCharactersIntoString:(id*)arg1;
-- (BOOL)_scanSQLiteIdentifierIntoString:(id*)arg1;
-- (BOOL)_scanTableSQLColumn:(id*)arg1;
-- (BOOL)_scanTableSQLConstraint:(id*)arg1;
-- (BOOL)_scanThroughQuoteWithDelimiter:(id)arg1 appendToString:(id)arg2;
-- (BOOL)_scanUpToTopLevelDelimiters:(id)arg1 intoString:(id*)arg2;
-- (BOOL)scanTableSQLColumns:(id*)arg1 constraints:(id*)arg2;
-- (BOOL)scanTableSQLPreambleAndTableName:(id*)arg1;
+- (BOOL)scanCGFloat:(float*)arg1;
 
 // Image: /System/Library/PrivateFrameworks/MIME.framework/MIME
 
@@ -75,7 +65,7 @@
 
 // Image: /System/Library/PrivateFrameworks/OfficeImport.framework/OfficeImport
 
-- (BOOL)scanCGFloat:(float*)arg1;
+- (BOOL)tsu_scanCGFloat:(float*)arg1;
 
 // Image: /System/Library/PrivateFrameworks/iWorkImport.framework/iWorkImport
 

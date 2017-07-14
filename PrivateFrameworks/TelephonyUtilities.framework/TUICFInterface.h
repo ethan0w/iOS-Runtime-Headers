@@ -4,8 +4,7 @@
 
 @interface TUICFInterface : NSObject
 
-+ (BOOL)allowCallForDestinationID:(id)arg1 service:(int)arg2;
-+ (void)allowCallForDestinationID:(id)arg1 service:(int)arg2 completionHandler:(id /* block */)arg3;
-+ (id)serviceIdentifierForService:(int)arg1;
++ (BOOL)allowCallForDestinationID:(id)arg1 providerIdentifier:(id)arg2 isFromBlockList:(BOOL*)arg3;
++ (void)allowCallForDestinationID:(id)arg1 providerIdentifier:(id)arg2 queue:(id)arg3 completionHandler:(id /* block */)arg4;
 
 @end

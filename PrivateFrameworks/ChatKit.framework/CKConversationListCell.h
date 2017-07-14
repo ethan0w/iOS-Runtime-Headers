@@ -2,37 +2,55 @@
    Image: /System/Library/PrivateFrameworks/ChatKit.framework/ChatKit
  */
 
-@interface CKConversationListCell : UITableViewCell {
-    UIImageView *_chevronImageView;
-    UIDateLabel *_dateLabel;
-    UILabel *_fromLabel;
-    BOOL _isPlaceholder;
-    UIImageView *_recipientPhotoView;
-    NSDate *_searchMessageDate;
-    NSString *_searchMessageGUID;
-    NSString *_searchSummaryText;
-    UILabel *_summaryLabel;
-    UIImageView *_unreadIndicatorImageView;
+@interface CKConversationListCell : UITableViewCell <CKConversationListCell, CNAvatarViewDelegate> {
+    CKAvatarView * _avatarView;
+    UIImageView * _chevronImageView;
+    CKConversation * _conversation;
+    UIDateLabel * _dateLabel;
+    NSObject<CKConversationListCellDelegate> * _delegate;
+    UILabel * _fromLabel;
+    BOOL  _isPlaceholder;
+    NSDate * _searchMessageDate;
+    NSString * _searchMessageGUID;
+    NSString * _searchSummaryText;
+    UILabel * _summaryLabel;
+    UIImageView * _unreadIndicatorImageView;
 }
 
+@property (nonatomic, retain) CKAvatarView *avatarView;
+@property (nonatomic, retain) CKConversation *conversation;
+@property (readonly, copy) NSString *debugDescription;
+@property (nonatomic) NSObject<CKConversationListCellDelegate> *delegate;
+@property (readonly, copy) NSString *description;
+@property (readonly) unsigned int hash;
 @property (nonatomic, retain) NSDate *searchMessageDate;
 @property (nonatomic, copy) NSString *searchMessageGUID;
 @property (nonatomic, copy) NSString *searchSummaryText;
+@property (readonly) Class superclass;
 
 + (float)cellHeight;
-+ (id)identifier;
++ (id)identifierForConversation:(id)arg1;
 
+- (void).cxx_destruct;
 - (void)_calculateLayoutFrames;
 - (void)_contentSizeCategoryDidChange:(id)arg1;
-- (void)_conversationThumbnailChanged:(id)arg1;
-- (void)_setupThumbnailForConversation:(id)arg1;
+- (void)_updateAvatarView;
+- (id)avatarView;
+- (id)avatarView:(id)arg1 orderedPropertiesForProperties:(id)arg2 category:(id)arg3;
+- (BOOL)avatarView:(id)arg1 shouldShowContact:(id)arg2;
+- (id)conversation;
 - (void)dealloc;
+- (id)delegate;
 - (id)initWithStyle:(int)arg1 reuseIdentifier:(id)arg2;
 - (void)layoutSubviews;
 - (void)prepareForReuse;
+- (id)presentingViewControllerForAvatarView:(id)arg1;
 - (id)searchMessageDate;
 - (id)searchMessageGUID;
 - (id)searchSummaryText;
+- (void)setAvatarView:(id)arg1;
+- (void)setConversation:(id)arg1;
+- (void)setDelegate:(id)arg1;
 - (void)setEditing:(BOOL)arg1 animated:(BOOL)arg2;
 - (void)setSearchMessageDate:(id)arg1;
 - (void)setSearchMessageGUID:(id)arg1;

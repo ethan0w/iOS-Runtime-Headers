@@ -3,12 +3,12 @@
  */
 
 @interface SKKeyframeSequence : NSObject <NSCoding, NSCopying> {
-    struct SKCKeyframeSequence { int x1; int x2; int x3; int x4; float *x5; float *x6; } *_cKeyframeSequence;
-    unsigned int _count;
-    int _interpolationMode;
-    int _repeatMode;
-    NSMutableArray *_times;
-    NSMutableArray *_values;
+    struct SKCKeyframeSequence { int x1; int x2; int x3; int x4; float *x5; float *x6; } * _cKeyframeSequence;
+    unsigned int  _count;
+    int  _interpolationMode;
+    int  _repeatMode;
+    NSMutableArray * _times;
+    NSMutableArray * _values;
 }
 
 @property (nonatomic) int interpolationMode;
@@ -25,6 +25,7 @@
 - (void)encodeWithCoder:(id)arg1;
 - (float)getKeyframeTimeForIndex:(unsigned int)arg1;
 - (id)getKeyframeValueForIndex:(unsigned int)arg1;
+- (id)init;
 - (id)initWithCapacity:(unsigned int)arg1;
 - (id)initWithCoder:(id)arg1;
 - (id)initWithCount:(unsigned int)arg1;

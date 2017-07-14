@@ -3,7 +3,7 @@
  */
 
 @interface CKGroupRecipientSelectionController : CKRecipientSelectionController <CKRecipientSelectionControllerDelegate> {
-    UIBarButtonItem *_doneButton;
+    UIBarButtonItem * _doneButton;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -12,10 +12,10 @@
 @property (readonly) unsigned int hash;
 @property (readonly) Class superclass;
 
+- (void).cxx_destruct;
 - (void)_frecencySearch;
 - (void)_updateNavigationButton;
 - (BOOL)alwaysShowSearchResultsTable;
-- (void)dealloc;
 - (id)doneButton;
 - (BOOL)homogenizePreferredServiceForiMessage;
 - (id)initWithConversation:(id)arg1;
@@ -30,7 +30,6 @@
 - (void)recipientSelectionControllerRequestDismissKeyboard:(id)arg1;
 - (void)recipientSelectionControllerReturnPressed:(id)arg1;
 - (void)recipientSelectionControllerSearchListDidShowOrHide:(id)arg1;
-- (BOOL)searchListShouldUsePopvoers;
 - (void)setDoneButton:(id)arg1;
 - (BOOL)shouldAutorotate;
 - (BOOL)shouldSuppressSearchResultsTable;

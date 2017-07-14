@@ -3,8 +3,8 @@
  */
 
 @interface ATDeviceSettings : NSObject {
-    NSObject<OS_dispatch_queue> *_queue;
-    NSUserDefaults *_userDefaults;
+    NSObject<OS_dispatch_queue> * _queue;
+    NSUserDefaults * _userDefaults;
 }
 
 @property (nonatomic, readonly, copy) NSArray *dataClassesNeedingSync;
@@ -14,6 +14,8 @@
 @property (nonatomic, readonly) BOOL isDeviceLinkClient;
 @property (nonatomic, readonly, copy) NSString *libraryIdentifier;
 @property (nonatomic, readonly) double pairingSyncCompletionTime;
+@property (nonatomic, readonly) unsigned int restoreBatchSize;
+@property (nonatomic, readonly) BOOL restoreBatchingEnabled;
 @property (nonatomic, readonly, copy) NSString *serviceDomain;
 @property (nonatomic, readonly, copy) NSString *serviceName;
 @property (nonatomic, readonly, copy) NSString *serviceType;
@@ -24,6 +26,7 @@
 - (void).cxx_destruct;
 - (id)_endpointInfoForLibrary:(id)arg1;
 - (void)_setEndpointInfo:(id)arg1 forLibrary:(id)arg2;
+- (int)activeRestoreType;
 - (id)dataClassesNeedingSync;
 - (id)endpointInfo;
 - (BOOL)fairPlayEnabled;
@@ -38,9 +41,12 @@
 - (id)libraryIdentifier;
 - (double)pairingSyncCompletionTime;
 - (void)removeEndpointInfoForLibrary:(id)arg1;
+- (unsigned int)restoreBatchSize;
+- (BOOL)restoreBatchingEnabled;
 - (id)serviceDomain;
 - (id)serviceName;
 - (id)serviceType;
+- (void)setActiveRestoreType:(int)arg1;
 - (void)setEndpointInfo:(id)arg1;
 - (void)setHasCompletedDataMigration:(BOOL)arg1;
 - (void)setHostInfo:(id)arg1 forLibrary:(id)arg2;

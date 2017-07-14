@@ -3,11 +3,11 @@
  */
 
 @interface ACDDatabaseInitializer : NSObject {
-    NSArray *_accessKeys;
-    NSArray *_accountTypes;
-    NSArray *_accounts;
-    ACDDatabase *_database;
-    NSArray *_dataclasses;
+    NSArray * _accessKeys;
+    NSArray * _accountTypes;
+    NSArray * _accounts;
+    ACDDatabase * _database;
+    NSArray * _dataclasses;
 }
 
 - (void).cxx_destruct;
@@ -25,6 +25,7 @@
 - (id)_addAccountTypeWithIdentifier:(id)arg1 displayName:(id)arg2 visibility:(int)arg3 supportedDataclasses:(id)arg4 credentialType:(id)arg5 supportsAuthentication:(BOOL)arg6 supportsMultipleAccounts:(BOOL)arg7;
 - (id)_addAccountTypeWithIdentifier:(id)arg1 displayName:(id)arg2 visibility:(int)arg3 supportedDataclasses:(id)arg4 syncableDataclasses:(id)arg5 credentialType:(id)arg6 supportsAuthentication:(BOOL)arg7 supportsMultipleAccounts:(BOOL)arg8;
 - (id)_addAccountTypeWithIdentifier:(id)arg1 displayName:(id)arg2 visibility:(int)arg3 supportedDataclasses:(id)arg4 syncableDataclasses:(id)arg5 credentialType:(id)arg6 supportsAuthentication:(BOOL)arg7 supportsMultipleAccounts:(BOOL)arg8 credentialProtectionPolicy:(id)arg9;
+- (void)_addAndConfigureAllOSXAccountTypes;
 - (void)_addAppleAccountType;
 - (void)_addAppleIDAccountType;
 - (void)_addAppleIDAuthenticationAccountType;
@@ -36,6 +37,7 @@
 - (void)_addContactsCalendarsDataclassesToFB;
 - (void)_addCredentialType:(id)arg1 toAccountType:(id)arg2 supportsAuthentication:(BOOL)arg3;
 - (void)_addDataclassWithName:(id)arg1;
+- (void)_addDocumentsAndVPNDataclass;
 - (void)_addExchangeAccountType;
 - (void)_addFMFAccountType;
 - (void)_addFaceTimeAccountType;
@@ -49,6 +51,7 @@
 - (void)_addGmailAccountType;
 - (void)_addHolidayCalendarAccountType;
 - (void)_addHotmailAccountType;
+- (void)_addIDMSAccountType;
 - (void)_addIMAPAccountType;
 - (void)_addIMAPMailAccountType;
 - (void)_addIMAPNotesAccountType;
@@ -58,13 +61,17 @@
 - (void)_addLinkedInAccountType;
 - (void)_addLiverpoolAccessKeys;
 - (void)_addLiverpoolAccountType;
+- (void)_addMSOAccountType;
 - (void)_addMadridAccountType;
 - (void)_addMissingAccountTypes;
+- (void)_addNotesDataclassToAASupportedDataclasses;
+- (void)_addOnMyDeviceAccountType;
 - (void)_addPOPAccountType;
 - (void)_addPasswordCredentialTypeToGmailAccountType;
 - (void)_addPasswordCredentialTypeToSMTPAccountType;
 - (void)_addRemindersDataclassToCalDAVAccountType;
 - (void)_addSMTPAccountType;
+- (void)_addSingleSignOnAccountType;
 - (void)_addSubscribedCalendarAccountType;
 - (void)_addSupportsAuthenticationAttributeToAccountTypes;
 - (void)_addSupportsAuthenticationAttributeToAccounts;
@@ -81,25 +88,41 @@
 - (void)_addYelpAccountType;
 - (void)_addYoukuAccountType;
 - (void)_addiTunesStoreAccountType;
+- (void)_allowMultipleAppleIDAuthenticationAccounts;
+- (void)_configureSMTPAccountType;
 - (void)_createLiverpoolDataclasses;
 - (id)_dataclassWithName:(id)arg1;
 - (id)_dataclasses;
 - (void)_ensureAccountTypeWithIdentifier:(id)arg1 supportsDataclasses:(id)arg2 syncsDataclasses:(id)arg3;
 - (void)_ensureDataclassesAllExist;
+- (void)_ensurePresenceOfNewsDataclass;
 - (void)_ensureProperAccountTypeDataclasses;
 - (void)_limitFlickrToOneAccount;
 - (void)_limitLinkedInToOneAccount;
 - (void)_limitVimeoToOneAccount;
 - (void)_makeTencentWeiboSingleton;
+- (void)_makeTudouYoukuSingletons;
 - (void)_removeFacebookAppVersionAccessKey;
 - (void)_removeFacebookPermissionGroupAccessKey;
 - (void)_removeLiverpoolTypes;
+- (void)_removeMessengerFromYahooSupportedDataclasses;
 - (id)_resultsForEntityNamed:(id)arg1;
 - (void)_setCloudKitCredentialType;
 - (void)_setOwningBundleIDForNativeAccountTypes;
+- (void)_setSupportedDataclassesForAOLAccountType;
+- (void)_setYahooAccountsProvisionedDataclassesToSupportedOnes;
+- (void)_supportiCloudKeychainSyncDataclass;
+- (void)_supportiCloudNewsDataclass;
+- (void)_switchGoogleToOAuthAuthentication;
+- (void)_switchHotmailToOAuthAuthentication;
+- (void)_switchYahooToOAuthAuthentication;
+- (void)_switchYahooToPasswordAuthentication;
+- (void)_updateAOLAndAddNotificationsDataclass;
 - (void)_updateFlickrCredentialTypeToOAuth;
 - (void)_updateIdentityServicesAccountDescription;
 - (void)_updateIdentityServicesAccountTypeToSupportAuthenticationAndMultipleAccounts;
+- (void)_updateMacOSServerAccountDescription;
+- (void)_updateOSXServerAccountDescription;
 - (void)_updateTencentWeiboCredentialTypeToOAuth2;
 - (void)_updateVimeoCredentialTypeToOAuth;
 - (void)_updateWeiboAccountTypeIfNecessary;

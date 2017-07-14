@@ -3,27 +3,37 @@
  */
 
 @interface MCDButton : UIButton {
-    CALayer *_focusColorLayer;
-    NSString *_labelTemplateString;
-    BOOL _showBezelInTouch;
+    CALayer * _focusColorLayer;
+    BOOL  _hideBezelInKnob;
+    BOOL  _showBezelInTouch;
 }
 
-@property (nonatomic, copy) NSString *labelTemplateString;
+@property (nonatomic) BOOL hideBezelInKnob;
 @property (getter=isSelected, nonatomic) BOOL selected;
 @property (nonatomic) BOOL showBezelInTouch;
 
 + (id)buttonWithType:(int)arg1;
 
 - (void).cxx_destruct;
+- (id)_buttonBackGroundColorTouch;
 - (void)_updateButtonStyle;
 - (BOOL)canBecomeFocused;
+- (id)colorForKnobContentSelected;
+- (id)colorForKnobFocusLayer;
+- (id)colorForKnobFocusLayerSelected;
+- (id)colorForKnobFocused;
+- (id)colorForTouchContentSelected;
+- (id)colorForTouchFocusLayer;
+- (id)colorForTouchFocusLayerSelected;
 - (void)focusedViewDidChange;
-- (id)labelTemplateString;
+- (BOOL)hideBezelInKnob;
 - (void)layoutSubviews;
-- (void)setLabelTemplateString:(id)arg1;
+- (void)setHidden:(BOOL)arg1;
+- (void)setHideBezelInKnob:(BOOL)arg1;
 - (void)setSelected:(BOOL)arg1;
 - (void)setShowBezelInTouch:(BOOL)arg1;
 - (BOOL)showBezelInTouch;
+- (void)updateButtonOpacityForKnobUnfocused;
 - (void)willMoveToWindow:(id)arg1;
 
 @end

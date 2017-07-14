@@ -3,18 +3,19 @@
  */
 
 @interface UIPickerView : UIView <NSCoding, UIPickerTableViewContainerDelegate, UIPickerViewScrollTesting, UITableViewDataSource, UITableViewDelegate> {
-    UIView *_backgroundView;
-    UIImageView *_bottomGradient;
-    UIView *_bottomLineView;
-    _UIPickerViewTestParameters *_currentTestParameters;
-    <UIPickerViewDataSource> *_dataSource;
-    <UIPickerViewDelegate> *_delegate;
-    NSMutableArray *_dividers;
-    UIView *_foregroundView;
-    BOOL _isInLayoutSubviews;
-    BOOL _magnifierEnabled;
-    CALayer *_maskGradientLayer;
-    int _numberOfComponents;
+    UIView * _backgroundView;
+    UIImageView * _bottomGradient;
+    UIView * _bottomLineView;
+    _UIPickerViewTestParameters * _currentTestParameters;
+    <UIPickerViewDataSource> * _dataSource;
+    <UIPickerViewDelegate> * _delegate;
+    NSMutableArray * _dividers;
+    BOOL  _enabled;
+    UIView * _foregroundView;
+    BOOL  _magnifierEnabled;
+    UIColor * _magnifierLineColor;
+    CALayer * _maskGradientLayer;
+    int  _numberOfComponents;
     struct { 
         unsigned int needsLayout : 1; 
         unsigned int delegateRespondsToNumberOfComponentsInPickerView : 1; 
@@ -31,43 +32,54 @@
         unsigned int soundsDisabled : 1; 
         unsigned int usesCheckedSelection : 1; 
         unsigned int skipsBackground : 1; 
-    } _pickerViewFlags;
-    NSMutableArray *_selectionBars;
-    NSMutableArray *_tables;
-    UIColor *_textColor;
-    UIColor *_textShadowColor;
-    UIView *_topFrame;
-    UIImageView *_topGradient;
-    UIView *_topLineView;
-    BOOL _usesModernStyle;
+        unsigned int isInLayoutSubviews : 1; 
+    }  _pickerViewFlags;
+    _UIFeedbackRetargetBehavior * _retargetBehavior;
+    NSMutableArray * _selectionBars;
+    NSMutableArray * _tables;
+    UIColor * _textColor;
+    UIColor * _textShadowColor;
+    UIView * _topFrame;
+    UIImageView * _topGradient;
+    UIView * _topLineView;
+    BOOL  _usesModernStyle;
 }
 
-@property (setter=_setInLayoutSubviews:, nonatomic) BOOL _isInLayoutSubviews;
 @property (setter=_setMagnifierEnabled:, nonatomic) BOOL _magnifierEnabled;
 @property (nonatomic) <UIPickerViewDataSource> *dataSource;
 @property (readonly, copy) NSString *debugDescription;
 @property (nonatomic) <UIPickerViewDelegate> *delegate;
 @property (readonly, copy) NSString *description;
+@property (getter=_enabled, setter=_setEnabled:, nonatomic) BOOL enabled;
 @property (readonly) unsigned int hash;
 @property (getter=_highlightColor, setter=_setHighlightColor:, nonatomic, retain) UIColor *highlightColor;
+@property (getter=_magnifierLineColor, setter=_setMagnifierLineColor:, nonatomic, retain) UIColor *magnifierLineColor;
 @property (nonatomic, readonly) int numberOfComponents;
+@property (getter=_retargetBehavior, setter=_setRetargetBehavior:, nonatomic, retain) _UIFeedbackRetargetBehavior *retargetBehavior;
 @property (nonatomic) BOOL showsSelectionIndicator;
 @property (readonly) Class superclass;
 @property (getter=_textColor, setter=_setTextColor:, nonatomic, retain) UIColor *textColor;
 @property (getter=_textShadowColor, setter=_setTextShadowColor:, nonatomic, retain) UIColor *textShadowColor;
 @property (getter=_usesModernStyle, setter=_setUsesModernStyle:) BOOL usesModernStyle;
 
-+ (id)_modernCenterCellFont;
-+ (id)_modernNonCenterCellFont;
-+ (struct CGSize { float x1; float x2; })defaultSizeForCurrentOrientation;
-+ (struct CGSize { float x1; float x2; })sizeForCurrentOrientationThatFits:(struct CGSize { float x1; float x2; })arg1;
-+ (struct CGSize { float x1; float x2; })sizeThatFits:(struct CGSize { float x1; float x2; })arg1 forInterfaceOrientation:(int)arg2;
+// Image: /System/Library/Frameworks/UIKit.framework/UIKit
 
-- (void)_UIAppearance_setBackgroundColor:(id)arg1;
++ (struct CGSize { float x1; float x2; })defaultSizeForCurrentOrientation;
++ (struct CGSize { float x1; float x2; })defaultSizeForMainScreenTraits;
++ (struct CGSize { float x1; float x2; })defaultSizeForTraits:(id)arg1;
++ (void)initialize;
++ (struct CGSize { float x1; float x2; })sizeForMainScreenTraitsThatFits:(struct CGSize { float x1; float x2; })arg1;
++ (struct CGSize { float x1; float x2; })sizeThatFits:(struct CGSize { float x1; float x2; })arg1 forTraits:(id)arg2;
+
+- (void).cxx_destruct;
+- (void)_UIAppearance_setMagnifierLineColor:(id)arg1;
+- (void)_UIAppearance_setTextColor:(id)arg1;
+- (void)__scalarStatisticsForUserValueChangedEvent;
 - (void)_addMagnifierLinesForRowHeight:(float)arg1;
 - (void)_completeCurrentTest;
 - (BOOL)_contentHuggingDefault_isUsuallyFixedHeight;
 - (BOOL)_contentHuggingDefault_isUsuallyFixedWidth;
+- (struct CGSize { float x1; float x2; })_contentSizeForRow:(int)arg1 inComponent:(int)arg2;
 - (id)_contentView;
 - (id)_createColumnWithTableFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1 rowHeight:(float)arg2;
 - (id)_createTableWithFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1 forComponent:(int)arg2;
@@ -80,12 +92,15 @@
 - (float)_delegateWidthForComponent:(int)arg1 ofCount:(int)arg2 withSizeLeft:(float)arg3;
 - (BOOL)_drawsBackground;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_effectiveTableViewFrameForColumn:(int)arg1;
+- (BOOL)_enabled;
+- (BOOL)_forceTextAlignmentCentered;
 - (id)_highlightColor;
 - (struct CGSize { float x1; float x2; })_intrinsicSizeWithinSize:(struct CGSize { float x1; float x2; })arg1;
-- (BOOL)_isInLayoutSubviews;
 - (BOOL)_isLandscapeOrientation;
 - (void)_iterateOnCurrentTest;
 - (BOOL)_magnifierEnabled;
+- (id)_magnifierLineColor;
+- (BOOL)_needsLayout;
 - (void)_noteScrollingFinishedForComponent:(int)arg1;
 - (id)_orientationImageSuffix;
 - (void)_performScrollTest:(id)arg1 withIterations:(int)arg2 rowsToScroll:(int)arg3 inComponent:(int)arg4;
@@ -93,16 +108,21 @@
 - (id)_popoverSuffix;
 - (void)_populateArchivedSubviews:(id)arg1;
 - (void)_resetSelectionOfTables;
+- (id)_retargetBehavior;
+- (id)_scalarStatisticsForUserValueChangedEvent;
 - (void)_selectRow:(int)arg1 inComponent:(int)arg2 animated:(BOOL)arg3 notify:(BOOL)arg4;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_selectionBarRectForHeight:(float)arg1;
 - (id)_selectionBarSuffix;
 - (void)_sendCheckedRow:(int)arg1 inTableView:(id)arg2 checked:(BOOL)arg3;
 - (void)_sendSelectionChangedForComponent:(int)arg1 notify:(BOOL)arg2;
 - (void)_sendSelectionChangedFromTable:(id)arg1 notify:(BOOL)arg2;
+- (void)_setColumnView:(id)arg1 enabled:(BOOL)arg2;
 - (void)_setDrawsBackground:(BOOL)arg1;
+- (void)_setEnabled:(BOOL)arg1;
 - (void)_setHighlightColor:(id)arg1;
-- (void)_setInLayoutSubviews:(BOOL)arg1;
 - (void)_setMagnifierEnabled:(BOOL)arg1;
+- (void)_setMagnifierLineColor:(id)arg1;
+- (void)_setRetargetBehavior:(id)arg1;
 - (void)_setTextColor:(id)arg1;
 - (void)_setTextShadowColor:(id)arg1;
 - (void)_setUsesCheckedSelection:(BOOL)arg1;
@@ -114,12 +134,12 @@
 - (id)_textColor;
 - (id)_textShadowColor;
 - (void)_updateSelectedRows;
-- (void)_updateSound;
 - (void)_updateWithOldSize:(struct CGSize { float x1; float x2; })arg1 newSize:(struct CGSize { float x1; float x2; })arg2;
 - (BOOL)_usesCheckSelection;
 - (BOOL)_usesCheckedSelection;
 - (BOOL)_usesModernStyle;
 - (float)_wheelShift;
+- (void)_willPlayClickSound;
 - (BOOL)allowsMultipleSelection;
 - (int)columnForTableView:(id)arg1;
 - (id)createDividerWithFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
@@ -154,13 +174,11 @@
 - (int)selectedRowForColumn:(int)arg1;
 - (int)selectedRowInComponent:(int)arg1;
 - (void)setAllowsMultipleSelection:(BOOL)arg1;
-- (void)setAlpha:(float)arg1;
 - (void)setBackgroundColor:(id)arg1;
 - (void)setBounds:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (void)setDataSource:(id)arg1;
 - (void)setDelegate:(id)arg1;
 - (void)setFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
-- (void)setHidden:(BOOL)arg1;
 - (void)setNeedsLayout;
 - (void)setShowsSelectionIndicator:(BOOL)arg1;
 - (void)setSoundsEnabled:(BOOL)arg1;
@@ -169,7 +187,13 @@
 - (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
 - (int)tableView:(id)arg1 numberOfRowsInSection:(int)arg2;
 - (id)tableViewForColumn:(int)arg1;
+- (void)traitCollectionDidChange:(id)arg1;
 - (id)viewForRow:(int)arg1 forComponent:(int)arg2;
 - (struct _NSRange { unsigned int x1; unsigned int x2; })visibleRowsForColumn:(int)arg1;
+
+// Image: /System/Library/PrivateFrameworks/PassKitUI.framework/PassKitUI
+
+- (void)pk_applyAppearance:(id)arg1;
+- (id)pk_childrenForAppearance;
 
 @end

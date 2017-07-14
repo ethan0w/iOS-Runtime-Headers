@@ -2,10 +2,8 @@
    Image: /System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities
  */
 
-@interface AXSubsystemUnitTesting : AXSubsystem
+@interface AXSubsystemUnitTesting : AXLoggingSubsystem
 
-+ (int)defaultLogLevel;
 + (id)identifier;
-+ (BOOL)shouldProcessMessageForLogs;
 
 @end

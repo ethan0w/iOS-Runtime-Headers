@@ -3,10 +3,10 @@
  */
 
 @interface HMDCharacteristicWriteAction : NSObject <NSSecureCoding> {
-    HMDActionSet *_actionSet;
-    HMDCharacteristic *_characteristic;
-    id _targetValue;
-    NSUUID *_uuid;
+    HMDActionSet * _actionSet;
+    HMDCharacteristic * _characteristic;
+    id  _targetValue;
+    NSUUID * _uuid;
 }
 
 @property (nonatomic, readonly) HMDActionSet *actionSet;
@@ -20,7 +20,9 @@
 - (id)actionSet;
 - (id)characteristic;
 - (void)configure:(id)arg1 actionSet:(id)arg2;
+- (id)dumpState;
 - (void)encodeWithCoder:(id)arg1;
+- (id)init;
 - (id)initWithCharacteristic:(id)arg1 targetValue:(id)arg2;
 - (id)initWithCoder:(id)arg1;
 - (void)replaceCharacteristic:(id)arg1;

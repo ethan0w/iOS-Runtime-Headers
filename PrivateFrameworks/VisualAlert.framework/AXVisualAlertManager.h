@@ -3,40 +3,45 @@
  */
 
 @interface AXVisualAlertManager : NSObject {
-    NSDictionary *_activePattern;
-    unsigned int _activePatternCursor;
-    unsigned int _alertTypes;
-    NSMutableArray *_bulletins;
-    <AXCameraTorchManager> *_cameraTorchManager;
-    BOOL _captureSessionRunning;
-    AXNotificationHandler *_deviceLockStateChangedNotificationHandler;
-    BOOL _isDeviceLocked;
-    BOOL _isQuietModeEnabled;
-    BOOL _isTorchEnabledInControlCenter;
-    NSArray *_notificationHandlers;
-    NSDictionary *_patternToUseForVisualAlertAfterCaptureSessionStopsRunning;
-    NSDictionary *_patterns;
-    BOOL _shouldRepeatPattern;
-    BOOL _skipAutomaticStopOnUserInteraction;
-    AXTimer *_timer;
-    BOOL _torchDeviceOn;
-    BOOL _torchDeviceOpen;
-    AXTimer *_torchForceShutdownTimer;
-    AXNotificationHandler *_torchInControlCenterWasEnabledNotificationHandler;
-    unsigned int _typeToUseForVisualAlertAfterCaptureSessionStopsRunning;
-    BOOL _videoConferenceCallRinging;
+    NSDictionary * _activePattern;
+    unsigned int  _activePatternCursor;
+    unsigned int  _alertTypes;
+    AXCameraTorchManagerBackgroundAdapter * _asyncManagerAdapter;
+    NSMutableArray * _bulletins;
+    BOOL  _captureSessionRunning;
+    AXNotificationHandler * _deviceLockStateChangedNotificationHandler;
+    BOOL  _isDeviceLocked;
+    BOOL  _isQuietModeEnabled;
+    BOOL  _isRingerSwitchSilent;
+    BOOL  _isTorchEnabledInControlCenter;
+    NSArray * _notificationHandlers;
+    NSDictionary * _patternToUseForVisualAlertAfterCaptureSessionStopsRunning;
+    NSDictionary * _patterns;
+    int  _ringerStateNotifyToken;
+    BOOL  _shouldRepeatPattern;
+    BOOL  _skipAutomaticStopOnUserInteraction;
+    AXDispatchTimer * _timer;
+    BOOL  _torchDeviceOn;
+    BOOL  _torchDeviceOpen;
+    AXDispatchTimer * _torchForceShutdownTimer;
+    AXNotificationHandler * _torchInControlCenterWasEnabledNotificationHandler;
+    unsigned int  _typeToUseForVisualAlertAfterCaptureSessionStopsRunning;
+    BOOL  _videoConferenceCallRinging;
 }
 
 @property (setter=_setActivePattern:, nonatomic, retain) NSDictionary *_activePattern;
+@property (nonatomic, readonly) AXCameraTorchManagerBackgroundAdapter *_asyncManagerAdapter;
 @property (nonatomic, readonly, retain) NSDictionary *_patterns;
-@property (getter=_isTorchDeviceOn, setter=_setTorchDeviceOn:, nonatomic) BOOL _torchDeviceOn;
-@property (getter=_isTorchDeviceOpen, setter=_setTorchDeviceOpen:, nonatomic) BOOL _torchDeviceOpen;
+@property (getter=_isTorchDeviceOn, nonatomic, readonly) BOOL _torchDeviceOn;
+@property (getter=_isTorchDeviceOpen, nonatomic, readonly) BOOL _torchDeviceOpen;
 @property (setter=_setTypeToUseForVisualAlertAfterCaptureSessionStopsRunning:, nonatomic) unsigned int _typeToUseForVisualAlertAfterCaptureSessionStopsRunning;
+@property (nonatomic) int ringerStateNotifyToken;
 
 + (void)initialize;
 + (id)sharedVisualAlertManager;
 
 - (id)_activePattern;
+- (id)_asyncManagerAdapter;
 - (void)_beginVisualAlertForType:(unsigned int)arg1 repeat:(BOOL)arg2;
 - (void)_beginVisualAlertForType:(unsigned int)arg1 repeat:(BOOL)arg2 skipAutomaticStopOnUserInteraction:(BOOL)arg3;
 - (void)_endVisualAlert;
@@ -53,6 +58,7 @@
 - (void)_handleLockButtonPressed;
 - (void)_handleQuietModeWasDisabled;
 - (void)_handleQuietModeWasEnabled;
+- (void)_handleRingerSwitchToggled;
 - (void)_handleSecondaryVisualAlertManagerDidStart;
 - (void)_handleTorchInControlCenterWasDisabled;
 - (void)_handleTorchInControlCenterWasEnabled;
@@ -70,8 +76,8 @@
 - (id)_patterns;
 - (void)_processNextVisualAlertComponent;
 - (void)_setActivePattern:(id)arg1;
-- (void)_setTorchDeviceOn:(BOOL)arg1;
-- (void)_setTorchDeviceOpen:(BOOL)arg1;
+- (void)_setTorchDeviceOn:(BOOL)arg1 withCompletion:(id /* block */)arg2;
+- (void)_setTorchDeviceOpen:(BOOL)arg1 withCompletion:(id /* block */)arg2;
 - (void)_setTypeToUseForVisualAlertAfterCaptureSessionStopsRunning:(unsigned int)arg1;
 - (BOOL)_shouldHandleVisualAlertsForVideoConferenceCallsInConferenceFramework;
 - (void)_startForAlertTypes:(unsigned int)arg1 cameraTorchManager:(id)arg2;
@@ -84,6 +90,8 @@
 - (id)existingBulletinForBulletin:(id)arg1;
 - (id)init;
 - (void)removeBulletin:(id)arg1;
+- (int)ringerStateNotifyToken;
+- (void)setRingerStateNotifyToken:(int)arg1;
 - (void)startForAlertTypes:(unsigned int)arg1 cameraTorchManager:(id)arg2;
 - (void)stop;
 

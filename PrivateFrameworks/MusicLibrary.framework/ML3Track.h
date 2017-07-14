@@ -67,8 +67,6 @@
 + (id)unsettableProperties;
 + (void)updateAllBookmarkableStoreBookmarkMetadataIdentifiersOnConnection:(id)arg1;
 
-- (void)_createVideoSnapshotAtTime:(double)arg1 withCompletionBlock:(id /* block */)arg2;
-- (id)_screenshotArtworkDataStoredAsItemArtwork;
 - (id)absoluteFilePath;
 - (id)artworkTokenAtPlaybackTime:(double)arg1;
 - (id)chapterTOC;
@@ -84,6 +82,7 @@
 - (void)populateLocationPropertiesWithPath:(id)arg1 isProtected:(BOOL)arg2;
 - (void)populateLocationPropertiesWithPath:(id)arg1 protectionType:(int)arg2;
 - (id)protocolItem;
+- (id)protocolItemForDynamicUpdate;
 - (id)rawIntegrity;
 - (void)updateCollectionCloudStatus;
 - (BOOL)updateIntegrity;

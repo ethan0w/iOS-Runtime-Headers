@@ -3,21 +3,22 @@
  */
 
 @interface UINavigationItemView : UIView {
-    UIView *_bottomCrossView;
-    BOOL _customFontSet;
-    BOOL _isCrossFading;
-    BOOL _isFadingInFromCustomAlpha;
-    UINavigationItem *_item;
-    UILabel *_label;
+    UIView * _bottomCrossView;
+    BOOL  _customFontSet;
+    BOOL  _isCrossFading;
+    BOOL  _isFadingInFromCustomAlpha;
+    UINavigationItem * _item;
+    UILabel * _label;
     struct CGSize { 
         float width; 
         float height; 
-    } _titleSize;
-    UIView *_topCrossView;
+    }  _titleSize;
+    UIView * _topCrossView;
 }
 
 @property (setter=_setFadingInFromCustomAlpha:, nonatomic) BOOL _isFadingInFromCustomAlpha;
 
+- (void).cxx_destruct;
 - (void)_adjustLabelTrackingIfNecessary;
 - (void)_cleanUpCrossView;
 - (void)_crossFadeHiddingButton:(BOOL)arg1;
@@ -29,7 +30,6 @@
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_labelFrame;
 - (void)_prepareCrossViewsForNewSize:(struct CGSize { float x1; float x2; })arg1;
 - (void)_resetTitleSize;
-- (id)_scriptingInfo;
 - (void)_setFadingInFromCustomAlpha:(BOOL)arg1;
 - (void)_setFont:(id)arg1;
 - (void)_setLineBreakMode:(int)arg1;
@@ -39,7 +39,7 @@
 - (void)_updateLabelColor;
 - (void)_updateLabelContents;
 - (BOOL)_useSilverLookForBarStyle:(int)arg1;
-- (void)dealloc;
+- (id)description;
 - (id)font;
 - (id)initWithNavigationItem:(id)arg1;
 - (void)layoutSubviews;

@@ -3,9 +3,9 @@
  */
 
 @interface NSSManager : NSObject {
-    NSObject<OS_dispatch_queue> *_externalQueue;
-    NSObject<OS_dispatch_queue> *_internalQueue;
-    NSXPCConnection *_xpcConnection;
+    NSObject<OS_dispatch_queue> * _externalQueue;
+    NSObject<OS_dispatch_queue> * _internalQueue;
+    NSXPCConnection * _xpcConnection;
 }
 
 @property (nonatomic, retain) NSObject<OS_dispatch_queue> *externalQueue;
@@ -14,7 +14,8 @@
 
 + (void)displayAirplaneModeMirroringUserEducationAlert;
 + (void)displayAlertFailedRemoteAirplaneMode;
-+ (void)displayAlertWithTitle:(id)arg1 titleColor:(id)arg2 body:(id)arg3 icon:(id)arg4;
++ (void)displayAlertWithTitle:(id)arg1 body:(id)arg2 icon:(id)arg3;
++ (void)initialize;
 
 - (void).cxx_destruct;
 - (id)connection;
@@ -22,6 +23,8 @@
 - (void)enableAirplaneMode:(BOOL)arg1 completionHandler:(id /* block */)arg2;
 - (id)externalQueue;
 - (void)getAboutInfo:(id /* block */)arg1;
+- (void)getAccountsInfo:(id /* block */)arg1;
+- (void)getAccountsInfoForAccountType:(id)arg1 completionHandler:(id /* block */)arg2;
 - (void)getLegalDocuments:(id /* block */)arg1;
 - (void)getLocalesInfo:(id /* block */)arg1;
 - (void)getProfileWithIdentifier:(id)arg1 completionHandler:(id /* block */)arg2;

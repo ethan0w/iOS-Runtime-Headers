@@ -2,44 +2,54 @@
    Image: /System/Library/Frameworks/UIKit.framework/UIKit
  */
 
-@interface UIFieldEditor : UIScrollView <NSLayoutManagerDelegate, NSUITextViewCommonMethods, UIAutoscrollContainer, UIKeyboardInput, UITextAutoscrolling, UITextInput, UITextInputControllerDelegate> {
-    UIAutoscroll *_autoscroll;
+@interface UIFieldEditor : UIScrollView <NSLayoutManagerDelegate, NSUITextViewCommonMethods, UIAutoscrollContainer, UIKeyInputPrivate, UIKeyboardInput, UITextAutoscrolling, UITextInput, UITextInputControllerDelegate> {
+    BOOL  __shouldObscureNextInput;
+    UIAutoscroll * _autoscroll;
     struct CGPoint { 
         float x; 
         float y; 
-    } _autoscrollContentOffset;
-    _UIFieldEditorContentView *_contentView;
-    float _contentWidth;
+    }  _autoscrollContentOffset;
+    _UIFieldEditorContentView * _contentView;
+    struct UIEdgeInsets { 
+        float top; 
+        float left; 
+        float bottom; 
+        float right; 
+    }  _contentViewFontInsets;
+    float  _contentWidth;
     struct { 
         unsigned int delegateRespondsToFieldEditorDidChange : 1; 
         unsigned int delegateRespondsToShouldInsertText : 1; 
         unsigned int delegateRespondsToShouldReplaceWithText : 1; 
         unsigned int suppressScrollToSelection : 1; 
         unsigned int clearOnNextEdit : 1; 
-    } _feFlags;
-    UITextInputController *_inputController;
-    _UIFieldEditorLayoutManager *_layoutManager;
-    NSTimer *_obscureAllTextTimer;
+    }  _feFlags;
+    UITextField * _incomingProxiedView;
+    UITextInputController * _inputController;
+    _UIFieldEditorLayoutManager * _layoutManager;
+    NSTimer * _obscureAllTextTimer;
+    unsigned int  _obscuredSecureLength;
     struct UIEdgeInsets { 
         float top; 
         float left; 
         float bottom; 
         float right; 
-    } _padding;
-    _UIFieldEditorContentView *_passcodeStyleCutoutView;
-    UITextField *_proxiedView;
-    NSTextContainer *_textContainer;
+    }  _padding;
+    _UIFieldEditorContentView * _passcodeStyleCutoutView;
+    UITextField * _proxiedView;
+    NSTextContainer * _textContainer;
     struct CGPoint { 
         float x; 
         float y; 
-    } _textContainerOrigin;
-    _UICascadingTextStorage *_textStorage;
+    }  _textContainerOrigin;
+    _UICascadingTextStorage * _textStorage;
     struct _NSRange { 
         unsigned int location; 
         unsigned int length; 
-    } _unobscuredSecureRange;
+    }  _unobscuredSecureRange;
 }
 
+@property (nonatomic) BOOL _shouldObscureNextInput;
 @property (nonatomic) int autocapitalizationType;
 @property (nonatomic) int autocorrectionType;
 @property (nonatomic) struct CGPoint { float x1; float x2; } autoscrollContentOffset;
@@ -48,11 +58,13 @@
 @property (readonly, copy) NSString *description;
 @property (nonatomic) BOOL enablesReturnKeyAutomatically;
 @property (nonatomic, readonly) UITextPosition *endOfDocument;
+@property (nonatomic, readonly) BOOL hasText;
 @property (readonly) unsigned int hash;
 @property (nonatomic) <UITextInputDelegate> *inputDelegate;
+@property (nonatomic, readonly) id insertDictationResultPlaceholder;
 @property (nonatomic) int keyboardAppearance;
 @property (nonatomic) int keyboardType;
-@property (nonatomic) int layoutOrientation;
+@property (nonatomic, readonly) int layoutOrientation;
 @property (nonatomic) struct _NSRange { unsigned int x1; unsigned int x2; } markedRange;
 @property (nonatomic, readonly) UITextRange *markedTextRange;
 @property (nonatomic, copy) NSDictionary *markedTextStyle;
@@ -61,9 +73,11 @@
 @property (getter=isSecureTextEntry, nonatomic) BOOL secureTextEntry;
 @property (copy) UITextRange *selectedTextRange;
 @property (nonatomic) int selectionAffinity;
+@property (nonatomic) BOOL shouldAutoscroll;
 @property (nonatomic) int spellCheckingType;
 @property (readonly) Class superclass;
 @property (nonatomic) NSTextContainer *textContainer;
+@property (nonatomic, copy) NSString *textContentType;
 @property (nonatomic, readonly) UIView *textInputView;
 @property (nonatomic, readonly) <UITextInputTokenizer> *tokenizer;
 @property (nonatomic, copy) NSDictionary *typingAttributes;
@@ -73,11 +87,14 @@
 + (void)releaseSharedInstance;
 + (id)sharedFieldEditor;
 
+- (void).cxx_destruct;
 - (void)_cancelObscureAllTextTimer;
 - (BOOL)_clearOnEditIfNeeded;
+- (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })_contentInsetsFromFonts;
 - (void)_deleteBackwardAndNotify:(BOOL)arg1;
 - (BOOL)_hasDictationPlaceholder;
 - (id)_inputController;
+- (void)_invalidateAfterObscuredRangeChange;
 - (BOOL)_isPasscodeStyle;
 - (id)_layoutManager;
 - (void)_obscureAllText;
@@ -88,12 +105,16 @@
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_selectionClipRect;
 - (void)_setValue:(id)arg1 forTextAttribute:(id)arg2;
 - (BOOL)_shouldObscureInput;
+- (BOOL)_shouldObscureNextInput;
 - (id)_textContainer;
 - (struct CGPoint { float x1; float x2; })_textContainerOrigin;
 - (id)_textInputTraits;
 - (id)_textSelectingContainer;
 - (id)_textStorage;
 - (void)_textStorageDidProcessEditing:(id)arg1;
+- (void)_tvUpdateTextColor;
+- (id)_uiktest_proxiedViewTextColor;
+- (void)_unobscureAllText;
 - (struct _NSRange { unsigned int x1; unsigned int x2; })_unobscuredSecureRange;
 - (void)addTextAlternativesDisplayStyleToRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg1;
 - (int)atomStyle;
@@ -129,6 +150,7 @@
 - (id)inputDelegate;
 - (void)insertDictationResult:(id)arg1 withCorrectionIdentifier:(id)arg2;
 - (id)insertDictationResultPlaceholder;
+- (struct _NSRange { unsigned int x1; unsigned int x2; })insertFilteredText:(id)arg1;
 - (void)insertText:(id)arg1;
 - (id)interactionAssistant;
 - (void)invalidateTextContainerOrigin;
@@ -142,6 +164,7 @@
 - (BOOL)keyboardInputShouldDelete:(id)arg1;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })layoutManager:(id)arg1 boundingBoxForControlGlyphAtIndex:(unsigned int)arg2 forTextContainer:(id)arg3 proposedLineFragment:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg4 glyphPosition:(struct CGPoint { float x1; float x2; })arg5 characterIndex:(unsigned int)arg6;
 - (void)layoutManager:(id)arg1 didCompleteLayoutForTextContainer:(id)arg2 atEnd:(BOOL)arg3;
+- (id)layoutManager:(id)arg1 effectiveCUICatalogForTextEffect:(id)arg2;
 - (unsigned int)layoutManager:(id)arg1 shouldGenerateGlyphs:(const unsigned short*)arg2 properties:(const int*)arg3 characterIndexes:(const unsigned int*)arg4 font:(id)arg5 forGlyphRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg6;
 - (int)layoutManager:(id)arg1 shouldUseAction:(int)arg2 forControlCharacterAtIndex:(unsigned int)arg3;
 - (int)layoutOrientation;
@@ -164,7 +187,6 @@
 - (void)replaceRange:(id)arg1 withText:(id)arg2;
 - (void)replaceRangeWithTextWithoutClosingTyping:(id)arg1 replacementText:(id)arg2;
 - (BOOL)respondsToSelector:(SEL)arg1;
-- (void)revealSelection;
 - (void)scrollSelectionToVisible:(BOOL)arg1;
 - (int)scrollXOffset;
 - (int)scrollYOffset;
@@ -177,6 +199,7 @@
 - (void)setAutoscrollContentOffset:(struct CGPoint { float x1; float x2; })arg1;
 - (void)setBaseWritingDirection:(int)arg1 forRange:(id)arg2;
 - (void)setConstrainedFrameSize:(struct CGSize { float x1; float x2; })arg1;
+- (void)setDisplaySecureEditsUsingPlainText:(BOOL)arg1;
 - (void)setFont:(id)arg1;
 - (void)setFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (void)setInputDelegate:(id)arg1;
@@ -196,6 +219,7 @@
 - (void)setTextColor:(id)arg1;
 - (void)setTextContainer:(id)arg1;
 - (void)setTypingAttributes:(id)arg1;
+- (void)set_shouldObscureNextInput:(BOOL)arg1;
 - (void)startAutoscroll:(struct CGPoint { float x1; float x2; })arg1;
 - (id)style;
 - (id)text;
@@ -213,6 +237,7 @@
 - (id)textInputView;
 - (id)textRangeFromPosition:(id)arg1 toPosition:(id)arg2;
 - (id)tokenizer;
+- (void)traitCollectionDidChange:(id)arg1;
 - (id)typingAttributes;
 - (id)undoManager;
 - (void)unmarkText;

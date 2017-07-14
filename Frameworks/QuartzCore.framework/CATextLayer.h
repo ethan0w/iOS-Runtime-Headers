@@ -3,15 +3,16 @@
  */
 
 @interface CATextLayer : CALayer {
-    struct CATextLayerPrivate { } *_state;
+    struct CATextLayerPrivate { } * _state;
 }
 
 @property (copy) NSString *alignmentMode;
 @property BOOL allowsFontSubpixelQuantization;
-@property void*font;
+@property const void*font;
 @property float fontSize;
 @property struct CGColor { }*foregroundColor;
 @property (copy) id string;
+@property (getter=isTruncated, readonly) BOOL truncated;
 @property (copy) NSString *truncationMode;
 @property (copy) id truncationString;
 @property (getter=isWrapped) BOOL wrapped;
@@ -21,6 +22,7 @@
 + (BOOL)needsDisplayForKey:(id)arg1;
 
 - (void)_applyLinesToFunction:(int (*)arg1 info:(void*)arg2;
+- (void)_applyLinesToFunction:(int (*)arg1 info:(void*)arg2 truncated:(BOOL*)arg3;
 - (id)_createStringDict;
 - (struct __CTLine { }*)_createTruncationToken;
 - (void)_drawLine:(struct __CTLine { }*)arg1 inContext:(struct CGContext { }*)arg2 atPoint:(struct CGPoint { float x1; float x2; })arg3;
@@ -32,12 +34,13 @@
 - (void)dealloc;
 - (void)didChangeValueForKey:(id)arg1;
 - (void)drawInContext:(struct CGContext { }*)arg1;
-- (void*)font;
+- (const void*)font;
 - (float)fontSize;
 - (struct CGColor { }*)foregroundColor;
 - (id)implicitAnimationForKeyPath:(id)arg1;
 - (id)init;
 - (id)initWithLayer:(id)arg1;
+- (BOOL)isTruncated;
 - (BOOL)isWrapped;
 - (void)setAlignmentMode:(id)arg1;
 - (void)setAllowsFontSubpixelQuantization:(BOOL)arg1;

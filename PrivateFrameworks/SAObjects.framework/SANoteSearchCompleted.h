@@ -10,7 +10,6 @@
 @property (readonly) unsigned int hash;
 @property (nonatomic, copy) NSArray *notes;
 @property (nonatomic, copy) NSString *refId;
-@property (nonatomic, copy) NSArray *results;
 @property (readonly) Class superclass;
 
 + (id)searchCompleted;
@@ -19,8 +18,6 @@
 - (id)encodedClassName;
 - (id)groupIdentifier;
 - (id)notes;
-- (id)results;
 - (void)setNotes:(id)arg1;
-- (void)setResults:(id)arg1;
 
 @end

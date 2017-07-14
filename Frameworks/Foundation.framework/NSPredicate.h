@@ -6,7 +6,7 @@
     struct _predicateFlags { 
         unsigned int _evaluationBlocked : 1; 
         unsigned int _reservedPredicateFlags : 31; 
-    } _predicateFlags;
+    }  _predicateFlags;
 }
 
 @property (readonly, copy) NSString *predicateFormat;
@@ -39,15 +39,14 @@
 
 // Image: /System/Library/Frameworks/AddressBook.framework/AddressBook
 
-- (void)ab_addCallbackContextToArray:(struct __CFArray { }*)arg1;
-- (void)ab_bindStatement:(struct CPSqliteStatement { struct CPSqliteConnection {} *x1; struct sqlite3_stmt {} *x2; }*)arg1 withBindingOffset:(int*)arg2 predicateIdentifier:(int)arg3;
+- (void)ab_addCallbackContextToArray:(id)arg1;
+- (void)ab_bindJoinClauseComponentOfStatement:(struct CPSqliteStatement { struct CPSqliteConnection {} *x1; struct sqlite3_stmt {} *x2; double x3; }*)arg1 withBindingOffset:(int*)arg2 predicateIdentifier:(int)arg3;
+- (void)ab_bindSelectClauseComponentOfStatement:(struct CPSqliteStatement { struct CPSqliteConnection {} *x1; struct sqlite3_stmt {} *x2; double x3; }*)arg1 withBindingOffset:(int*)arg2 predicateIdentifier:(int)arg3;
+- (void)ab_bindWhereClauseComponentOfStatement:(struct CPSqliteStatement { struct CPSqliteConnection {} *x1; struct sqlite3_stmt {} *x2; double x3; }*)arg1 withBindingOffset:(int*)arg2 predicateIdentifier:(int)arg3;
 - (BOOL)ab_hasCallback;
-- (id)ab_newQueryWithSortOrder:(unsigned int)arg1 addressBook:(void*)arg2 propertyIndices:(const struct __CFDictionary {}**)arg3;
-- (void)ab_runPredicateWithSortOrder:(unsigned int)arg1 inAddressBook:(void*)arg2 withDelegate:(id)arg3;
-
-// Image: /System/Library/Frameworks/CloudKit.framework/CloudKit
-
-- (void)validate;
+- (id)ab_metadataForMatchingRow:(struct CPSqliteStatement { struct CPSqliteConnection {} *x1; struct sqlite3_stmt {} *x2; double x3; }*)arg1 columnOffset:(unsigned int)arg2;
+- (id)ab_newQueryWithSortOrder:(unsigned int)arg1 ranked:(BOOL)arg2 addressBook:(void*)arg3 propertyIndices:(const struct __CFDictionary {}**)arg4;
+- (void)ab_runPredicateWithSortOrder:(unsigned int)arg1 ranked:(BOOL)arg2 inAddressBook:(void*)arg3 withDelegate:(id)arg4;
 
 // Image: /System/Library/Frameworks/CoreData.framework/CoreData
 
@@ -66,6 +65,9 @@
 
 // Image: /System/Library/PrivateFrameworks/CloudDocs.framework/CloudDocs
 
+- (id)br_fileObjectIDWithWatchedChildren;
+- (id)br_urlWithWatchedChildren;
+- (id)br_watchedFileObjectID;
 - (id)br_watchedURL;
 
 // Image: /System/Library/PrivateFrameworks/CloudKitDaemon.framework/CloudKitDaemon
@@ -74,5 +76,27 @@
 + (id)predicateWithSortedCKDPQueryFilters:(id)arg1 translator:(id)arg2;
 
 - (id)CKDPQueryFiltersWithTranslator:(id)arg1 error:(id*)arg2;
+
+// Image: /System/Library/PrivateFrameworks/CoreKnowledge.framework/CoreKnowledge
+
++ (id)fromCondition:(id)arg1;
+
+// Image: /System/Library/PrivateFrameworks/HealthDaemon.framework/HealthDaemon
+
+- (id)_sqlPredicateForSelect;
+
+// Image: /System/Library/PrivateFrameworks/NewsCore.framework/NewsCore
+
++ (id)predicateWithFCCKPQueryFilters:(id)arg1 translator:(id)arg2;
++ (id)predicateWithSortedFCCKPQueryFilters:(id)arg1 translator:(id)arg2;
+
+- (id)FCCKPQueryFiltersWithTranslator:(id)arg1 error:(id*)arg2;
+
+// Image: /System/Library/PrivateFrameworks/VideoProcessing.framework/VideoProcessing
+
++ (id)vcp_livePhotosPredicate:(BOOL)arg1;
++ (id)vcp_moviesPredicate:(BOOL)arg1;
++ (id)vcp_photosPredicate:(BOOL)arg1;
++ (id)vcp_stillPhotosPredicate:(BOOL)arg1;
 
 @end

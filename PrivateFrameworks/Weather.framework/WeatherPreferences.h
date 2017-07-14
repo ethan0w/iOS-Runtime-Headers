@@ -2,64 +2,61 @@
    Image: /System/Library/PrivateFrameworks/Weather.framework/Weather
  */
 
-@interface WeatherPreferences : NSObject <NSURLConnectionDelegate> {
-    NSString *_UUID;
-    BOOL _isCelsius;
-    NSArray *_lastUbiquitousWrittenDefaults;
-    BOOL _serviceDebugging;
-    NSString *_serviceHost;
-    <SynchronizedDefaultsDelegate> *_syncDelegate;
-    NSString *_twcURLString;
-    NSUserDefaults *_userGroupPrefs;
-    BOOL _userGroupPrefsLockedWhenInit;
+@interface WeatherPreferences : NSObject <NSURLConnectionDelegate, WFTemperatureUnitObserver> {
+    NSString * _UUID;
+    NSString * _cacheDirectoryPath;
+    WeatherCloudPreferences * _cloudPreferences;
+    NSArray * _lastUbiquitousWrittenDefaults;
+    BOOL  _logUnitsAndLocale;
+    <WeatherPreferencesPersistence> * _persistence;
+    BOOL  _serviceDebugging;
+    NSString * _serviceHost;
+    <SynchronizedDefaultsDelegate> * _syncDelegate;
+    BOOL  _userGroupPrefsLockedWhenInit;
 }
 
+@property (retain) WeatherCloudPreferences *cloudPreferences;
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (readonly) unsigned int hash;
+@property (getter=isLocalWeatherEnabled, setter=setLocalWeatherEnabled:, nonatomic) BOOL isLocalWeatherEnabled;
+@property (nonatomic, readonly) City *localWeatherCity;
 @property (readonly) Class superclass;
 @property (nonatomic) <SynchronizedDefaultsDelegate> *syncDelegate;
-@property (nonatomic, copy) NSString *twcURLString;
 @property (nonatomic) BOOL userGroupPrefsLockedWhenInit;
-@property (nonatomic, copy) NSString *yahooWeatherURLString;
+@property (readonly) int userTemperatureUnit;
 
-+ (void)clearSharedPreferences;
++ (id)_getGroupDefaultsFromURLInApp:(id)arg1;
++ (BOOL)performUpgradeOfPersistence:(id)arg1 fileManager:(id)arg2 error:(id*)arg3;
++ (id)preferencesWithPersistence:(id)arg1;
++ (id)readInternalDefaultValueForKey:(id)arg1;
 + (id)serviceDebuggingPath;
 + (id)sharedPreferences;
++ (id)userDefaultsPersistence;
 
+- (void).cxx_destruct;
 - (id)UUID;
-- (BOOL)_areDefaultCities:(id)arg1;
 - (id)_cacheDirectoryPath;
-- (BOOL)_checkAndPerformMigrationIfNeeded;
-- (id)_cityArrayToCloudCityArray:(id)arg1;
 - (void)_clearCachedObjects;
-- (id)_cloudCitiesFromLegacyCloudCities:(id)arg1;
-- (id)_cloudCityFromALCity:(id)arg1 name:(id)arg2;
 - (id)_defaultCities;
 - (BOOL)_defaultsAreValid;
 - (BOOL)_defaultsCurrent;
-- (BOOL)_ensurePrefsLoaded;
-- (BOOL)_getGroupDefaultsFromURLInApp:(id)arg1;
-- (BOOL)_legacyCloudCity:(id)arg1 isEqualToALCity:(id)arg2;
-- (id)_ppt_addFakeTestCities;
-- (void)_saveUbiquitousDefaults:(id)arg1;
-- (void)_setLastUbiquitousWrittenDefaults:(id)arg1 isCloudCityArray:(BOOL)arg2;
-- (void)_syncToCloudIfNotDefaultCities:(id)arg1;
-- (void)_synchronizedDefaultsDidChange:(id)arg1;
-- (id)_translatedLegacyCloudCities;
+- (void)adjustPrefsForLocalWeatherEnabled:(BOOL)arg1;
+- (BOOL)areCitiesDefault:(id)arg1;
+- (id)citiesByConsolidatingDuplicates:(id)arg1 originalOrder:(id)arg2;
+- (id)citiesByConsolidatingDuplicatesInBucket:(id)arg1;
 - (id)cityFromPreferencesDictionary:(id)arg1;
-- (id)combineCloudCities:(id)arg1 withExisting:(id)arg2 byAppending:(BOOL)arg3;
-- (void)dealloc;
+- (id)cloudPreferences;
+- (BOOL)ensureValidSelectedCityID;
 - (id)init;
-- (void)initOnPrefLoad;
+- (id)initWithPersistence:(id)arg1;
 - (BOOL)isCelsius;
 - (BOOL)isLocalWeatherEnabled;
 - (int)loadActiveCity;
 - (int)loadDefaultSelectedCity;
+- (id)loadDefaultSelectedCityID;
 - (id)loadSavedCities;
-- (id)loadSavedCityAtIndex:(int)arg1;
 - (id)localWeatherCity;
-- (BOOL)performMigration;
 - (id)preferencesDictionaryForCity:(id)arg1;
 - (id)readDefaultValueForKey:(id)arg1;
 - (id)readInternalDefaultValueForKey:(id)arg1;
@@ -75,20 +72,22 @@
 - (id)serviceHost;
 - (void)setActiveCity:(unsigned int)arg1;
 - (void)setCelsius:(BOOL)arg1;
+- (void)setCloudPreferences:(id)arg1;
+- (void)setDefaultCities:(id)arg1;
 - (void)setDefaultSelectedCity:(unsigned int)arg1;
+- (void)setDefaultSelectedCityID:(id)arg1;
 - (void)setLocalWeatherEnabled:(BOOL)arg1;
 - (void)setSyncDelegate:(id)arg1;
-- (void)setTwcURLString:(id)arg1;
 - (void)setUserGroupPrefsLockedWhenInit:(BOOL)arg1;
-- (void)setYahooWeatherURLString:(id)arg1;
+- (void)setupUbiquitousStoreIfNeeded;
 - (id)syncDelegate;
 - (void)synchronizeStateToDisk;
 - (void)synchronizeStateToDiskDoNotify:(BOOL)arg1;
+- (void)temperatureUnitObserver:(id)arg1 didChangeTemperatureUnitTo:(int)arg2;
 - (id)twcLogoURL;
 - (id)twcLogoURL:(id)arg1;
-- (id)twcURLString;
 - (BOOL)userGroupPrefsLockedWhenInit;
+- (int)userTemperatureUnit;
 - (void)writeDefaultValue:(id)arg1 forKey:(id)arg2;
-- (id)yahooWeatherURLString;
 
 @end

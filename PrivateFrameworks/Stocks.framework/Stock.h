@@ -3,40 +3,44 @@
  */
 
 @interface Stock : NSObject {
-    NSString *_averageVolume;
-    NSString *_change;
-    StockChartData *_chartDataArray;
-    NSString *_companyName;
-    StockDataSource *_dataSource;
-    NSString *_dividendYield;
-    Exchange *_exchange;
-    NSString *_high;
-    NSURL *_infoURL;
-    NSString *_low;
-    NSString *_marketcap;
-    NSString *_open;
-    NSString *_peRatio;
-    NSString *_price;
-    unsigned int _pricePrecision;
-    NSString *_shortCompanyName;
-    NSString *_symbol;
-    NSString *_symbolType;
-    double _timeMetadataLastUpdated;
-    double _timeQuoteLastUpdated;
-    NSString *_volume;
-    NSString *_yearHigh;
-    NSString *_yearLow;
+    NSString * _averageVolume;
+    NSString * _change;
+    StockChartData * _chartDataArray;
+    NSString * _companyName;
+    NSString * _currency;
+    StockDataSource * _dataSource;
+    NSString * _dividendYield;
+    Exchange * _exchange;
+    NSString * _high;
+    NSURL * _infoURL;
+    NSString * _low;
+    NSString * _marketcap;
+    NSString * _open;
+    NSString * _peRatio;
+    NSString * _price;
+    unsigned int  _pricePrecision;
+    NSString * _shortCompanyName;
+    NSString * _symbol;
+    NSString * _symbolType;
+    double  _timeMetadataLastUpdated;
+    double  _timeQuoteLastUpdated;
+    BOOL  _transient;
+    NSString * _volume;
+    NSString * _yearHigh;
+    NSString * _yearLow;
 }
 
 @property (nonatomic, retain) NSString *averageVolume;
 @property (nonatomic, retain) NSString *change;
 @property (nonatomic, retain) NSString *companyName;
+@property (nonatomic, retain) NSString *currency;
 @property (nonatomic, retain) StockDataSource *dataSource;
 @property (nonatomic, retain) NSString *dividendYield;
 @property (nonatomic, retain) Exchange *exchange;
 @property (nonatomic, retain) NSString *high;
 @property (nonatomic, retain) NSURL *infoURL;
 @property (nonatomic, retain) NSString *low;
+@property (nonatomic, readonly) NSString *marketStatusDescription;
 @property (nonatomic, retain) NSString *marketcap;
 @property (nonatomic, retain) NSString *open;
 @property (nonatomic, retain) NSString *peRatio;
@@ -47,6 +51,7 @@
 @property (nonatomic, retain) NSString *symbolType;
 @property (nonatomic) double timeMetadataLastUpdated;
 @property (nonatomic) double timeQuoteLastUpdated;
+@property (getter=isTransient, nonatomic) BOOL transient;
 @property (nonatomic, retain) NSString *volume;
 @property (nonatomic, retain) NSString *yearHigh;
 @property (nonatomic, retain) NSString *yearLow;
@@ -60,12 +65,14 @@
 + (id)formattedStringForNumber:(id)arg1 fractionDigits:(unsigned int)arg2 percentStyle:(BOOL)arg3 groupingSeparators:(BOOL)arg4 droppingFractionDigitsIfLengthExceeds:(unsigned int)arg5;
 + (id)formattedStringForString:(id)arg1 fractionDigits:(unsigned int)arg2 percentStyle:(BOOL)arg3;
 + (id)formattedStringForString:(id)arg1 fractionDigits:(unsigned int)arg2 percentStyle:(BOOL)arg3 droppingFractionDigitsIfLengthExceeds:(unsigned int)arg4;
++ (id)listNameOverridesBySymbol;
 + (BOOL)localeUsesASCIIDigits;
 + (id)localizedMagnitudeAbbreviatedStringWithString:(id)arg1;
 + (id)localizedMagnitudeAbbreviatedStringWithString:(id)arg1 fractionDigits:(unsigned int)arg2;
 + (id)percentSymbol;
 + (id)postfixCharacterForMagnitude:(unsigned int)arg1 unitMagnitude:(unsigned int*)arg2;
 + (void)resetLocale;
++ (id)symbolForURL:(id)arg1;
 + (id)urlForStock:(id)arg1;
 + (id)urlForStockSymbol:(id)arg1;
 
@@ -79,6 +86,7 @@
 - (BOOL)changeIsZero;
 - (id)chartDataForInterval:(int)arg1;
 - (id)companyName;
+- (id)currency;
 - (id)dataSource;
 - (void)dealloc;
 - (id)description;
@@ -97,10 +105,13 @@
 - (BOOL)isIndex;
 - (BOOL)isMetadataStale;
 - (BOOL)isQuoteStale;
+- (BOOL)isTransient;
 - (id)listName;
+- (id)listNameOverride;
 - (id)listNameWithMaxIndexNameLength:(unsigned int)arg1;
 - (id)low;
 - (BOOL)marketIsOpen;
+- (id)marketStatusDescription;
 - (id)marketcap;
 - (id)open;
 - (id)peRatio;
@@ -112,6 +123,7 @@
 - (void)setChange:(id)arg1;
 - (void)setChartData:(id)arg1 forInterval:(int)arg2;
 - (void)setCompanyName:(id)arg1;
+- (void)setCurrency:(id)arg1;
 - (void)setDataSource:(id)arg1;
 - (void)setDividendYield:(id)arg1;
 - (void)setExchange:(id)arg1;
@@ -127,10 +139,12 @@
 - (void)setSymbolType:(id)arg1;
 - (void)setTimeMetadataLastUpdated:(double)arg1;
 - (void)setTimeQuoteLastUpdated:(double)arg1;
+- (void)setTransient:(BOOL)arg1;
 - (void)setVolume:(id)arg1;
 - (void)setYearHigh:(id)arg1;
 - (void)setYearLow:(id)arg1;
 - (id)shortCompanyName;
+- (BOOL)shouldUseCompanyNameAsListName:(unsigned int)arg1;
 - (id)symbol;
 - (id)symbolType;
 - (double)timeMetadataLastUpdated;

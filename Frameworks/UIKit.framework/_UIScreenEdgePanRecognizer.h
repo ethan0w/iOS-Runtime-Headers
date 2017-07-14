@@ -3,25 +3,25 @@
  */
 
 @interface _UIScreenEdgePanRecognizer : NSObject <_UISettingsKeyObserver> {
-    <_UIScreenEdgePanRecognizerDelegate> *_delegate;
-    float _gestureRestrictionFactor;
-    BOOL _hasDoneInitialBackProjectionTest;
-    BOOL _hasRecordedData;
-    int _initialInterfaceOrientation;
+    <_UIScreenEdgePanRecognizerDelegate> * _delegate;
+    float  _gestureRestrictionFactor;
+    BOOL  _hasDoneInitialBackProjectionTest;
+    BOOL  _hasRecordedData;
+    int  _initialInterfaceOrientation;
     struct CGPoint { 
         float x; 
         float y; 
-    } _initialTouchLocation;
-    double _initialTouchTimestamp;
+    }  _initialTouchLocation;
+    double  _initialTouchTimestamp;
     struct CGPoint { 
         float x; 
         float y; 
-    } _lastTouchLocation;
-    double _lastTouchTimestamp;
-    UIDelayedAction *_recognitionTimer;
-    unsigned int _recognizedRegion;
-    BOOL _requiresFlatThumb;
-    BOOL _requiresLongPress;
+    }  _lastTouchLocation;
+    double  _lastTouchTimestamp;
+    UIDelayedAction * _recognitionTimer;
+    unsigned int  _recognizedRegion;
+    BOOL  _requiresFlatThumb;
+    BOOL  _requiresLongPress;
     struct CGRect { 
         struct CGPoint { 
             float x; 
@@ -31,13 +31,13 @@
             float width; 
             float height; 
         } size; 
-    } _screenBounds;
-    _UIScreenEdgePanRecognizerSettings *_settings;
-    int _state;
-    unsigned int _targetEdges;
-    unsigned int _touchedRegion;
-    int _type;
-    BOOL _useGrapeFlags;
+    }  _screenBounds;
+    _UIScreenEdgePanRecognizerSettings * _settings;
+    int  _state;
+    unsigned int  _targetEdges;
+    unsigned int  _touchedRegion;
+    int  _type;
+    BOOL  _useGrapeFlags;
 }
 
 @property (nonatomic, readonly) struct CGPoint { float x1; float x2; } _lastTouchLocation;
@@ -57,10 +57,11 @@
 
 + (BOOL)_edgeSwipeNavigationGestureEnabled;
 
+- (void).cxx_destruct;
 - (void)_createOrDestoryAnalysisWindowIfNeeded;
 - (void)_idleTimerElapsed:(id)arg1;
-- (void)_incorporateIncrementalSampleAtLocation:(struct CGPoint { float x1; float x2; })arg1 timestamp:(double)arg2 modifier:(int)arg3 interfaceOrientation:(int)arg4;
-- (void)_incorporateInitialTouchAtLocation:(struct CGPoint { float x1; float x2; })arg1 timestamp:(double)arg2 modifier:(int)arg3 interfaceOrientation:(int)arg4;
+- (void)_incorporateIncrementalSampleAtLocation:(struct CGPoint { float x1; float x2; })arg1 timestamp:(double)arg2 modifier:(int)arg3 interfaceOrientation:(int)arg4 forceState:(int)arg5;
+- (void)_incorporateInitialTouchAtLocation:(struct CGPoint { float x1; float x2; })arg1 timestamp:(double)arg2 modifier:(int)arg3 interfaceOrientation:(int)arg4 forceState:(int)arg5;
 - (struct CGPoint { float x1; float x2; })_lastTouchLocation;
 - (void)_longPressTimerElapsed:(id)arg1;
 - (void)_setState:(int)arg1;
@@ -68,7 +69,7 @@
 - (int)_type;
 - (void)dealloc;
 - (id)delegate;
-- (void)incorporateTouchSampleAtLocation:(struct CGPoint { float x1; float x2; })arg1 timestamp:(double)arg2 modifier:(int)arg3 interfaceOrientation:(int)arg4;
+- (void)incorporateTouchSampleAtLocation:(struct CGPoint { float x1; float x2; })arg1 timestamp:(double)arg2 modifier:(int)arg3 interfaceOrientation:(int)arg4 forceState:(int)arg5;
 - (id)initWithType:(int)arg1;
 - (BOOL)isRequiringLongPress;
 - (unsigned int)recognizedRegion;

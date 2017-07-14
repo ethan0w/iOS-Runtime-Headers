@@ -3,10 +3,10 @@
  */
 
 @interface NSMetadataQuery : NSObject {
-    unsigned int _flags;
-    double _interval;
-    /* Warning: unhandled array encoding: '[11@]' */ id _private;
-    void *_reserved;
+    unsigned int  _flags;
+    double  _interval;
+    /* Warning: unhandled array encoding: '[11@]' */ id  _private;
+    void * _reserved;
 }
 
 @property <NSMetadataQueryDelegate> *delegate;
@@ -37,15 +37,18 @@
 + (id)willBeginPossibleMoveOfItemAtURL:(id)arg1 toURL:(id)arg2;
 
 - (id)_allAttributes;
+- (BOOL)_canModifyQueryOrObserversInCurrentContext;
 - (void)_disableAutoUpdates;
 - (void)_enableAutoUpdates;
 - (id)_externalDocumentsBundleIdentifier;
 - (void)_inOriginalContextInvokeBlock:(id /* block */)arg1;
+- (BOOL)_isMDQuery;
 - (void)_noteNote1:(id)arg1;
 - (void)_noteNote2:(id)arg1;
 - (void)_noteNote3:(id)arg1;
 - (void)_noteNote4:(id)arg1;
 - (void)_noteNote5:(id)arg1;
+- (id)_pendingChangeNotificationsArrayForKey:(id)arg1 create:(BOOL)arg2;
 - (void)_postNotificationName:(id)arg1 userInfo:(id)arg2;
 - (id)_queryString;
 - (void)_recreateQuery;
@@ -63,7 +66,6 @@
 - (void)enableUpdates;
 - (void)enumerateResultsUsingBlock:(id /* block */)arg1;
 - (void)enumerateResultsWithOptions:(unsigned int)arg1 usingBlock:(id /* block */)arg2;
-- (void)finalize;
 - (id)groupedResults;
 - (id)groupingAttributes;
 - (unsigned int)indexOfResult:(id)arg1;
@@ -74,6 +76,7 @@
 - (double)notificationBatchingInterval;
 - (id)operationQueue;
 - (id)predicate;
+- (void)removeObserver:(id)arg1 forKeyPath:(id)arg2;
 - (id)resultAtIndex:(unsigned int)arg1;
 - (unsigned int)resultCount;
 - (id)results;
@@ -100,6 +103,10 @@
 // Image: /System/Library/PrivateFrameworks/CloudDocs.framework/CloudDocs
 
 - (void)br_setupForMonitoringChildrenOfFolderAtURL:(id)arg1;
+- (void)br_setupForMonitoringChildrenOfFolderAtURL:(id)arg1 searchScopes:(id)arg2;
 - (BOOL)br_setupForMonitoringChildrenOfItemAtURL:(id)arg1;
+- (BOOL)br_setupForMonitoringChildrenOfItemAtURL:(id)arg1 searchScopes:(id)arg2;
+- (BOOL)br_setupForMonitoringItemAtURL:(id)arg1;
+- (BOOL)br_setupForMonitoringItemAtURL:(id)arg1 searchScopes:(id)arg2;
 
 @end

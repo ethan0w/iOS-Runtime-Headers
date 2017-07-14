@@ -3,11 +3,13 @@
  */
 
 @interface AVFigAssetInspector : AVAssetInspector {
-    struct OpaqueFigAsset { } *_figAsset;
-    struct OpaqueFigFormatReader { } *_formatReader;
-    long _formatReaderOnce;
-    BOOL didCheckForSaveRestriction;
-    BOOL hasSaveRestriction;
+    long  _checkIsStreamingOnce;
+    struct OpaqueFigAsset { } * _figAsset;
+    struct OpaqueFigFormatReader { } * _formatReader;
+    long  _formatReaderOnce;
+    BOOL  _isStreaming;
+    BOOL  didCheckForSaveRestriction;
+    BOOL  hasSaveRestriction;
 }
 
 @property (nonatomic, readonly) NSURL *URL;
@@ -17,6 +19,7 @@
 @property (nonatomic, readonly) NSArray *figChapters;
 @property (getter=_formatReader, nonatomic, readonly) struct OpaqueFigFormatReader { }*formatReader;
 @property (nonatomic, readonly) BOOL hasProtectedContent;
+@property (nonatomic, readonly) NSURL *originalNetworkContentURL;
 @property (nonatomic, readonly) NSURL *resolvedURL;
 @property (getter=_isStreaming, nonatomic, readonly) BOOL streaming;
 
@@ -25,13 +28,16 @@
 - (struct OpaqueFigAsset { }*)_figAsset;
 - (struct OpaqueFigFormatReader { }*)_formatReader;
 - (BOOL)_hasQTSaveRestriction;
+- (id)_instanceIdentifier;
 - (BOOL)_isStreaming;
+- (id)_mediaSelectionGroupDictionaries;
+- (id)_nameForProxy;
 - (void*)_valueAsCFTypeForProperty:(struct __CFString { }*)arg1;
 - (id)alternateTrackGroups;
 - (id)availableMetadataFormats;
-- (BOOL)canContainMovieFragments;
+- (BOOL)canContainFragments;
 - (id)commonMetadata;
-- (BOOL)containsMovieFragments;
+- (BOOL)containsFragments;
 - (id)creationDate;
 - (void)dealloc;
 - (unsigned long long)downloadToken;
@@ -41,7 +47,10 @@
 - (void)finalize;
 - (BOOL)hasProtectedContent;
 - (unsigned int)hash;
+- (id)identifyingTag;
+- (id)identifyingTagClass;
 - (id)initWithFigAsset:(struct OpaqueFigAsset { }*)arg1;
+- (BOOL)isCompatibleWithAirPlayVideo;
 - (BOOL)isCompatibleWithSavedPhotosAlbum;
 - (BOOL)isComposable;
 - (BOOL)isEqual:(id)arg1;
@@ -49,10 +58,11 @@
 - (BOOL)isPlayable;
 - (BOOL)isReadable;
 - (id)lyrics;
-- (id)mediaSelectionGroups;
 - (id)metadataForFormat:(id)arg1;
 - (struct CGSize { float x1; float x2; })naturalSize;
 - (int)naturalTimeScale;
+- (id)originalNetworkContentURL;
+- (struct { long long x1; int x2; unsigned int x3; long long x4; })overallDurationHint;
 - (float)preferredRate;
 - (float)preferredSoundCheckVolumeNormalization;
 - (struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; })preferredTransform;

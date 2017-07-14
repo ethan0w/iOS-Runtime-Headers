@@ -18,6 +18,7 @@
 @property (nonatomic, copy) NSData *placeData;
 @property (nonatomic, copy) NSData *placeData2;
 @property (nonatomic, copy) NSNumber *placeId;
+@property (nonatomic, copy) NSData *resultDetourInfoData;
 @property (nonatomic, copy) NSString *spokenAddress;
 @property (nonatomic, copy) NSString *spokenName;
 
@@ -40,6 +41,7 @@
 - (id)placeData;
 - (id)placeData2;
 - (id)placeId;
+- (id)resultDetourInfoData;
 - (void)setAttributions:(id)arg1;
 - (void)setDetail:(id)arg1;
 - (void)setDetailType:(id)arg1;
@@ -54,10 +56,10 @@
 - (void)setPlaceData2:(id)arg1;
 - (void)setPlaceData:(id)arg1;
 - (void)setPlaceId:(id)arg1;
+- (void)setResultDetourInfoData:(id)arg1;
 - (void)setSpokenAddress:(id)arg1;
 - (void)setSpokenName:(id)arg1;
 - (id)spokenAddress;
 - (id)spokenName;
-- (void)updateUsingSet:(id)arg1 add:(id)arg2 remove:(id)arg3;
 
 @end

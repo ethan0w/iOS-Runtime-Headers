@@ -5,10 +5,13 @@
 @interface DAMailMessage : NSObject <NSCoding>
 
 - (id)attachments;
+- (id)bcc;
 - (id)body;
 - (int)bodySize;
 - (int)bodyTruncated;
+- (int)bodyType;
 - (id)cc;
+- (id)clientID;
 - (id)conversationId;
 - (id)conversationIndex;
 - (id)date;
@@ -20,17 +23,22 @@
 - (id)from;
 - (int)importance;
 - (id)initWithCoder:(id)arg1;
+- (id)instanceID;
+- (BOOL)isDraft;
 - (int)lastVerb;
 - (id)longID;
 - (BOOL)meetingRequestIsActionable;
 - (id)meetingRequestMetaData;
 - (id)meetingRequestUUID;
 - (id)messageClass;
+- (id)preview;
 - (BOOL)read;
 - (BOOL)readIsSet;
 - (id)remoteID;
 - (id)replyTo;
 - (id)rfc822Data;
+- (id)sender;
+- (id)serverID;
 - (int)smimeType;
 - (id)subject;
 - (id)threadTopic;

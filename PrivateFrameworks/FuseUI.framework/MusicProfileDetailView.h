@@ -3,28 +3,29 @@
  */
 
 @interface MusicProfileDetailView : UIView {
-    BOOL _adminEnabled;
-    UIButton *_contextualActionsButton;
-    <MusicProfileDetailViewDelegate> *_delegate;
-    MusicMediaDetailTintInformation *_detailTintInformation;
-    MusicProfileFollowButton *_editButton;
-    NSString *_editText;
-    MusicProfileFollowButton *_followButton;
-    BOOL _followHidden;
-    NSString *_followText;
-    UILabel *_followersCountLabel;
-    NSString *_followersCountText;
-    UILabel *_followersLabel;
-    NSString *_followersText;
-    BOOL _following;
-    BOOL _followingInitialized;
-    NSString *_followingText;
-    UILabel *_profileLabel;
-    UITapGestureRecognizer *_profileLabelTapGestureRecognizer;
-    UIButton *_shareActionsButton;
-    int _tintStyle;
-    NSString *_title;
-    BOOL _titleShouldAllowSelection;
+    BOOL  _adminEnabled;
+    UIButton * _contextualActionsButton;
+    <MusicProfileDetailViewDelegate> * _delegate;
+    MusicMediaDetailTintInformation * _detailTintInformation;
+    MusicProfileFollowButton * _editButton;
+    NSString * _editText;
+    MusicProfileFollowButton * _followButton;
+    BOOL  _followHidden;
+    NSString * _followText;
+    UILabel * _followersCountLabel;
+    NSString * _followersCountText;
+    UILabel * _followersLabel;
+    NSString * _followersText;
+    BOOL  _following;
+    BOOL  _followingInitialized;
+    NSString * _followingText;
+    UILabel * _profileLabel;
+    UITapGestureRecognizer * _profileLabelTapGestureRecognizer;
+    UIButton * _shareActionsButton;
+    BOOL  _sharingHidden;
+    int  _tintStyle;
+    NSString * _title;
+    BOOL  _titleShouldAllowSelection;
 }
 
 @property (getter=isAdminEnabled, nonatomic) BOOL adminEnabled;
@@ -40,6 +41,7 @@
 @property (getter=isFollowing, nonatomic) BOOL following;
 @property (nonatomic, copy) NSString *followingText;
 @property (nonatomic, readonly) UIButton *shareActionsButton;
+@property (getter=isFollowHidden, nonatomic) BOOL sharingHidden;
 @property (nonatomic) int tintStyle;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic) BOOL titleShouldAllowSelection;
@@ -68,10 +70,10 @@
 - (id)initWithFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (BOOL)isAdminEnabled;
 - (BOOL)isFollowHidden;
+- (BOOL)isFollowHidden;
 - (BOOL)isFollowing;
-- (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })layoutMargins;
-- (void)layoutMarginsDidChange;
 - (void)layoutSubviews;
+- (void)music_inheritedLayoutInsetsDidChange;
 - (void)setAdminEnabled:(BOOL)arg1;
 - (void)setDelegate:(id)arg1;
 - (void)setDetailTintInformation:(id)arg1;
@@ -83,6 +85,7 @@
 - (void)setFollowing:(BOOL)arg1;
 - (void)setFollowing:(BOOL)arg1 animated:(BOOL)arg2;
 - (void)setFollowingText:(id)arg1;
+- (void)setSharingHidden:(BOOL)arg1;
 - (void)setTintStyle:(int)arg1;
 - (void)setTitle:(id)arg1;
 - (void)setTitleShouldAllowSelection:(BOOL)arg1;

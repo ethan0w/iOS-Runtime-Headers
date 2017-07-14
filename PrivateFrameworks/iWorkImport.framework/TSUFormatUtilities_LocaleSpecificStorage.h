@@ -3,23 +3,23 @@
  */
 
 @interface TSUFormatUtilities_LocaleSpecificStorage : NSObject {
-    NSString *_formatCurrencyString;
-    NSString *_formatCurrencyStringMinus;
-    NSString *_formatCurrencyStringRedOnly;
-    NSString *_formatCurrencyStringWithParens;
-    NSString *_formatDateTimeString;
-    NSString *_formatDecimalString;
-    NSString *_formatDecimalStringMinus;
-    NSString *_formatDecimalStringRedOnly;
-    NSString *_formatDecimalStringWithParens;
-    NSString *_formatPercentageString;
-    NSString *_formatPercentageStringMinus;
-    NSString *_formatPercentageStringRedOnly;
-    NSString *_formatPercentageStringWithParens;
-    NSString *_formatScientificString;
-    NSString *_formatScientificStringMinus;
-    NSString *_formatScientificStringRedOnly;
-    NSString *_formatScientificStringWithParens;
+    NSString * _formatCurrencyString;
+    NSString * _formatCurrencyStringMinus;
+    NSString * _formatCurrencyStringRedOnly;
+    NSString * _formatCurrencyStringWithParens;
+    NSString * _formatDateTimeString;
+    NSString * _formatDecimalString;
+    NSString * _formatDecimalStringMinus;
+    NSString * _formatDecimalStringRedOnly;
+    NSString * _formatDecimalStringWithParens;
+    NSString * _formatPercentageString;
+    NSString * _formatPercentageStringMinus;
+    NSString * _formatPercentageStringRedOnly;
+    NSString * _formatPercentageStringWithParens;
+    NSString * _formatScientificString;
+    NSString * _formatScientificStringMinus;
+    NSString * _formatScientificStringRedOnly;
+    NSString * _formatScientificStringWithParens;
 }
 
 @property (readonly) NSString *formatCurrencyString;

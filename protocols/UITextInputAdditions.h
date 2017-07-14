@@ -15,7 +15,9 @@
 
 @optional
 
+- (BOOL)_allowAnimatedUpdateSelectionRectViews;
 - (UIView *)_textInputViewForAddingGestureRecognizers;
 - (BOOL)_useGesturesForEditableContent;
+- (<UISelectionInteractionAssistant> *)selectionInteractionAssistant;
 
 @end

@@ -2,12 +2,17 @@
    Image: /System/Library/Frameworks/UIKit.framework/UIKit
  */
 
-@interface _UIViewAnimationDelegate : NSObject {
-    id /* block */ _completionBlock;
+@interface _UIViewAnimationDelegate : NSObject <CAAnimationDelegate> {
+    id /* block */  _completionBlock;
 }
 
+@property (readonly, copy) NSString *debugDescription;
+@property (readonly, copy) NSString *description;
+@property (readonly) unsigned int hash;
+@property (readonly) Class superclass;
+
+- (void).cxx_destruct;
 - (void)animationDidStop:(id)arg1 finished:(BOOL)arg2;
-- (void)dealloc;
 - (id)initWithCompletionBlock:(id /* block */)arg1;
 
 @end

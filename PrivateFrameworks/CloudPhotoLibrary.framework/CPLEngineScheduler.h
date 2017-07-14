@@ -3,31 +3,38 @@
  */
 
 @interface CPLEngineScheduler : NSObject <CPLAbstractObject, CPLEngineComponent> {
-    unsigned int _currentRequestGeneration;
-    unsigned int _currentSyncState;
-    unsigned int _disablingMinglingCount;
-    NSCountedSet *_disablingReasons;
-    CPLEngineLibrary *_engineLibrary;
-    unsigned int _foregroundCalls;
-    double _intervalForRetry;
-    unsigned int _lastRequestGeneration;
-    NSDate *_lastSyncSessionDateCausedByForeground;
-    NSDate *_nextScheduledDate;
-    BOOL _opened;
-    CPLPlatformObject *_platformObject;
-    NSObject<OS_dispatch_queue> *_queue;
-    unsigned int _requiredFirstState;
-    BOOL _shouldDoSecondNormalPullPhase;
-    BOOL _shouldRetryASyncSessionForResourcesUpload;
-    NSDate *_unavailabilityLimitDate;
+    unsigned int  _currentRequestGeneration;
+    unsigned int  _currentSyncState;
+    BOOL  _didStartFirstSync;
+    unsigned int  _disablingMinglingCount;
+    NSCountedSet * _disablingReasons;
+    CPLEngineLibrary * _engineLibrary;
+    unsigned int  _foregroundCalls;
+    double  _intervalForRetry;
+    unsigned int  _lastRequestGeneration;
+    NSDate * _lastSyncSessionDateCausedByForeground;
+    BOOL  _needsPrePush;
+    NSDate * _nextScheduledDate;
+    BOOL  _opened;
+    CPLPlatformObject * _platformObject;
+    NSObject<OS_dispatch_queue> * _queue;
+    NSSet * _rejectedRecordIdentifiers;
+    unsigned int  _rejectedRecordsRetries;
+    unsigned int  _requiredFirstState;
+    id /* block */  _requiredStateObserverBlock;
+    id /* block */  _shouldBackOffOnErrorBlock;
+    unsigned int  _significantWorkCalls;
+    NSDate * _unavailabilityLimitDate;
 }
 
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (nonatomic, readonly) CPLEngineLibrary *engineLibrary;
 @property (readonly) unsigned int hash;
+@property (readonly) BOOL needsPrePush;
 @property (nonatomic, readonly) CPLPlatformObject *platformObject;
-@property (nonatomic, readonly) BOOL shouldDoSecondNormalPullPhase;
+@property (nonatomic, copy) id /* block */ requiredStateObserverBlock;
+@property (nonatomic, copy) id /* block */ shouldBackOffOnErrorBlock;
 @property (readonly) Class superclass;
 
 + (id)platformImplementationProtocol;
@@ -37,16 +44,23 @@
 - (void)_disableRetryAfterLocked;
 - (void)_disableSynchronizationWithReasonLocked:(id)arg1;
 - (void)_enableSynchronizationWithReasonLocked:(id)arg1;
+- (void)_handleResetAnchorWithError:(id)arg1 completionHandler:(id /* block */)arg2;
+- (void)_handleResetClientCacheAndQuarantineRecords:(id)arg1 completionHAndler:(id /* block */)arg2;
 - (void)_handleResetClientCacheWithError:(id)arg1 completionHandler:(id /* block */)arg2;
 - (void)_handleResetCloudCacheWithError:(id)arg1 completionHandler:(id /* block */)arg2;
+- (id)_minimalDateForFirstSync;
 - (void)_noteServerIsUnavailableWithErrorLocked:(id)arg1;
 - (void)_noteSyncSessionNeededFromState:(unsigned int)arg1;
+- (id)_pathToFirstSynchronizationMarker;
 - (void)_reallyStartSyncSession;
 - (void)_reallyUnscheduleSession;
 - (void)_scheduleNextSyncSession;
+- (void)_setRequiredFirstState:(unsigned int)arg1;
 - (void)_startRequiredSyncSession;
+- (void)_startSyncSessionWithMinimalPhase:(unsigned int)arg1;
 - (BOOL)_syncSessionIsPossible;
 - (void)_unscheduleNextSyncSession;
+- (void)_writeFirstSynchronizationMarker;
 - (void)closeAndDeactivate:(BOOL)arg1 completionHandler:(id /* block */)arg2;
 - (id)componentName;
 - (void)disableMingling;
@@ -56,11 +70,16 @@
 - (id)engineLibrary;
 - (void)getStatusDictionaryWithCompletionHandler:(id /* block */)arg1;
 - (void)getStatusWithCompletionHandler:(id /* block */)arg1;
+- (BOOL)hasOngoingDownloadOperations;
 - (id)initWithEngineLibrary:(id)arg1;
 - (BOOL)isClientInForeground;
 - (BOOL)isMinglingEnabled;
 - (BOOL)isSynchronizationDisabledWithReasonError:(id*)arg1;
 - (void)kickOffSyncSession;
+- (BOOL)needsPrePush;
+- (BOOL)needsPrepush;
+- (void)noteClientIsBeginningSignificantWork;
+- (void)noteClientIsEndingSignificantWork;
 - (void)noteClientIsInBackground;
 - (void)noteClientIsInForeground;
 - (void)noteClientIsInSyncWithClientCache;
@@ -70,7 +89,6 @@
 - (void)notePushQueueIsEmpty;
 - (void)notePushQueueIsFull;
 - (void)noteResourceDownloadQueueIsFull;
-- (void)noteResourceUploadQueueIsFull;
 - (void)noteServerHasChanges;
 - (void)noteServerIsUnavailableWithError:(id)arg1;
 - (void)noteSyncSessionFailedDuringPhase:(unsigned int)arg1 withError:(id)arg2;
@@ -78,8 +96,11 @@
 - (void)noteSyncSessionSucceeded;
 - (void)openWithCompletionHandler:(id /* block */)arg1;
 - (id)platformObject;
+- (id /* block */)requiredStateObserverBlock;
 - (void)resetBackoffInterval;
-- (BOOL)shouldDoSecondNormalPullPhase;
+- (void)setRequiredStateObserverBlock:(id /* block */)arg1;
+- (void)setShouldBackOffOnErrorBlock:(id /* block */)arg1;
+- (id /* block */)shouldBackOffOnErrorBlock;
 - (void)startRequiredSyncSessionNow;
 
 @end

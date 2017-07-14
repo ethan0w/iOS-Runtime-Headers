@@ -13,13 +13,14 @@
             MTLIOAccelDevice *device; 
             unsigned int shmemSize; 
         } queue; 
-    } _priv;
+    }  _priv;
 }
 
 - (int)availableCount;
 - (void)dealloc;
 - (id)initWithDevice:(id)arg1 resourceClass:(Class)arg2 shmemSize:(unsigned int)arg3 options:(id)arg4;
 - (void)prune;
+- (void)purge;
 - (void)setShmemSize:(unsigned int)arg1;
 - (unsigned int)shmemSize;
 

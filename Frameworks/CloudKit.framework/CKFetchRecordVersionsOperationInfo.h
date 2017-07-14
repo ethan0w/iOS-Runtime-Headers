@@ -3,14 +3,16 @@
  */
 
 @interface CKFetchRecordVersionsOperationInfo : CKDatabaseOperationInfo <NSSecureCoding> {
-    NSArray *_desiredKeys;
-    NSString *_minimumVersionETag;
-    NSArray *_recordIDs;
+    NSArray * _desiredKeys;
+    NSString * _minimumVersionETag;
+    NSArray * _recordIDs;
+    BOOL  _shouldFetchAssetContent;
 }
 
 @property (nonatomic, retain) NSArray *desiredKeys;
 @property (nonatomic, retain) NSString *minimumVersionETag;
 @property (nonatomic, retain) NSArray *recordIDs;
+@property (nonatomic) BOOL shouldFetchAssetContent;
 
 + (BOOL)supportsSecureCoding;
 
@@ -23,5 +25,7 @@
 - (void)setDesiredKeys:(id)arg1;
 - (void)setMinimumVersionETag:(id)arg1;
 - (void)setRecordIDs:(id)arg1;
+- (void)setShouldFetchAssetContent:(BOOL)arg1;
+- (BOOL)shouldFetchAssetContent;
 
 @end

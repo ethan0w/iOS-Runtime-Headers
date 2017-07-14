@@ -4,23 +4,16 @@
 
 @interface UIAlertControllerVisualStyleActionSheetCar : UIAlertControllerVisualStyleActionSheet
 
-- (id)actionHighlightedBackgroundView;
-- (id)backgroundView;
-- (id)defaultActionBackgroundColorWhenSeparate;
-- (id)defaultActionFont;
-- (id)highlightedActionContentColor;
-- (float)horizontalContentMargin;
+- (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })contentInsets;
 - (float)marginAboveTitleLabelFirstBaseline;
 - (float)marginBelowLastLabelLastBaseline;
 - (int)maximumNumberOfLinesInMessageLabel;
 - (int)maximumNumberOfLinesInTitleLabel;
 - (id)messageLabelColor;
 - (id)messageLabelFont;
-- (float)minimumActionHeight;
-- (id)regularActionFont;
+- (int)permittedActionLayoutDirection;
+- (BOOL)placementAvoidsKeyboard;
 - (id)titleLabelColor;
 - (id)titleLabelFont;
-- (float)verticalContentMargin;
-- (float)visualAltitude;
 
 @end

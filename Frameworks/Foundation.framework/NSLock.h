@@ -3,7 +3,7 @@
  */
 
 @interface NSLock : NSObject <NSLocking> {
-    void *_priv;
+    void * _priv;
 }
 
 @property (copy) NSString *name;
@@ -14,7 +14,6 @@
 
 - (void)dealloc;
 - (id)description;
-- (void)finalize;
 - (id)init;
 - (void)lock;
 - (BOOL)lockBeforeDate:(id)arg1;
@@ -22,6 +21,10 @@
 - (void)setName:(id)arg1;
 - (BOOL)tryLock;
 - (void)unlock;
+
+// Image: /System/Library/Frameworks/HealthKit.framework/HealthKit
+
+- (void)hk_withLock:(id /* block */)arg1;
 
 // Image: /System/Library/PrivateFrameworks/MIME.framework/MIME
 

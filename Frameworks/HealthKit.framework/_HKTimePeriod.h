@@ -2,13 +2,17 @@
    Image: /System/Library/Frameworks/HealthKit.framework/HealthKit
  */
 
-@interface _HKTimePeriod : NSObject <NSCopying, NSSecureCoding> {
-    NSDate *_endDate;
-    NSDate *_startDate;
+@interface _HKTimePeriod : NSObject <NSCopying, NSSecureCoding, _HKDateBounded> {
+    NSDate * _endDate;
+    NSDate * _startDate;
 }
 
-@property (nonatomic, readonly) NSDate *endDate;
-@property (nonatomic, readonly) NSDate *startDate;
+@property (readonly, copy) NSString *debugDescription;
+@property (readonly, copy) NSString *description;
+@property (nonatomic, copy) NSDate *endDate;
+@property (readonly) unsigned int hash;
+@property (nonatomic, copy) NSDate *startDate;
+@property (readonly) Class superclass;
 
 + (BOOL)supportsSecureCoding;
 + (id)timePeriodWithStartDate:(id)arg1 endDate:(id)arg2;
@@ -28,6 +32,8 @@
 - (id)initWithStartDate:(id)arg1 endDate:(id)arg2;
 - (BOOL)isEqual:(id)arg1;
 - (BOOL)overlapsTimePeriod:(id)arg1;
+- (void)setEndDate:(id)arg1;
+- (void)setStartDate:(id)arg1;
 - (id)startDate;
 - (BOOL)startsAfterDate:(id)arg1;
 

@@ -3,10 +3,13 @@
  */
 
 @interface CUIKUserActivityCalendarEvent : CUIKUserActivityWithSource {
-    NSDate *_date;
-    NSString *_externalID;
-    NSString *_title;
-    unsigned int _view;
+    NSDate * _endDate;
+    NSString * _externalID;
+    NSString * _location;
+    NSString * _relatedUniqueIdentifier;
+    NSDate * _startDate;
+    NSString * _title;
+    unsigned int  _view;
 }
 
 @property (nonatomic, readonly) NSString *title;
@@ -19,6 +22,7 @@
 - (id)initWithEvent:(id)arg1 view:(unsigned int)arg2;
 - (id)initWithEvent:(id)arg1 view:(unsigned int)arg2 forceLocal:(BOOL)arg3;
 - (id)title;
+- (void)updateActivity:(id)arg1;
 - (unsigned int)view;
 
 @end

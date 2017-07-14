@@ -2,66 +2,126 @@
    Image: /System/Library/Frameworks/HomeKit.framework/HomeKit
  */
 
-@interface HMActionSet : NSObject <HMMessageReceiver, NSSecureCoding> {
-    NSMutableArray *_currentActions;
-    BOOL _executing;
-    HMHome *_home;
-    HMMessageDispatcher *_msgDispatcher;
-    NSString *_name;
-    NSUUID *_uuid;
-    NSObject<OS_dispatch_queue> *_workQueue;
+@interface HMActionSet : NSObject <HFFavoritable, HFPrettyDescription, HFReorderableHomeKitObject, HFStateDumpSerializable, HMFMessageReceiver, HMMutableApplicationData, HMObjectMerge, NSSecureCoding> {
+    NSString * _actionSetType;
+    HMApplicationData * _applicationData;
+    NSObject<OS_dispatch_queue> * _clientQueue;
+    HMThreadSafeMutableArrayCollection * _currentActions;
+    HMDelegateCaller * _delegateCaller;
+    BOOL  _executionInProgress;
+    HMHome * _home;
+    NSDate * _lastExecutionDate;
+    HMFMessageDispatcher * _msgDispatcher;
+    NSString * _name;
+    NSObject<OS_dispatch_queue> * _propertyQueue;
+    NSUUID * _uniqueIdentifier;
+    NSUUID * _uuid;
 }
 
+@property (nonatomic, readonly, copy) NSString *actionSetType;
 @property (nonatomic, readonly, copy) NSSet *actions;
-@property (nonatomic, retain) NSMutableArray *currentActions;
+@property (nonatomic, readonly) HMApplicationData *applicationData;
+@property (nonatomic, retain) NSObject<OS_dispatch_queue> *clientQueue;
+@property (nonatomic, retain) HMThreadSafeMutableArrayCollection *currentActions;
 @property (readonly, copy) NSString *debugDescription;
+@property (nonatomic, retain) HMDelegateCaller *delegateCaller;
 @property (readonly, copy) NSString *description;
 @property (getter=isExecuting, nonatomic, readonly) BOOL executing;
+@property (nonatomic) BOOL executionInProgress;
 @property (readonly) unsigned int hash;
+@property (nonatomic, readonly, copy) NSDate *hf_dateAdded;
+@property (nonatomic, readonly, copy) NSString *hf_displayName;
+@property (nonatomic, readonly) BOOL hf_hasSetFavorite;
+@property (nonatomic, readonly) <HFIconDescriptor> *hf_iconDescriptor;
+@property (nonatomic, readonly) BOOL hf_isFavorite;
+@property (nonatomic, readonly) BOOL hf_requiresDeviceUnlock;
 @property (nonatomic) HMHome *home;
+@property (nonatomic, readonly, copy) NSDate *lastExecutionDate;
 @property (nonatomic, readonly) NSObject<OS_dispatch_queue> *messageReceiveQueue;
 @property (nonatomic, readonly) NSUUID *messageTargetUUID;
-@property (nonatomic, retain) HMMessageDispatcher *msgDispatcher;
-@property (nonatomic, readonly, copy) NSString *name;
+@property (nonatomic, retain) HMFMessageDispatcher *msgDispatcher;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, retain) NSObject<OS_dispatch_queue> *propertyQueue;
 @property (readonly) Class superclass;
-@property (nonatomic, retain) NSUUID *uuid;
-@property (nonatomic, retain) NSObject<OS_dispatch_queue> *workQueue;
+@property (nonatomic, readonly, copy) NSUUID *uniqueIdentifier;
+@property (nonatomic, readonly) NSUUID *uuid;
+
+// Image: /System/Library/Frameworks/HomeKit.framework/HomeKit
 
 + (BOOL)supportsSecureCoding;
 
 - (void).cxx_destruct;
+- (void)_addAction:(id)arg1 completionHandler:(id /* block */)arg2;
+- (void)_configure:(id)arg1 messageDispatcher:(id)arg2 clientQueue:(id)arg3 delegateCaller:(id)arg4;
+- (void)_handleActionAddedNotification:(id)arg1;
+- (void)_handleActionRemovedNotification:(id)arg1;
+- (void)_handleActionSetExecutedNotification:(id)arg1;
+- (void)_handleActionSetRenamedNotification:(id)arg1;
+- (void)_handleActionSetStartExecutionNotification:(id)arg1;
+- (void)_handleActionUpdatedNotification:(id)arg1;
+- (void)_invalidate;
+- (id)_lookupActionWithInfo:(id)arg1;
+- (BOOL)_mergeWithNewObject:(id)arg1 operations:(id)arg2;
 - (void)_registerNotificationHandlers;
+- (void)_removeAction:(id)arg1 completionHandler:(id /* block */)arg2;
+- (void)_unconfigure;
+- (void)_updateAction:(id)arg1 changes:(id)arg2 completionHandler:(id /* block */)arg3;
+- (void)_updateName:(id)arg1 completionHandler:(id /* block */)arg2;
+- (id)actionSetType;
 - (id)actions;
 - (void)addAction:(id)arg1 completionHandler:(id /* block */)arg2;
-- (void)configure:(id)arg1 uuid:(id)arg2 messageDispatcher:(id)arg3;
+- (id)applicationData;
+- (id)clientQueue;
 - (id)currentActions;
 - (void)dealloc;
+- (id)delegateCaller;
 - (void)encodeWithCoder:(id)arg1;
-- (void)handleActionAddedNotification:(id)arg1;
-- (void)handleActionRemovedNotification:(id)arg1;
-- (void)handleActionSetRenamedNotification:(id)arg1;
-- (void)handleActionUpdatedNotification:(id)arg1;
+- (BOOL)executionInProgress;
 - (id)home;
 - (id)init;
 - (id)initWithCoder:(id)arg1;
-- (id)initWithName:(id)arg1;
-- (void)invalidate;
+- (id)initWithName:(id)arg1 type:(id)arg2 uuid:(id)arg3;
 - (BOOL)isExecuting;
-- (id)lookupActionWithInfo:(id)arg1;
+- (id)lastExecutionDate;
 - (id)messageReceiveQueue;
 - (id)messageTargetUUID;
 - (id)msgDispatcher;
 - (id)name;
+- (id)propertyQueue;
 - (void)removeAction:(id)arg1 completionHandler:(id /* block */)arg2;
+- (void)setApplicationData:(id)arg1;
+- (void)setClientQueue:(id)arg1;
 - (void)setCurrentActions:(id)arg1;
+- (void)setDelegateCaller:(id)arg1;
+- (void)setExecutionInProgress:(BOOL)arg1;
 - (void)setHome:(id)arg1;
+- (void)setLastExecutionDate:(id)arg1;
 - (void)setMsgDispatcher:(id)arg1;
-- (void)setUuid:(id)arg1;
-- (void)setWorkQueue:(id)arg1;
-- (void)unconfigure;
-- (void)updateAction:(id)arg1 changes:(id)arg2 completionHandler:(id /* block */)arg3;
+- (void)setName:(id)arg1;
+- (void)setPropertyQueue:(id)arg1;
+- (id)uniqueIdentifier;
+- (void)updateApplicationData:(id)arg1 completionHandler:(id /* block */)arg2;
 - (void)updateName:(id)arg1 completionHandler:(id /* block */)arg2;
 - (id)uuid;
-- (id)workQueue;
+
+// Image: /System/Library/PrivateFrameworks/Home.framework/Home
+
++ (id)hf_standardIconDescriptorForActionSetType:(id)arg1;
+
+- (id)hf_affectedCharacteristics;
+- (id)hf_affectedServices;
+- (BOOL)hf_affectsServiceWithIdentifier:(id)arg1;
+- (id)hf_dateAdded;
+- (id)hf_displayName;
+- (BOOL)hf_hasSetFavorite;
+- (id)hf_iconDescriptor;
+- (BOOL)hf_isAnonymous;
+- (BOOL)hf_isFavorite;
+- (id)hf_prettyDescriptionOfType:(unsigned int)arg1;
+- (BOOL)hf_requiresDeviceUnlock;
+- (id)hf_serializedStateDumpRepresentation;
+- (id)hf_updateDateAdded:(id)arg1;
+- (id)hf_updateIconDescriptor:(id)arg1;
+- (id)hf_updateIsFavorite:(BOOL)arg1;
 
 @end

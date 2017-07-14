@@ -4,6 +4,8 @@
 
 @interface SAMPMediaEntity : SADomainObject
 
+@property (nonatomic, copy) NSString *mediaType;
+@property (nonatomic, copy) NSString *releaseDate;
 @property (nonatomic, copy) NSString *sortTitle;
 @property (nonatomic, copy) NSString *title;
 
@@ -12,10 +14,13 @@
 
 - (id)encodedClassName;
 - (id)groupIdentifier;
+- (id)mediaType;
+- (id)releaseDate;
+- (void)setMediaType:(id)arg1;
+- (void)setReleaseDate:(id)arg1;
 - (void)setSortTitle:(id)arg1;
 - (void)setTitle:(id)arg1;
 - (id)sortTitle;
 - (id)title;
-- (void)updateUsingSet:(id)arg1 add:(id)arg2 remove:(id)arg3;
 
 @end

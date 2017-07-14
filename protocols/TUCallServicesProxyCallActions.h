@@ -5,22 +5,29 @@
 
 @required
 
-- (void)answerCall:(TUProxyCall *)arg1;
-- (void)conferenceCall:(TUProxyCall *)arg1;
-- (void)dialCall:(TUProxyCall *)arg1;
+- (void)answerCallWithRequest:(TUAnswerRequest *)arg1;
 - (void)disconnectAllCalls;
-- (void)disconnectCall:(TUProxyCall *)arg1;
+- (void)disconnectCallWithUniqueProxyIdentifier:(NSString *)arg1;
 - (void)disconnectCurrentCallAndActivateHeld;
-- (void)endActiveAndAnswerCall:(TUProxyCall *)arg1;
-- (void)endHeldAndAnswerCall:(TUProxyCall *)arg1;
-- (void)holdCall:(TUProxyCall *)arg1;
-- (void)muteCall:(TUProxyCall *)arg1;
-- (void)playDTMFToneForCall:(TUProxyCall *)arg1 key:(unsigned char)arg2;
-- (void)sendHardPauseDigits;
-- (void)setIsSendingAudio:(BOOL)arg1 forCall:(TUProxyCall *)arg2;
+- (void)enteredBackgroundForAllCalls;
+- (void)enteredForegroundForCallWithUniqueProxyIdentifier:(NSString *)arg1;
+- (void)groupCallWithUniqueProxyIdentifier:(NSString *)arg1 withOtherCallWithUniqueProxyIdentifier:(NSString *)arg2;
+- (void)holdCallWithUniqueProxyIdentifier:(NSString *)arg1;
+- (void)playDTMFToneForCallWithUniqueProxyIdentifier:(NSString *)arg1 key:(unsigned char)arg2;
+- (void)pullHostedCallsFromPairedHostDevice;
+- (void)pullRelayingCallsFromClient;
+- (void)pushHostedCallsToPairedClientDevice;
+- (void)pushRelayingCallsToHostWithSourceIdentifier:(NSString *)arg1;
+- (void)sendHardPauseDigitsForCallWithUniqueProxyIdentifier:(NSString *)arg1;
+- (void)sendMMIOrUSSDCodeWithRequest:(TUDialRequest *)arg1;
+- (void)sendTelephonyDigits:(NSString *)arg1;
+- (void)setDownlinkMuted:(BOOL)arg1 forCallWithUniqueProxyIdentifier:(NSString *)arg2;
+- (void)setRemoteVideoPresentationSizeForCallWithUniqueProxyIdentifier:(NSString *)arg1 size:(struct CGSize { float x1; float x2; })arg2;
+- (void)setRemoteVideoPresentationStateForCallWithUniqueProxyIdentifier:(NSString *)arg1 presentationState:(int)arg2;
+- (void)setUplinkMuted:(BOOL)arg1 forCallWithUniqueProxyIdentifier:(NSString *)arg2;
 - (void)swapCalls;
-- (void)unconferenceCall:(TUProxyCall *)arg1;
-- (void)unholdCall:(TUProxyCall *)arg1;
-- (void)unmuteCall:(TUProxyCall *)arg1;
+- (void)ungroupCallWithUniqueProxyIdentifier:(NSString *)arg1;
+- (void)unholdCallWithUniqueProxyIdentifier:(NSString *)arg1;
+- (void)updateCallWithProxy:(TUProxyCall *)arg1;
 
 @end

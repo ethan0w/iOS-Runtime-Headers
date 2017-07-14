@@ -3,13 +3,13 @@
  */
 
 @interface MSCLSetupAccountViewController : SKUIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
-    MSCLAccountStore *_accountStore;
-    BOOL _isVerifying;
-    MSCLSettingsTextFieldTableViewCell *_passwordCell;
-    MSCLSocialService *_service;
-    MSCLSettingsTableViewCell *_signInButtonCell;
-    UITableView *_tableView;
-    MSCLSettingsTextFieldTableViewCell *_userNameCell;
+    MSCLAccountStore * _accountStore;
+    BOOL  _isVerifying;
+    MSCLSettingsTextFieldTableViewCell * _passwordCell;
+    MSCLSocialService * _service;
+    MSCLSettingsTableViewCell * _signInButtonCell;
+    UITableView * _tableView;
+    MSCLSettingsTextFieldTableViewCell * _userNameCell;
 }
 
 @property (nonatomic, readonly) MSCLAccountStore *accountStore;
@@ -39,5 +39,6 @@
 - (int)tableView:(id)arg1 numberOfRowsInSection:(int)arg2;
 - (BOOL)tableView:(id)arg1 shouldHighlightRowAtIndexPath:(id)arg2;
 - (BOOL)textFieldShouldReturn:(id)arg1;
+- (void)viewWillLayoutSubviews;
 
 @end

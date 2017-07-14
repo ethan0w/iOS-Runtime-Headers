@@ -5,6 +5,8 @@
 @interface EKSharee : EKObject <EKIdentityProtocol, NSCopying>
 
 @property (nonatomic, readonly) NSString *UUID;
+@property (nonatomic, copy) NSString *address;
+@property (nonatomic, readonly) NSPredicate *contactPredicate;
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (nonatomic, copy) NSString *emailAddress;
@@ -14,16 +16,22 @@
 @property (nonatomic, copy) NSString *lastName;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, readonly) EKCalendar *owner;
-@property (nonatomic) int shareeAccessLevel;
-@property (nonatomic) int shareeStatus;
+@property (nonatomic) unsigned int shareeAccessLevel;
+@property (nonatomic) unsigned int shareeStatus;
 @property (readonly) Class superclass;
+
+// Image: /System/Library/Frameworks/EventKit.framework/EventKit
 
 + (id)shareeWithEmailAddress:(id)arg1 name:(id)arg2;
 + (id)shareeWithName:(id)arg1 emailAddress:(id)arg2 externalID:(id)arg3;
++ (unsigned int)statusEnumFromString:(id)arg1;
++ (id)statusStringFromEnum:(unsigned int)arg1;
 
 - (void*)ABRecordWithAddressBook:(void*)arg1;
 - (id)UUID;
 - (id)_persistentSharee;
+- (id)address;
+- (id)contactPredicate;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
 - (id)description;
 - (id)emailAddress;
@@ -38,14 +46,20 @@
 - (id)lazyLoadRelationForKey:(id)arg1;
 - (id)name;
 - (id)owner;
+- (void)setAddress:(id)arg1;
 - (void)setEmailAddress:(id)arg1;
 - (void)setExternalID:(id)arg1;
 - (void)setFirstName:(id)arg1;
 - (void)setLastName:(id)arg1;
 - (void)setName:(id)arg1;
-- (void)setShareeAccessLevel:(int)arg1;
-- (void)setShareeStatus:(int)arg1;
-- (int)shareeAccessLevel;
-- (int)shareeStatus;
+- (void)setShareeAccessLevel:(unsigned int)arg1;
+- (void)setShareeStatus:(unsigned int)arg1;
+- (unsigned int)shareeAccessLevel;
+- (unsigned int)shareeStatus;
+
+// Image: /System/Library/PrivateFrameworks/PhotoAnalysis.framework/Frameworks/PhotosGraph.framework/Frameworks/MediaMiningKit.framework/MediaMiningKit
+
+- (BOOL)isCurrentUserForScheduling;
+- (BOOL)isCurrentUserForSharing;
 
 @end

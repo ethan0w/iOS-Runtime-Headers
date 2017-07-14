@@ -3,14 +3,15 @@
  */
 
 @interface HKStatisticsCollectionQuery : HKQuery {
-    NSDate *_anchorDate;
-    id /* block */ _initialResultsHandler;
-    NSDateComponents *_intervalComponents;
-    NSNumber *_lastAnchor;
-    unsigned int _mergeStrategy;
-    unsigned int _options;
-    HKStatisticsCollection *_statisticsCollection;
-    id /* block */ _statisticsUpdateHandler;
+    NSDate * _anchorDate;
+    id /* block */  _initialResultsHandler;
+    NSDateComponents * _intervalComponents;
+    NSNumber * _lastAnchor;
+    unsigned int  _mergeStrategy;
+    unsigned int  _options;
+    NSMutableArray * _results;
+    HKStatisticsCollection * _statisticsCollection;
+    id /* block */  _statisticsUpdateHandler;
 }
 
 @property (readonly) NSDate *anchorDate;
@@ -21,6 +22,8 @@
 @property (readonly) unsigned int options;
 @property (retain) HKStatisticsCollection *statisticsCollection;
 @property (nonatomic, copy) id /* block */ statisticsUpdateHandler;
+
+// Image: /System/Library/Frameworks/HealthKit.framework/HealthKit
 
 + (Class)_queryServerDataObjectClass;
 
@@ -36,7 +39,8 @@
 - (void)_queue_validate;
 - (id)anchorDate;
 - (void)deliverInitialStatisticsObjects:(id)arg1 anchor:(id)arg2 forQuery:(id)arg3;
-- (void)deliverResetStatisticsObjects:(id)arg1 forQuery:(id)arg2;
+- (void)deliverStatisticsBatch:(id)arg1 initialDelivery:(BOOL)arg2 finalBatch:(BOOL)arg3 anchor:(id)arg4 forQuery:(id)arg5;
+- (void)deliverStatisticsResetForQuery:(id)arg1;
 - (void)deliverUpdatedStatistics:(id)arg1 anchor:(id)arg2 forQuery:(id)arg3;
 - (id)initWithQuantityType:(id)arg1 quantitySamplePredicate:(id)arg2 options:(unsigned int)arg3 anchorDate:(id)arg4 intervalComponents:(id)arg5;
 - (id /* block */)initialResultsHandler;
@@ -44,6 +48,7 @@
 - (id)lastAnchor;
 - (unsigned int)mergeStrategy;
 - (unsigned int)options;
+- (void)resetStatisticsForQuery:(id)arg1;
 - (void)setInitialResultsHandler:(id /* block */)arg1;
 - (void)setLastAnchor:(id)arg1;
 - (void)setMergeStrategy:(unsigned int)arg1;
@@ -51,5 +56,9 @@
 - (void)setStatisticsUpdateHandler:(id /* block */)arg1;
 - (id)statisticsCollection;
 - (id /* block */)statisticsUpdateHandler;
+
+// Image: /System/Library/PrivateFrameworks/HealthDaemon.framework/HealthDaemon
+
++ (Class)hd_queryServerClass;
 
 @end

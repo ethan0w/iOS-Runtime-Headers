@@ -2,14 +2,16 @@
    Image: /System/Library/Frameworks/AVFoundation.framework/AVFoundation
  */
 
-@interface AVAssetWriterInput : NSObject {
-    AVAssetWriterInputInternal *_internal;
+@interface AVAssetWriterInput : NSObject <AVKeyPathDependencyHost, AVWeakObservable> {
+    AVAssetWriterInputInternal * _internal;
 }
 
 @property (getter=_alternateGroupID, setter=_setAlternateGroupID:, nonatomic) short alternateGroupID;
-@property (getter=_isAttachedToMetadataAdaptor, nonatomic, readonly) BOOL attachedToMetadataAdaptor;
-@property (getter=_isAttachedToPixelBufferAdaptor, setter=_setAttachedToPixelBufferAdaptor:, nonatomic) BOOL attachedToPixelBufferAdaptor;
+@property (getter=_isAttachedToAdaptor, nonatomic, readonly) BOOL attachedToAdaptor;
+@property (readonly, copy) NSString *debugDescription;
+@property (readonly, copy) NSString *description;
 @property (nonatomic) BOOL expectsMediaDataInRealTime;
+@property (readonly) unsigned int hash;
 @property (getter=_helper, setter=_setHelper:, nonatomic, retain) AVAssetWriterInputHelper *helper;
 @property (nonatomic, readonly) NSString *mediaType;
 @property (nonatomic, copy) NSArray *metadata;
@@ -17,46 +19,45 @@
 @property (nonatomic, readonly) NSDictionary *outputSettings;
 @property (getter=_outputSettingsObject, nonatomic, readonly) AVOutputSettings *outputSettingsObject;
 @property (getter=_pixelBufferPool, nonatomic, readonly) struct __CVPixelBufferPool { }*pixelBufferPool;
+@property (getter=_provisionalAlternateGroupID, setter=_setProvisionalAlternateGroupID:, nonatomic) short provisionalAlternateGroupID;
 @property (getter=isReadyForMoreMediaData, nonatomic, readonly) BOOL readyForMoreMediaData;
-@property (nonatomic, readonly) struct opaqueCMFormatDescription { }*sourceFormatHint;
+@property (nonatomic, readonly) const struct opaqueCMFormatDescription { }*sourceFormatHint;
 @property (getter=_sourcePixelBufferAttributes, setter=_setSourcePixelBufferAttributes:, nonatomic, copy) NSDictionary *sourcePixelBufferAttributes;
 @property (getter=_status, nonatomic, readonly) int status;
-@property (getter=_trackID, nonatomic, readonly) int trackID;
+@property (readonly) Class superclass;
 @property (getter=_trackReferences, nonatomic, readonly) NSDictionary *trackReferences;
 @property (getter=_weakReferenceToAssetWriter, setter=_setWeakReferenceToAssetWriter:, nonatomic, retain) AVWeakReference *weakReferenceToAssetWriter;
 
 + (id)assetWriterInputWithMediaType:(id)arg1 outputSettings:(id)arg2;
 + (id)assetWriterInputWithMediaType:(id)arg1 outputSettings:(id)arg2 sourceFormatHint:(struct opaqueCMFormatDescription { }*)arg3;
 + (void)initialize;
-+ (id)keyPathsForValuesAffectingCanPerformMultiplePasses;
-+ (id)keyPathsForValuesAffectingCurrentPassDescription;
-+ (id)keyPathsForValuesAffectingReadyForMoreMediaData;
-+ (id)keyPathsForValuesAffectingStatus;
 
 - (short)_alternateGroupID;
 - (BOOL)_appendPixelBuffer:(struct __CVBuffer { }*)arg1 withPresentationTime:(struct { long long x1; int x2; unsigned int x3; long long x4; })arg2;
-- (void)_attachToMetadataAdaptor:(id)arg1;
+- (int)_appendSampleBuffer:(struct opaqueCMSampleBuffer { }*)arg1 error:(id*)arg2;
+- (id)_attachedAdaptor;
 - (void)_didStartInitialSession;
 - (id)_helper;
-- (BOOL)_isAttachedToMetadataAdaptor;
-- (BOOL)_isAttachedToPixelBufferAdaptor;
+- (BOOL)_isAttachedToAdaptor;
 - (id)_outputSettingsObject;
 - (struct __CVPixelBufferPool { }*)_pixelBufferPool;
 - (BOOL)_prepareForWritingWithFigAssetWriter:(struct OpaqueFigAssetWriter { }*)arg1 mediaFileType:(id)arg2 error:(id*)arg3;
 - (void)_prepareToEndSession;
 - (BOOL)_prepareToFinishWritingReturningError:(id*)arg1;
+- (short)_provisionalAlternateGroupID;
 - (void)_setAlternateGroupID:(short)arg1;
-- (void)_setAttachedToPixelBufferAdaptor:(BOOL)arg1;
+- (void)_setAttachedAdaptor:(id)arg1;
 - (void)_setHelper:(id)arg1;
+- (void)_setProvisionalAlternateGroupID:(short)arg1;
 - (void)_setSourcePixelBufferAttributes:(id)arg1;
 - (void)_setWeakReferenceToAssetWriter:(id)arg1;
 - (id)_sourcePixelBufferAttributes;
 - (int)_status;
 - (void)_tellAssetWriterToTransitionToFailedStatusWithError:(id)arg1;
-- (int)_trackID;
 - (id)_trackReferences;
 - (void)_transitionToTerminalStatus:(int)arg1;
 - (id)_weakReferenceToAssetWriter;
+- (void)addCallbackToCancelDuringDeallocation:(id)arg1;
 - (void)addTrackAssociationWithTrackOfInput:(id)arg1 type:(id)arg2;
 - (BOOL)appendSampleBuffer:(struct opaqueCMSampleBuffer { }*)arg1;
 - (id)associatedInputsWithTrackAssociationType:(id)arg1;
@@ -65,6 +66,7 @@
 - (BOOL)canPerformMultiplePasses;
 - (id)currentPassDescription;
 - (void)dealloc;
+- (void)declareKeyPathDependenciesWithRegistry:(id)arg1;
 - (id)description;
 - (BOOL)expectsMediaDataInRealTime;
 - (id)extendedLanguageTag;
@@ -85,6 +87,7 @@
 - (int)numberOfAppendFailures;
 - (void)observeValueForKeyPath:(id)arg1 ofObject:(id)arg2 change:(id)arg3 context:(void*)arg4;
 - (id)outputSettings;
+- (int)outputTrackID;
 - (BOOL)performsMultiPassEncodingIfSupported;
 - (int)preferredMediaChunkAlignment;
 - (struct { long long x1; int x2; unsigned int x3; long long x4; })preferredMediaChunkDuration;
@@ -108,7 +111,9 @@
 - (void)setPreferredVolume:(float)arg1;
 - (void)setSampleReferenceBaseURL:(id)arg1;
 - (void)setTransform:(struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; })arg1;
-- (struct opaqueCMFormatDescription { }*)sourceFormatHint;
+- (void)setWritesMediaDataToBeginningOfFile:(BOOL)arg1;
+- (const struct opaqueCMFormatDescription { }*)sourceFormatHint;
 - (struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; })transform;
+- (BOOL)writesMediaDataToBeginningOfFile;
 
 @end

@@ -12,19 +12,19 @@
             float width; 
             float height; 
         } size; 
-    } _cropRect;
-    id _image;
+    }  _cropRect;
+    id  _image;
     struct { 
         unsigned int visible : 1; 
         unsigned int isCleaningUp : 1; 
         unsigned int savingOptions : 3; 
         unsigned int didRevertStatusBar : 1; 
-    } _imagePickerFlags;
-    NSArray *_mediaTypes;
-    BOOL _previousStatusBarHidden;
-    int _previousStatusBarStyle;
-    NSMutableDictionary *_properties;
-    int _sourceType;
+    }  _imagePickerFlags;
+    NSArray * _mediaTypes;
+    BOOL  _previousStatusBarHidden;
+    int  _previousStatusBarStyle;
+    NSMutableDictionary * _properties;
+    int  _sourceType;
 }
 
 @property (nonatomic) BOOL allowsEditing;
@@ -51,8 +51,10 @@
 + (BOOL)isFlashAvailableForCameraDevice:(int)arg1;
 + (BOOL)isSourceTypeAvailable:(int)arg1;
 
+- (void).cxx_destruct;
 - (struct CGSize { float x1; float x2; })_adjustedContentSizeForPopover:(struct CGSize { float x1; float x2; })arg1;
 - (BOOL)_allowsImageEditing;
+- (BOOL)_allowsIris;
 - (BOOL)_allowsMultipleSelection;
 - (void)_autoDismiss;
 - (id)_cameraViewController;
@@ -70,6 +72,7 @@
 - (id)_properties;
 - (void)_removeAllChildren;
 - (void)_setAllowsImageEditing:(BOOL)arg1;
+- (void)_setAllowsIris:(BOOL)arg1;
 - (void)_setAllowsMultipleSelection:(BOOL)arg1;
 - (void)_setImagePickerSavingOptions:(unsigned int)arg1;
 - (void)_setProperties:(id)arg1;
@@ -86,7 +89,6 @@
 - (int)cameraFlashMode;
 - (id)cameraOverlayView;
 - (struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; })cameraViewTransform;
-- (void)dealloc;
 - (void)encodeWithCoder:(id)arg1;
 - (id)init;
 - (id)initWithCoder:(id)arg1;
@@ -120,9 +122,5 @@
 // Image: /System/Library/PrivateFrameworks/AppleAccountUI.framework/AppleAccountUI
 
 + (id)aaui_fixedCropRect:(id)arg1 forOriginalImage:(id)arg2;
-
-// Image: /System/Library/PrivateFrameworks/ChatKit.framework/ChatKit
-
-- (BOOL)ckCanDismissWhenSuspending;
 
 @end

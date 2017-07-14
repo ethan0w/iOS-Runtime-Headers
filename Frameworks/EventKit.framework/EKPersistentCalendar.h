@@ -26,6 +26,8 @@
 @property (nonatomic) BOOL isIgnoringSharedCalendarNotifications;
 @property (nonatomic) BOOL isMarkedImmutableSharees;
 @property (nonatomic) BOOL isMarkedUndeletable;
+@property (nonatomic, readonly) BOOL isMutableSuggestionsCalendar;
+@property (nonatomic, readonly) BOOL isSuggestionsCalendar;
 @property (nonatomic, copy) NSURL *ownerIdentityAddress;
 @property (nonatomic, copy) NSString *ownerIdentityDisplayName;
 @property (nonatomic, copy) NSString *ownerIdentityEmail;
@@ -35,7 +37,6 @@
 @property (getter=isPublished, nonatomic) BOOL published;
 @property (nonatomic, copy) NSString *publishedURL;
 @property (nonatomic, copy) NSString *pushKey;
-@property (nonatomic) BOOL schedulingProhibited;
 @property (nonatomic, copy) NSURL *selfIdentityAddress;
 @property (nonatomic, copy) NSString *selfIdentityDisplayName;
 @property (nonatomic, copy) NSString *selfIdentityEmail;
@@ -45,8 +46,8 @@
 @property (nonatomic, copy) NSString *sharedOwnerName;
 @property (nonatomic, copy) NSSet *sharees;
 @property (getter=isSharingInvitation, nonatomic) BOOL sharingInvitation;
-@property (nonatomic) int sharingInvitationResponse;
-@property (nonatomic) int sharingStatus;
+@property (nonatomic) unsigned int sharingInvitationResponse;
+@property (nonatomic) unsigned int sharingStatus;
 @property (nonatomic, retain) EKPersistentSource *source;
 @property (nonatomic, copy) NSString *subcalAccountID;
 @property (getter=isSubscribed, nonatomic) BOOL subscribed;
@@ -58,7 +59,9 @@
 + (id)relations;
 
 - (id)UUID;
+- (void)addAlarm:(id)arg1;
 - (void)addSharee:(id)arg1;
+- (id)alarms;
 - (unsigned int)allowedEntityTypes;
 - (BOOL)allowsContentModifications;
 - (id)bulkRequests;
@@ -71,6 +74,7 @@
 - (int)entityType;
 - (id)externalID;
 - (id)externalModificationTag;
+- (BOOL)hasAlarms;
 - (id)init;
 - (unsigned int)invitationStatus;
 - (BOOL)isColorDisplayOnly;
@@ -84,9 +88,11 @@
 - (BOOL)isImmutable;
 - (BOOL)isMarkedImmutableSharees;
 - (BOOL)isMarkedUndeletable;
+- (BOOL)isMutableSuggestionsCalendar;
 - (BOOL)isPublished;
 - (BOOL)isSharingInvitation;
 - (BOOL)isSubscribed;
+- (BOOL)isSuggestionsCalendar;
 - (id)ownerIdentityAddress;
 - (id)ownerIdentityDisplayName;
 - (id)ownerIdentityEmail;
@@ -95,13 +101,14 @@
 - (BOOL)prohibitsScheduling;
 - (id)publishedURL;
 - (id)pushKey;
+- (void)removeAlarm:(id)arg1;
 - (void)removeSharee:(id)arg1;
-- (BOOL)schedulingProhibited;
 - (id)selfIdentityAddress;
 - (id)selfIdentityDisplayName;
 - (id)selfIdentityEmail;
 - (id)selfIdentityFirstName;
 - (id)selfIdentityLastName;
+- (void)setAlarms:(id)arg1;
 - (void)setAllowedEntityTypes:(unsigned int)arg1;
 - (void)setAllowsContentModifications:(BOOL)arg1;
 - (void)setBulkRequests:(id)arg1;
@@ -133,7 +140,6 @@
 - (void)setPublished:(BOOL)arg1;
 - (void)setPublishedURL:(id)arg1;
 - (void)setPushKey:(id)arg1;
-- (void)setSchedulingProhibited:(BOOL)arg1;
 - (void)setSelfIdentityAddress:(id)arg1;
 - (void)setSelfIdentityDisplayName:(id)arg1;
 - (void)setSelfIdentityEmail:(id)arg1;
@@ -143,8 +149,8 @@
 - (void)setSharedOwnerName:(id)arg1;
 - (void)setSharees:(id)arg1;
 - (void)setSharingInvitation:(BOOL)arg1;
-- (void)setSharingInvitationResponse:(int)arg1;
-- (void)setSharingStatus:(int)arg1;
+- (void)setSharingInvitationResponse:(unsigned int)arg1;
+- (void)setSharingStatus:(unsigned int)arg1;
 - (void)setSource:(id)arg1;
 - (void)setSubcalAccountID:(id)arg1;
 - (void)setSubscribed:(BOOL)arg1;
@@ -154,8 +160,8 @@
 - (id)sharedOwnerAddress;
 - (id)sharedOwnerName;
 - (id)sharees;
-- (int)sharingInvitationResponse;
-- (int)sharingStatus;
+- (unsigned int)sharingInvitationResponse;
+- (unsigned int)sharingStatus;
 - (id)source;
 - (id)subcalAccountID;
 - (id)symbolicColorName;

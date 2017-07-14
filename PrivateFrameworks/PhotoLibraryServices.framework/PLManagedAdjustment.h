@@ -5,9 +5,10 @@
 @interface PLManagedAdjustment : _PLManagedAdjustment
 
 @property (nonatomic) int adjustmentType;
-@property (nonatomic, copy) PLManagedAsset *asset;
+@property (nonatomic, retain) PLManagedAsset *asset;
 @property (nonatomic, copy) NSString *filterName;
 @property (nonatomic, copy) NSDictionary *filterSettings;
+@property (nonatomic, copy) NSNumber *identifier;
 
 + (id)ciFiltersForAdjustmentsOnManagedAsset:(id)arg1 forDestinationImageSize:(struct CGSize { float x1; float x2; })arg2;
 + (id)ciFiltersForAdjustmentsOnManagedAsset:(id)arg1 forDestinationImageSize:(struct CGSize { float x1; float x2; })arg2 effectFilterCount:(unsigned int*)arg3;

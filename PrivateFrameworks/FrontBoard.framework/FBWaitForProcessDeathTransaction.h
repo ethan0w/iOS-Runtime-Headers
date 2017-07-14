@@ -2,11 +2,10 @@
    Image: /System/Library/PrivateFrameworks/FrontBoard.framework/FrontBoard
  */
 
-@interface FBWaitForProcessDeathTransaction : FBTransaction <FBProcessObserver> {
-    FBProcessManager *_manager;
-    FBProcess *_process;
-    double _timeout;
-    BSWatchdog *_watchdog;
+@interface FBWaitForProcessDeathTransaction : FBTransaction <FBProcessManagerObserver> {
+    FBProcess * _process;
+    double  _timeout;
+    BSWatchdog * _watchdog;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -17,13 +16,15 @@
 @property (nonatomic, readonly) double timeout;
 
 - (void)_begin;
+- (BOOL)_canBeInterrupted;
 - (id)_customizedDescriptionProperties;
 - (void)_didComplete;
 - (void)dealloc;
 - (id)initWithProcess:(id)arg1;
 - (id)initWithProcess:(id)arg1 timeout:(double)arg2;
 - (id)process;
-- (void)processDidExit:(id)arg1;
+- (void)processManager:(id)arg1 didAddProcess:(id)arg2;
+- (void)processManager:(id)arg1 didRemoveProcess:(id)arg2;
 - (double)timeout;
 
 @end

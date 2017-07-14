@@ -3,19 +3,19 @@
  */
 
 @interface HSConnectionConfiguration : NSObject <NSCopying, NSSecureCoding> {
-    SSAccount *_account;
-    NSURL *_baseURL;
-    NSString *_buildIdentifier;
-    NSNumber *_familyMemberStoreID;
-    NSString *_libraryBagKey;
-    NSString *_purchaseClientIdentifier;
-    long long _requestReason;
+    SSAccount * _account;
+    NSURL * _baseURL;
+    NSString * _buildIdentifier;
+    NSNumber * _familyMemberStoreID;
+    NSString * _libraryBagKey;
+    NSString * _purchaseClientIdentifier;
+    long long  _requestReason;
 }
 
 @property (nonatomic, retain) SSAccount *account;
 @property (nonatomic, copy) NSURL *baseURL;
 @property (nonatomic, copy) NSString *buildIdentifier;
-@property (nonatomic, retain) NSNumber *familyMemberStoreID;
+@property (nonatomic, copy) NSNumber *familyMemberStoreID;
 @property (nonatomic, copy) NSString *libraryBagKey;
 @property (nonatomic, copy) NSString *purchaseClientIdentifier;
 @property (nonatomic) long long requestReason;

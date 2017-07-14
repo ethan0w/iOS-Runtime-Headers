@@ -3,16 +3,20 @@
  */
 
 @interface UIKBKeyView : UIView <UIKBCacheableView> {
-    NSString *_cachedTraitsHashString;
-    CALayer *_keyBackgrounds;
-    CALayer *_keyBorders;
-    CALayer *_keyCapHint;
-    CALayer *_keyCaps;
-    CALayer *_keyForegrounds;
-    UIKeyboardMenuView *_popupMenu;
-    BOOL _renderAsMask;
-    int _renderedKeyState;
-    struct __CFBoolean { } *m_allowsCaching;
+    struct CGColor { } * _activeBackgroundColor;
+    id  _activeCompositingFilter;
+    int  _cachedAnchorCorner;
+    BOOL  _cachedControlKeyRenderingPreference;
+    int  _cachedSelector;
+    unsigned int  _cachedShiftState;
+    NSString * _cachedTraitsHashString;
+    double  _endingTransitionDuration;
+    NSMutableDictionary * _keyLayers;
+    UIKeyboardMenuView * _popupMenu;
+    BOOL  _renderAsMask;
+    int  _renderedKeyState;
+    BOOL  _singleRerender;
+    struct __CFBoolean { } * m_allowsCaching;
     struct CGRect { 
         struct CGPoint { 
             float x; 
@@ -22,15 +26,20 @@
             float width; 
             float height; 
         } size; 
-    } m_drawFrame;
-    UIKBTree *m_key;
-    UIKBTree *m_keyplane;
-    UIKBRenderConfig *m_renderConfig;
+    }  m_drawFrame;
+    UIKBRenderFactory * m_factory;
+    UIKBTree * m_key;
+    UIKBTree * m_keyplane;
+    UIKBRenderConfig * m_renderConfig;
 }
 
 @property (nonatomic, readonly) BOOL cacheDeferable;
 @property (nonatomic, readonly) NSString *cacheKey;
+@property (nonatomic) int cachedAnchorCorner;
+@property (nonatomic) BOOL cachedControlKeyRenderingPreference;
 @property (readonly) int cachedRenderFlags;
+@property (nonatomic) int cachedSelector;
+@property (nonatomic) unsigned int cachedShiftState;
 @property (nonatomic, retain) NSString *cachedTraitsHashString;
 @property (nonatomic, readonly) float cachedWidth;
 @property (nonatomic, readonly) UIKBKeyView *contentsKeyView;
@@ -38,6 +47,9 @@
 @property (readonly, copy) NSString *description;
 @property (nonatomic, readonly) struct UIEdgeInsets { float x1; float x2; float x3; float x4; } displayInsets;
 @property (nonatomic) struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; } drawFrame;
+@property (nonatomic) double endingTransitionDuration;
+@property (nonatomic, retain) UIKBRenderFactory *factory;
+@property (nonatomic, readonly) BOOL hasRendered;
 @property (readonly) unsigned int hash;
 @property (nonatomic, readonly) BOOL keepNonPersistent;
 @property (nonatomic, readonly) UIKBTree *key;
@@ -49,36 +61,56 @@
 @property (nonatomic, readonly) struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; } variantFrame;
 
 - (void)_applyAppearanceInvocations;
+- (BOOL)_canDrawContent;
 - (id)_generateBackdropMaskImage;
-- (void)_popuplateLayer:(id)arg1 withContents:(id)arg2;
+- (void)_populateLayer:(id)arg1 withContents:(id)arg2;
 - (BOOL)_shouldUpdateLayers;
 - (BOOL)_viewShouldBeOpaque;
+- (BOOL)allowBackgroundCachingForRenderFlags:(int)arg1;
 - (BOOL)cacheDeferable;
 - (id)cacheKey;
 - (id)cacheKeysForRenderFlags:(id)arg1;
+- (int)cachedAnchorCorner;
+- (BOOL)cachedControlKeyRenderingPreference;
 - (int)cachedRenderFlags;
+- (int)cachedSelector;
+- (unsigned int)cachedShiftState;
 - (id)cachedTraitsHashString;
 - (float)cachedWidth;
+- (void)changeBackgroundToActiveIfNecessary;
+- (void)changeBackgroundToEnabled;
 - (id)contentsKeyView;
 - (void)dealloc;
 - (int)didInputSubTree:(id)arg1;
-- (void)dimKeyCaps:(float)arg1 duration:(float)arg2;
+- (void)dimKeys:(id)arg1;
 - (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })displayInsets;
 - (void)displayLayer:(id)arg1;
 - (void)drawContentsOfRenderers:(id)arg1;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })drawFrame;
-- (void)drawRect:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
+- (double)endingTransitionDuration;
+- (id)factory;
+- (unsigned int)focusableVariantCount;
+- (BOOL)hasRendered;
+- (int)imageOrientationForLayer:(id)arg1;
 - (id)initWithFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1 keyplane:(id)arg2 key:(id)arg3;
 - (BOOL)keepNonPersistent;
 - (id)key;
 - (id)keyplane;
-- (void)layoutSubviews;
+- (id)layerForRenderFlags:(int)arg1;
 - (id)popupMenu;
+- (void)prepareForDisplay;
 - (BOOL)renderAsMask;
 - (id)renderConfig;
+- (id)renderFlagsForTraits:(id)arg1;
 - (BOOL)requiresSublayers;
+- (void)setCachedAnchorCorner:(int)arg1;
+- (void)setCachedControlKeyRenderingPreference:(BOOL)arg1;
+- (void)setCachedSelector:(int)arg1;
+- (void)setCachedShiftState:(unsigned int)arg1;
 - (void)setCachedTraitsHashString:(id)arg1;
 - (void)setDrawFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
+- (void)setEndingTransitionDuration:(double)arg1;
+- (void)setFactory:(id)arg1;
 - (void)setPopupMenu:(id)arg1;
 - (void)setRenderAsMask:(BOOL)arg1;
 - (void)setRenderConfig:(id)arg1;

@@ -3,19 +3,19 @@
  */
 
 @interface EKUIDebugPreferences : NSObject {
-    CalPreferences *_preferences;
+    CalPreferences * _preferences;
 }
 
 @property (nonatomic) BOOL showInviteesAndMoreRegion;
-@property (nonatomic) BOOL verifyIntegrityOfAvailabilityTimeSearchTimelines;
+@property (nonatomic) BOOL showReportAProblemNotificationButton;
 
 + (id)shared;
 
 - (void).cxx_destruct;
 - (id)init;
 - (void)setShowInviteesAndMoreRegion:(BOOL)arg1;
-- (void)setVerifyIntegrityOfAvailabilityTimeSearchTimelines:(BOOL)arg1;
+- (void)setShowReportAProblemNotificationButton:(BOOL)arg1;
 - (BOOL)showInviteesAndMoreRegion;
-- (BOOL)verifyIntegrityOfAvailabilityTimeSearchTimelines;
+- (BOOL)showReportAProblemNotificationButton;
 
 @end

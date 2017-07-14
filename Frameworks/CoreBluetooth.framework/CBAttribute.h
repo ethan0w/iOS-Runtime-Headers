@@ -3,14 +3,13 @@
  */
 
 @interface CBAttribute : NSObject {
-    CBUUID *_UUID;
+    CBUUID * _UUID;
 }
 
-@property (nonatomic, retain) CBUUID *UUID;
+@property (nonatomic, readonly) CBUUID *UUID;
 
+- (void).cxx_destruct;
 - (id)UUID;
-- (void)dealloc;
 - (id)initWithUUID:(id)arg1;
-- (void)setUUID:(id)arg1;
 
 @end

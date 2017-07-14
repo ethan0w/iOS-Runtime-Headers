@@ -3,27 +3,33 @@
  */
 
 @interface _MTLParallelRenderCommandEncoder : NSObject <MTLParallelRenderCommandEncoder> {
-    _MTLCommandBuffer<MTLCommandBuffer> *_commandBuffer;
-    id *_commandBuffers;
-    unsigned long _commandBuffersCount;
-    unsigned long _commandBuffersSize;
-    <MTLDevice> *_device;
-    NSString *_label;
+    BOOL  _StatEnabled;
+    _MTLCommandBuffer<MTLCommandBuffer> * _commandBuffer;
+    id * _commandBuffers;
+    unsigned long  _commandBuffersCount;
+    unsigned long  _commandBuffersSize;
+    <MTLDevice> * _device;
+    unsigned long long  _globalTraceObjectID;
+    NSString * _label;
+    unsigned long long  _labelTraceID;
     struct _opaque_pthread_mutex_t { 
         long __sig; 
         BOOL __opaque[40]; 
-    } _lock;
-    <MTLCommandQueue> *_queue;
-    MTLRenderPassDescriptor *_renderPassDescriptor;
-    BOOL _retainedReferences;
+    }  _lock;
+    unsigned int  _numThisEncoder;
+    <MTLCommandQueue> * _queue;
+    MTLRenderPassDescriptor * _renderPassDescriptor;
+    BOOL  _retainedReferences;
 }
 
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (readonly) <MTLDevice> *device;
+@property (readonly) unsigned long long globalTraceObjectID;
 @property (readonly) unsigned int hash;
 @property (copy) NSString *label;
 @property (readonly) Class superclass;
+@property (getter=getType, nonatomic, readonly) unsigned int type;
 
 - (id)_renderCommandEncoderCommon;
 - (id)commandBuffer;
@@ -31,6 +37,8 @@
 - (id)description;
 - (id)device;
 - (void)endEncoding;
+- (id)formattedDescription:(unsigned int)arg1;
+- (unsigned long long)globalTraceObjectID;
 - (id)initWithCommandBuffer:(id)arg1 renderPassDescriptor:(id)arg2;
 - (void)insertDebugSignpost:(id)arg1;
 - (id)label;
@@ -38,6 +46,9 @@
 - (void)pushDebugGroup:(id)arg1;
 - (id)renderCommandEncoder;
 - (id)sampledRenderCommandEncoderWithProgramInfoBuffer:(struct { unsigned int x1 : 8; unsigned int x2 : 24; unsigned int x3; unsigned long long x4; unsigned long long x5; }*)arg1 capacity:(unsigned int)arg2;
+- (void)setColorStoreAction:(unsigned int)arg1 atIndex:(unsigned int)arg2;
+- (void)setDepthStoreAction:(unsigned int)arg1;
 - (void)setLabel:(id)arg1;
+- (void)setStencilStoreAction:(unsigned int)arg1;
 
 @end

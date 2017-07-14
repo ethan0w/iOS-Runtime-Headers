@@ -5,6 +5,7 @@
 @interface SAGKDirectAnswer : AceObject <SAAceSerializable>
 
 @property (nonatomic, copy) NSString *answer;
+@property (nonatomic, copy) NSString *confidenceLevel;
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (readonly) unsigned int hash;
@@ -15,9 +16,11 @@
 + (id)directAnswerWithDictionary:(id)arg1 context:(id)arg2;
 
 - (id)answer;
+- (id)confidenceLevel;
 - (id)encodedClassName;
 - (id)groupIdentifier;
 - (void)setAnswer:(id)arg1;
+- (void)setConfidenceLevel:(id)arg1;
 - (void)setSpeakableAnswer:(id)arg1;
 - (id)speakableAnswer;
 

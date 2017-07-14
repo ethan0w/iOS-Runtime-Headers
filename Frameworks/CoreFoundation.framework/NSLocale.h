@@ -4,6 +4,10 @@
 
 @interface NSLocale : NSObject <NSCopying, NSSecureCoding>
 
+@property (readonly) int _calendarDirection;
+@property (nonatomic, readonly) NSString *languageIdentifier;
+@property (nonatomic) int wf_temperatureUnit;
+
 // Image: /System/Library/Frameworks/CoreFoundation.framework/CoreFoundation
 
 + (id)ISOCountryCodes;
@@ -32,20 +36,55 @@
 - (unsigned char)_nullLocale;
 - (id)_prefs;
 - (void)_setNullLocale;
+- (id)alternateQuotationBeginDelimiter;
+- (id)alternateQuotationEndDelimiter;
+- (id)calendarIdentifier;
+- (id)collationIdentifier;
+- (id)collatorIdentifier;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
+- (id)countryCode;
+- (id)currencyCode;
+- (id)currencySymbol;
+- (id)decimalSeparator;
 - (id)displayNameForKey:(id)arg1 value:(id)arg2;
 - (void)encodeWithCoder:(id)arg1;
+- (id)exemplarCharacterSet;
+- (id)groupingSeparator;
 - (unsigned int)hash;
 - (id)identifier;
 - (id)init;
 - (id)initWithCoder:(id)arg1;
 - (id)initWithLocaleIdentifier:(id)arg1;
 - (BOOL)isEqual:(id)arg1;
+- (id)languageCode;
 - (id)localeIdentifier;
+- (id)localizedStringForAlternateQuotationBeginDelimiter:(id)arg1;
+- (id)localizedStringForAlternateQuotationEndDelimiter:(id)arg1;
+- (id)localizedStringForCalendarIdentifier:(id)arg1;
+- (id)localizedStringForCollationIdentifier:(id)arg1;
+- (id)localizedStringForCollatorIdentifier:(id)arg1;
+- (id)localizedStringForCountryCode:(id)arg1;
+- (id)localizedStringForCurrencyCode:(id)arg1;
+- (id)localizedStringForCurrencySymbol:(id)arg1;
+- (id)localizedStringForDecimalSeparator:(id)arg1;
+- (id)localizedStringForGroupingSeparator:(id)arg1;
+- (id)localizedStringForLanguageCode:(id)arg1;
+- (id)localizedStringForLocaleIdentifier:(id)arg1;
+- (id)localizedStringForQuotationBeginDelimiter:(id)arg1;
+- (id)localizedStringForQuotationEndDelimiter:(id)arg1;
+- (id)localizedStringForScriptCode:(id)arg1;
+- (id)localizedStringForVariantCode:(id)arg1;
 - (id)objectForKey:(id)arg1;
+- (id)quotationBeginDelimiter;
+- (id)quotationEndDelimiter;
+- (id)scriptCode;
+- (BOOL)usesMetricSystem;
+- (id)variantCode;
 
 // Image: /System/Library/Frameworks/Foundation.framework/Foundation
 
++ (id)_preferredTemperatureUnit;
++ (void)_setPreferredTemperatureUnit:(id)arg1;
 + (id)autoupdatingCurrentLocale;
 + (id)mostPreferredLanguageOf:(id)arg1 forUsage:(unsigned int)arg2 options:(unsigned int)arg3;
 + (id)mostPreferredLanguageOf:(id)arg1 withPreferredLanguages:(id)arg2 forUsage:(unsigned int)arg3 options:(unsigned int)arg4;
@@ -53,21 +92,11 @@
 + (void)setPreferredLanguages:(id)arg1;
 + (id)systemLanguages;
 
+- (int)_calendarDirection;
 - (Class)classForCoder;
 - (id)debugDescription;
 - (void)encodeWithCoder:(id)arg1;
 - (id)initWithCoder:(id)arg1;
-
-// Image: /System/Library/Frameworks/MapKit.framework/MapKit
-
-+ (id)_localeOverridesForLocaleWithIdentifier:(id)arg1;
-+ (void)_mapkit_overrideDistanceUnit:(int)arg1;
-+ (void)_mapkit_overrideGuidanceUnit:(int)arg1;
-
-- (BOOL)_mapkit_distanceUsesMetricSystem;
-- (BOOL)_mapkit_guidanceUsesMetricSystem;
-- (id)_mapkit_objectForKey:(id)arg1;
-- (BOOL)_mapkit_useYardsForShortDistances;
 
 // Image: /System/Library/Frameworks/PhotosUI.framework/PhotosUI
 
@@ -76,6 +105,10 @@
 // Image: /System/Library/Frameworks/Social.framework/Social
 
 + (id)currentDeviceLanguageForFacebook;
+
+// Image: /System/Library/Frameworks/VideoSubscriberAccount.framework/VideoSubscriberAccount
+
++ (id)vs_systemLanaguage;
 
 // Image: /System/Library/PrivateFrameworks/ChatKit.framework/ChatKit
 
@@ -88,10 +121,51 @@
 + (id)canonicalLanguageAndScriptCodeIdentifierForIdentifier:(id)arg1;
 + (id)canonicalLocaleIdentifier:(id)arg1 withNewLanguageIdentifier:(id)arg2;
 + (id)canonicalLocaleIdentifierFromComponents:(id)arg1;
++ (id)canonicalLocaleIdentifierWithValidCalendarForComponents:(id)arg1;
 + (id)deviceLanguageIdentifier;
 + (id)deviceLanguageLocale;
++ (void)enableDefaultKeyboardForPreferredLanguages;
++ (id)languageArrayAfterSettingLanguage:(id)arg1 fallback:(id)arg2 toLanguageArray:(id)arg3;
++ (BOOL)localeLanguageMatchesPrimaryLanguage;
++ (void)registerPreferredLanguageForAddedKeyboardLanguage:(id)arg1;
++ (id)renderableLanguagesFromList:(id)arg1;
++ (id)renderableLocaleLanguages;
++ (id)renderableUILanguages;
++ (void)resetTimeFormat;
++ (void)setLanguageToPreferredLanguages:(id)arg1 fallback:(id)arg2;
++ (void)setLocaleAfterLanguageChange:(id)arg1;
++ (void)setLocaleAfterRegionChange:(id)arg1;
++ (void)setLocaleAndResetTimeFormat:(id)arg1;
++ (void)setLocaleOnly:(id)arg1;
++ (BOOL)shouldShowPreferredLanguages;
 + (id)string:(id)arg1 withCapitalizedDisplayNamesForFirstLanguageIdentifier:(id)arg2 secondLanguageIdentifier:(id)arg3 thirdLanguageIdentifier:(id)arg4;
 + (id)supportedCJLanguageIdentifiers;
++ (void)updateShouldShowPreferredLanguages:(BOOL)arg1;
++ (id)validateLocale:(id)arg1;
+
+- (id)languageIdentifier;
+- (id)localeByChangingLanguageTo:(id)arg1;
+
+// Image: /System/Library/PrivateFrameworks/Navigation.framework/Navigation
+
++ (id)_localeOverridesForLocaleWithIdentifier:(id)arg1;
++ (void)_navigation_overrideDistanceUnit:(int)arg1;
+
+- (BOOL)_navigation_distanceUsesMetricSystem;
+- (id)_navigation_objectForKey:(id)arg1;
+- (BOOL)_navigation_useYardsForShortDistances;
+
+// Image: /System/Library/PrivateFrameworks/NewsCore.framework/NewsCore
+
++ (id)fc_preferredLanguageCodes;
+
+// Image: /System/Library/PrivateFrameworks/OfficeImport.framework/OfficeImport
+
++ (id)firstPreferredLanguage;
+
+// Image: /System/Library/PrivateFrameworks/PhotosUICore.framework/PhotosUICore
+
++ (unsigned int)px_currentCharacterDirection;
 
 // Image: /System/Library/PrivateFrameworks/TextInput.framework/TextInput
 
@@ -101,8 +175,13 @@
 
 + (int)_vk_indexForLocale:(id)arg1;
 
+// Image: /System/Library/PrivateFrameworks/WeatherFoundation.framework/WeatherFoundation
+
+- (void)setWf_temperatureUnit:(int)arg1;
+- (int)wf_temperatureUnit;
+
 // Image: /System/Library/PrivateFrameworks/iWorkImport.framework/iWorkImport
 
-+ (id)firstPreferredLanguage;
++ (id)tsu_firstPreferredLocalization;
 
 @end

@@ -3,24 +3,25 @@
  */
 
 @interface BBRemoteDataProviderConnection : NSObject <BBDataProviderConnectionServerProxy, BBDataProviderStore, BBRemoteDataProviderDelegate> {
-    NSString *_bundleID;
-    BOOL _clientReady;
-    BOOL _connected;
-    NSMutableDictionary *_dataProvidersBySectionID;
-    NSMutableDictionary *_dataProvidersByUniversalSectionID;
-    <BBRemoteDataProviderStoreDelegate> *_delegate;
-    NSObject<OS_dispatch_queue> *_queue;
-    NSString *_serviceName;
+    NSString * _bundleID;
+    BOOL  _clientReady;
+    BOOL  _connected;
+    NSMutableDictionary * _dataProvidersBySectionID;
+    NSMutableDictionary * _dataProvidersByUniversalSectionID;
+    <BBRemoteDataProviderStoreDelegate> * _delegate;
+    NSObject<OS_dispatch_queue> * _queue;
+    NSString * _serviceName;
 }
 
-@property (nonatomic, readonly) NSString *bundleID;
+@property (nonatomic, copy) NSString *bundleID;
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (readonly) unsigned int hash;
 @property (nonatomic, readonly) BOOL isConnected;
-@property (nonatomic, readonly) NSString *serviceName;
+@property (nonatomic, copy) NSString *serviceName;
 @property (readonly) Class superclass;
 
+- (void).cxx_destruct;
 - (void)_queue_removeDataProvider:(id)arg1;
 - (void)addDataProviderWithSectionID:(id)arg1 clientProxy:(id)arg2 identity:(id)arg3 completion:(id /* block */)arg4;
 - (void)addParentSectionFactory:(id)arg1;
@@ -28,7 +29,6 @@
 - (void)clientIsReady:(id /* block */)arg1;
 - (id)dataProviderForSectionID:(id)arg1;
 - (id)dataProviderForUniversalSectionID:(id)arg1;
-- (void)dealloc;
 - (id)debugDescription;
 - (id)debugDescriptionWithChildren:(unsigned int)arg1;
 - (id)initWithServiceName:(id)arg1 bundleID:(id)arg2 delegate:(id)arg3;
@@ -39,6 +39,8 @@
 - (void)removeDataProvider:(id)arg1;
 - (void)removeDataProviderWithSectionID:(id)arg1;
 - (id)serviceName;
+- (void)setBundleID:(id)arg1;
 - (void)setConnected:(BOOL)arg1 completion:(id /* block */)arg2;
+- (void)setServiceName:(id)arg1;
 
 @end

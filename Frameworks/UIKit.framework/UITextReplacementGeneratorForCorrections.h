@@ -3,14 +3,14 @@
  */
 
 @interface UITextReplacementGeneratorForCorrections : UITextReplacementGenerator {
-    TIKeyboardCandidate *_autocorrectionRecord;
-    BOOL _forceAutocorrectionGuesses;
-    BOOL _forceHistoryReplacement;
-    BOOL _forceSpellingGuesses;
-    unsigned int _maxCountAfterAutocorrectionGuesses;
-    unsigned int _maxCountAfterSpellingGuesses;
-    unsigned int _maxEditDistance;
-    UITextChecker *_textChecker;
+    TIKeyboardCandidate * _autocorrectionRecord;
+    BOOL  _forceAutocorrectionGuesses;
+    BOOL  _forceHistoryReplacement;
+    BOOL  _forceSpellingGuesses;
+    unsigned int  _maxCountAfterAutocorrectionGuesses;
+    unsigned int  _maxCountAfterSpellingGuesses;
+    unsigned int  _maxEditDistance;
+    UITextChecker * _textChecker;
 }
 
 @property (nonatomic, retain) TIKeyboardCandidate *autocorrectionRecord;
@@ -22,17 +22,18 @@
 @property (nonatomic) unsigned int maxEditDistance;
 @property (nonatomic, retain) UITextChecker *textChecker;
 
+- (void).cxx_destruct;
 - (void)addAutocorrectionGuessesToReplacements:(id)arg1;
 - (void)addPreviouslySuggestedAutocorrectionToReplacements:(id)arg1;
 - (id)addReplacementRevertingAutocorrectionToReplacements:(id)arg1;
 - (void)addSpellingGuessesForString:(id)arg1 ToReplacements:(id)arg2;
 - (id)autocorrectionRecord;
-- (void)dealloc;
 - (BOOL)forceAutocorrectionGuesses;
 - (BOOL)forceHistoryReplacement;
 - (BOOL)forceSpellingGuesses;
 - (id)init;
 - (BOOL)isStringMisspelled:(id)arg1;
+- (BOOL)isStringToReplaceMisspelled;
 - (unsigned int)maxCountAfterAutocorrectionGuesses;
 - (unsigned int)maxCountAfterSpellingGuesses;
 - (unsigned int)maxEditDistance;

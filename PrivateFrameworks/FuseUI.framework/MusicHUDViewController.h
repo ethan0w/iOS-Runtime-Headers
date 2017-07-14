@@ -3,14 +3,14 @@
  */
 
 @interface MusicHUDViewController : UIViewController {
-    UIView *_contentView;
-    BOOL _didPlayAnimation;
-    double _dismissalDelay;
-    UIView *_hudView;
-    BOOL _shouldDismissHUDWhenPossible;
-    BOOL _shouldWaitForExplicitDismissal;
-    NSString *_text;
-    int _type;
+    UIView * _contentView;
+    BOOL  _didPlayAnimation;
+    double  _dismissalDelay;
+    UIView * _hudView;
+    BOOL  _shouldDismissHUDWhenPossible;
+    BOOL  _shouldWaitForExplicitDismissal;
+    NSString * _text;
+    int  _type;
 }
 
 @property (nonatomic) double dismissalDelay;
@@ -34,5 +34,6 @@
 - (void)viewDidAppear:(BOOL)arg1;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)arg1;
 
 @end

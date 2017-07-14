@@ -3,21 +3,24 @@
  */
 
 @interface SSVPlaybackLease : NSObject {
-    NSMutableArray *_assetOperations;
-    NSData *_certificateData;
-    NSString *_certificateURLBagKey;
-    SSVPlaybackLeaseConfiguration *_configuration;
-    <SSVPlaybackLeaseDelegate> *_delegate;
-    NSObject<OS_dispatch_queue> *_delegateQueue;
-    SSVFairPlaySubscriptionController *_fairPlaySubscriptionController;
-    int _leaseDidEndNotificationToken;
-    NSDate *_leaseExpirationDate;
-    SSVRefreshSubscriptionRequest *_offlineSlotRequest;
-    SSVBarrierOperationQueue *_operationQueue;
-    NSObject<OS_dispatch_source> *_refreshTimer;
-    BOOL _refreshesAutomatically;
-    NSObject<OS_dispatch_queue> *_serialQueue;
-    SSURLBag *_urlBag;
+    NSMutableArray * _assetOperations;
+    NSData * _certificateData;
+    NSString * _certificateURLBagKey;
+    SSVPlaybackLeaseConfiguration * _configuration;
+    <SSVPlaybackLeaseDelegate> * _delegate;
+    NSObject<OS_dispatch_queue> * _delegateQueue;
+    SSVFairPlaySubscriptionController * _fairPlaySubscriptionController;
+    unsigned long long  _kdMovieIdentifier;
+    SSVPlaybackLeaseRequest * _lastKDLeaseRequest;
+    int  _leaseDidEndNotificationToken;
+    NSDate * _leaseExpirationDate;
+    int  _leaseType;
+    SSVRefreshSubscriptionRequest * _offlineSlotRequest;
+    SSVBarrierOperationQueue * _operationQueue;
+    NSObject<OS_dispatch_source> * _refreshTimer;
+    BOOL  _refreshesAutomatically;
+    NSObject<OS_dispatch_queue> * _serialQueue;
+    SSURLBag * _urlBag;
 }
 
 @property (copy) NSData *certificateData;
@@ -26,7 +29,7 @@
 @property BOOL refreshesAutomatically;
 
 - (void).cxx_destruct;
-- (id)_addOperationWithRequest:(id)arg1 configurationURL:(id)arg2 bagKey:(id)arg3 completionBlock:(id /* block */)arg4;
+- (id)_addOperationWithRequest:(id)arg1 configurationURL:(id)arg2 completionBlock:(id /* block */)arg3;
 - (void)_cancelRefreshTimer;
 - (void)_endLease;
 - (void)_fireRefreshTimer;
@@ -35,6 +38,7 @@
 - (BOOL)_shouldEndLeaseForError:(id)arg1 returningEndReasonType:(unsigned int*)arg2;
 - (void)_startRefreshTimerIfNecessary;
 - (void)_updateForLeaseResponse:(id)arg1 error:(id)arg2;
+- (void)_updateWithLeaseResponseError:(id)arg1;
 - (void)beginLeaseWithRequest:(id)arg1 completionBlock:(id /* block */)arg2;
 - (void)cancelAllAssetRequests;
 - (id)certificateData;
@@ -47,6 +51,7 @@
 - (id)init;
 - (id)initWithLeaseConfiguration:(id)arg1;
 - (id)initWithURLBag:(id)arg1;
+- (id)initWithURLBag:(id)arg1 leaseType:(int)arg2;
 - (void)preheatLeaseRequestsWithCompletionBlock:(id /* block */)arg1;
 - (void)refreshLeaseWithRequest:(id)arg1 completionBlock:(id /* block */)arg2;
 - (BOOL)refreshesAutomatically;
@@ -54,5 +59,6 @@
 - (void)setCertificateURLBagKey:(id)arg1;
 - (void)setDelegate:(id)arg1;
 - (void)setRefreshesAutomatically:(BOOL)arg1;
+- (void)updateWithExternalLeaseResponseError:(id)arg1;
 
 @end

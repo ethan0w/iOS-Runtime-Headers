@@ -3,21 +3,24 @@
  */
 
 @interface SiriUISnippetControllerCell : UICollectionViewCell <SiriUIReusableView> {
-    SiriUIKeyline *_bottomKeyline;
-    UILabel *_cancelledLabel;
-    UICollectionReusableView<SiriUIReusableView> *_footerView;
-    UICollectionReusableView<SiriUIReusableView> *_headerView;
-    UIView *_snippetBackgroundView;
+    SiriUIKeyline * _bottomKeyline;
+    UILabel * _cancelledLabel;
+    UIView * _cancelledTouchPreventionView;
+    BOOL  _cellIsUsingPlatterStyle;
+    UIView * _clippingContainerView;
+    UICollectionReusableView<SiriUIReusableView> * _footerView;
+    UICollectionReusableView<SiriUIReusableView> * _headerView;
+    UIView * _snippetBackgroundView;
     struct UIEdgeInsets { 
         float top; 
         float left; 
         float bottom; 
         float right; 
-    } _snippetEdgeInsets;
-    SiriUIContentButton *_snippetPunchOutButton;
-    SiriUISnippetViewController *_snippetViewController;
-    UICollectionReusableView<SiriUIReusableView> *_transparentFooterView;
-    UICollectionReusableView<SiriUIReusableView> *_transparentHeaderView;
+    }  _snippetEdgeInsets;
+    SiriUIContentButton * _snippetPunchOutButton;
+    SiriUISnippetViewController * _snippetViewController;
+    UICollectionReusableView<SiriUIReusableView> * _transparentFooterView;
+    UICollectionReusableView<SiriUIReusableView> * _transparentHeaderView;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -49,6 +52,7 @@
 - (id)initWithFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (void)layoutSubviews;
 - (void)prepareForReuse;
+- (void)setShowBackgroundView:(BOOL)arg1;
 - (void)setSnippetViewController:(id)arg1;
 - (id)snippetViewController;
 

@@ -3,23 +3,23 @@
  */
 
 @interface MKTileOverlay : NSObject <MKOverlay> {
-    NSString *_URLTemplate;
-    BOOL _canReplaceMapContent;
-    BOOL _geometryFlipped;
-    int _maximumZ;
-    int _minimumZ;
-    unsigned int _providerID;
-    GEOTileCache *_tileCache;
+    NSString * _URLTemplate;
+    BOOL  _canReplaceMapContent;
+    BOOL  _geometryFlipped;
+    int  _maximumZ;
+    int  _minimumZ;
+    unsigned int  _providerID;
+    GEOTileCache * _tileCache;
     struct CGSize { 
         float width; 
         float height; 
-    } _tileSize;
+    }  _tileSize;
 }
 
 @property (readonly) NSString *URLTemplate;
 @property (nonatomic, readonly) struct { struct { double x_1_1_1; double x_1_1_2; } x1; struct { double x_2_1_1; double x_2_1_2; } x2; } boundingMapRect;
 @property (nonatomic) BOOL canReplaceMapContent;
-@property (nonatomic, readonly) struct { double x1; double x2; } coordinate;
+@property (nonatomic, readonly) struct CLLocationCoordinate2D { double x1; double x2; } coordinate;
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (getter=isGeometryFlipped) BOOL geometryFlipped;
@@ -31,7 +31,6 @@
 @property struct CGSize { float x1; float x2; } tileSize;
 @property (nonatomic, readonly, copy) NSString *title;
 
-- (id).cxx_construct;
 - (void).cxx_destruct;
 - (id)URLForTilePath:(struct { int x1; int x2; int x3; float x4; })arg1;
 - (id)URLTemplate;
@@ -43,7 +42,7 @@
 - (int)_zoomLevelForScale:(float)arg1;
 - (struct { struct { double x_1_1_1; double x_1_1_2; } x1; struct { double x_2_1_1; double x_2_1_2; } x2; })boundingMapRect;
 - (BOOL)canReplaceMapContent;
-- (struct { double x1; double x2; })coordinate;
+- (struct CLLocationCoordinate2D { double x1; double x2; })coordinate;
 - (void)dealloc;
 - (id)init;
 - (id)initWithURLTemplate:(id)arg1;

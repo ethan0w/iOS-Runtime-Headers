@@ -2,8 +2,17 @@
    Image: /System/Library/PrivateFrameworks/PassKitCore.framework/PassKitCore
  */
 
-@interface PKPaymentRewrapRequest : PKPaymentWebServiceRequest
+@interface PKPaymentRewrapRequest : PKPaymentRewrapRequestBase {
+    NSString * _merchantIdentifier;
+}
 
-+ (id)requestWithServiceURL:(id)arg1 deviceData:(id)arg2 paymentData:(id)arg3 pass:(id)arg4 merchantIdentifier:(id)arg5 applicationData:(id)arg6 account:(id)arg7;
+@property (nonatomic, copy) NSString *merchantIdentifier;
+
+- (void).cxx_destruct;
+- (id)bodyDictionaryWithDeviceData:(id)arg1;
+- (id)endpointName;
+- (id)initWithWrappedPayment:(id)arg1 paymentPass:(id)arg2 merchantIdentifier:(id)arg3;
+- (id)merchantIdentifier;
+- (void)setMerchantIdentifier:(id)arg1;
 
 @end

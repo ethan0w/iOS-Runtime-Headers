@@ -3,23 +3,26 @@
  */
 
 @interface CKDPNotificationSyncResponsePushMessage : PBCodable <NSCopying> {
-    int _badgeCount;
-    NSString *_dialog;
+    int  _badgeCount;
+    NSString * _category;
+    NSString * _dialog;
     struct { 
         unsigned int badgeCount : 1; 
         unsigned int source : 1; 
         unsigned int isRead : 1; 
-    } _has;
-    BOOL _isRead;
-    NSData *_payload;
-    NSString *_sound;
-    int _source;
-    NSString *_uuid;
+    }  _has;
+    BOOL  _isRead;
+    NSData * _payload;
+    NSString * _sound;
+    int  _source;
+    NSString * _uuid;
 }
 
 @property (nonatomic) int badgeCount;
+@property (nonatomic, retain) NSString *category;
 @property (nonatomic, retain) NSString *dialog;
 @property (nonatomic) BOOL hasBadgeCount;
+@property (nonatomic, readonly) BOOL hasCategory;
 @property (nonatomic, readonly) BOOL hasDialog;
 @property (nonatomic) BOOL hasIsRead;
 @property (nonatomic, readonly) BOOL hasPayload;
@@ -33,13 +36,16 @@
 @property (nonatomic, retain) NSString *uuid;
 
 - (void).cxx_destruct;
+- (int)StringAsSource:(id)arg1;
 - (int)badgeCount;
+- (id)category;
 - (void)copyTo:(id)arg1;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
 - (id)description;
 - (id)dialog;
 - (id)dictionaryRepresentation;
 - (BOOL)hasBadgeCount;
+- (BOOL)hasCategory;
 - (BOOL)hasDialog;
 - (BOOL)hasIsRead;
 - (BOOL)hasPayload;
@@ -53,6 +59,7 @@
 - (id)payload;
 - (BOOL)readFrom:(id)arg1;
 - (void)setBadgeCount:(int)arg1;
+- (void)setCategory:(id)arg1;
 - (void)setDialog:(id)arg1;
 - (void)setHasBadgeCount:(BOOL)arg1;
 - (void)setHasIsRead:(BOOL)arg1;
@@ -64,6 +71,7 @@
 - (void)setUuid:(id)arg1;
 - (id)sound;
 - (int)source;
+- (id)sourceAsString:(int)arg1;
 - (id)uuid;
 - (void)writeTo:(id)arg1;
 

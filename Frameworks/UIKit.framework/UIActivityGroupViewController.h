@@ -3,35 +3,32 @@
  */
 
 @interface UIActivityGroupViewController : UICollectionViewController <UIGestureRecognizerDelegate, _UIActivityGroupViewDelegateFlowLayout> {
-    NSArray *_activities;
-    int _activityCategory;
-    BOOL _activityIndexDidChangeWhileDragging;
-    BOOL _allowsUserCustomization;
-    NSMutableDictionary *_cachedPreferredItemSizesByString;
-    NSDictionary *_customActivityTitles;
-    BOOL _darkStyleOnLegacyApp;
-    <UIActivityGroupViewControllerDataSource> *_dataSource;
-    <UIActivityGroupViewControllerDelegate> *_delegate;
-    UILongPressGestureRecognizer *_editingGestureRecognizer;
-    BOOL _embedded;
-    BOOL _hasActivities;
-    NSIndexPath *_indexPathForMenuActivity;
+    NSArray * _activities;
+    int  _activityCategory;
+    BOOL  _activityIndexDidChangeWhileDragging;
+    BOOL  _allowsUserCustomization;
+    NSDictionary * _customActivityTitles;
+    BOOL  _darkStyleOnLegacyApp;
+    <UIActivityGroupViewControllerDataSource> * _dataSource;
+    <UIActivityGroupViewControllerDelegate> * _delegate;
+    UILongPressGestureRecognizer * _editingGestureRecognizer;
+    BOOL  _embedded;
+    BOOL  _hasActivities;
+    NSIndexPath * _indexPathForMenuActivity;
     struct CGPoint { 
         float x; 
         float y; 
-    } _initialDraggingLocation;
-    BOOL _picker;
-    _UIActivityGroupActivityCell *_prototypeActivityCell;
-    _UIActivityUserDefaults *_userDefaults;
-    _UIUserDefaultsActivity *_userDefaultsActivity;
-    NSArray *_visibleActivities;
+    }  _initialDraggingLocation;
+    BOOL  _picker;
+    _UIActivityUserDefaults * _userDefaults;
+    _UIUserDefaultsActivity * _userDefaultsActivity;
+    NSArray * _visibleActivities;
 }
 
 @property (nonatomic, copy) NSArray *activities;
 @property (nonatomic) int activityCategory;
 @property (nonatomic) BOOL activityIndexDidChangeWhileDragging;
 @property (nonatomic) BOOL allowsUserCustomization;
-@property (nonatomic, retain) NSMutableDictionary *cachedPreferredItemSizesByString;
 @property (nonatomic, copy) NSDictionary *customActivityTitles;
 @property (nonatomic) BOOL darkStyleOnLegacyApp;
 @property (nonatomic) <UIActivityGroupViewControllerDataSource> *dataSource;
@@ -45,12 +42,12 @@
 @property (nonatomic, copy) NSIndexPath *indexPathForMenuActivity;
 @property (nonatomic) struct CGPoint { float x1; float x2; } initialDraggingLocation;
 @property (getter=isPicker, nonatomic) BOOL picker;
-@property (nonatomic, retain) _UIActivityGroupActivityCell *prototypeActivityCell;
 @property (readonly) Class superclass;
 @property (nonatomic, retain) _UIActivityUserDefaults *userDefaults;
 @property (nonatomic, retain) _UIUserDefaultsActivity *userDefaultsActivity;
 @property (nonatomic, copy) NSArray *visibleActivities;
 
+- (void).cxx_destruct;
 - (struct CGSize { float x1; float x2; })_cachedPreferredItemSizeForString:(id)arg1;
 - (void)_setActivities:(id)arg1 animated:(BOOL)arg2;
 - (void)_setVisibleActivities:(id)arg1 animated:(BOOL)arg2;
@@ -64,7 +61,6 @@
 - (BOOL)activityIndexDidChangeWhileDragging;
 - (void)activityUserDefaultsDidChange:(id)arg1;
 - (BOOL)allowsUserCustomization;
-- (id)cachedPreferredItemSizesByString;
 - (BOOL)canBecomeFirstResponder;
 - (id)collectionView:(id)arg1 cellForItemAtIndexPath:(id)arg2;
 - (void)collectionView:(id)arg1 didSelectItemAtIndexPath:(id)arg2;
@@ -90,10 +86,12 @@
 - (id)indexPathForMenuActivity;
 - (id)initWithActivityCategory:(int)arg1 userDefaults:(id)arg2;
 - (id)initWithActivityCategory:(int)arg1 userDefaults:(id)arg2 userDefaultsIdentifier:(id)arg3;
+- (id)initWithCoder:(id)arg1;
+- (id)initWithCollectionViewLayout:(id)arg1;
+- (id)initWithNibName:(id)arg1 bundle:(id)arg2;
 - (struct CGPoint { float x1; float x2; })initialDraggingLocation;
 - (BOOL)isEmbedded;
 - (BOOL)isPicker;
-- (id)prototypeActivityCell;
 - (void)registerForActivityUserDefaultsChanges;
 - (void)reloadItemForActivityOfTypeIfNeeded:(id)arg1;
 - (void)setActivities:(id)arg1;
@@ -101,7 +99,6 @@
 - (void)setActivityCategory:(int)arg1;
 - (void)setActivityIndexDidChangeWhileDragging:(BOOL)arg1;
 - (void)setAllowsUserCustomization:(BOOL)arg1;
-- (void)setCachedPreferredItemSizesByString:(id)arg1;
 - (void)setCustomActivityTitles:(id)arg1;
 - (void)setDarkStyleOnLegacyApp:(BOOL)arg1;
 - (void)setDataSource:(id)arg1;
@@ -113,7 +110,6 @@
 - (void)setIndexPathForMenuActivity:(id)arg1;
 - (void)setInitialDraggingLocation:(struct CGPoint { float x1; float x2; })arg1;
 - (void)setPicker:(BOOL)arg1;
-- (void)setPrototypeActivityCell:(id)arg1;
 - (void)setUserDefaults:(id)arg1;
 - (void)setUserDefaultsActivity:(id)arg1;
 - (void)setVisibleActivities:(id)arg1;

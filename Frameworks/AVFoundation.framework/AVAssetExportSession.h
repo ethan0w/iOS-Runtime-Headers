@@ -3,30 +3,17 @@
  */
 
 @interface AVAssetExportSession : NSObject {
-    AVAssetExportSessionInternal *_exportSession;
+    AVAssetExportSessionInternal * _exportSession;
 }
 
 @property (nonatomic, readonly, retain) AVAsset *asset;
-@property (nonatomic, copy) AVAudioMix *audioMix;
-@property (nonatomic, copy) NSString *audioTimePitchAlgorithm;
-@property (nonatomic) BOOL canPerformMultiplePassesOverSourceMediaData;
-@property (nonatomic, readonly) <AVVideoCompositing> *customVideoCompositor;
-@property (nonatomic, copy) NSURL *directoryForTemporaryFiles;
 @property (nonatomic, readonly) NSError *error;
-@property (nonatomic, readonly) long long estimatedOutputFileLength;
-@property (nonatomic) long long fileLengthLimit;
-@property (nonatomic, readonly) struct { long long x1; int x2; unsigned int x3; long long x4; } maxDuration;
-@property (nonatomic, copy) NSArray *metadata;
-@property (nonatomic, retain) AVMetadataItemFilter *metadataItemFilter;
 @property (nonatomic, copy) NSString *outputFileType;
 @property (nonatomic, copy) NSURL *outputURL;
 @property (nonatomic, readonly) NSString *presetName;
 @property (nonatomic, readonly) float progress;
 @property (nonatomic) BOOL shouldOptimizeForNetworkUse;
 @property (nonatomic, readonly) int status;
-@property (nonatomic, readonly) NSArray *supportedFileTypes;
-@property (nonatomic) struct { struct { long long x_1_1_1; int x_1_1_2; unsigned int x_1_1_3; long long x_1_1_4; } x1; struct { long long x_2_1_1; int x_2_1_2; unsigned int x_2_1_3; long long x_2_1_4; } x2; } timeRange;
-@property (nonatomic, copy) AVVideoComposition *videoComposition;
 
 + (id)_asynchronousDispatchQueue;
 + (id)_audioOnlyPresets;
@@ -48,11 +35,11 @@
 + (id)_mediaTypesToFailPassthroughExport;
 + (id)_mediaTypesToStripOnPassthroughExport;
 + (id)_settingForPreset:(id)arg1;
++ (id)_temporalMetadataPresetBlacklist;
 + (id)_utTypesForAudioOnly;
 + (id)_utTypesForDefaultPassthroughPreset;
 + (id)_utTypesForPresets;
-+ (id)_utTypesForTemporalMetadataPresets;
-+ (id)_videoCompressionPropertiesForVideoSetting:(id)arg1;
++ (id)_videoOnlyPresets;
 + (id)allExportPresets;
 + (void)determineCompatibilityOfExportPreset:(id)arg1 withAsset:(id)arg2 outputFileType:(id)arg3 completionHandler:(id /* block */)arg4;
 + (long long)estimatedOutputFileLengthForPreset:(id)arg1 duration:(struct { long long x1; int x2; unsigned int x3; long long x4; })arg2 properties:(id)arg3;
@@ -78,7 +65,7 @@
 - (void)_createFormatWriterOptions:(id*)arg1 forFileFormat:(id)arg2;
 - (void)_createRemakerAndBeginExport;
 - (id)_determineCompatibleFileTypes;
-- (struct CGSize { float x1; float x2; })_getSourceDimension;
+- (id)_effectiveColorPropertiesForVideoSetting:(id)arg1;
 - (float)_getSourceVideoFrameRate;
 - (int)_getTrackCountOfType:(id)arg1 checkEnabled:(BOOL)arg2;
 - (struct CGSize { float x1; float x2; })_getUntransformedSourceDimension;
@@ -96,6 +83,10 @@
 - (void)_updateProgress;
 - (void)_validateOutputFileTypeForExport;
 - (BOOL)_validateSettablePropertiesReturningError:(id*)arg1;
+- (id)_videoCompositionProcessorProperties;
+- (id)_videoCompressionPropertiesForVideoSetting:(id)arg1 targetFrameRate:(float)arg2;
+- (id)_videoProcessingOptionsForVideoSetting:(id)arg1 withRemaker:(struct OpaqueFigRemaker { }*)arg2;
+- (id)_videoScalingPropertiesForVideoSetting:(id)arg1;
 - (id)asset;
 - (id)audioMix;
 - (id)audioTimePitchAlgorithm;

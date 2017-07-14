@@ -3,12 +3,12 @@
  */
 
 @interface BRCiWorkPublishingOperation : _BRCOperation <BRCOperationSubclass> {
-    BOOL _forPublish;
-    BRCItemID *_itemID;
-    BOOL _readonly;
-    NSArray *_recordIDs;
-    BRCServerZone *_serverZone;
-    NSNumber *_sharingInfo;
+    BOOL  _forPublish;
+    BRCItemID * _itemID;
+    BOOL  _readonly;
+    NSArray * _recordIDs;
+    BRCServerZone * _serverZone;
+    NSNumber * _sharingInfo;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -18,6 +18,7 @@
 
 - (void).cxx_destruct;
 - (void)_updateItemAfterShareCompleted;
+- (id)createActivity;
 - (id)initWithDocumentItem:(id)arg1 forPublish:(BOOL)arg2 readonly:(BOOL)arg3;
 - (void)main;
 - (BOOL)shouldRetryForError:(id)arg1;

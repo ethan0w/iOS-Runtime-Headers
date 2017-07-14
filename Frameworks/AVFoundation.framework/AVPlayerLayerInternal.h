@@ -3,51 +3,38 @@
  */
 
 @interface AVPlayerLayerInternal : NSObject {
-    AVPlayer *_player;
-    CALayer *closedCaptionLayer;
-    BOOL hasPlayerToObserve;
-    BOOL isInPIPMode;
-    BOOL isObservingPlayer;
-    BOOL isPresentationLayer;
-    BOOL isReadyForDisplay;
-    struct OpaqueFigSimpleMutex { } *isReadyForDisplayMutex;
-    AVPlayerItem *itemMarkedReadyForDisplay;
-    struct CGRect { 
-        struct CGPoint { 
-            float x; 
-            float y; 
-        } origin; 
-        struct CGSize { 
-            float width; 
-            float height; 
-        } size; 
-    } latestPlayerLayerBoundsAtRendering;
+    NSSet * KVOInvokers;
+    AVPlayerLayer * associatedPIPLayer;
+    BOOL  canEnterPIPMode;
+    NSDictionary * clientLayers;
+    FigBaseCALayer * closedCaptionLayer;
+    NSObject<OS_dispatch_queue> * configurationQueue;
+    AVKeyPathDependencyManager * dependencyManager;
+    AVNetworkPlaybackPerfHUDLayer * hudLayer;
+    BOOL  isPIPModeEnabled;
+    BOOL  isPresentationLayer;
+    BOOL  isReadyForDisplay;
+    struct OpaqueFigSimpleMutex { } * isReadyForDisplayMutex;
+    BOOL  lanczosDownscalingEnabled;
+    int  lanczosDownscalingFactor;
     struct CGSize { 
         float width; 
         float height; 
-    } latestPresentationSizeAtRendering;
-    struct CGRect { 
-        struct CGPoint { 
-            float x; 
-            float y; 
-        } origin; 
-        struct CGSize { 
-            float width; 
-            float height; 
-        } size; 
-    } latestSubtitleLayoutAtRendering;
-    CALayer *maskLayer;
-    NSDictionary *pixelBufferAttributes;
-    struct CGSize { 
-        float width; 
-        float height; 
-    } presentationSize;
-    NSObject<OS_dispatch_queue> *serialQueue;
-    BOOL shouldObservePlayer;
-    NSString *subtitleGravity;
-    FigSubtitleCALayer *subtitleLayer;
-    NSString *videoGravity;
-    CALayer *videoLayer;
+    }  latestAppliedPresentationSize;
+    FigBaseCALayer * maskLayer;
+    NSDictionary * pixelBufferAttributes;
+    CALayer * placeholderContentLayerDuringPIPMode;
+    AVPlayer * player;
+    AVPlayer * playerBeingObserved;
+    <AVCallbackCancellation> * playerCurrentItemHasVideoFrameEnqueuedKVOInvoker;
+    BOOL  preventsChangesToSublayerHierarchy;
+    NSObject<OS_dispatch_queue> * serialQueue;
+    BOOL  shouldObservePlayer;
+    NSString * subtitleGravity;
+    FigSubtitleCALayer * subtitleLayer;
+    NSString * videoGravity;
+    FigVideoContainerLayer * videoLayer;
+    BOOL  willManageSublayersAsSwappedLayers;
 }
 
 @end

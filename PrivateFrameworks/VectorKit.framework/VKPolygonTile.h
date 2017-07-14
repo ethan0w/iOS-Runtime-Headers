@@ -3,14 +3,64 @@
  */
 
 @interface VKPolygonTile : VKVectorTile {
-    float _alpha;
-    VKAnimation *_animation;
-    VKAnimation *_animationForPitch;
-    NSMutableArray *_coastlineGroups;
-    float _maxLayeringHeight;
-    float _minLayeringHeight;
-    NSMutableArray *_polygonGroups;
-    float _scale;
+    float  _alpha;
+    VKAnimation * _animation;
+    VKAnimation * _animationForPitch;
+    NSMutableArray * _coastlineGroups;
+    float  _maxLayeringHeight;
+    float  _minLayeringHeight;
+    NSMutableArray * _polygonGroups;
+    float  _scale;
+    struct unordered_map<unsigned long long, md::PolygonRouteAttributes, std::__1::hash<unsigned long long>, std::__1::equal_to<unsigned long long>, std::__1::allocator<std::__1::pair<const unsigned long long, md::PolygonRouteAttributes> > > { 
+        struct __hash_table<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, std::__1::__unordered_map_hasher<unsigned long long, std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, std::__1::hash<unsigned long long>, true>, std::__1::__unordered_map_equal<unsigned long long, std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, std::__1::equal_to<unsigned long long>, true>, std::__1::allocator<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes> > > { 
+            struct unique_ptr<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> *[], std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> *> > > { 
+                struct __compressed_pair<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> **, std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> *> > > { 
+                    struct __hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> {} **__first_; 
+                    struct __bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> *> > { 
+                        struct __compressed_pair<unsigned long, std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> *> > { 
+                            unsigned long __first_; 
+                        } __data_; 
+                    } __second_; 
+                } __ptr_; 
+            } __bucket_list_; 
+            struct __compressed_pair<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *>, std::__1::allocator<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> > > { 
+                struct __hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> { 
+                    struct __hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> {} *__next_; 
+                } __first_; 
+            } __p1_; 
+            struct __compressed_pair<unsigned long, std::__1::__unordered_map_hasher<unsigned long long, std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, std::__1::hash<unsigned long long>, true> > { 
+                unsigned long __first_; 
+            } __p2_; 
+            struct __compressed_pair<float, std::__1::__unordered_map_equal<unsigned long long, std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, std::__1::equal_to<unsigned long long>, true> > { 
+                float __first_; 
+            } __p3_; 
+        } __table_; 
+    }  _transitNodesRouteAttributesMap;
+    struct unordered_map<unsigned long long, VKPolygonGroup *, std::__1::hash<unsigned long long>, std::__1::equal_to<unsigned long long>, std::__1::allocator<std::__1::pair<const unsigned long long, VKPolygonGroup *> > > { 
+        struct __hash_table<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, std::__1::__unordered_map_hasher<unsigned long long, std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, std::__1::hash<unsigned long long>, true>, std::__1::__unordered_map_equal<unsigned long long, std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, std::__1::equal_to<unsigned long long>, true>, std::__1::allocator<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *> > > { 
+            struct unique_ptr<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, void *> *> *[], std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, void *> *> *> > > { 
+                struct __compressed_pair<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, void *> *> **, std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, void *> *> *> > > { 
+                    struct __hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, void *> *> {} **__first_; 
+                    struct __bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, void *> *> *> > { 
+                        struct __compressed_pair<unsigned long, std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, void *> *> *> > { 
+                            unsigned long __first_; 
+                        } __data_; 
+                    } __second_; 
+                } __ptr_; 
+            } __bucket_list_; 
+            struct __compressed_pair<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, void *> *>, std::__1::allocator<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, void *> > > { 
+                struct __hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, void *> *> { 
+                    struct __hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, void *> *> {} *__next_; 
+                } __first_; 
+            } __p1_; 
+            struct __compressed_pair<unsigned long, std::__1::__unordered_map_hasher<unsigned long long, std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, std::__1::hash<unsigned long long>, true> > { 
+                unsigned long __first_; 
+            } __p2_; 
+            struct __compressed_pair<float, std::__1::__unordered_map_equal<unsigned long long, std::__1::__hash_value_type<unsigned long long, VKPolygonGroup *>, std::__1::equal_to<unsigned long long>, true> > { 
+                float __first_; 
+            } __p3_; 
+        } __table_; 
+    }  _transitPolygonGroupMap;
 }
 
 @property (nonatomic) float alpha;
@@ -22,14 +72,16 @@
 @property (nonatomic, readonly) NSArray *polygonGroups;
 @property (nonatomic) float scale;
 
+- (id).cxx_construct;
+- (void).cxx_destruct;
 - (float)alpha;
 - (id)animation;
 - (id)animationForPitch;
-- (void)buildCoastlinesWithStyleSession:(struct StyleResolutionSession<geo::_retain_ptr<id, geo::_retain_objc, geo::_release_objc, geo::_hash_objc, geo::_equal_objc> > { struct _retain_ptr<VKStyleManager *, geo::_retain_objc, geo::_release_objc, geo::_hash_objc, geo::_equal_objc> { int (**x_1_1_1)(); id x_1_1_2; /* Warning: Unrecognized filer type: '_' using 'void*' */ void*x_1_1_3; const void*x_1_1_4; void*x_1_1_5; void*x_1_1_6; int x_1_1_7; in void*x_1_1_8; out unsigned int x_1_1_9/* : ? */; void*x_1_1_10; BOOL x_1_1_11; void*x_1_1_12; } x1; struct _release_objc { } x2; }*)arg1;
-- (void)buildMeshesWithStyleSession:(struct StyleResolutionSession<std::__1::vector<std::__1::pair<PolygonKey, geo::_retain_ptr<VKPolygonGroup *, geo::_retain_objc, geo::_release_objc, geo::_hash_objc, geo::_equal_objc> >, std::__1::allocator<std::__1::pair<PolygonKey, geo::_retain_ptr<VKPolygonGroup *, geo::_retain_objc, geo::_release_objc, geo::_hash_objc, geo::_equal_objc> > > > > { struct _retain_ptr<VKStyleManager *, geo::_retain_objc, geo::_release_objc, geo::_hash_objc, geo::_equal_objc> { int (**x_1_1_1)(); id x_1_1_2; /* Warning: Unrecognized filer type: '_' using 'void*' */ void*x_1_1_3; const void*x_1_1_4; void*x_1_1_5; void*x_1_1_6; int x_1_1_7; in void*x_1_1_8; out unsigned int x_1_1_9/* : ? */; void*x_1_1_10; BOOL x_1_1_11; void*x_1_1_12; } x1; struct _release_objc { } x2; }*)arg1 device:(struct Device { int (**x1)(); int x2; }*)arg2 triangulator:(id)arg3 prepareExtrusion:(BOOL)arg4;
+- (void)buildCoastlinesWithStyleManager:(struct shared_ptr<gss::StylesheetManager<gss::PropertyID> > { struct StylesheetManager<gss::PropertyID> {} *x1; struct __shared_weak_count {} *x2; }*)arg1;
+- (void)buildMeshesWithDevice:(struct Device { int (**x1)(); struct DeviceVersion { unsigned int x_2_1_1; unsigned int x_2_1_2; } x2; struct DeviceCapabilities { bool x_3_1_1; unsigned int x_3_1_2; unsigned int x_3_1_3; unsigned int x_3_1_4; } x3; struct DeviceAPIProperties { int x_4_1_1; double x_4_1_2; } x4; int x5; int x6; }*)arg1 triangulator:(id)arg2 prepareExtrusion:(BOOL)arg3;
 - (id)coastlineGroups;
 - (void)dealloc;
-- (id)initWithKey:(const struct VKTileKey { unsigned int x1; int x2; int x3; unsigned int x4; }*)arg1 modelTile:(id)arg2 prepareExtrusion:(BOOL)arg3 styleManager:(id)arg4 sharedResources:(id)arg5 contentScale:(float)arg6 device:(struct Device { int (**x1)(); int x2; }*)arg7;
+- (id)initWithKey:(const struct VKTileKey { unsigned int x1; int x2; int x3; unsigned int x4; }*)arg1 modelTile:(id)arg2 prepareExtrusion:(BOOL)arg3 styleManager:(struct shared_ptr<gss::StylesheetManager<gss::PropertyID> > { struct StylesheetManager<gss::PropertyID> {} *x1; struct __shared_weak_count {} *x2; })arg4 sharedResources:(id)arg5 contentScale:(float)arg6 device:(struct Device { int (**x1)(); struct DeviceVersion { unsigned int x_2_1_1; unsigned int x_2_1_2; } x2; struct DeviceCapabilities { bool x_3_1_1; unsigned int x_3_1_2; unsigned int x_3_1_3; unsigned int x_3_1_4; } x3; struct DeviceAPIProperties { int x_4_1_1; double x_4_1_2; } x4; int x5; int x6; }*)arg7;
 - (float)maxLayeringHeight;
 - (float)minLayeringHeight;
 - (id)polygonGroups;
@@ -38,5 +90,6 @@
 - (void)setAnimation:(id)arg1;
 - (void)setAnimationForPitch:(id)arg1;
 - (void)setScale:(float)arg1;
+- (void)setTransitNodesRouteAttributes:(const struct unordered_map<unsigned long long, md::PolygonRouteAttributes, std::__1::hash<unsigned long long>, std::__1::equal_to<unsigned long long>, std::__1::allocator<std::__1::pair<const unsigned long long, md::PolygonRouteAttributes> > > { struct __hash_table<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, std::__1::__unordered_map_hasher<unsigned long long, std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, std::__1::hash<unsigned long long>, true>, std::__1::__unordered_map_equal<unsigned long long, std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, std::__1::equal_to<unsigned long long>, true>, std::__1::allocator<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes> > > { struct unique_ptr<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> *[], std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> *> > > { struct __compressed_pair<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> **, std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> *> > > { struct __hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> {} **x_1_3_1; struct __bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> *> > { struct __compressed_pair<unsigned long, std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<unsigned long long, md::PolygonRouteAttributes>, void *> *> *> > { unsigned long x_1_5_1; } x_2_4_1; } x_1_3_2; } x_1_2_1; } x_1_1_1; } x1; }*)arg1;
 
 @end

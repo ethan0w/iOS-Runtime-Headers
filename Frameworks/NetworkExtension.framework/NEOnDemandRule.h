@@ -3,12 +3,12 @@
  */
 
 @interface NEOnDemandRule : NSObject <NEConfigurationLegacySupport, NEConfigurationValidating, NEPrettyDescription, NSCopying, NSSecureCoding> {
-    NSArray *_DNSSearchDomainMatch;
-    NSArray *_DNSServerAddressMatch;
-    NSArray *_SSIDMatch;
-    int _action;
-    int _interfaceTypeMatch;
-    NSURL *_probeURL;
+    NSArray * _DNSSearchDomainMatch;
+    NSArray * _DNSServerAddressMatch;
+    NSArray * _SSIDMatch;
+    int  _action;
+    int  _interfaceTypeMatch;
+    NSURL * _probeURL;
 }
 
 @property (copy) NSArray *DNSSearchDomainMatch;
@@ -30,12 +30,13 @@
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
 - (id)description;
-- (id)descriptionWithIndent:(int)arg1;
+- (id)descriptionWithIndent:(int)arg1 options:(unsigned int)arg2;
 - (void)encodeWithCoder:(id)arg1;
 - (id)initFromLegacyDictionary:(id)arg1;
 - (id)initWithAction:(int)arg1;
 - (id)initWithCoder:(id)arg1;
 - (int)interfaceTypeMatch;
+- (BOOL)isEqual:(id)arg1;
 - (id)probeURL;
 - (void)setDNSSearchDomainMatch:(id)arg1;
 - (void)setDNSServerAddressMatch:(id)arg1;

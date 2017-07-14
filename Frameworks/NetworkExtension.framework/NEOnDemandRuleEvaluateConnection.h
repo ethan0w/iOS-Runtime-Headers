@@ -3,7 +3,7 @@
  */
 
 @interface NEOnDemandRuleEvaluateConnection : NEOnDemandRule {
-    NSArray *_connectionRules;
+    NSArray * _connectionRules;
 }
 
 @property (copy) NSArray *connectionRules;
@@ -15,11 +15,12 @@
 - (id)connectionRules;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
-- (id)descriptionWithIndent:(int)arg1;
+- (id)descriptionWithIndent:(int)arg1 options:(unsigned int)arg2;
 - (void)encodeWithCoder:(id)arg1;
 - (id)init;
 - (id)initFromLegacyDictionary:(id)arg1;
 - (id)initWithCoder:(id)arg1;
+- (BOOL)isEqual:(id)arg1;
 - (void)setConnectionRules:(id)arg1;
 
 @end

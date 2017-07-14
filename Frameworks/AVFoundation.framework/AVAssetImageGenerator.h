@@ -3,7 +3,7 @@
  */
 
 @interface AVAssetImageGenerator : NSObject {
-    AVAssetImageGeneratorInternal *_priv;
+    AVAssetImageGeneratorInternal * _priv;
 }
 
 @property (nonatomic, copy) NSString *apertureMode;
@@ -19,7 +19,6 @@
 
 - (id)_NSErrorForError:(long)arg1;
 - (struct CGImage { }*)_copyCGImageAtTime:(struct { long long x1; int x2; unsigned int x3; long long x4; })arg1 usingAssetReader:(id)arg2 error:(id*)arg3;
-- (struct __CFDictionary { }*)_createPixelBufferAttributesWithSize:(struct CGSize { float x1; float x2; })arg1;
 - (void)_didGenerateCGImage:(id)arg1;
 - (BOOL)_ensureFigAssetImageGeneratorReturningError:(id*)arg1;
 - (void)_failedToGenerateCGImage:(id)arg1;
@@ -28,6 +27,7 @@
 - (id)_requestWithRequestID:(id)arg1;
 - (struct CGSize { float x1; float x2; })_scaledSizeForRenderSize:(struct CGSize { float x1; float x2; })arg1;
 - (void)_serverDied;
+- (id)_videoSettingWithSize:(struct CGSize { float x1; float x2; })arg1;
 - (id)apertureMode;
 - (BOOL)appliesPreferredTrackTransform;
 - (id)asset;

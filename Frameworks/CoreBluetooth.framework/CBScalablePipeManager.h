@@ -2,44 +2,38 @@
    Image: /System/Library/Frameworks/CoreBluetooth.framework/CoreBluetooth
  */
 
-@interface CBScalablePipeManager : NSObject <CBXpcConnectionDelegate> {
-    CBXpcConnection *_connection;
-    <CBScalablePipeManagerDelegate> *_delegate;
-    NSMutableSet *_identifiers;
-    NSHashTable *_pipes;
-    int _state;
+@interface CBScalablePipeManager : CBManager {
+    <CBScalablePipeManagerDelegate> * _delegate;
+    NSMutableSet * _identifiers;
+    NSHashTable * _pipes;
 }
 
-@property (readonly, copy) NSString *debugDescription;
-@property (readonly, copy) NSString *description;
-@property (readonly) unsigned int hash;
-@property (readonly) NSSet *identifiers;
-@property (readonly) int state;
-@property (readonly) Class superclass;
+@property (nonatomic) <CBScalablePipeManagerDelegate> *delegate;
+@property (nonatomic, readonly, retain) NSSet *identifiers;
+@property (nonatomic, readonly, retain) NSHashTable *pipes;
 
+- (void).cxx_destruct;
 - (void)dealloc;
-- (void)handleDataAvailable:(id)arg1;
+- (id)delegate;
 - (void)handleEndpointAdded:(id)arg1;
 - (void)handleEndpointRemoved:(id)arg1;
 - (void)handleHostStateUpdated:(id)arg1;
+- (void)handleMsg:(unsigned short)arg1 args:(id)arg2;
 - (void)handlePipeConnected:(id)arg1;
 - (void)handlePipeDisconnected:(id)arg1;
-- (void)handleStateUpdated:(id)arg1;
 - (id)identifiers;
 - (id)initWithDelegate:(id)arg1;
 - (id)initWithDelegate:(id)arg1 queue:(id)arg2;
-- (BOOL)isMsgAllowedWhenOff:(int)arg1;
+- (BOOL)isMsgAllowedWhenOff:(unsigned short)arg1;
+- (void)observeValueForKeyPath:(id)arg1 ofObject:(id)arg2 change:(id)arg3 context:(void*)arg4;
 - (void)orphanPipes;
 - (id)pipeForName:(id)arg1 identifier:(id)arg2;
+- (id)pipes;
 - (void)registerEndpoint:(id)arg1 type:(int)arg2 priority:(int)arg3;
-- (oneway void)release;
-- (BOOL)sendMsg:(int)arg1 args:(id)arg2;
-- (int)state;
+- (void)registerEndpoint:(id)arg1 type:(int)arg2 priority:(int)arg3 transport:(int)arg4;
+- (void)setDelegate:(id)arg1;
+- (void)setLinkRequirementsForPeer:(id)arg1 packetsPerSecond:(unsigned int)arg2 inputBytesPerSecond:(unsigned int)arg3 outputBytesPerSecond:(unsigned int)arg4;
 - (void)unregisterAllEndpoints;
 - (void)unregisterEndpoint:(id)arg1;
-- (void)xpcConnection:(id)arg1 didReceiveMsg:(unsigned short)arg2 args:(id)arg3;
-- (void)xpcConnectionDidFinalize:(id)arg1;
-- (void)xpcConnectionDidReset:(id)arg1;
-- (void)xpcConnectionIsInvalid:(id)arg1;
 
 @end

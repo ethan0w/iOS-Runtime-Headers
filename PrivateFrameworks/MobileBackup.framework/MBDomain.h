@@ -3,38 +3,44 @@
  */
 
 @interface MBDomain : NSObject {
-    int _fileDescriptor;
-    int _fileDescriptorRefCount;
-    NSString *_name;
-    NSDictionary *_relativePathAggregateDictionaryGroups;
-    NSDictionary *_relativePathDomainRedirects;
-    NSSet *_relativePathsNotToBackup;
-    NSSet *_relativePathsNotToBackupAndRestoreToAppleTVs;
-    NSSet *_relativePathsNotToBackupToDrive;
-    NSSet *_relativePathsNotToBackupToService;
-    NSSet *_relativePathsNotToCheckIfModifiedDuringBackup;
-    NSSet *_relativePathsNotToMigrate;
-    NSSet *_relativePathsNotToRemoveIfNotRestored;
-    NSSet *_relativePathsNotToRestore;
-    NSSet *_relativePathsNotToRestoreToIPods;
-    NSSet *_relativePathsOfSystemFilesToAlwaysRemoveOnRestore;
-    NSSet *_relativePathsOfSystemFilesToAlwaysRestore;
-    NSSet *_relativePathsToBackgroundRestore;
-    NSSet *_relativePathsToBackupAndRestore;
-    NSSet *_relativePathsToBackupIgnoringProtectionClass;
-    NSSet *_relativePathsToOnlyBackupEncrypted;
-    NSSet *_relativePathsToRemoveOnRestore;
-    NSSet *_relativePathsToRestoreOnly;
-    NSSet *_relativePathsToRestoreOnlyFromService;
-    NSString *_rootPath;
-    BOOL _shouldDigest;
+    int  _fileDescriptor;
+    int  _fileDescriptorRefCount;
+    BOOL  _hasExternalConfig;
+    BOOL  _isExternalConfig;
+    NSString * _name;
+    NSDictionary * _relativePathAggregateDictionaryGroups;
+    NSDictionary * _relativePathDomainRedirects;
+    NSSet * _relativePathsNotToBackup;
+    NSSet * _relativePathsNotToBackupAndRestoreToAppleTVs;
+    NSSet * _relativePathsNotToBackupToDrive;
+    NSSet * _relativePathsNotToBackupToService;
+    NSSet * _relativePathsNotToCheckIfModifiedDuringBackup;
+    NSSet * _relativePathsNotToMigrate;
+    NSSet * _relativePathsNotToRemoveIfNotRestored;
+    NSSet * _relativePathsNotToRestore;
+    NSSet * _relativePathsNotToRestoreToIPods;
+    NSSet * _relativePathsOfSystemFilesToAlwaysRemoveOnRestore;
+    NSSet * _relativePathsOfSystemFilesToAlwaysRestore;
+    NSSet * _relativePathsToBackgroundRestore;
+    NSSet * _relativePathsToBackupAndRestore;
+    NSSet * _relativePathsToBackupIgnoringProtectionClass;
+    NSSet * _relativePathsToOnlyBackupEncrypted;
+    NSSet * _relativePathsToRemoveOnRestore;
+    NSSet * _relativePathsToRestoreOnly;
+    NSSet * _relativePathsToRestoreOnlyFromService;
+    NSString * _rootPath;
+    BOOL  _shouldDigest;
+    BOOL  _shouldRestoreRelativeSymlinks;
 }
 
 @property (getter=isAppDomain, nonatomic, readonly) BOOL appDomain;
 @property (nonatomic, readonly) NSString *containerID;
 @property (nonatomic, readonly) int containerType;
 @property (getter=isGroupAppDomain, nonatomic, readonly) BOOL groupAppDomain;
+@property (nonatomic) BOOL hasExternalConfig;
+@property (nonatomic, readonly) BOOL hasRootPath;
 @property (getter=isUninstalledAppDomain, nonatomic, readonly) BOOL installedAppDomain;
+@property (nonatomic) BOOL isExternalConfig;
 @property (nonatomic, readonly) NSString *name;
 @property (getter=isPlaceholderAppDomain, nonatomic, readonly) BOOL placeholderAppDomain;
 @property (getter=isPluginAppDomain, nonatomic, readonly) BOOL pluginAppDomain;
@@ -62,6 +68,9 @@
 @property (nonatomic, retain) NSSet *relativePathsToRestoreOnlyFromService;
 @property (nonatomic, readonly) NSString *rootPath;
 @property (nonatomic) BOOL shouldDigest;
+@property (nonatomic) BOOL shouldRestoreRelativeSymlinks;
+@property (getter=isSystemContainerDomain, nonatomic, readonly) BOOL systemContainerDomain;
+@property (getter=isSystemSharedContainerDomain, nonatomic, readonly) BOOL systemSharedContainerDomain;
 
 + (BOOL)_boolFromValue:(id)arg1 forKey:(id)arg2;
 + (id)_dictionaryOfStringsToStringFromValue:(id)arg1 forKey:(id)arg2;
@@ -81,12 +90,19 @@
 + (BOOL)isAppPlaceholderName:(id)arg1;
 + (BOOL)isAppPluginName:(id)arg1;
 + (BOOL)isContainerName:(id)arg1;
++ (BOOL)isSystemContainerName:(id)arg1;
++ (BOOL)isSystemName:(id)arg1;
++ (BOOL)isSystemSharedContainerName:(id)arg1;
 + (id)nameWithAppID:(id)arg1;
++ (id)placeholderNameWithAppID:(id)arg1;
++ (BOOL)shouldRestoreRelativeSymlinksForDomainName:(id)arg1;
++ (id)systemContainerDomainWithIdentifier:(id)arg1 rootPath:(id)arg2;
 + (id)systemDomains;
 + (id)systemDomainsByName;
 + (double)systemDomainsMaxSupportedVersion;
 + (double)systemDomainsMinSupportedVersion;
 + (double)systemDomainsVersion;
++ (id)systemSharedContainerDomainWithIdentifier:(id)arg1 rootPath:(id)arg2;
 
 - (void)_releaseFileDescriptor;
 - (int)compare:(id)arg1;
@@ -95,16 +111,24 @@
 - (void)dealloc;
 - (id)description;
 - (int)fileDescriptor;
+- (int)fileDescriptorWithSnapshotPath:(id)arg1;
+- (BOOL)hasExternalConfig;
+- (BOOL)hasRootPath;
 - (unsigned int)hash;
 - (id)initWithName:(id)arg1 plist:(id)arg2;
 - (id)initWithName:(id)arg1 rootPath:(id)arg2;
 - (BOOL)isAppDomain;
 - (BOOL)isEqual:(id)arg1;
 - (BOOL)isEqualToDomain:(id)arg1;
+- (BOOL)isExternalConfig;
 - (BOOL)isGroupAppDomain;
 - (BOOL)isPlaceholderAppDomain;
 - (BOOL)isPluginAppDomain;
+- (BOOL)isSystemContainerDomain;
+- (BOOL)isSystemSharedContainerDomain;
 - (BOOL)isUninstalledAppDomain;
+- (BOOL)loadDomainFromExternalPlist:(id)arg1;
+- (BOOL)loadSystemDomainFromPlist:(id)arg1;
 - (id)name;
 - (id)relativePathAggregateDictionaryGroups;
 - (id)relativePathDomainRedirects;
@@ -129,6 +153,8 @@
 - (id)relativePathsToRestoreOnly;
 - (id)relativePathsToRestoreOnlyFromService;
 - (id)rootPath;
+- (void)setHasExternalConfig:(BOOL)arg1;
+- (void)setIsExternalConfig:(BOOL)arg1;
 - (void)setRelativePathAggregateDictionaryGroups:(id)arg1;
 - (void)setRelativePathDomainRedirects:(id)arg1;
 - (void)setRelativePathsNotToBackup:(id)arg1;
@@ -150,6 +176,8 @@
 - (void)setRelativePathsToRestoreOnly:(id)arg1;
 - (void)setRelativePathsToRestoreOnlyFromService:(id)arg1;
 - (void)setShouldDigest:(BOOL)arg1;
+- (void)setShouldRestoreRelativeSymlinks:(BOOL)arg1;
 - (BOOL)shouldDigest;
+- (BOOL)shouldRestoreRelativeSymlinks;
 
 @end

@@ -6,12 +6,12 @@
     struct CGPoint { 
         float x; 
         float y; 
-    } mEndPoint;
-    NSString *mIdentifier;
-    BOOL mIsFilled;
-    int mLineJoin;
-    struct CGPath { } *mPath;
-    struct CGPath { } *mWrapPath;
+    }  mEndPoint;
+    NSString * mIdentifier;
+    BOOL  mIsFilled;
+    int  mLineJoin;
+    struct CGPath { } * mPath;
+    struct CGPath { } * mWrapPath;
 }
 
 @property (nonatomic, readonly) struct CGPoint { float x1; float x2; } endPoint;

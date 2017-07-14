@@ -3,26 +3,27 @@
  */
 
 @interface SiriUISuggestionsView : UIView {
-    SiriUIAcousticIDSpinner *_acousticIDSpinner;
+    SiriUIAcousticIDSpinner * _acousticIDSpinner;
     struct CGPoint { 
         float x; 
         float y; 
-    } _contentOffset;
-    <SiriUISuggestionsViewDelegate> *_delegate;
-    BOOL _firstSuggestionPresentation;
-    UILabel *_headerLabel;
-    NSString *_headerText;
-    UILabel *_largeSubheaderLabel;
-    NSString *_largeSubheaderText;
-    UILabel *_oldHeaderLabel;
-    NSArray *_oldSuggestionLabels;
-    int _orientation;
-    NSMutableOrderedSet *_pendedSuggestions;
-    UILabel *_subheaderLabel;
-    NSString *_subheaderText;
-    NSArray *_suggestionLabels;
-    UIColor *_textColor;
-    NSTimer *_updateSuggestionsTimer;
+    }  _contentOffset;
+    <SiriUISuggestionsViewDelegate> * _delegate;
+    BOOL  _firstSuggestionPresentation;
+    UILabel * _headerLabel;
+    NSString * _headerText;
+    UILabel * _largeSubheaderLabel;
+    NSString * _largeSubheaderText;
+    unsigned int  _numberOfSuggestions;
+    UILabel * _oldHeaderLabel;
+    NSArray * _oldSuggestionLabels;
+    int  _orientation;
+    NSMutableOrderedSet * _pendedSuggestions;
+    UILabel * _subheaderLabel;
+    NSString * _subheaderText;
+    NSArray * _suggestionLabels;
+    UIColor * _textColor;
+    NSTimer * _updateSuggestionsTimer;
 }
 
 @property (nonatomic) struct CGPoint { float x1; float x2; } contentOffset;
@@ -42,6 +43,7 @@
 - (float)_headerToLargeSubheaderOffset;
 - (float)_headerToSubheaderOffset;
 - (int)_heightType;
+- (BOOL)_isPadHeightType;
 - (BOOL)_isPortrait;
 - (float)_largeSubheaderFontSize;
 - (void)_loadLargeSubheaderViewIfNeeded;
@@ -63,6 +65,7 @@
 - (id)headerText;
 - (void)hideAcousticIDSpinner;
 - (id)initWithFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
+- (BOOL)isShowingSuggestions;
 - (id)largeSubheaderText;
 - (void)layoutSubviews;
 - (int)orientation;

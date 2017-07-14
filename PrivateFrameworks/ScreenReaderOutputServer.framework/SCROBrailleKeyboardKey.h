@@ -3,8 +3,8 @@
  */
 
 @interface SCROBrailleKeyboardKey : SCROBrailleKey {
-    NSString *_keyString;
-    unsigned int _modifiers;
+    NSString * _keyString;
+    unsigned int  _modifiers;
 }
 
 - (void)dealloc;

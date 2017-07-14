@@ -2,35 +2,54 @@
    Image: /System/Library/Frameworks/UIKit.framework/UIKit
  */
 
-@interface UILabel : UIView <ABText, MPUAutoupdatingTextContainer, NSCoding, _UIMultilineTextContentSizing> {
-    BOOL __textColorFollowsTintColor;
-    id _content;
-    NSMutableDictionary *_defaultAttributes;
-    float _firstLineBaseline;
-    UIColor *_highlightedColor;
-    float _lastLineBaseline;
-    id _layout;
-    int _lineSpacing;
-    int _measuredNumberOfLines;
-    float _minimumFontSize;
-    float _minimumScaleFactor;
-    int _numberOfLines;
-    float _preferredMaxLayoutWidth;
-    float _previousBaselineOffsetFromBottom;
-    float _previousFirstLineBaseline;
-    _UILabelScaledMetrics *_scaledMetrics;
+@interface UILabel : UIView <ABText, MPUAutoupdatingTextContainer, NSCoding, UIContentSizeCategoryAdjusting, _UIMultilineTextContentSizing> {
+    BOOL  __textColorFollowsTintColor;
+    BOOL  _adjustsFontForContentSizeCategory;
+    struct CGRect { 
+        struct CGPoint { 
+            float x; 
+            float y; 
+        } origin; 
+        struct CGSize { 
+            float width; 
+            float height; 
+        } size; 
+    }  _baselineReferenceBounds;
     struct CGSize { 
         float width; 
         float height; 
-    } _size;
-    NSAttributedString *_synthesizedAttributedText;
+    }  _cachedIntrinsicContentSize;
+    id  _content;
+    int  _contentsFormat;
+    CUICatalog * _cuiCatalog;
+    CUIStyleEffectConfiguration * _cuiStyleEffectConfiguration;
+    NSMutableDictionary * _defaultAttributes;
+    NSMutableDictionary * _fallbackColorsForUserInterfaceStyle;
+    float  _firstLineBaseline;
+    UIColor * _highlightedColor;
+    float  _lastLineBaseline;
+    id  _layout;
+    int  _lineSpacing;
+    int  _measuredNumberOfLines;
+    float  _minimumFontSize;
+    float  _minimumScaleFactor;
+    float  _multilineContextWidth;
+    int  _numberOfLines;
+    float  _preferredMaxLayoutWidth;
+    float  _previousBaselineOffsetFromBottom;
+    float  _previousFirstLineBaseline;
+    _UILabelScaledMetrics * _scaledMetrics;
+    struct CGSize { 
+        float width; 
+        float height; 
+    }  _size;
+    NSAttributedString * _synthesizedAttributedText;
     struct { 
         unsigned int unused1 : 3; 
         unsigned int highlighted : 1; 
         unsigned int autosizeTextToFit : 1; 
         unsigned int autotrackTextToFit : 1; 
         unsigned int baselineAdjustment : 2; 
-        unsigned int unused2 : 2; 
         unsigned int enabled : 1; 
         unsigned int wordRoundingEnabled : 1; 
         unsigned int explicitAlignment : 1; 
@@ -40,14 +59,21 @@
         unsigned int drawsLetterpress : 1; 
         unsigned int unused3 : 1; 
         unsigned int usesExplicitPreferredMaxLayoutWidth : 1; 
-        unsigned int determiningPreferredMaxLayoutWidth : 1; 
-        unsigned int inSecondConstraintsPass : 1; 
         unsigned int drawsDebugBaselines : 1; 
         unsigned int explicitBaselineOffset : 1; 
         unsigned int usesSimpleTextEffects : 1; 
         unsigned int isComplexString : 1; 
+        unsigned int isVariableLengthString : 1; 
         unsigned int wantsUnderlineForAccessibilityButtonShapesEnabled : 1; 
-    } _textLabelFlags;
+        unsigned int cachedIntrinsicContentSizeIsValid : 1; 
+        unsigned int overridesDrawRect : 1; 
+        unsigned int overridesTextAccessors : 1; 
+        unsigned int disableUpdateTextColorOnTraitCollectionChange : 1; 
+        unsigned int textAlignmentFollowsWritingDirection : 1; 
+        unsigned int textAlignmentMirrored : 1; 
+        unsigned int shortcutIntrinsicContentSize : 1; 
+        unsigned int noNeedsDisplayCheckForBaselineCalculationNeeded : 1; 
+    }  _textLabelFlags;
 }
 
 @property (setter=MPU_setAutomaticallyUpdatesTextStyleFontsToPreferredTextStyleFonts:, nonatomic) BOOL MPU_automaticallyUpdatesTextStyleFontsToPreferredTextStyleFonts;
@@ -64,8 +90,11 @@
 @property (setter=_setWantsUnderlineForAccessibilityButtonShapesEnabled:, nonatomic) BOOL _wantsUnderlineForAccessibilityButtonShapesEnabled;
 @property (nonatomic, copy) NSString *ab_text;
 @property (nonatomic, copy) NSDictionary *ab_textAttributes;
+@property (nonatomic) BOOL accessibilityExposeLabelAsValue;
+@property (nonatomic) BOOL adjustsFontForContentSizeCategory;
 @property (nonatomic) BOOL adjustsFontSizeToFitWidth;
 @property (nonatomic) BOOL adjustsLetterSpacingToFitWidth;
+@property (nonatomic) BOOL allowsDefaultTighteningForTruncation;
 @property (nonatomic, copy) NSAttributedString *attributedText;
 @property (nonatomic) int baselineAdjustment;
 @property (readonly, copy) NSString *debugDescription;
@@ -79,6 +108,8 @@
 @property (nonatomic) int lineSpacing;
 @property (nonatomic) float minimumFontSize;
 @property (nonatomic) float minimumScaleFactor;
+@property (nonatomic, readonly) float naui_baselineOffsetFromBottom;
+@property (nonatomic, readonly) float naui_capOffsetFromTop;
 @property (nonatomic) int numberOfLines;
 @property (nonatomic) float preferredMaxLayoutWidth;
 @property (nonatomic, readonly) float rc_baselineOffsetFromBottom;
@@ -94,17 +125,23 @@
 // Image: /System/Library/Frameworks/UIKit.framework/UIKit
 
 + (id)_defaultAttributes;
-+ (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_insetRect:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1 forAttributedString:(id)arg2 inView:(id)arg3;
-+ (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })_insetsForAttributedString:(id)arg1 inView:(id)arg2;
++ (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_insetRect:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1 forAttributedString:(id)arg2 withDefaultFont:(id)arg3 inView:(id)arg4;
++ (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })_insetsForAttributedString:(id)arg1 withDefaultFont:(id)arg2 inView:(id)arg3;
 + (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })_insetsForString:(id)arg1 withFont:(id)arg2 inView:(id)arg3;
++ (BOOL)_isMonochromeDrawingDisabled;
 + (struct CGSize { float x1; float x2; })_legacy_adjustSizeForWebKitConstraining:(struct CGSize { float x1; float x2; })arg1 withFont:(id)arg2;
 + (struct __CFCharacterSet { }*)_tooBigChars;
 + (id)defaultFont;
 + (Class)layerClass;
 
+- (void).cxx_destruct;
+- (id)__currentDefaultColor;
 - (void)_accessibilityButtonShapesChangedNotification:(id)arg1;
 - (void)_accessibilityButtonShapesParametersDidChange;
 - (float)_actualScaleFactor;
+- (void)_adjustPreferredFontForCurrentContentSizeCategory;
+- (void)_applicationDidBecomeActiveNotification:(id)arg1;
+- (void)_applicationWillResignActiveNotification:(id)arg1;
 - (id)_associatedScalingLabel;
 - (BOOL)_attributedStringHasAttributesNotCoveredByPrimitives;
 - (float)_baselineOffsetFromBottom;
@@ -113,26 +150,36 @@
 - (void)_commonInit;
 - (id)_compatibilityAttributedString;
 - (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })_contentInsetsFromFonts;
+- (int)_contentsFormatForNonDeepDrawing;
 - (void)_coordinateBeginTimeForMarqueeAnimations:(double)arg1;
+- (id)_cuiCatalog;
+- (id)_cuiStyleEffectConfiguration;
 - (id)_defaultAttributes;
+- (int)_determineContentsFormat;
 - (void)_didChangeFromIdiom:(int)arg1 onScreen:(id)arg2 traverseHierarchy:(BOOL)arg3;
+- (void)_didMoveFromWindow:(id)arg1 toWindow:(id)arg2;
 - (id)_disabledFontColor;
 - (void)_drawFullMarqueeTextInRect:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (void)_drawTextInRect:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1 baselineCalculationOnly:(BOOL)arg2;
 - (BOOL)_drawsDebugBaselines;
 - (BOOL)_drawsUnderline;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_ensureBaselineMetricsReturningBounds;
+- (void)_evaluateContentsFormat;
+- (id)_fallbackTextColorForUserInterfaceStyle:(int)arg1;
 - (float)_firstBaselineOffsetFromTop;
+- (float)_firstLineBaseline;
 - (float)_firstLineBaselineFrameOriginY;
 - (float)_firstLineBaselineOffsetFromBoundsTop;
 - (float)_firstLineCapFrameOriginY;
 - (id)_image;
 - (struct CGSize { float x1; float x2; })_intrinsicSizeWithinSize:(struct CGSize { float x1; float x2; })arg1;
-- (void)_invalidateAsNeededForNewSize:(struct CGSize { float x1; float x2; })arg1 oldSize:(struct CGSize { float x1; float x2; })arg2;
-- (void)_invalidateDefaultAttributes;
+- (void)_invalidateAsNeededForNewSize:(struct CGSize { float x1; float x2; })arg1 oldSize:(struct CGSize { float x1; float x2; })arg2 withLinkCheck:(BOOL)arg3;
+- (void)_invalidateCachedDefaultAttributes;
+- (void)_invalidateIntrinsicContentSizeNeedingLayout:(BOOL)arg1;
 - (void)_invalidateLayout;
 - (void)_invalidateSynthesizedAttributedTextAndLayout;
 - (void)_invalidateTextSize;
+- (void)_invalidateTextSizeIncludingIntrinsicContentSize:(BOOL)arg1;
 - (BOOL)_isTextFieldCenteredLabel;
 - (float)_lastLineBaseline;
 - (float)_lastLineBaselineFrameOriginY;
@@ -140,30 +187,42 @@
 - (float)_maximumMarqueeTextWidth;
 - (int)_measuredNumberOfLines;
 - (float)_minimumFontSize;
+- (float)_multilineContextWidth;
+- (BOOL)_needsDisplayForbaselineCalculation;
 - (BOOL)_needsDoubleUpdateConstraintsPass;
+- (void)_noteInstanceCustomizationForAttributedString:(id)arg1 attributes:(id)arg2;
 - (float)_preferredMaxLayoutWidth;
 - (void)_prepareForFirstIntrinsicContentSizeCalculation;
 - (void)_prepareForSecondIntrinsicContentSizeCalculationWithLayoutEngineBounds:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (void)_resetUsesExplicitPreferredMaxLayoutWidth;
-- (id)_scriptingInfo;
+- (id)_safeContent:(BOOL*)arg1;
+- (void)_setAllowsDefaultTighteningForTruncation:(BOOL)arg1;
 - (void)_setAttributedText:(id)arg1 andTakeOwnership:(BOOL)arg2;
 - (void)_setColor:(id)arg1;
+- (void)_setCuiCatalog:(id)arg1;
+- (void)_setCuiStyleEffectConfiguration:(id)arg1;
 - (void)_setDefaultAttributes:(id)arg1;
 - (void)_setDrawsDebugBaselines:(BOOL)arg1;
+- (void)_setFallbackTextColor:(id)arg1 forUserInterfaceStyle:(int)arg2;
 - (void)_setFirstLineBaselineFrameOriginY:(float)arg1;
 - (void)_setFirstLineCapFrameOriginY:(float)arg1;
 - (void)_setFont:(id)arg1;
-- (void)_setInSecondConstraintsPass:(BOOL)arg1;
 - (void)_setLastLineBaselineFrameOriginY:(float)arg1;
 - (void)_setLineBreakMode:(int)arg1;
 - (void)_setMinimumFontSize:(float)arg1;
+- (void)_setMultilineContextWidth:(float)arg1;
+- (void)_setNeedsDisplayForInvalidatedContents;
+- (void)_setNeedsUpdateConstraintsNeedingLayout:(BOOL)arg1;
 - (void)_setShadow:(id)arg1;
 - (void)_setShadowUIOffset:(struct UIOffset { float x1; float x2; })arg1;
 - (void)_setSynthesizedAttributedText:(id)arg1;
 - (void)_setText:(id)arg1;
 - (void)_setTextAlignment:(int)arg1;
+- (void)_setTextAlignmentFollowsWritingDirection:(BOOL)arg1;
+- (void)_setTextAlignmentMirrored:(BOOL)arg1;
 - (void)_setTextColor:(id)arg1;
 - (void)_setTextColorFollowsTintColor:(BOOL)arg1;
+- (void)_setUseShortcutIntrinsicContentSize:(BOOL)arg1;
 - (void)_setUsesSimpleTextEffects:(BOOL)arg1;
 - (void)_setWantsUnderlineForAccessibilityButtonShapesEnabled:(BOOL)arg1;
 - (void)_setWordRoundingEnabled:(BOOL)arg1;
@@ -176,15 +235,24 @@
 - (void)_startMarqueeIfNecessary;
 - (void)_stopMarqueeWithRedisplay:(BOOL)arg1;
 - (id)_stringDrawingContext;
+- (int)_stringDrawingOptions;
 - (id)_synthesizedAttributedText;
 - (id)_synthesizedTextAttributes;
+- (BOOL)_textAlignmentFollowsWritingDirection;
+- (BOOL)_textAlignmentMirrored;
 - (BOOL)_textColorFollowsTintColor;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_textRectForBounds:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1 limitedToNumberOfLines:(int)arg2 includingShadow:(BOOL)arg3;
 - (BOOL)_updateScaledMetricsForRect:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
+- (void)_updateTextColorWithFallbackColorIfNeeded;
+- (void)_updateVariableLengthString;
+- (BOOL)_useShortcutIntrinsicContentSize;
 - (BOOL)_usesSimpleTextEffects;
+- (BOOL)_wantsDeepDrawing;
 - (BOOL)_wantsUnderlineForAccessibilityButtonShapesEnabled;
+- (BOOL)adjustsFontForContentSizeCategory;
 - (BOOL)adjustsFontSizeToFitWidth;
 - (BOOL)adjustsLetterSpacingToFitWidth;
+- (BOOL)allowsDefaultTighteningForTruncation;
 - (id)attributedText;
 - (BOOL)autotrackTextToFit;
 - (int)baselineAdjustment;
@@ -209,19 +277,24 @@
 - (BOOL)isElementAccessibilityExposedToInterfaceBuilder;
 - (BOOL)isEnabled;
 - (BOOL)isHighlighted;
+- (void)layerWillDraw:(id)arg1;
 - (id)letterpressStyle;
 - (int)lineBreakMode;
 - (int)lineSpacing;
+- (BOOL)marqueeEnabled;
 - (BOOL)marqueeRunning;
 - (float)minimumFontSize;
 - (float)minimumScaleFactor;
 - (int)numberOfLines;
 - (float)preferredMaxLayoutWidth;
 - (struct CGSize { float x1; float x2; })rawSize;
+- (void)setAdjustsFontForContentSizeCategory:(BOOL)arg1;
 - (void)setAdjustsFontSizeToFitWidth:(BOOL)arg1;
 - (void)setAdjustsLetterSpacingToFitWidth:(BOOL)arg1;
+- (void)setAllowsDefaultTighteningForTruncation:(BOOL)arg1;
 - (void)setAttributedText:(id)arg1;
 - (void)setAutotrackTextToFit:(BOOL)arg1;
+- (void)setBackgroundColor:(id)arg1;
 - (void)setBaselineAdjustment:(int)arg1;
 - (void)setBounds:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (void)setCentersHorizontally:(BOOL)arg1;
@@ -240,9 +313,11 @@
 - (void)setMarqueeRunning:(BOOL)arg1;
 - (void)setMinimumFontSize:(float)arg1;
 - (void)setMinimumScaleFactor:(float)arg1;
+- (void)setNeedsDisplay;
 - (void)setNumberOfLines:(int)arg1;
 - (void)setPreferredMaxLayoutWidth:(float)arg1;
 - (void)setRawSize:(struct CGSize { float x1; float x2; })arg1;
+- (void)setSemanticContentAttribute:(int)arg1;
 - (void)setShadowBlur:(float)arg1;
 - (void)setShadowColor:(id)arg1;
 - (void)setShadowOffset:(struct CGSize { float x1; float x2; })arg1;
@@ -250,6 +325,7 @@
 - (void)setTextAlignment:(int)arg1;
 - (void)setTextColor:(id)arg1;
 - (void)setUserInteractionEnabled:(BOOL)arg1;
+- (void)set_useShortcutIntrinsicContentSize:(BOOL)arg1;
 - (float)shadowBlur;
 - (id)shadowColor;
 - (struct CGSize { float x1; float x2; })shadowOffset;
@@ -262,19 +338,15 @@
 - (struct CGSize { float x1; float x2; })textSize;
 - (struct CGSize { float x1; float x2; })textSizeForWidth:(float)arg1;
 - (void)tintColorDidChange;
-- (void)updateConstraints;
+- (void)traitCollectionDidChange:(id)arg1;
 
-// Image: /System/Library/Frameworks/AddressBookUI.framework/AddressBookUI
+// Image: /System/Library/Frameworks/ContactsUI.framework/ContactsUI
 
+- (void)_cnui_applyContactStyle;
 - (id)ab_text;
 - (id)ab_textAttributes;
 - (void)setAb_text:(id)arg1;
 - (void)setAb_textAttributes:(id)arg1;
-
-// Image: /System/Library/Frameworks/PassKit.framework/PassKit
-
-- (struct CGSize { float x1; float x2; })pkui_sizeThatFits:(struct CGSize { float x1; float x2; })arg1;
-- (struct CGSize { float x1; float x2; })pkui_sizeThatFits:(struct CGSize { float x1; float x2; })arg1 forceWordWrap:(BOOL)arg2;
 
 // Image: /System/Library/PrivateFrameworks/FuseUI.framework/FuseUI
 
@@ -287,15 +359,73 @@
 - (id)MPU_contentSizeUpdater;
 - (void)MPU_setAutomaticallyUpdatesTextStyleFontsToPreferredTextStyleFonts:(BOOL)arg1;
 
-// Image: /System/Library/PrivateFrameworks/MediaPlayerUI.framework/MediaPlayerUI
+// Image: /System/Library/PrivateFrameworks/MaterialKit.framework/MaterialKit
+
+- (void)mt_applyVibrantStyling:(id)arg1;
+
+// Image: /System/Library/PrivateFrameworks/NanoTimeKitCompanion.framework/NanoTimeKitCompanion
+
+- (unsigned int)numberOfWordsInText;
+
+// Image: /System/Library/PrivateFrameworks/NetAppsUtilitiesUI.framework/NetAppsUtilitiesUI
+
+- (float)naui_baselineOffsetFromBottom;
+- (float)naui_capOffsetFromTop;
+- (float)naui_distanceFromBaselineToCoordinate:(float)arg1 inView:(id)arg2;
+- (void)naui_reloadDynamicFontWithTextStyleDescriptor:(id)arg1;
+
+// Image: /System/Library/PrivateFrameworks/PassKitUI.framework/PassKitUI
+
+- (void)pk_applyAppearance:(id)arg1;
+- (id)pk_childrenForAppearance;
+- (void)pk_setAttributedTextRespectingTextAndBackgroundColors:(id)arg1;
+- (struct CGSize { float x1; float x2; })pkui_sizeThatFits:(struct CGSize { float x1; float x2; })arg1;
+- (struct CGSize { float x1; float x2; })pkui_sizeThatFits:(struct CGSize { float x1; float x2; })arg1 forceWordWrap:(BOOL)arg2;
+
+// Image: /System/Library/PrivateFrameworks/PhotosUICore.framework/PhotosUICore
+
+- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })boundingRectForCharacterRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg1;
+
+// Image: /System/Library/PrivateFrameworks/SiriUI.framework/SiriUI
+
++ (id)siriui_configuredBodyLabel;
++ (id)siriui_configuredCaptionLabel;
++ (id)siriui_configuredFootnoteLabel;
++ (id)siriui_configuredHeadlineLabel;
++ (id)siriui_configuredLabel;
++ (id)siriui_configuredPriceLabel;
++ (id)siriui_configuredSubheadLabel;
++ (id)siriui_configuredTitle3Label;
++ (id)siriui_configuredTitleLabel;
+
+- (void)setUseSecondaryTextColor;
+- (void)setUseShortLineHeight;
+
+// Image: /System/Library/PrivateFrameworks/StoreKitUI.framework/StoreKitUI
+
++ (id)SKUITrending_defaultLabelWithText:(id)arg1;
++ (id)SKUITrending_defaultTitleColor;
++ (id)SKUITrending_defaultTitleFont;
++ (id)SKUITrending_titleLabelWithElement:(id)arg1;
+
+// Image: /System/Library/PrivateFrameworks/TVMLKit.framework/TVMLKit
+
+- (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })tv_alignmentInsetsForExpectedWidth:(float)arg1;
+- (float)tv_heightToFirstBaseline;
+- (float)tv_scaledValueForValue:(float)arg1;
+- (struct CGSize { float x1; float x2; })tv_textSizeForSize:(struct CGSize { float x1; float x2; })arg1;
+- (struct CGSize { float x1; float x2; })tv_textSizeForWidth:(float)arg1;
+
+// Image: /System/Library/PrivateFrameworks/UIAccessibility.framework/UIAccessibility
+
+- (BOOL)accessibilityExposeLabelAsValue;
+- (void)setAccessibilityExposeLabelAsValue:(BOOL)arg1;
+
+// Image: /System/Library/PrivateFrameworks/VideosExtras.framework/VideosExtras
 
 - (int)_textAlignmentFromElementAlignment:(unsigned int)arg1;
 - (void)configureForIKTextElement:(id)arg1 fontDescriptor:(id)arg2 textStyle:(id)arg3;
 - (void)configureForIKTextElement:(id)arg1 fontDescriptor:(id)arg2 textStyle:(id)arg3 capitalize:(BOOL)arg4;
-
-// Image: /System/Library/PrivateFrameworks/TelephonyUI.framework/TelephonyUI
-
-- (BOOL)labelTextIsTruncated;
 
 // Image: /System/Library/PrivateFrameworks/VoiceMemos.framework/VoiceMemos
 
@@ -305,7 +435,7 @@
 - (float)rc_capOffsetFromTop;
 - (float)rc_distanceFromBaselineToCoordinate:(float)arg1 inView:(id)arg2;
 
-// Image: /System/Library/PrivateFrameworks/Weather.framework/Weather
+// Image: /System/Library/PrivateFrameworks/WeatherUI.framework/WeatherUI
 
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })frameForBaseline:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (void)setFrameOnBaseline:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;

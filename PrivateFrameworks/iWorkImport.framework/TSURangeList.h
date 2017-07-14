@@ -9,7 +9,7 @@
         struct __compressed_pair<_NSRange *, std::__1::allocator<_NSRange> > { 
             struct _NSRange {} *__first_; 
         } __end_cap_; 
-    } mRangeList;
+    }  mRangeList;
 }
 
 @property (nonatomic, readonly) unsigned int count;

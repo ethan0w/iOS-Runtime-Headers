@@ -3,15 +3,15 @@
  */
 
 @interface NSIndexPath : NSObject <NSCopying, NSSecureCoding> {
-    unsigned int *_indexes;
-    unsigned int _length;
-    void *_reserved;
+    unsigned int * _indexes;
+    unsigned int  _length;
+    void * _reserved;
 }
 
-@property (nonatomic, readonly) int ab_group;
-@property (nonatomic, readonly) int ab_item;
 @property (nonatomic, readonly) int item;
+@property (nonatomic, readonly) int kind;
 @property (readonly) unsigned int length;
+@property (getter=pu_isValid, nonatomic, readonly) BOOL pu_valid;
 @property (nonatomic, readonly) int row;
 @property (nonatomic, readonly) int section;
 @property (nonatomic, readonly) int tk_row;
@@ -42,22 +42,26 @@
 - (BOOL)isEqual:(id)arg1;
 - (unsigned int)length;
 
-// Image: /System/Library/Frameworks/AddressBookUI.framework/AddressBookUI
-
-+ (id)indexPathForItem:(int)arg1 inGroup:(int)arg2;
-
-- (int)ab_group;
-- (int)ab_item;
-
 // Image: /System/Library/Frameworks/PhotosUI.framework/PhotosUI
 
++ (id)pu_indexPathForItem:(int)arg1 inSubSection:(int)arg2 section:(int)arg3;
 + (id)pu_indexPathsForItems:(id)arg1 inSection:(int)arg2;
++ (id)pu_rootIndexPath;
 
 - (id)pu_alteredIndexPathAfterDeletingItemAtIndexPath:(id)arg1;
 - (id)pu_alteredIndexPathAfterDeletingItemsAtIndexPaths:(id)arg1;
 - (id)pu_alteredIndexPathAfterInsertingItemAtIndexPath:(id)arg1;
 - (id)pu_alteredIndexPathAfterInsertingItemsAtIndexPaths:(id)arg1;
 - (id)pu_alteredIndexPathAfterMovingItemAtIndexPath:(id)arg1 toIndexPath:(id)arg2;
+- (id)pu_indexPathAfterDeletingItemAtIndexPath:(id)arg1;
+- (id)pu_indexPathAfterInsertingItemAtIndexPath:(id)arg1;
+- (id)pu_indexPathAfterMovingItemFromIndexPath:(id)arg1 toIndexPath:(id)arg2;
+- (id)pu_indexPathAfterReloadingItemAtIndexPath:(id)arg1;
+- (id)pu_indexPathByAppendingIndexPath:(id)arg1;
+- (id)pu_indexPathByChangingIndexAtPosition:(unsigned int)arg1 toIndex:(unsigned int)arg2;
+- (BOOL)pu_isParentOfIndexPath:(id)arg1;
+- (BOOL)pu_isValid;
+- (id)pu_shortDescription;
 
 // Image: /System/Library/Frameworks/UIKit.framework/UIKit
 
@@ -67,6 +71,17 @@
 - (int)item;
 - (int)row;
 - (int)section;
+
+// Image: /System/Library/PrivateFrameworks/BaseBoard.framework/BaseBoard
+
++ (id)bs_emptyPath;
+
+- (BOOL)bs_hasPrefix:(id)arg1;
+- (id)bs_indexPathByAddingPrefix:(id)arg1;
+- (id)bs_indexPathByRemovingFirstIndex;
+- (id)bs_nearestCommonAncestorWithIndexPath:(id)arg1;
+- (id)bs_subpathFromPosition:(unsigned int)arg1;
+- (id)bs_subpathWithRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg1;
 
 // Image: /System/Library/PrivateFrameworks/ChatKit.framework/ChatKit
 
@@ -79,6 +94,28 @@
 // Image: /System/Library/PrivateFrameworks/GameCenterPrivateUI.framework/GameCenterPrivateUI
 
 - (BOOL)_gkIsGlobal;
+
+// Image: /System/Library/PrivateFrameworks/NewsCore.framework/NewsCore
+
++ (id)fc_indexPathsForRows:(id)arg1 inSection:(int)arg2;
+
+// Image: /System/Library/PrivateFrameworks/PhotosUICore.framework/PhotosUICore
+
++ (id)indexPathForItem:(int)arg1 inSection:(int)arg2;
++ (id)indexPathForItem:(int)arg1 inSection:(int)arg2 withKind:(int)arg3;
++ (id)px_indexPathsForItems:(id)arg1 inSection:(int)arg2;
+
+- (int)item;
+- (int)kind;
+- (id)px_alteredIndexPathAfterDeletingItemAtIndexPath:(id)arg1;
+- (id)px_alteredIndexPathAfterDeletingItemsAtIndexPaths:(id)arg1;
+- (id)px_alteredIndexPathAfterInsertingItemAtIndexPath:(id)arg1;
+- (id)px_alteredIndexPathAfterInsertingItemsAtIndexPaths:(id)arg1;
+- (id)px_alteredIndexPathAfterMovingItemAtIndexPath:(id)arg1 toIndexPath:(id)arg2;
+- (id)px_indexPathAfterDeletingItemAtIndexPath:(id)arg1;
+- (id)px_indexPathAfterInsertingItemAtIndexPath:(id)arg1;
+- (id)px_indexPathByChangingIndexAtPosition:(unsigned int)arg1 toIndex:(unsigned int)arg2;
+- (int)section;
 
 // Image: /System/Library/PrivateFrameworks/ToneKit.framework/ToneKit
 

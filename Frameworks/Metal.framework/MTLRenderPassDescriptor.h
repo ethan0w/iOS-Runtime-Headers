@@ -3,34 +3,21 @@
  */
 
 @interface MTLRenderPassDescriptor : NSObject <NSCopying> {
-    struct MTLRenderPassDescriptorPrivate { 
-        MTLRenderPassColorAttachmentDescriptorArray *attachments; 
-        <MTLBuffer> *visibilityResultBuffer; 
-        BOOL ditherEnabled; 
-    } _private;
+    unsigned int  _renderTargetArrayLength;
 }
 
 @property (readonly) MTLRenderPassColorAttachmentDescriptorArray *colorAttachments;
 @property (nonatomic, copy) MTLRenderPassDepthAttachmentDescriptor *depthAttachment;
+@property (nonatomic) unsigned int renderTargetArrayLength;
 @property (nonatomic, copy) MTLRenderPassStencilAttachmentDescriptor *stencilAttachment;
 @property (nonatomic, retain) <MTLBuffer> *visibilityResultBuffer;
 
++ (id)alloc;
++ (id)allocWithZone:(struct _NSZone { }*)arg1;
 + (id)renderPassDescriptor;
 
-- (const struct MTLRenderPassDescriptorPrivate { id x1; BOOL x2; }*)_descriptorPrivate;
-- (id)colorAttachments;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
-- (void)dealloc;
-- (id)depthAttachment;
-- (id)description;
-- (unsigned int)hash;
-- (id)init;
-- (BOOL)isEqual:(id)arg1;
-- (void)setDepthAttachment:(id)arg1;
-- (void)setStencilAttachment:(id)arg1;
-- (void)setVisibilityResultBuffer:(id)arg1;
-- (id)stencilAttachment;
-- (BOOL)validate:(id)arg1 width:(unsigned int*)arg2 height:(unsigned int*)arg3;
-- (id)visibilityResultBuffer;
+- (unsigned int)renderTargetArrayLength;
+- (void)setRenderTargetArrayLength:(unsigned int)arg1;
 
 @end

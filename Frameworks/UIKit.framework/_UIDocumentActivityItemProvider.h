@@ -3,15 +3,18 @@
  */
 
 @interface _UIDocumentActivityItemProvider : UIActivityItemProvider {
-    UIDocumentInteractionController *_documentInteractionController;
+    UIDocumentInteractionController * _documentInteractionController;
 }
 
 @property UIDocumentInteractionController *documentInteractionController;
 
+- (void).cxx_destruct;
+- (BOOL)_activitySupportsPromiseURLs;
 - (id)activityViewController:(id)arg1 itemForActivityType:(id)arg2;
 - (id)activityViewControllerPlaceholderItem:(id)arg1;
 - (id)documentInteractionController;
 - (id)item;
+- (void)main;
 - (void)setDocumentInteractionController:(id)arg1;
 
 @end

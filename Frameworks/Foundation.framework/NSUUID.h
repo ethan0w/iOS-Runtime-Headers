@@ -2,7 +2,7 @@
    Image: /System/Library/Frameworks/Foundation.framework/Foundation
  */
 
-@interface NSUUID : NSObject <NSCopying, NSSecureCoding, PASerializable, PQLValuable>
+@interface NSUUID : NSObject <CRCoding, CRDataType, CREquatable, NSCopying, NSSecureCoding, PASerializable, PQLValuable>
 
 @property (readonly, copy) NSString *UUIDString;
 @property (readonly, copy) NSString *debugDescription;
@@ -17,7 +17,6 @@
 + (BOOL)supportsSecureCoding;
 
 - (id)UUIDString;
-- (unsigned long)_cfTypeID;
 - (struct __CFString { }*)_cfUUIDString;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
 - (void)encodeWithCoder:(id)arg1;
@@ -37,30 +36,83 @@
 
 // Image: /System/Library/Frameworks/HomeKit.framework/HomeKit
 
-- (id)description;
++ (id)deriveUUIDForAssistantFromBaseUUID:(id)arg1;
++ (id)deriveUUIDForAssistantFromBaseUUID:(id)arg1 withSalts:(id)arg2;
++ (id)deriveUUIDFromBaseUUID:(id)arg1;
++ (id)deriveUUIDFromBaseUUID:(id)arg1 identifierSalt:(id)arg2;
++ (id)deriveUUIDFromBaseUUID:(id)arg1 identifierSalt:(id)arg2 withSalts:(id)arg3;
++ (id)deriveUUIDFromBaseUUID:(id)arg1 withSalts:(id)arg2;
++ (void)setIdentifierSalt:(id)arg1 assistantSalt:(BOOL)arg2;
++ (id)uuid:(id)arg1 identifierSalt:(id)arg2 withSalts:(id)arg3;
 
-// Image: /System/Library/PrivateFrameworks/CloudDocsDaemon.framework/CloudDocsDaemon
+- (id)convertToData;
 
-+ (id)newFromSqliteValue:(struct Mem { }*)arg1;
+// Image: /System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices
 
-- (void)sqliteBind:(struct sqlite3_stmt { }*)arg1 index:(int)arg2;
++ (id)_LS_UUIDWithData:(id)arg1;
++ (id)_LS_UUIDWithData:(id)arg1 SHA1:(BOOL)arg2;
 
-// Image: /System/Library/PrivateFrameworks/CloudKitDaemon.framework/CloudKitDaemon
+// Image: /System/Library/PrivateFrameworks/ClassroomKit.framework/ClassroomKit
 
-+ (id)newFromSqliteValue:(struct Mem { }*)arg1;
-
-- (void)sqliteBind:(struct sqlite3_stmt { }*)arg1 index:(int)arg2;
++ (id)crk_zerosUUID;
 
 // Image: /System/Library/PrivateFrameworks/CloudPhotoLibrary.framework/CloudPhotoLibrary
 
 - (id)initWithCPLArchiver:(id)arg1;
 - (id)plistArchiveWithCPLArchiver:(id)arg1;
 
-// Image: /System/Library/PrivateFrameworks/CoreHAP.framework/CoreHAP
+// Image: /System/Library/PrivateFrameworks/HMFoundation.framework/HMFoundation
 
-- (id)description;
+- (id)initWithNamespace:(id)arg1 data:(id)arg2;
+- (id)shortDescription;
 
-// Image: /System/Library/PrivateFrameworks/PerformanceAnalysis.framework/PerformanceAnalysis
+// Image: /System/Library/PrivateFrameworks/HomeKitDaemon.framework/HomeKitDaemon
+
++ (id)deriveUUIDForAssistantFromBaseUUID:(id)arg1;
++ (id)deriveUUIDForAssistantFromBaseUUID:(id)arg1 withSalts:(id)arg2;
++ (id)deriveUUIDFromBaseUUID:(id)arg1;
++ (id)deriveUUIDFromBaseUUID:(id)arg1 identifierSalt:(id)arg2;
++ (id)deriveUUIDFromBaseUUID:(id)arg1 identifierSalt:(id)arg2 withSalts:(id)arg3;
++ (id)deriveUUIDFromBaseUUID:(id)arg1 withSalts:(id)arg2;
++ (void)setIdentifierSalt:(id)arg1 assistantSalt:(BOOL)arg2;
++ (id)uuid:(id)arg1 identifierSalt:(id)arg2 withSalts:(id)arg3;
+
+- (id)convertToData;
+
+// Image: /System/Library/PrivateFrameworks/MapsSupport.framework/MapsSupport
+
++ (id)_maps_zeroUUID;
+
+- (id)_maps_initWithUUIDString:(id)arg1 disallowReturningZeroUUID:(BOOL)arg2;
+
+// Image: /System/Library/PrivateFrameworks/Navigation.framework/Navigation
+
++ (id)_navigation_dataForUUID;
+
+- (id)_navigation_data;
+
+// Image: /System/Library/PrivateFrameworks/NotesShared.framework/NotesShared
+
++ (id)CR_UUIDFromStdString:(const struct basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > { struct __compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__rep, std::__1::allocator<char> > { struct __rep { union { struct __long { unsigned int x_1_4_1; unsigned int x_1_4_2; char *x_1_4_3; } x_1_3_1; struct __short { union { unsigned char x_1_5_1; BOOL x_1_5_2; } x_2_4_1; BOOL x_2_4_2[11]; } x_1_3_2; struct __raw { unsigned long x_3_4_1[3]; } x_1_3_3; } x_1_2_1; } x_1_1_1; } x1; }*)arg1;
++ (id)CR_repeatedCharUUID:(unsigned char)arg1;
++ (id)CR_zero;
++ (id)TTZero;
+
+- (int)CR_compare:(id)arg1;
+- (id)CR_shortDescription;
+- (struct basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > { struct __compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__rep, std::__1::allocator<char> > { struct __rep { union { struct __long { unsigned int x_1_4_1; unsigned int x_1_4_2; char *x_1_4_3; } x_1_3_1; struct __short { union { unsigned char x_1_5_1; BOOL x_1_5_2; } x_2_4_1; BOOL x_2_4_2[11]; } x_1_3_2; struct __raw { unsigned long x_3_4_1[3]; } x_1_3_3; } x_1_2_1; } x_1_1_1; } x1; })CR_toStdString;
+- (int)TTCompare:(id)arg1;
+- (id)TTShortDescription;
+- (id)deltaSince:(id)arg1 in:(id)arg2;
+- (void)encodeWithCRCoder:(id)arg1;
+- (id)initWithCRCoder:(id)arg1;
+- (void)mergeWith:(id)arg1;
+- (void)realizeLocalChangesIn:(id)arg1;
+- (void)setDocument:(id)arg1;
+- (id)tombstone;
+- (void)walkGraph:(id /* block */)arg1;
+
+// Image: /System/Library/PrivateFrameworks/PASampling.framework/PASampling
 
 + (id)classDictionaryKey;
 + (id)newInstanceWithoutReferencesFromBufferPosition:(const void*)arg1;
@@ -74,5 +126,11 @@
 
 - (id)tsp_initWithMessage:(const struct UUID { int (**x1)(); struct UnknownFieldSet { struct vector<google::protobuf::UnknownField, std::__1::allocator<google::protobuf::UnknownField> > {} *x_2_1_1; } x2; unsigned int x3[1]; int x4; unsigned long long x5; unsigned long long x6; }*)arg1;
 - (void)tsp_saveToMessage:(struct UUID { int (**x1)(); struct UnknownFieldSet { struct vector<google::protobuf::UnknownField, std::__1::allocator<google::protobuf::UnknownField> > {} *x_2_1_1; } x2; unsigned int x3[1]; int x4; unsigned long long x5; unsigned long long x6; }*)arg1;
+
+// Image: /usr/lib/libprequelite.dylib
+
++ (id)newFromSqliteValue:(struct Mem { }*)arg1;
+
+- (void)sqliteBind:(struct sqlite3_stmt { }*)arg1 index:(int)arg2;
 
 @end

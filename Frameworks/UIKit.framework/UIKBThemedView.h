@@ -3,18 +3,21 @@
  */
 
 @interface UIKBThemedView : UIView <UIKBCacheableView> {
-    BOOL _active;
-    CALayer *_background;
-    CALayer *_borders;
+    BOOL  _active;
+    CALayer * _background;
     struct UIEdgeInsets { 
         float top; 
         float left; 
         float bottom; 
         float right; 
-    } _cacheInsets;
-    BOOL _lightKeyboard;
-    int _style;
-    BOOL _usePersistentCaching;
+    }  _cacheInsets;
+    CALayer * _leftBorder;
+    BOOL  _lightKeyboard;
+    CALayer * _rightBorder;
+    BOOL  _showsLeftBorder;
+    BOOL  _showsRightBorder;
+    int  _style;
+    BOOL  _usePersistentCaching;
 }
 
 @property (nonatomic) BOOL active;
@@ -26,13 +29,15 @@
 @property (readonly, copy) NSString *description;
 @property (readonly) unsigned int hash;
 @property (nonatomic, readonly) BOOL keepNonPersistent;
+@property (nonatomic) BOOL showsLeftBorder;
+@property (nonatomic) BOOL showsRightBorder;
 @property (nonatomic) int style;
 @property (readonly) Class superclass;
 @property (nonatomic) BOOL usePersistentCaching;
 
 - (BOOL)_canDrawContent;
 - (BOOL)_hasInsets;
-- (void)_popuplateLayer:(id)arg1 withContents:(id)arg2;
+- (void)_populateLayer:(id)arg1 withContents:(id)arg2;
 - (void)_setRenderConfig:(id)arg1;
 - (BOOL)active;
 - (id)borderFilterTypeForCurrentStyle;
@@ -49,8 +54,12 @@
 - (void)layoutSubviews;
 - (void)setActive:(BOOL)arg1;
 - (void)setCacheInsets:(struct UIEdgeInsets { float x1; float x2; float x3; float x4; })arg1;
+- (void)setShowsLeftBorder:(BOOL)arg1;
+- (void)setShowsRightBorder:(BOOL)arg1;
 - (void)setStyle:(int)arg1;
 - (void)setUsePersistentCaching:(BOOL)arg1;
+- (BOOL)showsLeftBorder;
+- (BOOL)showsRightBorder;
 - (int)style;
 - (id)traitsForCurrentStyle;
 - (BOOL)usePersistentCaching;

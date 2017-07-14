@@ -3,7 +3,7 @@
  */
 
 @interface BRCFetchiWorkSharingInfoOperation : _BRCOperation <BRCOperationSubclass> {
-    CKRecordID *_recordID;
+    CKRecordID * _recordID;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -13,6 +13,7 @@
 @property (readonly) Class superclass;
 
 - (void).cxx_destruct;
+- (id)createActivity;
 - (id)initWithDocumentItem:(id)arg1;
 - (void)main;
 - (id)recordID;

@@ -3,22 +3,22 @@
  */
 
 @interface _GCExtendedGamepad : GCExtendedGamepad <GCNamedProfile, NSSecureCoding> {
-    _GCControllerButtonInput *_button0;
-    _GCControllerButtonInput *_button1;
-    _GCControllerButtonInput *_button2;
-    _GCControllerButtonInput *_button3;
-    GCController *_controller;
-    _GCControllerDirectionPad *_dpad;
-    BOOL _dpadFlippedY;
-    BOOL _leftFlippedY;
-    _GCControllerButtonInput *_leftShoulder;
-    _GCControllerDirectionPad *_leftThumbstick;
-    _GCControllerButtonInput *_leftTrigger;
-    BOOL _rightFlippedY;
-    _GCControllerButtonInput *_rightShoulder;
-    _GCControllerDirectionPad *_rightThumbstick;
-    _GCControllerButtonInput *_rightTrigger;
-    id /* block */ _valueChangedHandler;
+    _GCControllerButtonInput * _button0;
+    _GCControllerButtonInput * _button1;
+    _GCControllerButtonInput * _button2;
+    _GCControllerButtonInput * _button3;
+    GCController * _controller;
+    _GCControllerDirectionPad * _dpad;
+    BOOL  _dpadFlippedY;
+    BOOL  _leftFlippedY;
+    _GCControllerButtonInput * _leftShoulder;
+    _GCControllerDirectionPad * _leftThumbstick;
+    _GCControllerButtonInput * _leftTrigger;
+    BOOL  _rightFlippedY;
+    _GCControllerButtonInput * _rightShoulder;
+    _GCControllerDirectionPad * _rightThumbstick;
+    _GCControllerButtonInput * _rightTrigger;
+    id /* block */  _valueChangedHandler;
 }
 
 @property (readonly, copy) NSString *debugDescription;

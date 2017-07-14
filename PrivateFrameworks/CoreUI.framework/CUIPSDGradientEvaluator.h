@@ -3,24 +3,24 @@
  */
 
 @interface CUIPSDGradientEvaluator : NSObject <NSCoding, NSCopying> {
-    int blendMode;
-    NSArray *colorMidpointLocations;
-    NSArray *colorStops;
+    int  blendMode;
+    NSArray * colorMidpointLocations;
+    NSArray * colorStops;
     struct _psdGradientColor { 
         double red; 
         double green; 
         double blue; 
         double alpha; 
-    } fillColor;
-    NSArray *opacityMidpointLocations;
-    NSArray *opacityStops;
+    }  fillColor;
+    NSArray * opacityMidpointLocations;
+    NSArray * opacityStops;
     struct { 
         unsigned int colorEdgePixel : 2; 
         unsigned int opacityEdgePixel : 2; 
         unsigned int isDithered : 1; 
         unsigned int reserved : 3; 
-    } pgeFlags;
-    float smoothingCoefficient;
+    }  pgeFlags;
+    float  smoothingCoefficient;
 }
 
 @property (nonatomic) int blendMode;

@@ -3,20 +3,20 @@
  */
 
 @interface ACDAccountStore : ACAccountStore <ACDAccountStoreProtocol> {
-    ACDAccessPluginManager *_accessPluginManager;
-    NSMutableArray *_accountChanges;
-    ACDAuthenticationDialogManager *_authenticationDialogManager;
-    ACDAuthenticationPluginManager *_authenticationPluginManager;
-    ACDClientAuthorizationManager *_authorizationManager;
-    ACDClient *_client;
-    ACDDatabase *_database;
-    ACDDataclassOwnersManager *_dataclassOwnersManager;
-    <ACDAccountStoreDelegate> *_delegate;
-    ACDFakeRemoteAccountStoreSession *_fakeRemoteAccountStoreSession;
-    ACDAccountStoreFilter *_filter;
-    BOOL _migrationInProgress;
-    BOOL _notificationsEnabled;
-    ACRemoteDeviceProxy *_remoteDeviceProxy;
+    ACDAccessPluginManager * _accessPluginManager;
+    NSMutableArray * _accountChanges;
+    ACDAuthenticationDialogManager * _authenticationDialogManager;
+    ACDAuthenticationPluginManager * _authenticationPluginManager;
+    ACDClientAuthorizationManager * _authorizationManager;
+    ACDClient * _client;
+    ACDDatabase * _database;
+    ACDDataclassOwnersManager * _dataclassOwnersManager;
+    <ACDAccountStoreDelegate> * _delegate;
+    ACDFakeRemoteAccountStoreSession * _fakeRemoteAccountStoreSession;
+    ACDAccountStoreFilter * _filter;
+    BOOL  _migrationInProgress;
+    BOOL  _notificationsEnabled;
+    ACRemoteDeviceProxy * _remoteDeviceProxy;
 }
 
 @property (nonatomic, retain) ACDAccessPluginManager *accessPluginManager;
@@ -44,10 +44,10 @@
 - (BOOL)_canManagedAccountType:(id)arg1 syncManagedDataclass:(id)arg2;
 - (BOOL)_canSaveAccount:(id)arg1;
 - (id)_childAccountsForAccountWithID:(id)arg1;
-- (BOOL)_clientIsEntitledForAdHocAccountType:(id)arg1;
 - (id)_clientTokenForAccountIdentifier:(id)arg1 error:(id)arg2;
 - (id)_clientTokenQueue;
 - (void)_completeSave:(id)arg1 dataclassActions:(id)arg2 completion:(id /* block */)arg3;
+- (id)_credentialItemWithAccountIdentifier:(id)arg1 serviceName:(id)arg2;
 - (id)_dataclassWithName:(id)arg1 createIfNecessary:(BOOL)arg2;
 - (void)_deleteAccountNoSave:(id)arg1 withDataclassActions:(id)arg2 error:(id*)arg3;
 - (id)_displayAccountForAccount:(id)arg1;
@@ -55,12 +55,13 @@
 - (id)_handleAccountMod:(id)arg1 withDataclassActions:(id)arg2;
 - (BOOL)_isManagedAccount:(id)arg1 enabledForManagedDataclass:(id)arg2;
 - (id)_legacyCredentialForAccount:(id)arg1 client:(id)arg2 error:(id*)arg3;
-- (void)_noteAccountStoreDidSaveAccountsWithAccountTypeIdentifiers:(id)arg1;
+- (id)_lockForAccountType:(id)arg1;
+- (void)_noteAccountStoreDidSaveAccountsWithAccountTypeIdentifiers:(id)arg1 accountIdentifiers:(id)arg2;
 - (id)_removeAccountNoSave:(id)arg1 withDataclassActions:(id)arg2;
 - (void)_removeClientTokenForAccountIdentifer:(id)arg1;
 - (void)_requestAccessForAccountTypeWithIdentifier:(id)arg1 options:(id)arg2 allowUserInteraction:(BOOL)arg3 withHandler:(id /* block */)arg4;
 - (id)_save;
-- (void)_setAccountManagedObjectRelationships:(id)arg1 withAccount:(id)arg2 isNew:(BOOL)arg3 error:(id*)arg4;
+- (void)_setAccountManagedObjectRelationships:(id)arg1 withAccount:(id)arg2 oldAccount:(id)arg3 error:(id*)arg4;
 - (void)_updateAccountNoSave:(id)arg1 withDataclassActions:(id)arg2 error:(id*)arg3;
 - (void)_updateExistenceCacheOfAccountWithTypeIdentifier:(id)arg1 withHandler:(id /* block */)arg2;
 - (void)accessKeysForAccountType:(id)arg1 handler:(id /* block */)arg2;
@@ -74,6 +75,7 @@
 - (void)accountTypesWithHandler:(id /* block */)arg1;
 - (void)accountWithIdentifier:(id)arg1 handler:(id /* block */)arg2;
 - (BOOL)accountsExistWithAccountTypeIdentifier:(id)arg1;
+- (void)accountsOnPairedDeviceWithAccountType:(id)arg1 handler:(id /* block */)arg2;
 - (void)accountsWithAccountType:(id)arg1 handler:(id /* block */)arg2;
 - (id)accountsWithAccountTypeIdentifier:(id)arg1;
 - (void)accountsWithAccountTypeIdentifiers:(id)arg1 preloadedProperties:(id)arg2 completion:(id /* block */)arg3;
@@ -94,6 +96,8 @@
 - (void)connectToRemoteAccountStoreUsingEndpoint:(id)arg1;
 - (void)credentialForAccount:(id)arg1 serviceID:(id)arg2 handler:(id /* block */)arg3;
 - (void)credentialForAccountWithIdentifier:(id)arg1 handler:(id /* block */)arg2;
+- (void)credentialItemForAccount:(id)arg1 serviceName:(id)arg2 completion:(id /* block */)arg3;
+- (void)credentialItemsWithCompletion:(id /* block */)arg1;
 - (void)dataclassActionsForAccountDeletion:(id)arg1 completion:(id /* block */)arg2;
 - (void)dataclassActionsForAccountSave:(id)arg1 completion:(id /* block */)arg2;
 - (id)dataclassOwnersManager;
@@ -101,6 +105,7 @@
 - (id)delegate;
 - (void)deleteAccountNoSave:(id)arg1 error:(id*)arg2;
 - (void)disconnectFromRemoteAccountStore;
+- (void)discoverPropertiesForAccount:(id)arg1 options:(id)arg2 completion:(id /* block */)arg3;
 - (void)displayAccountTypeForAccountWithIdentifier:(id)arg1 handler:(id /* block */)arg2;
 - (void)enabledDataclassesForAccountWithIdentifier:(id)arg1 handler:(id /* block */)arg2;
 - (id)filter;
@@ -108,6 +113,7 @@
 - (void)handleURL:(id)arg1;
 - (id)initWithClient:(id)arg1;
 - (void)insertAccountType:(id)arg1 withHandler:(id /* block */)arg2;
+- (void)insertCredentialItem:(id)arg1 completion:(id /* block */)arg2;
 - (BOOL)isMigrationInProgress;
 - (void)isPerformingDataclassActionsForAccount:(id)arg1 completion:(id /* block */)arg2;
 - (void)isPushSupportedForAccount:(id)arg1 completion:(id /* block */)arg2;
@@ -127,17 +133,21 @@
 - (void)removeAccount:(id)arg1 withDataclassActions:(id)arg2 completion:(id /* block */)arg3;
 - (void)removeAccountType:(id)arg1 withHandler:(id /* block */)arg2;
 - (void)removeAccountsFromPairedDeviceWithCompletion:(id /* block */)arg1;
+- (void)removeCredentialItem:(id)arg1 completion:(id /* block */)arg2;
 - (void)renewCredentialsForAccount:(id)arg1 options:(id)arg2 completion:(id /* block */)arg3;
+- (void)reportTelemetryForLandmarkEvent:(id /* block */)arg1;
 - (void)requestAccessForAccountTypeWithIdentifier:(id)arg1 options:(id)arg2 withHandler:(id /* block */)arg3;
 - (void)saveAccount:(id)arg1 pid:(id)arg2 verify:(BOOL)arg3 dataclassActions:(id)arg4 completion:(id /* block */)arg5;
 - (void)saveAccount:(id)arg1 toPairedDeviceWithOptions:(id)arg2 completion:(id /* block */)arg3;
 - (void)saveAccount:(id)arg1 verify:(BOOL)arg2 dataclassActions:(id)arg3 completion:(id /* block */)arg4;
 - (void)saveAccount:(id)arg1 withHandler:(id /* block */)arg2;
+- (void)saveCredentialItem:(id)arg1 completion:(id /* block */)arg2;
 - (void)setAccessPluginManager:(id)arg1;
 - (void)setAuthenticationDialogManager:(id)arg1;
 - (void)setAuthenticationPluginManager:(id)arg1;
 - (void)setClient:(id)arg1;
 - (void)setClientBundleID:(id)arg1 withHandler:(id /* block */)arg2;
+- (void)setCredential:(id)arg1 forAccount:(id)arg2 serviceID:(id)arg3 completion:(id /* block */)arg4;
 - (void)setDataclassOwnersManager:(id)arg1;
 - (void)setDelegate:(id)arg1;
 - (void)setFilter:(id)arg1;
@@ -148,6 +158,7 @@
 - (void)supportedDataclassesForAccountType:(id)arg1 handler:(id /* block */)arg2;
 - (void)syncableDataclassesForAccountType:(id)arg1 handler:(id /* block */)arg2;
 - (void)tetheredSyncSourceTypeForDataclass:(id)arg1 completion:(id /* block */)arg2;
+- (void)triggerKeychainMigrationIfNecessary:(id /* block */)arg1;
 - (void)typeIdentifierForDomain:(id)arg1 withHandler:(id /* block */)arg2;
 - (void)updateAccountNoSave:(id)arg1 error:(id*)arg2;
 - (void)updateExistenceCacheOfAccountWithTypeIdentifier:(id)arg1 withHandler:(id /* block */)arg2;

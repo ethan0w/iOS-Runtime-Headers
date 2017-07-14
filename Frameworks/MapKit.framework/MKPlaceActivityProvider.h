@@ -3,8 +3,8 @@
  */
 
 @interface MKPlaceActivityProvider : NSObject {
-    <MKPlaceActivityProviderDelegate> *_delegate;
-    MKMapItem *_mapItem;
+    <MKPlaceActivityProviderDelegate> * _delegate;
+    MKMapItem * _mapItem;
 }
 
 @property (nonatomic) <MKPlaceActivityProviderDelegate> *delegate;
@@ -14,7 +14,6 @@
 - (id)activityAnnotationView;
 - (id)activityTitle;
 - (id)activityURL;
-- (id)appleActivityURL;
 - (id)delegate;
 - (id)initWithMapItem:(id)arg1;
 - (id)mapItem;

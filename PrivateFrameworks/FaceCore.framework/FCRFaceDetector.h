@@ -3,8 +3,8 @@
  */
 
 @interface FCRFaceDetector : NSObject {
-    void *api;
-    NSObject *lock;
+    void * api;
+    NSObject * lock;
 }
 
 + (id)faceDetector;

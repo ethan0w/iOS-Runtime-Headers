@@ -3,10 +3,10 @@
  */
 
 @interface UIWebElementAction : NSObject {
-    id /* block */ _actionHandler;
-    id /* block */ _dismissalHandler;
-    NSString *_title;
-    int _type;
+    id /* block */  _actionHandler;
+    id /* block */  _dismissalHandler;
+    NSString * _title;
+    int  _type;
 }
 
 @property (nonatomic, copy) id /* block */ dismissalHandler;
@@ -14,7 +14,7 @@
 
 + (id)customElementActionWithTitle:(id)arg1 actionHandler:(id /* block */)arg2;
 + (id)standardElementActionWithType:(int)arg1;
-+ (id)standardElementActionWithType:(int)arg1 customTitle:(id)arg2;
++ (id)standardElementActionWithType:(int)arg1 customTitle:(id)arg2 context:(id)arg3;
 
 - (void)_runActionWithElement:(id)arg1 targetURL:(id)arg2 documentView:(id)arg3 interactionLocation:(struct CGPoint { float x1; float x2; })arg4;
 - (id)_title;

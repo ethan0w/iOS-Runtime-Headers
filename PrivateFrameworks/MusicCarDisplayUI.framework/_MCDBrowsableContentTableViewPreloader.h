@@ -2,42 +2,52 @@
    Image: /System/Library/PrivateFrameworks/MusicCarDisplayUI.framework/MusicCarDisplayUI
  */
 
-@interface _MCDBrowsableContentTableViewPreloader : NSObject <MCDBrowsableContentModelListener> {
-    BOOL _cancelled;
-    id /* block */ _cancelledBlock;
-    NSIndexPath *_indexPath;
-    MCDBrowsableContentModel *_model;
-    UINavigationController *_navigationController;
-    BOOL _pushContainerWhenNil;
-    BOOL _pushNowPlayingWhenNil;
-    UIViewController *_sourceViewController;
+@interface _MCDBrowsableContentTableViewPreloader : NSObject {
+    BOOL  _cancelled;
+    id /* block */  _cancelledBlock;
+    MCDPCContainer * _container;
+    int  _index;
+    NSIndexPath * _indexPath;
+    BOOL  _isRootTableView;
+    BOOL  _isTabbedBrowsing;
+    MCDPCItem * _item;
+    MPWeakTimer * _loadingTimer;
+    UIViewController * _sourceViewController;
 }
 
 @property (getter=isCancelled, nonatomic) BOOL cancelled;
 @property (nonatomic, readonly, copy) id /* block */ cancelledBlock;
-@property (readonly, copy) NSString *debugDescription;
-@property (readonly, copy) NSString *description;
-@property (readonly) unsigned int hash;
+@property (nonatomic, readonly) MCDPCContainer *container;
+@property (nonatomic, readonly) int index;
 @property (nonatomic, readonly) NSIndexPath *indexPath;
-@property (nonatomic, readonly) MCDBrowsableContentModel *model;
-@property (nonatomic, readonly) UINavigationController *navigationController;
+@property (nonatomic) BOOL isRootTableView;
+@property (nonatomic) BOOL isTabbedBrowsing;
+@property (nonatomic, readonly) MCDPCItem *item;
+@property (nonatomic, retain) MPWeakTimer *loadingTimer;
 @property (nonatomic, readonly) UIViewController *sourceViewController;
-@property (readonly) Class superclass;
 
 - (void).cxx_destruct;
 - (void)_deregister;
+- (void)_displayErrorAlertController:(id)arg1;
+- (void)_loadContainerAndPush:(id)arg1;
+- (void)_pushToPlayback:(id)arg1;
 - (id /* block */)cancelledBlock;
+- (id)container;
 - (void)dealloc;
+- (id)description;
+- (int)index;
 - (id)indexPath;
-- (id)initWithModel:(id)arg1 indexPath:(id)arg2 sourceViewController:(id)arg3 navigationController:(id)arg4 cancelledBlock:(id /* block */)arg5;
+- (id)initWithContainer:(id)arg1 index:(int)arg2 sourceViewController:(id)arg3 rootTableView:(BOOL)arg4 tabbedBrowsing:(BOOL)arg5 cancelledBlock:(id /* block */)arg6;
 - (BOOL)isCancelled;
+- (BOOL)isRootTableView;
+- (BOOL)isTabbedBrowsing;
+- (id)item;
 - (void)loadAndPush;
-- (id)model;
-- (void)model:(id)arg1 didInitiatePlaybackOfItemAtIndexPath:(id)arg2 error:(id)arg3;
-- (void)model:(id)arg1 didUpdateContainerAtIndexPath:(id)arg2;
-- (void)model:(id)arg1 didUpdateContentItemsAtIndexPaths:(id)arg2;
-- (id)navigationController;
+- (id)loadingTimer;
 - (void)setCancelled:(BOOL)arg1;
+- (void)setIsRootTableView:(BOOL)arg1;
+- (void)setIsTabbedBrowsing:(BOOL)arg1;
+- (void)setLoadingTimer:(id)arg1;
 - (id)sourceViewController;
 
 @end

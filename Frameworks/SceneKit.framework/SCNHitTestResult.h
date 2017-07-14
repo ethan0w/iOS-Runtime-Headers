@@ -3,10 +3,10 @@
  */
 
 @interface SCNHitTestResult : NSObject {
-    id _reserved;
-    struct __C3DHitTestResult { } *_result;
+    struct __C3DHitTestResult { } * _result;
 }
 
+@property (nonatomic, readonly) SCNNode *boneNode;
 @property (nonatomic, readonly) int faceIndex;
 @property (nonatomic, readonly) int geometryIndex;
 @property (nonatomic, readonly) struct SCNVector3 { float x1; float x2; float x3; } localCoordinates;
@@ -16,9 +16,9 @@
 @property (nonatomic, readonly) struct SCNVector3 { float x1; float x2; float x3; } worldCoordinates;
 @property (nonatomic, readonly) struct SCNVector3 { float x1; float x2; float x3; } worldNormal;
 
-+ (id)SCNJSExportProtocol;
 + (id)hitTestResultsFromHitTestResultRef:(struct __CFArray { }*)arg1;
 
+- (id)boneNode;
 - (void)dealloc;
 - (id)description;
 - (int)faceIndex;

@@ -2,7 +2,7 @@
    Image: /System/Library/Frameworks/Foundation.framework/Foundation
  */
 
-@interface NSCharacterSet : NSObject <NSCoding, NSCopying, NSMutableCopying>
+@interface NSCharacterSet : NSObject <NSCopying, NSMutableCopying, NSSecureCoding>
 
 @property (readonly, copy) NSData *bitmapRepresentation;
 @property (readonly, copy) NSCharacterSet *invertedSet;
@@ -31,6 +31,7 @@
 + (id)newlineCharacterSet;
 + (id)nonBaseCharacterSet;
 + (id)punctuationCharacterSet;
++ (BOOL)supportsSecureCoding;
 + (id)symbolCharacterSet;
 + (id)uppercaseLetterCharacterSet;
 + (id)whitespaceAndNewlineCharacterSet;
@@ -58,14 +59,38 @@
 - (id)mutableCopyWithZone:(struct _NSZone { }*)arg1;
 - (id)replacementObjectForPortCoder:(id)arg1;
 
+// Image: /System/Library/Frameworks/HealthKit.framework/HealthKit
+
++ (id)equalCharacterSet;
++ (id)forwardSlashCharacterSet;
++ (id)percentCharacterSet;
+
+// Image: /System/Library/Frameworks/MessageUI.framework/MessageUI
+
++ (id)textAttachmentCharacterSet;
+
+// Image: /System/Library/PrivateFrameworks/EmojiFoundation.framework/EmojiFoundation
+
++ (id)_emojiCharacterSet;
+
+// Image: /System/Library/PrivateFrameworks/IMFoundation.framework/IMFoundation
+
++ (id)invalidCharactersForFileTransferName;
+
+// Image: /System/Library/PrivateFrameworks/SafariShared.framework/SafariShared
+
++ (id)safari_lockRelatedEmojiCharacterSet;
+
 // Image: /System/Library/PrivateFrameworks/ScreenReaderCore.framework/ScreenReaderCore
 
++ (id)emojiCharacterSet;
 + (id)whitespaceNewlineAndSpecialCharacterSet;
 + (id)wordBreakCharacterSet;
 
-// Image: /System/Library/PrivateFrameworks/WebUI.framework/WebUI
+// Image: /System/Library/PrivateFrameworks/TelephonyUtilities.framework/TelephonyUtilities
 
-+ (id)safari_lockRelatedEmojiCharacterSet;
++ (id)phoneNumberSeparatorCharacterSet;
++ (id)phoneNumberSeparatorCharacterSet;
 
 // Image: /System/Library/PrivateFrameworks/iWorkImport.framework/iWorkImport
 
@@ -87,5 +112,11 @@
 + (id)tswp_smartSingleQuotesCharacterSet;
 + (id)tswp_spaceCharacterSet;
 + (id)tswp_variationSelectorCharacterSet;
+
+// Image: /System/Library/TextInput/libTextInputCore.dylib
+
++ (id)pinyinInputCharacterSet;
++ (id)punctuationAndWhitespaceCharacterSet;
++ (id)sentenceDelimiterCharacterSet;
 
 @end

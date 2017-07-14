@@ -3,13 +3,13 @@
  */
 
 @interface UIPrinterSetupPINView : UIControl <UITextFieldDelegate> {
-    UILabel *_enterLabel;
-    int _failedAttemptCount;
-    UIImageView *_failedBackground;
-    UILabel *_failedLabel;
-    UIPasscodeField *_passcodeField;
-    UITextField *_textEntryField;
-    UILabel *_titleLabel;
+    UILabel * _enterLabel;
+    int  _failedAttemptCount;
+    UIImageView * _failedBackground;
+    UILabel * _failedLabel;
+    UIPasscodeField * _passcodeField;
+    UITextField * _textEntryField;
+    UILabel * _titleLabel;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -24,7 +24,9 @@
 @property (nonatomic, retain) UITextField *textEntryField;
 @property (nonatomic, retain) UILabel *titleLabel;
 
+- (void).cxx_destruct;
 - (id)PIN;
+- (id)__scalarStatisticsForUserTouchUpInsideEvent;
 - (void)dealloc;
 - (id)enterLabel;
 - (int)failedAttemptCount;

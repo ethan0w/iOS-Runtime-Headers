@@ -3,8 +3,8 @@
  */
 
 @interface CIGaussianBlur : CIFilter {
-    CIImage *inputImage;
-    NSNumber *inputRadius;
+    CIImage * inputImage;
+    NSNumber * inputRadius;
 }
 
 @property (nonatomic, retain) CIImage *inputImage;
@@ -16,7 +16,6 @@
 - (id)inputImage;
 - (id)inputRadius;
 - (id)outputImage;
-- (void)setDefaults;
 - (void)setInputImage:(id)arg1;
 - (void)setInputRadius:(id)arg1;
 

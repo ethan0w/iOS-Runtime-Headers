@@ -3,7 +3,7 @@
  */
 
 @interface UIKeyboardExtensionInputMode : UIKeyboardInputMode {
-    NSExtension *_extension;
+    NSExtension * _extension;
 }
 
 @property (nonatomic, retain) NSExtension *extension;
@@ -20,9 +20,11 @@
 - (id)initWithIdentifier:(id)arg1;
 - (BOOL)isAllowedForTraits:(id)arg1;
 - (BOOL)isDefaultRightToLeft;
-- (BOOL)isDesiredForTraits:(id)arg1 forceASCIICapable:(BOOL)arg2;
+- (BOOL)isDesiredForTraits:(id)arg1;
 - (BOOL)isExtensionInputMode;
+- (BOOL)isStalledExtensionInputMode;
 - (id)normalizedIdentifierLevels;
 - (void)setExtension:(id)arg1;
+- (void)setPrimaryLanguage:(id)arg1;
 
 @end

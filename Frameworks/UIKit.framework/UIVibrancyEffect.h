@@ -3,7 +3,8 @@
  */
 
 @interface UIVibrancyEffect : UIVisualEffect {
-    int _blurStyle;
+    int  _blurStyle;
+    BOOL  _invertAutomaticStyle;
 }
 
 // Image: /System/Library/Frameworks/UIKit.framework/UIKit
@@ -11,16 +12,27 @@
 + (id)effectForBlurEffect:(id)arg1;
 + (BOOL)supportsSecureCoding;
 
+- (int)_blurStyle;
 - (id)_highQualityEffectConfig;
+- (BOOL)_isATVStyle;
+- (BOOL)_isAutomaticStyle;
 - (id)_lowQualityEffectConfig;
+- (id)_reduceTransparencyEffectConfig;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
 - (id)effectConfig;
 - (id)effectConfigForQuality:(int)arg1;
+- (id)effectForUserInterfaceStyle:(int)arg1;
 - (void)encodeWithCoder:(id)arg1;
 - (id)initWithCoder:(id)arg1;
 
 // Image: /System/Library/Frameworks/NotificationCenter.framework/NotificationCenter
 
 + (id)notificationCenterVibrancyEffect;
++ (id)widgetPrimaryHighlightVibrancyEffect;
++ (id)widgetPrimaryVibrancyEffect;
++ (id)widgetQuaternaryVibrancyEffect;
++ (id)widgetSecondaryHighlightVibrancyEffect;
++ (id)widgetSecondaryVibrancyEffect;
++ (id)widgetTertiaryVibrancyEffect;
 
 @end

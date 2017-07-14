@@ -6,7 +6,6 @@
 @required
 
 - (int)activityType;
-- (BOOL)airplaneModeBlocksLocation;
 - (id /* block */)authorizationRequestBlock:(void *)arg1; // needs 1 arg types, found 10: id /* block */, id /* block */, void*, void, id /* block */, BOOL, void*, void*, id, SEL
 - (int)authorizationStatus;
 - (<MKLocationProviderDelegate> *)delegate;
@@ -18,7 +17,6 @@
 - (double)expectedGpsUpdateInterval;
 - (int)headingOrientation;
 - (BOOL)isLocationServicesPreferencesDialogEnabled;
-- (BOOL)isSimulation;
 - (BOOL)isTracePlayer;
 - (BOOL)matchInfoEnabled;
 - (void)requestWhenInUseAuthorization;
@@ -33,6 +31,7 @@
 - (void)setHeadingOrientation:(int)arg1;
 - (void)setLocationServicesPreferencesDialogEnabled:(BOOL)arg1;
 - (void)setMatchInfoEnabled:(BOOL)arg1;
+- (BOOL)shouldShiftIfNecessary;
 - (void)startUpdatingHeading;
 - (void)startUpdatingLocation;
 - (void)startUpdatingVehicleHeading;
@@ -41,6 +40,11 @@
 - (void)stopUpdatingLocation;
 - (void)stopUpdatingVehicleHeading;
 - (void)stopUpdatingVehicleSpeed;
+- (double)timeScale;
 - (BOOL)usesCLMapCorrection;
+
+@optional
+
+- (CLLocation *)lastLocation;
 
 @end

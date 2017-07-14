@@ -2,19 +2,22 @@
    Image: /System/Library/PrivateFrameworks/UIFoundation.framework/UIFoundation
  */
 
-@interface UIFontDescriptor : NSObject <NSCoding, NSCopying> {
-    NSMutableDictionary *_attributes;
-    id _reserved1;
-    id _reserved2;
-    id _reserved3;
-    id _reserved4;
-    id _reserved5;
+@interface UIFontDescriptor : NSObject <NSCopying, NSSecureCoding> {
+    NSMutableDictionary * _attributes;
+    id  _reserved1;
+    id  _reserved2;
+    id  _reserved3;
+    id  _reserved4;
+    id  _reserved5;
 }
 
+@property (nonatomic, readonly) NSDictionary *fontAttributes;
 @property (nonatomic, readonly) struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; } matrix;
 @property (nonatomic, readonly) float pointSize;
 @property (nonatomic, readonly) NSString *postscriptName;
 @property (nonatomic, readonly) unsigned int symbolicTraits;
+
+// Image: /System/Library/PrivateFrameworks/UIFoundation.framework/UIFoundation
 
 + (id)_createMungledDictionary:(id)arg1;
 + (id)defaultFontDescriptorWithTextStyle:(id)arg1;
@@ -24,10 +27,11 @@
 + (id)fontDescriptorWithName:(id)arg1 size:(float)arg2;
 + (id)preferredFontDescriptorWithTextStyle:(id)arg1;
 + (id)preferredFontDescriptorWithTextStyle:(id)arg1 addingSymbolicTraits:(unsigned int)arg2 options:(unsigned int)arg3;
++ (id)preferredFontDescriptorWithTextStyle:(id)arg1 compatibleWithTraitCollection:(id)arg2;
 + (BOOL)supportsSecureCoding;
 
 - (id)_attributes;
-- (id)_initWithFontAttributes:(id)arg1 options:(unsigned int)arg2;
+- (id)_swapWithFontAttributes:(id)arg1 options:(unsigned int)arg2;
 - (id)_visibleName;
 - (Class)classForCoder;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
@@ -51,5 +55,22 @@
 - (float)pointSize;
 - (id)postscriptName;
 - (unsigned int)symbolicTraits;
+
+// Image: /System/Library/Frameworks/MapKit.framework/MapKit
+
++ (id)_mapkit_fontFeaturesForTabularFigures;
++ (id)_mapkit_fontFeaturesForTimeDisplay;
++ (id)_mapkit_fontFeaturesForTimeDisplayUseMonospace:(BOOL)arg1;
++ (id)_mapkit_fontMonospaceFeature;
++ (id)_mapkit_fontRoundedColonFeature;
+
+- (id)_mapkit_fontDescriptorByAddingFeaturesForTabularFigures;
+- (id)_mapkit_fontDescriptorByAddingFeaturesForTimeDisplay;
+- (id)_mapkit_fontDescriptorByAddingFeaturesForTimeDisplayUseMonospace:(BOOL)arg1;
+
+// Image: /System/Library/PrivateFrameworks/TelephonyUI.framework/TelephonyUI
+
++ (id)telephonyUIBodyShortFontDescriptor;
++ (id)telephonyUISubheadlineShortFontDescriptor;
 
 @end

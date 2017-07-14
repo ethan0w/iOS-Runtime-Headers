@@ -5,16 +5,15 @@
 
 @required
 
-- (<HDSyncChange> *)newChangeWithSyncEntityClass:(Class)arg1;
-- (int)provenance;
-- (void)sendChange:(void *)arg1 withContext:(void *)arg2 completion:(void *)arg3; // needs 3 arg types, found 9: <HDSyncChange> *, id, id /* block */, /* Warning: Unrecognized filer type: '<' using 'void*' */ void*, void, id /* block */, BOOL, NSError *, void*
-- (NSArray *)syncEntities;
-- (unsigned int)syncObjectLimitForEntityClass:(Class)arg1;
+- (BOOL)enforceSyncEntityOrdering;
+- (int)expectedSequenceNumberForSyncEntityClass:(Class)arg1;
+- (NSArray *)orderedSyncEntities;
+- (HDProfile *)profile;
+- (void)setExpectedSequenceNumber:(int)arg1 forSyncEntityClass:(Class)arg2;
+- (BOOL)supportsSpeculativeChangesForSyncEntityClass:(Class)arg1;
+- (NSSet *)syncEntityDependenciesForSyncEntity:(Class)arg1;
+- (long long)syncProvenance;
+- (NSString *)syncStoreDefaultSourceBundleIdentifier;
 - (NSString *)syncStoreIdentifier;
-
-@optional
-
-- (void)syncDidFinishWithContext:(id)arg1 success:(BOOL)arg2 error:(NSError *)arg3;
-- (void)syncWillBeginWithContext:(id)arg1;
 
 @end

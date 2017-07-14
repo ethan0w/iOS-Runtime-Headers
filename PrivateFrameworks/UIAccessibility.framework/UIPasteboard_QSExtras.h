@@ -10,7 +10,7 @@
 + (id)generalPasteboard;
 + (id)pasteboardWithName:(id)arg1 create:(BOOL)arg2;
 + (id)pasteboardWithUniqueName;
-+ (Class)safeCategoryTargetClass;
++ (Class)safeCategoryBaseClass;
 + (id)safeCategoryTargetClassName;
 
 - (id)URL;
@@ -33,6 +33,7 @@
 - (id)pasteboardTypesForItemSet:(id)arg1;
 - (void)setData:(id)arg1 forPasteboardType:(id)arg2;
 - (void)setItems:(id)arg1;
+- (void)setStrings:(id)arg1;
 - (void)setValue:(id)arg1 forPasteboardType:(id)arg2;
 - (id)string;
 - (id)strings;

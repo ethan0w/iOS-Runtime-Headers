@@ -3,15 +3,19 @@
  */
 
 @interface BKSEventFocusDeferral : NSObject <NSSecureCoding> {
-    BKSEventFocusDeferralProperties *_deferredProperties;
-    BKSEventFocusDeferralProperties *_properties;
+    BKSEventFocusDeferralProperties * _deferredProperties;
+    int  _priority;
+    BKSEventFocusDeferralProperties * _properties;
 }
 
-@property (nonatomic, readonly) BKSEventFocusDeferralProperties *deferredProperties;
-@property (nonatomic, readonly) BKSEventFocusDeferralProperties *properties;
+@property (nonatomic, readonly, retain) BKSEventFocusDeferralProperties *deferredProperties;
+@property (nonatomic, readonly) BOOL isCycle;
+@property (nonatomic, readonly) int priority;
+@property (nonatomic, readonly, retain) BKSEventFocusDeferralProperties *properties;
 
 + (BOOL)supportsSecureCoding;
 
+- (id)conciseDescription;
 - (void)dealloc;
 - (id)deferredProperties;
 - (id)deferredPropertiesForProperties:(id)arg1;
@@ -21,7 +25,10 @@
 - (unsigned int)hash;
 - (id)initWithCoder:(id)arg1;
 - (id)initWithProperties:(id)arg1 deferredProperties:(id)arg2;
+- (id)initWithProperties:(id)arg1 deferredProperties:(id)arg2 withPriority:(int)arg3;
+- (BOOL)isCycle;
 - (BOOL)isEqual:(id)arg1;
+- (int)priority;
 - (id)properties;
 
 @end

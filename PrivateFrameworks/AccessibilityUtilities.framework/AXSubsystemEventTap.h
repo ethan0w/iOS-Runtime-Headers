@@ -2,10 +2,8 @@
    Image: /System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities
  */
 
-@interface AXSubsystemEventTap : AXSubsystem
+@interface AXSubsystemEventTap : AXLoggingSubsystem
 
-+ (int)defaultLogLevel;
 + (id)identifier;
-+ (BOOL)shouldProcessMessageForLogs;
 
 @end

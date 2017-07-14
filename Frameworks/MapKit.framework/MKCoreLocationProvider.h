@@ -3,21 +3,21 @@
  */
 
 @interface MKCoreLocationProvider : NSObject <CLLocationManagerDelegate, CLLocationManagerVehicleDelegate, MKLocationProvider> {
-    NSLock *_authorizationLock;
-    id /* block */ _authorizationRequestBlock;
-    int _authorizationStatus;
-    CLLocationManager *_clLocationManager;
-    <MKLocationProviderDelegate> *_delegate;
-    NSBundle *_effectiveBundle;
-    NSString *_effectiveBundleIdentifier;
-    BOOL _hasQueriedAuthorization;
-    BOOL _locationServicesPreferencesDialogEnabled;
-    BOOL _waitingForAuthorization;
+    BOOL  _alternate;
+    NSLock * _authorizationLock;
+    id /* block */  _authorizationRequestBlock;
+    int  _authorizationStatus;
+    CLLocationManager * _clLocationManager;
+    <MKLocationProviderDelegate> * _delegate;
+    NSBundle * _effectiveBundle;
+    NSString * _effectiveBundleIdentifier;
+    BOOL  _hasQueriedAuthorization;
+    BOOL  _locationServicesPreferencesDialogEnabled;
+    BOOL  _waitingForAuthorization;
 }
 
 @property (nonatomic, readonly) CLLocationManager *_clLocationManager;
 @property (nonatomic) int activityType;
-@property (nonatomic, readonly) BOOL airplaneModeBlocksLocation;
 @property (nonatomic, copy) id /* block */ authorizationRequestBlock;
 @property (nonatomic, readonly) int authorizationStatus;
 @property (readonly, copy) NSString *debugDescription;
@@ -30,11 +30,13 @@
 @property (nonatomic, readonly) double expectedGpsUpdateInterval;
 @property (readonly) unsigned int hash;
 @property (nonatomic) int headingOrientation;
-@property (nonatomic, readonly) BOOL isSimulation;
 @property (nonatomic, readonly) BOOL isTracePlayer;
+@property (nonatomic, readonly) CLLocation *lastLocation;
 @property (getter=isLocationServicesPreferencesDialogEnabled, nonatomic) BOOL locationServicesPreferencesDialogEnabled;
 @property (nonatomic) BOOL matchInfoEnabled;
+@property (nonatomic, readonly) BOOL shouldShiftIfNecessary;
 @property (readonly) Class superclass;
+@property (nonatomic, readonly) double timeScale;
 @property (nonatomic, readonly) BOOL usesCLMapCorrection;
 
 - (void).cxx_destruct;
@@ -43,7 +45,6 @@
 - (void)_resetForNewEffectiveBundle;
 - (void)_updateAuthorizationStatus;
 - (int)activityType;
-- (BOOL)airplaneModeBlocksLocation;
 - (id /* block */)authorizationRequestBlock;
 - (int)authorizationStatus;
 - (void)dealloc;
@@ -57,8 +58,8 @@
 - (int)headingOrientation;
 - (id)init;
 - (BOOL)isLocationServicesPreferencesDialogEnabled;
-- (BOOL)isSimulation;
 - (BOOL)isTracePlayer;
+- (id)lastLocation;
 - (void)locationManager:(id)arg1 didChangeAuthorizationStatus:(int)arg2;
 - (void)locationManager:(id)arg1 didFailWithError:(id)arg2;
 - (void)locationManager:(id)arg1 didUpdateHeading:(id)arg2;
@@ -81,6 +82,7 @@
 - (void)setHeadingOrientation:(int)arg1;
 - (void)setLocationServicesPreferencesDialogEnabled:(BOOL)arg1;
 - (void)setMatchInfoEnabled:(BOOL)arg1;
+- (BOOL)shouldShiftIfNecessary;
 - (void)startUpdatingHeading;
 - (void)startUpdatingLocation;
 - (void)startUpdatingVehicleHeading;
@@ -89,6 +91,7 @@
 - (void)stopUpdatingLocation;
 - (void)stopUpdatingVehicleHeading;
 - (void)stopUpdatingVehicleSpeed;
+- (double)timeScale;
 - (BOOL)usesCLMapCorrection;
 
 @end

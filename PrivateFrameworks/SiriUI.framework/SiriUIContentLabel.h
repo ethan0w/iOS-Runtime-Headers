@@ -5,12 +5,15 @@
 @interface SiriUIContentLabel : UILabel
 
 + (id)label;
++ (id)labelWithBodyFont;
 + (id)labelWithHeaderFont;
++ (id)labelWithLightWeightFontSize:(float)arg1;
 + (id)labelWithLightWeightRegularFont;
 + (id)labelWithLightWeightSubtextFont;
 + (id)labelWithMediumWeightRegularFont;
 + (id)labelWithMediumWeightSubtextFont;
 + (id)labelWithSubtitleFont;
++ (id)labelWithThinWeightFontSize:(float)arg1;
 + (id)labelWithThinWeightRegularFont;
 + (id)labelWithThinWeightSubtextFont;
 

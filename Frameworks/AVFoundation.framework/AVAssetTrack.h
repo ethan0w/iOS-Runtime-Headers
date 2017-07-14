@@ -3,14 +3,16 @@
  */
 
 @interface AVAssetTrack : NSObject <AVAsynchronousKeyValueLoading, NSCopying> {
-    AVAssetTrackInternal *_track;
+    AVAssetTrackInternal * _track;
 }
 
 @property (nonatomic, readonly) AVAsset *asset;
 @property (nonatomic, readonly) int trackID;
 
+// Image: /System/Library/Frameworks/AVFoundation.framework/AVFoundation
+
 + (id)keyPathsForValuesAffectingTimeRange;
-+ (id)mediaTypesForMediaCharacteristics;
++ (id)mediaCharacteristicsForMediaTypes;
 
 - (id)_assetTrackInspector;
 - (id)_fallbackTrack;
@@ -27,8 +29,11 @@
 - (id)_initWithAsset:(id)arg1 trackID:(int)arg2 trackIndex:(long)arg3;
 - (id)_initWithAsset:(id)arg1 trackIndex:(long)arg2;
 - (id)_pairedForcedOnlySubtitlesTrack;
+- (void)_startListeningToFigAssetTrackNotifications;
+- (void)_stopListeningToFigAssetTrackNotifications;
 - (BOOL)_subtitleFormatDescriptionMatchesTextDisplayFlags:(unsigned int)arg1 flagsMask:(unsigned int)arg2;
 - (id)_trackReferences;
+- (id)_weakReference;
 - (int)alternateGroupID;
 - (id)asset;
 - (id)associatedTracksOfType:(id)arg1;
@@ -37,6 +42,7 @@
 - (id)commonMetadata;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
 - (void)dealloc;
+- (int)defaultAlternateGroupID;
 - (id)description;
 - (struct CGSize { float x1; float x2; })dimensions;
 - (float)estimatedDataRate;
@@ -71,6 +77,7 @@
 - (long)playabilityValidationResult;
 - (struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; })preferredTransform;
 - (float)preferredVolume;
+- (int)provisionalAlternateGroupID;
 - (BOOL)requiresFrameReordering;
 - (struct { long long x1; int x2; unsigned int x3; long long x4; })samplePresentationTimeForTrackTime:(struct { long long x1; int x2; unsigned int x3; long long x4; })arg1;
 - (id)segmentForTrackTime:(struct { long long x1; int x2; unsigned int x3; long long x4; })arg1;
@@ -80,5 +87,11 @@
 - (struct { struct { long long x_1_1_1; int x_1_1_2; unsigned int x_1_1_3; long long x_1_1_4; } x1; struct { long long x_2_1_1; int x_2_1_2; unsigned int x_2_1_3; long long x_2_1_4; } x2; })timeRange;
 - (long long)totalSampleDataLength;
 - (int)trackID;
+
+// Image: /System/Library/PrivateFrameworks/VideoProcessing.framework/VideoProcessing
+
+- (struct { long long x1; int x2; unsigned int x3; long long x4; })vcp_endTime;
+- (int)vcp_orientation;
+- (struct { long long x1; int x2; unsigned int x3; long long x4; })vcp_startTime;
 
 @end

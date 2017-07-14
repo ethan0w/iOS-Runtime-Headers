@@ -3,8 +3,9 @@
  */
 
 @interface UIDatePicker : UIControl <NSCoding, UIPickerViewScrollTesting> {
-    _UIDatePickerView *_pickerView;
-    BOOL _useCurrentDateDuringDecoding;
+    _UIDatePickerView * _pickerView;
+    BOOL  _useCurrentDateDuringDecoding;
+    BOOL  shouldAnimateSetDateCall;
 }
 
 @property (getter=_usesModernStyle, setter=_setUsesModernStyle:, nonatomic) BOOL _usesModernStyle;
@@ -23,6 +24,7 @@
 @property (nonatomic, retain) NSDate *maximumDate;
 @property (nonatomic, retain) NSDate *minimumDate;
 @property (nonatomic) int minuteInterval;
+@property (getter=_shouldAnimateSetDateCall, setter=_setShouldAnimateSetDateCall:, nonatomic) BOOL shouldAnimateSetDateCall;
 @property (getter=_textColor, setter=_setTextColor:, nonatomic, retain) UIColor *textColor;
 @property (getter=_textShadowColor, setter=_setTextShadowColor:, nonatomic, retain) UIColor *textShadowColor;
 @property (nonatomic) double timeInterval;
@@ -30,18 +32,20 @@
 @property (getter=_useCurrentDateDuringDecoding, setter=_setUseCurrentDateDuringDecoding:, nonatomic) BOOL useCurrentDateDuringDecoding;
 @property (getter=_usesBlackChrome, setter=_setUsesBlackChrome:, nonatomic) BOOL usesBlackChrome;
 
-+ (Class)_pickerViewClass;
+// Image: /System/Library/Frameworks/UIKit.framework/UIKit
 
-- (void)_UIAppearance_setBackgroundColor:(id)arg1;
+- (void).cxx_destruct;
 - (BOOL)_allowsZeroCountDownDuration;
 - (BOOL)_allowsZeroTimeInterval;
 - (BOOL)_contentHuggingDefault_isUsuallyFixedHeight;
 - (BOOL)_contentHuggingDefault_isUsuallyFixedWidth;
 - (float)_contentWidth;
+- (unsigned int)_controlEventsForActionTriggered;
 - (id)_dateUnderSelectionBar;
 - (BOOL)_drawsBackground;
+- (void)_emitValueChanged;
 - (id)_highlightColor;
-- (void)_insertPickerView;
+- (void)_installPickerView:(id)arg1;
 - (struct CGSize { float x1; float x2; })_intrinsicSizeWithinSize:(struct CGSize { float x1; float x2; })arg1;
 - (BOOL)_isTimeIntervalMode;
 - (id)_labelTextForCalendarUnit:(unsigned int)arg1;
@@ -56,11 +60,14 @@
 - (void)_setHighlightColor:(id)arg1;
 - (void)_setHighlightsToday:(BOOL)arg1;
 - (void)_setLocale:(id)arg1;
+- (void)_setShouldAnimateSetDateCall:(BOOL)arg1;
 - (void)_setTextColor:(id)arg1;
 - (void)_setTextShadowColor:(id)arg1;
+- (void)_setUpInitialValues;
 - (void)_setUseCurrentDateDuringDecoding:(BOOL)arg1;
 - (void)_setUsesBlackChrome:(BOOL)arg1;
 - (void)_setUsesModernStyle:(BOOL)arg1;
+- (BOOL)_shouldAnimateSetDateCall;
 - (id)_textColor;
 - (id)_textShadowColor;
 - (BOOL)_useCurrentDateDuringDecoding;
@@ -72,6 +79,7 @@
 - (id)date;
 - (id)dateComponents;
 - (int)datePickerMode;
+- (void)didReceiveBindingsUpdate;
 - (void)encodeWithCoder:(id)arg1;
 - (id)hitTest:(struct CGPoint { float x1; float x2; })arg1 withEvent:(id)arg2;
 - (int)hour;
@@ -94,6 +102,7 @@
 - (void)setDateComponents:(id)arg1;
 - (void)setDatePickerMode:(int)arg1;
 - (void)setDelegate:(id)arg1;
+- (void)setEnabled:(BOOL)arg1;
 - (void)setFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (void)setHighlightsToday:(BOOL)arg1;
 - (void)setLocale:(id)arg1;
@@ -106,5 +115,12 @@
 - (struct CGSize { float x1; float x2; })sizeThatFits:(struct CGSize { float x1; float x2; })arg1;
 - (double)timeInterval;
 - (id)timeZone;
+- (void)traitCollectionDidChange:(id)arg1;
+- (void)willReceiveBindingsUpdate;
+
+// Image: /System/Library/PrivateFrameworks/PassKitUI.framework/PassKitUI
+
+- (void)pk_applyAppearance:(id)arg1;
+- (id)pk_childrenForAppearance;
 
 @end

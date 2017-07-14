@@ -5,16 +5,28 @@
 
 @required
 
+- (void)changeToMediaAtIndex:(unsigned int)arg1;
 - (IKJSMediaItem *)currentMediaItem;
-- (BOOL)ended;
+- (NSDate *)currentMediaItemDate;
+- (NSNumber *)currentMediaItemDuration;
 - (id)init;
+- (BOOL)interactiveOverlayDismissable;
+- (IKDOMDocument *)interactiveOverlayDocument;
+- (void)next;
+- (IKJSMediaItem *)nextMediaItem;
+- (IKDOMDocument *)overlayDocument;
 - (void)pause;
-- (BOOL)paused;
 - (void)play;
-- (BOOL)playing;
+- (double)playbackRate;
+- (NSString *)playbackState;
 - (IKJSPlaylist *)playlist;
-- (BOOL)seeking;
-- (void)setCurrentTime:(double)arg1;
+- (void)present;
+- (void)previous;
+- (IKJSMediaItem *)previousMediaItem;
+- (void)seekToTime:(double)arg1;
+- (void)setInteractiveOverlayDismissable:(BOOL)arg1;
+- (void)setInteractiveOverlayDocument:(IKDOMDocument *)arg1;
+- (void)setOverlayDocument:(IKDOMDocument *)arg1;
 - (void)setPlaybackRate:(double)arg1;
 - (void)setPlaylist:(IKJSPlaylist *)arg1;
 - (void)stop;

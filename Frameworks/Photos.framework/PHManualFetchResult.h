@@ -3,9 +3,9 @@
  */
 
 @interface PHManualFetchResult : PHFetchResult {
-    NSString *_identifier;
-    NSOrderedSet *_objectIDs;
-    NSArray *_objects;
+    NSString * _identifier;
+    NSOrderedSet * _objectIDs;
+    NSArray * _objects;
 }
 
 @property (readonly) NSString *identifier;
@@ -17,23 +17,26 @@
 - (id)changeHandlingValueUsingSeedOids:(id)arg1 withChange:(id)arg2 usingManagedObjectContext:(id)arg3;
 - (int)collectionFetchType;
 - (id)containerIdentifier;
+- (id)copyWithOptions:(id)arg1;
 - (id)description;
 - (id)fetchRequest;
 - (id)fetchResultWithChangeHandlingValue:(id)arg1;
 - (id)fetchUpdatedObjects;
 - (id)fetchedObjectIDs;
+- (id)fetchedObjectIDsSet;
 - (id)fetchedObjects;
 - (void)getMediaTypeCounts;
 - (unsigned int)hash;
 - (id)identifier;
-- (id)initWithObjects:(id)arg1;
-- (id)initWithObjects:(id)arg1 identifier:(id)arg2 registerIfNeeded:(BOOL)arg3;
-- (BOOL)interestedInChange:(id)arg1;
+- (id)initWithObjects:(id)arg1 fetchType:(id)arg2 fetchPropertySets:(id)arg3;
+- (id)initWithObjects:(id)arg1 fetchType:(id)arg2 fetchPropertySets:(id)arg3 identifier:(id)arg4 registerIfNeeded:(BOOL)arg5;
+- (id)initWithOids:(id)arg1 fetchType:(id)arg2 fetchPropertySets:(id)arg3 identifier:(id)arg4 registerIfNeeded:(BOOL)arg5;
 - (BOOL)isEqual:(id)arg1;
 - (id)objectIDAtIndex:(unsigned int)arg1;
 - (id)objectIDs;
 - (id)objects;
 - (id)photoLibrary;
+- (unsigned int)possibleChangesForChange:(id)arg1;
 - (void)prefetchObjectsAtIndexes:(id)arg1;
 - (void)updateRegistrationForChangeNotificationDeltas;
 

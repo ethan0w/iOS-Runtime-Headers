@@ -4,17 +4,23 @@
 
 @interface GEOPlatform : NSObject
 
++ (void)setIsRunningInGeod:(BOOL)arg1;
 + (id)sharedPlatform;
 
 - (BOOL)_deviceSupportsNavigation;
-- (id)_systemInfoDictionary;
 - (id)buildVersion;
 - (id)clientCapabilities;
+- (int)deviceScreenHeightInPixels;
+- (float)deviceScreenScale;
+- (int)deviceScreenWidthInPixels;
 - (id)hardwareIdentifier;
 - (BOOL)isInternalInstall;
 - (BOOL)mapsFeatureFreedomEnabled;
 - (id)osVersion;
+- (id)productName;
+- (BOOL)supportsForceTouch;
 - (BOOL)supportsNavigation;
+- (BOOL)supportsNewiOS9Features;
 - (BOOL)supportsRealisticTiles;
 
 @end

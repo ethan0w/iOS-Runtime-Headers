@@ -3,28 +3,33 @@
  */
 
 @interface BRCLocalStatInfo : BRCStatInfo {
-    NSString *_bouncedName;
-    NSNumber *_documentID;
-    NSNumber *_fileID;
-    BRCGenerationID *_generationID;
-    NSString *_localName;
-    NSNumber *_processingStamp;
-    NSNumber *_stagedFileID;
-    unsigned int _stagedGenerationID;
+    NSString * _bouncedName;
+    NSNumber * _documentID;
+    NSNumber * _fileID;
+    BRCGenerationID * _generationID;
+    unsigned char  _itemScope;
+    NSString * _physicalName;
+    NSNumber * _processingStamp;
+    NSNumber * _stagedFileID;
+    unsigned int  _stagedGenerationID;
 }
 
 @property (nonatomic, readonly) NSString *bouncedName;
 @property (nonatomic, readonly) NSNumber *documentID;
 @property (nonatomic, readonly) NSNumber *fileID;
-@property (nonatomic, readonly) NSNumber *fileObjectID;
+@property (nonatomic, readonly) BRFileObjectID *fileObjectID;
+@property (nonatomic, readonly) NSString *filename;
 @property (nonatomic, readonly) BRCGenerationID *generationID;
-@property (nonatomic, readonly) NSString *localName;
+@property (nonatomic) unsigned char itemScope;
 @property (nonatomic, readonly) NSNumber *lostStamp;
+@property (nonatomic, readonly) NSString *physicalName;
 @property (nonatomic, readonly) NSNumber *processingStamp;
 @property (nonatomic, readonly) NSNumber *stagedFileID;
 @property (nonatomic, readonly) NSNumber *stagedFileIDForDB;
 @property (nonatomic, readonly) unsigned int stagedGenerationID;
 
++ (id)_finderTagsFromRelativePath:(id)arg1;
++ (BOOL)_modeFromRelativePath:(id)arg1 isPackageFault:(BOOL)arg2;
 + (BOOL)supportsSecureCoding;
 
 - (void).cxx_destruct;
@@ -35,13 +40,17 @@
 - (void)_markAlmostDead;
 - (void)_markClearedFromStage;
 - (void)_markDead;
+- (void)_markFound;
 - (void)_markLiveFromStageAsFault:(BOOL)arg1;
-- (void)_markLostAddingBackoffWithMode:(unsigned char)arg1 container:(id)arg2;
+- (void)_markLiveFromStageAsType:(BOOL)arg1;
+- (void)_markLostAddingBackoffWithMode:(unsigned char)arg1 appLibrary:(id)arg2;
 - (void)_markReserved;
 - (void)_markStagedWithFileID:(id)arg1 generationID:(unsigned int)arg2 documentID:(id)arg3;
 - (void)_migrateBouncedNameToLocalName;
+- (void)_migrateBouncedNameToName;
 - (void)_moveItemAsideWithUUIDString;
 - (void)_setCKInfo:(id)arg1;
+- (void)_setItemScope:(unsigned char)arg1;
 - (void)_setParentID:(id)arg1;
 - (void)_updateMetadataFromFSAtPath:(id)arg1 itemID:(id)arg2 parentID:(id)arg3 isPackageFault:(BOOL)arg4;
 - (void)_updateStatMeta:(id)arg1;
@@ -57,18 +66,22 @@
 - (id)fileObjectID;
 - (id)filename;
 - (id)generationID;
-- (id)initFromResultSet:(id)arg1 pos:(int)arg2 container:(id)arg3;
+- (id)initAsShareAcceptFaultWithName:(id)arg1;
+- (id)initFromResultSet:(id)arg1 pos:(int)arg2;
 - (id)initWithCoder:(id)arg1;
 - (id)initWithLocalStatInfo:(id)arg1;
 - (id)initWithRelativePath:(id)arg1 itemID:(id)arg2 parentID:(id)arg3;
-- (id)localName;
+- (unsigned char)itemScope;
 - (id)lostStamp;
+- (id)physicalName;
 - (id)processingStamp;
 - (void)setFilename:(id)arg1;
 - (void)setFilename:(id)arg1 forceRename:(BOOL)arg2;
+- (void)setItemScope:(unsigned char)arg1;
 - (id)stagedFileID;
 - (id)stagedFileIDForDB;
 - (unsigned int)stagedGenerationID;
+- (void)updateAsAppLibraryRoot:(id)arg1;
 - (void)updateFromFSAtPath:(id)arg1 itemID:(id)arg2 parentID:(id)arg3 isPackageFault:(BOOL)arg4;
 - (void)updateLocationAndMetaFromFSAtPath:(id)arg1 itemID:(id)arg2 parentID:(id)arg3 isPackageFault:(BOOL)arg4;
 

@@ -3,14 +3,15 @@
  */
 
 @interface MPUArtworkView : UIImageView {
-    NSLayoutConstraint *_aspectConstraint;
-    BOOL _automaticallyApplyAspectConstraints;
-    BOOL _dimsWhenHighlighted;
-    BOOL _displayingPlaceholder;
-    UIImage *_externalImage;
-    BOOL _forcesAnimatedUnhighlighting;
-    UIView *_highlightView;
-    UIImage *_placeholderImage;
+    NSLayoutConstraint * _aspectConstraint;
+    BOOL  _automaticallyApplyAspectConstraints;
+    BOOL  _dimsWhenHighlighted;
+    BOOL  _displayingPlaceholder;
+    UIImage * _externalImage;
+    BOOL  _forcesAnimatedUnhighlighting;
+    UIView * _highlightView;
+    BOOL  _isDeallocating;
+    UIImage * _placeholderImage;
 }
 
 @property (nonatomic, readonly) UIImage *_externalImage;
@@ -31,6 +32,7 @@
 - (BOOL)_shouldShowHighlightView;
 - (void)_updateHighlightViewAnimated:(BOOL)arg1;
 - (BOOL)automaticallyApplyAspectConstraints;
+- (void)dealloc;
 - (BOOL)dimsWhenHighlighted;
 - (BOOL)forcesAnimatedUnhighlighting;
 - (id)initWithFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;

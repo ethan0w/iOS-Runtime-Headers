@@ -2,8 +2,9 @@
    Image: /System/Library/PrivateFrameworks/SAObjects.framework/SAObjects
  */
 
-@interface SAAceView : AceObject <SAAceSerializable>
+@interface SAAceView : SABaseAceObject <SAAceSerializable>
 
+@property (nonatomic) BOOL canBeRefreshed;
 @property (nonatomic, retain) <SAAceSerializable> *context;
 @property (readonly, copy) NSString *debugDescription;
 @property (nonatomic, copy) NSNumber *deferredRendering;
@@ -17,11 +18,13 @@
 + (id)aceView;
 + (id)aceViewWithDictionary:(id)arg1 context:(id)arg2;
 
+- (BOOL)canBeRefreshed;
 - (id)context;
 - (id)deferredRendering;
 - (id)encodedClassName;
 - (id)groupIdentifier;
 - (id)listenAfterSpeaking;
+- (void)setCanBeRefreshed:(BOOL)arg1;
 - (void)setContext:(id)arg1;
 - (void)setDeferredRendering:(id)arg1;
 - (void)setListenAfterSpeaking:(id)arg1;

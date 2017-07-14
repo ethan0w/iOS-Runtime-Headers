@@ -3,36 +3,39 @@
  */
 
 @interface GEOPlace : PBCodable <GEOURLSerializable, NSCopying> {
-    GEOAddress *_address;
-    int _addressGeocodeAccuracy;
-    double _area;
-    NSMutableArray *_business;
-    GEOLatLng *_center;
-    NSMutableArray *_entryPoints;
-    long long _geoId;
+    GEOAddress * _address;
+    int  _addressGeocodeAccuracy;
+    double  _area;
+    NSMutableArray * _business;
+    GEOLatLng * _center;
+    GEOMapRegion * _displayMapRegion;
+    NSMutableArray * _entryPoints;
+    long long  _geoId;
     struct { 
         unsigned int area : 1; 
         unsigned int geoId : 1; 
         unsigned int uID : 1; 
         unsigned int addressGeocodeAccuracy : 1; 
         unsigned int localSearchProviderID : 1; 
+        unsigned int referenceFrame : 1; 
         unsigned int type : 1; 
         unsigned int isDisputed : 1; 
-    } _has;
-    NSString *_inputLanguage;
-    BOOL _isDisputed;
-    int _localSearchProviderID;
-    GEOMapRegion *_mapRegion;
-    NSString *_name;
-    GEOAddress *_phoneticAddress;
-    NSString *_phoneticLocaleIdentifier;
-    NSString *_phoneticName;
-    NSString *_spokenAddress;
-    NSString *_spokenName;
-    GEOStructuredAddress *_spokenStructuredAddress;
-    GEOTimezone *_timezone;
-    int _type;
-    long long _uID;
+    }  _has;
+    BOOL  _isDisputed;
+    int  _localSearchProviderID;
+    GEOMapRegion * _mapRegion;
+    NSString * _name;
+    GEOAddress * _phoneticAddress;
+    NSString * _phoneticLocaleIdentifier;
+    NSString * _phoneticName;
+    int  _referenceFrame;
+    NSMutableArray * _roadAccessPoints;
+    NSString * _spokenAddress;
+    NSString * _spokenName;
+    GEOStructuredAddress * _spokenStructuredAddress;
+    GEOTimezone * _timezone;
+    int  _type;
+    long long  _uID;
 }
 
 @property (nonatomic, retain) GEOAddress *address;
@@ -42,6 +45,7 @@
 @property (nonatomic, retain) GEOLatLng *center;
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
+@property (nonatomic, retain) GEOMapRegion *displayMapRegion;
 @property (nonatomic, retain) NSMutableArray *entryPoints;
 @property (nonatomic, readonly) GEOBusiness *firstBusiness;
 @property (nonatomic) long long geoId;
@@ -49,8 +53,8 @@
 @property (nonatomic) BOOL hasAddressGeocodeAccuracy;
 @property (nonatomic) BOOL hasArea;
 @property (nonatomic, readonly) BOOL hasCenter;
+@property (nonatomic, readonly) BOOL hasDisplayMapRegion;
 @property (nonatomic) BOOL hasGeoId;
-@property (nonatomic, readonly) BOOL hasInputLanguage;
 @property (nonatomic) BOOL hasIsDisputed;
 @property (nonatomic) BOOL hasLocalSearchProviderID;
 @property (nonatomic, readonly) BOOL hasMapRegion;
@@ -58,6 +62,7 @@
 @property (nonatomic, readonly) BOOL hasPhoneticAddress;
 @property (nonatomic, readonly) BOOL hasPhoneticLocaleIdentifier;
 @property (nonatomic, readonly) BOOL hasPhoneticName;
+@property (nonatomic) BOOL hasReferenceFrame;
 @property (nonatomic, readonly) BOOL hasSpokenAddress;
 @property (nonatomic, readonly) BOOL hasSpokenName;
 @property (nonatomic, readonly) BOOL hasSpokenStructuredAddress;
@@ -65,7 +70,6 @@
 @property (nonatomic) BOOL hasType;
 @property (nonatomic) BOOL hasUID;
 @property (readonly) unsigned int hash;
-@property (nonatomic, retain) NSString *inputLanguage;
 @property (nonatomic) BOOL isDisputed;
 @property (nonatomic) int localSearchProviderID;
 @property (nonatomic, retain) GEOMapRegion *mapRegion;
@@ -73,6 +77,8 @@
 @property (nonatomic, retain) GEOAddress *phoneticAddress;
 @property (nonatomic, retain) NSString *phoneticLocaleIdentifier;
 @property (nonatomic, retain) NSString *phoneticName;
+@property (nonatomic) int referenceFrame;
+@property (nonatomic, retain) NSMutableArray *roadAccessPoints;
 @property (nonatomic, retain) NSString *spokenAddress;
 @property (nonatomic, retain) NSString *spokenName;
 @property (nonatomic, retain) GEOStructuredAddress *spokenStructuredAddress;
@@ -90,34 +96,31 @@
 + (id)_urlForAction:(id)arg1 rison:(id)arg2;
 + (id)_urlForDirectionsFromOrigin:(id)arg1 toDestination:(id)arg2 options:(id)arg3;
 + (id)_urlRepresentationForCurrentLocation;
-+ (id)_urlToPresentAction:(id)arg1 present:(id)arg2;
-+ (id)_urlToPresentCurrentLocationAndPlaces:(id)arg1 currentLocationIndex:(unsigned int)arg2 options:(id)arg3;
-+ (id)_urlToPresentCurrentLocationWithOptions:(id)arg1;
-+ (id)_urlToPresentDirectionsForItems:(id)arg1 options:(id)arg2;
-+ (id)_urlToPresentDirectionsForPlaces:(id)arg1 options:(id)arg2;
-+ (id)_urlToPresentPlaces:(id)arg1 options:(id)arg2;
 + (id)_urlToShowCurrentLocationAndPlaces:(id)arg1 currentLocationIndex:(unsigned int)arg2 options:(id)arg3;
 + (id)_urlToShowCurrentLocationWithOptions:(id)arg1;
 + (id)_urlToShowPlaces:(id)arg1 options:(id)arg2;
 + (id)_urlToShowURLRepresentations:(id)arg1 options:(id)arg2;
++ (Class)businessType;
++ (Class)entryPointType;
 + (id)placeForPlaceData:(id)arg1;
++ (Class)roadAccessPointsType;
 
+- (int)StringAsAddressGeocodeAccuracy:(id)arg1;
+- (int)StringAsReferenceFrame:(id)arg1;
+- (int)StringAsType:(id)arg1;
 - (BOOL)_isEquivalentURLRepresentationTo:(id)arg1;
 - (id)_urlForDirectionsFromCurrentLocationWithOptions:(id)arg1;
 - (id)_urlForDirectionsFromPlace:(id)arg1 options:(id)arg2;
 - (id)_urlForDirectionsToCurrentLocationWithOptions:(id)arg1;
 - (id)_urlForDirectionsToPlace:(id)arg1 options:(id)arg2;
-- (id)_urlToPresentDirectionsFromCurrentLocationWithOptions:(id)arg1;
-- (id)_urlToPresentDirectionsFromPlace:(id)arg1 options:(id)arg2;
-- (id)_urlToPresentDirectionsToCurrentLocationWithOptions:(id)arg1;
-- (id)_urlToPresentDirectionsToPlace:(id)arg1 options:(id)arg2;
-- (id)_urlToPresentWithOptions:(id)arg1;
 - (id)_urlToShowWithOptions:(id)arg1;
 - (void)addBusiness:(id)arg1;
 - (void)addEntryPoint:(id)arg1;
+- (void)addRoadAccessPoints:(id)arg1;
 - (id)address;
 - (id)addressDictionary;
 - (int)addressGeocodeAccuracy;
+- (id)addressGeocodeAccuracyAsString:(int)arg1;
 - (double)area;
 - (id)arrivalMapRegion;
 - (id)arrivalMapRegionForTransportType:(int)arg1;
@@ -128,12 +131,14 @@
 - (id)center;
 - (void)clearBusiness;
 - (void)clearEntryPoints;
+- (void)clearRoadAccessPoints;
 - (struct { double x1; double x2; })coordinate;
 - (void)copyTo:(id)arg1;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
 - (void)dealloc;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)displayMapRegion;
 - (id)entryPointAtIndex:(unsigned int)arg1;
 - (id)entryPoints;
 - (unsigned int)entryPointsCount;
@@ -144,8 +149,8 @@
 - (BOOL)hasAddressGeocodeAccuracy;
 - (BOOL)hasArea;
 - (BOOL)hasCenter;
+- (BOOL)hasDisplayMapRegion;
 - (BOOL)hasGeoId;
-- (BOOL)hasInputLanguage;
 - (BOOL)hasIsDisputed;
 - (BOOL)hasLocalSearchProviderID;
 - (BOOL)hasMapRegion;
@@ -153,6 +158,7 @@
 - (BOOL)hasPhoneticAddress;
 - (BOOL)hasPhoneticLocaleIdentifier;
 - (BOOL)hasPhoneticName;
+- (BOOL)hasReferenceFrame;
 - (BOOL)hasSpokenAddress;
 - (BOOL)hasSpokenName;
 - (BOOL)hasSpokenStructuredAddress;
@@ -164,9 +170,8 @@
 - (id)initWithLatitude:(double)arg1 longitude:(double)arg2 addressDictionary:(id)arg3;
 - (id)initWithLocation:(id)arg1 addressDictionary:(id)arg2 name:(id)arg3 businessURL:(id)arg4 phoneNumber:(id)arg5 muid:(unsigned long long)arg6 attributionID:(id)arg7 sampleSizeForUserRatingScore:(unsigned int)arg8 normalizedUserRatingScore:(float)arg9;
 - (id)initWithName:(id)arg1 placeType:(int)arg2 areaInMeters:(double)arg3;
-- (id)initWithPlaceInfo:(id)arg1 entity:(id)arg2 address:(id)arg3 bounds:(id)arg4 roadAccessInfo:(id)arg5;
+- (id)initWithPlaceInfo:(id)arg1 entity:(id)arg2 addressObject:(id)arg3 bounds:(id)arg4 roadAccessInfo:(id)arg5;
 - (id)initWithUrlRepresentation:(id)arg1;
-- (id)inputLanguage;
 - (BOOL)isDisputed;
 - (BOOL)isEqual:(id)arg1;
 - (int)localSearchProviderID;
@@ -178,11 +183,18 @@
 - (id)phoneticName;
 - (double)radialDistance;
 - (BOOL)readFrom:(id)arg1;
+- (int)referenceFrame;
+- (id)referenceFrameAsString:(int)arg1;
+- (id)roadAccessPoints;
+- (id)roadAccessPointsAtIndex:(unsigned int)arg1;
+- (unsigned int)roadAccessPointsCount;
 - (void)setAddress:(id)arg1;
 - (void)setAddressGeocodeAccuracy:(int)arg1;
 - (void)setArea:(double)arg1;
 - (void)setBusiness:(id)arg1;
 - (void)setCenter:(id)arg1;
+- (void)setCenterCoordinate:(struct { double x1; double x2; })arg1;
+- (void)setDisplayMapRegion:(id)arg1;
 - (void)setEntryPoints:(id)arg1;
 - (void)setGeoId:(long long)arg1;
 - (void)setHasAddressGeocodeAccuracy:(BOOL)arg1;
@@ -190,16 +202,19 @@
 - (void)setHasGeoId:(BOOL)arg1;
 - (void)setHasIsDisputed:(BOOL)arg1;
 - (void)setHasLocalSearchProviderID:(BOOL)arg1;
+- (void)setHasReferenceFrame:(BOOL)arg1;
 - (void)setHasType:(BOOL)arg1;
 - (void)setHasUID:(BOOL)arg1;
-- (void)setInputLanguage:(id)arg1;
 - (void)setIsDisputed:(BOOL)arg1;
 - (void)setLocalSearchProviderID:(int)arg1;
 - (void)setMapRegion:(id)arg1;
+- (void)setNSTimeZone:(id)arg1;
 - (void)setName:(id)arg1;
 - (void)setPhoneticAddress:(id)arg1;
 - (void)setPhoneticLocaleIdentifier:(id)arg1;
 - (void)setPhoneticName:(id)arg1;
+- (void)setReferenceFrame:(int)arg1;
+- (void)setRoadAccessPoints:(id)arg1;
 - (void)setSpokenAddress:(id)arg1;
 - (void)setSpokenName:(id)arg1;
 - (void)setSpokenStructuredAddress:(id)arg1;
@@ -211,13 +226,13 @@
 - (id)spokenStructuredAddress;
 - (id)timezone;
 - (int)type;
+- (id)typeAsString:(int)arg1;
 - (long long)uID;
 - (id)urlRepresentation;
 - (void)writeTo:(id)arg1;
 
 // Image: /System/Library/Frameworks/MapKit.framework/MapKit
 
-- (unsigned long long)businessID;
 - (id)clLocation;
 - (id)clRegion;
 - (id)initWithCLLocation:(id)arg1;

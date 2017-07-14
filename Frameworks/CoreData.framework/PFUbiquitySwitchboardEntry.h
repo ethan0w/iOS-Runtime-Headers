@@ -3,22 +3,23 @@
  */
 
 @interface PFUbiquitySwitchboardEntry : NSObject {
-    unsigned int _activeStoreCount;
-    int _finishLock;
-    BOOL _finishedInitializingForStore;
-    BOOL _finishedSetupForStore;
-    PFUbiquitySetupAssistant *_finishingSetupAssistant;
-    PFUbiquityFilePresenter *_fp;
-    BOOL _hasScheduledFinishBlock;
-    PFUbiquityFilePresenter *_localFP;
-    NSString *_localPeerID;
-    PFUbiquityLocation *_localRootLocation;
-    PFUbiquitySwitchboardEntryMetadata *_metadata;
-    PFUbiquityContainerMonitor *_monitor;
-    NSObject<OS_dispatch_queue> *_privateQueue;
-    NSMutableDictionary *_registeredCoordinators;
-    NSString *_storeName;
-    PFUbiquityLocation *_ubiquityRootLocation;
+    unsigned int  _activeStoreCount;
+    int  _finishLock;
+    BOOL  _finishedInitializingForStore;
+    BOOL  _finishedSetupForStore;
+    PFUbiquitySetupAssistant * _finishingSetupAssistant;
+    PFUbiquityFilePresenter * _fp;
+    BOOL  _hasScheduledFinishBlock;
+    PFUbiquityFilePresenter * _localFP;
+    NSString * _localPeerID;
+    PFUbiquityLocation * _localRootLocation;
+    PFUbiquitySwitchboardEntryMetadata * _metadata;
+    PFUbiquityContainerMonitor * _monitor;
+    NSObject<OS_dispatch_queue> * _privateQueue;
+    NSMutableDictionary * _registeredCoordinators;
+    NSString * _storeName;
+    NSURL * _storeURL;
+    PFUbiquityLocation * _ubiquityRootLocation;
 }
 
 @property unsigned int activeStoreCount;
@@ -50,7 +51,7 @@
 - (BOOL)finishSetupForStore:(id)arg1 withSetupAssistant:(id)arg2 synchronously:(BOOL)arg3 error:(id*)arg4 finishBlock:(id /* block */)arg5;
 - (id)finishingSetupAssistant;
 - (id)init;
-- (id)initWithLocalPeerID:(id)arg1 storeName:(id)arg2 ubiquityRootLocation:(id)arg3 andLocalRootLocation:(id)arg4;
+- (id)initWithLocalPeerID:(id)arg1 storeName:(id)arg2 withURL:(id)arg3 ubiquityRootLocation:(id)arg4 andLocalRootLocation:(id)arg5;
 - (id)localFilePresenter;
 - (id)localPeerID;
 - (id)localRootLocation;

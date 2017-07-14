@@ -4,21 +4,25 @@
 
 @interface UIAccessibilityElementSuperCategory : __UIAccessibilityElementSuperCategory_super
 
-+ (Class)safeCategoryTargetClass;
++ (Class)safeCategoryBaseClass;
 + (id)safeCategoryTargetClassName;
 
 - (float)_accessibilityActivationDelay;
 - (id)_accessibilityAutomaticIdentifier;
 - (BOOL)_accessibilityProvidesOwnFrame;
+- (BOOL)_accessibilitySetNativeFocus;
 - (void)_accessibilitySetValue:(id)arg1;
 - (BOOL)_accessibilitySupportsActivateAction;
 - (BOOL)_accessibilitySupportsHandwriting;
+- (BOOL)_accessibilityViewHierarchyHasNativeFocus;
 - (BOOL)accessibilityActivate;
 - (struct CGPoint { float x1; float x2; })accessibilityActivationPoint;
+- (void)accessibilityDecrement;
 - (void)accessibilityElementDidBecomeFocused;
 - (void)accessibilityElementDidLoseFocus;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })accessibilityFrame;
 - (id)accessibilityHint;
+- (void)accessibilityIncrement;
 - (id)accessibilityLabel;
 - (id)accessibilityLanguage;
 - (id)accessibilityPath;
@@ -31,6 +35,5 @@
 - (id)init;
 - (id)initWithAccessibilityContainer:(id)arg1;
 - (BOOL)isAccessibilityElement;
-- (void)setAccessibilityContainer:(id)arg1;
 
 @end

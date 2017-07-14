@@ -2,13 +2,12 @@
    Image: /System/Library/PrivateFrameworks/WebApp.framework/WebApp
  */
 
-@interface WebAppController : WebUIDelegate <UIApplicationDelegate, UIWebViewDelegate, UIWebViewPrivateDelegate> {
-    NSMutableArray *_alerts;
-    WebUIAuthenticationManager *_authenticationManager;
-    NSDictionary *_connectionProperties;
-    WebUIDownloadManager *_downloadManager;
-    float _endScale;
-    NSArray *_fallbackURLs;
+@interface WebAppController : NSObject <UIApplicationDelegate, UIWebViewDelegate, UIWebViewPrivateDelegate, WebPolicyDelegate> {
+    NSMutableArray * _alerts;
+    WebUIAuthenticationManager * _authenticationManager;
+    WebUIDownloadManager * _downloadManager;
+    NSArray * _fallbackURLs;
+    NSMutableSet * _highLevelDomainsAndPortsToUseOnlyAvailableIdentityWithoutPrompting;
     struct CGRect { 
         struct CGPoint { 
             float x; 
@@ -18,11 +17,11 @@
             float width; 
             float height; 
         } size; 
-    } _inputViewScreenBoundsAfterRotation;
-    BOOL _isSuspended;
-    UIView *_loadingView;
-    int _orientation;
-    unsigned int _rotationEdgePin;
+    }  _inputViewScreenBoundsAfterRotation;
+    BOOL  _isSuspended;
+    UIView * _loadingView;
+    int  _orientation;
+    unsigned int  _rotationEdgePin;
     struct CGRect { 
         struct CGPoint { 
             float x; 
@@ -32,30 +31,30 @@
             float width; 
             float height; 
         } size; 
-    } _rotationRect;
-    WBUSheetController *_sheetController;
-    float _startScale;
-    UIViewController *_viewControllerToWorkaround14804109;
-    UIWindow *_window;
-    BOOL snapshotHideTimeHasExpired;
-    NSTimer *snapshotHideTimer;
-    UIWebClip *webClip;
-    UIWebView *webView;
-    BOOL webViewDidLayout;
-    BOOL webViewHasFinishedLoading;
+    }  _rotationRect;
+    WBUSheetController * _sheetController;
+    UIWindow * _window;
+    BOOL  snapshotHideTimeHasExpired;
+    NSTimer * snapshotHideTimer;
+    UIWebClip * webClip;
+    UIWebView * webView;
+    BOOL  webViewDidLayout;
+    BOOL  webViewHasFinishedLoading;
 }
 
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (readonly) unsigned int hash;
 @property (readonly) Class superclass;
-@property (retain) UIWebClip *webClip;
-@property (readonly) UIWebView *webView;
+@property (nonatomic, retain) UIWebClip *webClip;
+@property (nonatomic, readonly) UIWebView *webView;
 @property (nonatomic, retain) UIWindow *window;
 
 + (id)contentBackgroundColor;
 
+- (void).cxx_destruct;
 - (void)_cancelSnapshotHideTimer;
+- (id)_clientCertificatePromptWhitelistURL;
 - (void)_handleStatusBarHeightChanged:(id)arg1;
 - (void)_ignorePolicyListener:(id)arg1;
 - (void)_inputViewWillRotate:(id)arg1;
@@ -65,7 +64,6 @@
 - (void)_setPersistentStoragePathDefaults;
 - (void)_setTopScrollIndicatorInset:(float)arg1;
 - (id)_sheetController;
-- (id)_viewControllerForSupportedInterfaceOrientations;
 - (void)addAlert:(id)arg1;
 - (void)addAlertWithTitle:(id)arg1 bodyText:(id)arg2 context:(id)arg3;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })browserFrameForOrientation:(int)arg1;
@@ -89,6 +87,7 @@
 - (id)sheetController:(id)arg1 viewControllerForAlert:(id)arg2;
 - (void)sheetControllerDidHideSheet:(id)arg1;
 - (void)sheetControllerDidShowSheet:(id)arg1;
+- (BOOL)shouldUseOnlyAvailableIdentityWithoutPromptingForProtectionSpace:(id)arg1;
 - (BOOL)shouldWindowUseOnePartInterfaceRotationAnimation:(id)arg1;
 - (void)showGenericDownloadAlert;
 - (void)showProfileDownloadAlert;
@@ -99,7 +98,6 @@
 - (void)timeLimitForLoadCompletionExpired;
 - (id)titleForError:(id)arg1;
 - (void)tryMultipleURLs:(id)arg1;
-- (id)uiWebView:(id)arg1 connectionPropertiesForResource:(id)arg2 dataSource:(id)arg3;
 - (void)uiWebView:(id)arg1 decidePolicyForGeolocationRequestFromOrigin:(id)arg2 frame:(id)arg3 listener:(id)arg4;
 - (void)uiWebView:(id)arg1 decidePolicyForMIMEType:(id)arg2 request:(id)arg3 frame:(id)arg4 decisionListener:(id)arg5;
 - (void)uiWebView:(id)arg1 didFirstLayoutInFrame:(id)arg2;
@@ -113,6 +111,7 @@
 - (void)uiWebView:(id)arg1 resource:(id)arg2 didFinishLoadingFromDataSource:(id)arg3;
 - (void)uiWebView:(id)arg1 resource:(id)arg2 didReceiveAuthenticationChallenge:(id)arg3 fromDataSource:(id)arg4;
 - (void)updateStatusBarStyleFromWebClip;
+- (void)useOnlyAvailableIdentityWithoutPromptingForProtectionSpace:(id)arg1;
 - (id)webClip;
 - (id)webView;
 - (void)webView:(id)arg1 decidePolicyForMIMEType:(id)arg2 request:(id)arg3 frame:(id)arg4 decisionListener:(id)arg5;

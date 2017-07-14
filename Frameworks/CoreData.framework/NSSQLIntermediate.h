@@ -3,13 +3,18 @@
  */
 
 @interface NSSQLIntermediate : NSObject {
-    NSSQLIntermediate *_scope;
+    NSSQLIntermediate * _scope;
 }
+
+@property (nonatomic, readonly) NSSQLEntity *disambiguatingEntity;
+@property (nonatomic, readonly) NSArray *disambiguationKeypath;
+@property (nonatomic, readonly) BOOL disambiguationKeypathHasToMany;
 
 + (BOOL)expressionIsBasicKeypath:(id)arg1;
 + (BOOL)isSimpleKeypath:(id)arg1;
 
 - (BOOL)_canDoASubselectForExpression:(id)arg1 inContext:(id)arg2;
+- (id)_entitySpecificationKeypath;
 - (BOOL)_functionExpressionIsSubqueryFollowedByKeypath:(id)arg1;
 - (id)_generateSQLForConstantCollection:(id)arg1 inContext:(id)arg2;
 - (id)_generateSQLForConstantValue:(id)arg1 inContext:(id)arg2;
@@ -28,6 +33,10 @@
 - (void)_promoteJoinsForSubqueryScopedKeypath:(id)arg1;
 - (void)_promoteJoinsForSubqueryScopedKeypaths;
 - (void)_promoteJoinsForTernaryExpression:(id)arg1;
+- (void)_setEntitySpecificationKeypath:(id)arg1;
+- (id)disambiguatingEntity;
+- (id)disambiguationKeypath;
+- (BOOL)disambiguationKeypathHasToMany;
 - (BOOL)expressionIsBasicKeypath:(id)arg1;
 - (id)fetchIntermediate;
 - (id)fetchIntermediateForKeypathExpression:(id)arg1;
@@ -40,11 +49,15 @@
 - (BOOL)isHavingScoped;
 - (BOOL)isOrScoped;
 - (BOOL)isSimpleKeypath:(id)arg1;
+- (BOOL)isSimpleNoIndexFunction:(id)arg1;
 - (BOOL)isTargetColumnsScoped;
+- (BOOL)isUpdateColumnsScoped;
 - (BOOL)isUpdateScoped;
 - (BOOL)isVariableBasedKeypathScopedBySubquery:(id)arg1;
+- (BOOL)isWhereScoped;
 - (BOOL)keypathExpressionIsSafeLHSForIn:(id)arg1;
 - (void)promoteJoinsInKeypathsForExpression:(id)arg1;
 - (id)scope;
+- (void)setDisambiguatingEntity:(id)arg1 withKeypath:(id)arg2 hasToMany:(BOOL)arg3;
 
 @end

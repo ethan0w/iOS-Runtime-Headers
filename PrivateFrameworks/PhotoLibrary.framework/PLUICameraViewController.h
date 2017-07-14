@@ -2,8 +2,8 @@
    Image: /System/Library/PrivateFrameworks/PhotoLibrary.framework/PhotoLibrary
  */
 
-@interface PLUICameraViewController : CAMCameraViewController <UIImagePickerCameraViewController> {
-    int _newStatusBarStyle;
+@interface PLUICameraViewController : CMKCameraViewController <UIImagePickerCameraViewController> {
+    int  _newStatusBarStyle;
     struct CGAffineTransform { 
         float a; 
         float b; 
@@ -11,8 +11,8 @@
         float d; 
         float tx; 
         float ty; 
-    } _previewViewTransform;
-    int _previousStatusBarStyle;
+    }  _previewViewTransform;
+    int  _previousStatusBarStyle;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -31,6 +31,7 @@
 - (BOOL)_displaysFullScreen;
 - (void)_editabilityChanged:(id)arg1;
 - (int)_imagePickerStatusBarStyle;
+- (int)_preferredWhitePointAdaptivityStyle;
 - (void)_setAllowsStillFromVideoMode:(BOOL)arg1;
 - (void)_setCameraCaptureMode:(int)arg1;
 - (void)_setCameraCaptureMode:(int)arg1 device:(int)arg2;
@@ -54,6 +55,7 @@
 - (void)cameraViewWillRetakePhoto:(id)arg1;
 - (void)dealloc;
 - (id)init;
+- (id)initWithInitialImagePickerProperties:(id)arg1;
 - (void)loadView;
 - (int)preferredStatusBarStyle;
 - (int)preferredStatusBarUpdateAnimation;

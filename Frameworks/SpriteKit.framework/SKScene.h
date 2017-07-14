@@ -3,10 +3,12 @@
  */
 
 @interface SKScene : SKEffectNode {
-    BOOL __needsRender;
-    BOOL __needsUpdate;
-    PKPhysicsWorld *__pkPhysicsWorld;
-    NSMutableArray *_allChildenWithConstraints;
+    BOOL  __needsRender;
+    BOOL  __needsUpdate;
+    PKPhysicsWorld * __pkPhysicsWorld;
+    NSMutableArray * _allChildenWithConstraints;
+    AVAudioEngine * _audioEngine;
+    AVAudioEnvironmentNode * _avAudioEnvironmentNode;
     struct CGRect { 
         struct CGPoint { 
             float x; 
@@ -16,18 +18,20 @@
             float width; 
             float height; 
         } size; 
-    } _bounds;
-    <SKSceneDelegate> *_delegate;
-    BOOL _isSetup;
-    double _lastUpdate;
-    double _pausedTime;
-    SKPhysicsWorld *_physicsWorld;
-    int _scaleMode;
-    SKPhysicsBody *_scenePinBody;
-    NSMutableDictionary *_touchMap;
-    BOOL _usesExplicitRender;
-    BOOL _usesExplicitUpdate;
-    id _view;
+    }  _bounds;
+    SKCameraNode * _camera;
+    <SKSceneDelegate> * _delegate;
+    BOOL  _isSetup;
+    double  _lastUpdate;
+    SKNode * _listener;
+    double  _pausedTime;
+    SKPhysicsWorld * _physicsWorld;
+    SKPhysicsBody * _scenePinBody;
+    struct SKCSceneNode { int (**x1)(); id x2; struct unordered_map<std::__1::basic_string<char>, SKAttributeValue *, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, SKAttributeValue *> > > { struct __hash_table<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::__unordered_map_hasher<std::__1::basic_string<char>, std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::hash<std::__1::basic_string<char> >, true>, std::__1::__unordered_map_equal<std::__1::basic_string<char>, std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::equal_to<std::__1::basic_string<char> >, true>, std::__1::allocator<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *> > > { struct unique_ptr<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *[], std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > > { struct __compressed_pair<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> **, std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > > { struct __hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> {} **x_1_4_1; struct __bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > { struct __compressed_pair<unsigned long, std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > { unsigned long x_1_6_1; } x_2_5_1; } x_1_4_2; } x_1_3_1; } x_1_2_1; } x_3_1_1; } x3; } * _skcSceneNode;
+    NSMapTable * _touchMap;
+    BOOL  _usesExplicitRender;
+    BOOL  _usesExplicitUpdate;
+    id  _view;
     struct CGRect { 
         struct CGPoint { 
             float x; 
@@ -37,7 +41,7 @@
             float width; 
             float height; 
         } size; 
-    } _visibleRect;
+    }  _visibleRect;
 }
 
 @property BOOL _needsRender;
@@ -46,8 +50,12 @@
 @property BOOL _usesExplicitRender;
 @property BOOL _usesExplicitUpdate;
 @property (nonatomic) struct CGPoint { float x1; float x2; } anchorPoint;
+@property (nonatomic, readonly, retain) AVAudioEngine *audioEngine;
+@property (nonatomic, retain) AVAudioEnvironmentNode *avAudioEnvironmentNode;
 @property (nonatomic, retain) UIColor *backgroundColor;
+@property (nonatomic) SKCameraNode *camera;
 @property (nonatomic) <SKSceneDelegate> *delegate;
+@property (nonatomic) SKNode *listener;
 @property (nonatomic, readonly) SKPhysicsWorld *physicsWorld;
 @property (nonatomic) int scaleMode;
 @property (nonatomic) struct CGSize { float x1; float x2; } size;
@@ -60,12 +68,15 @@
 + (id)sceneWithContentsOfFile:(id)arg1 size:(struct CGSize { float x1; float x2; })arg2;
 + (id)sceneWithSize:(struct CGSize { float x1; float x2; })arg1;
 
-- (id).cxx_construct;
 - (void).cxx_destruct;
+- (void)_didMakeBackingNode;
 - (void)_didMoveToView:(id)arg1;
+- (id)_getFocusNodes;
 - (BOOL)_hasConstraints;
+- (struct SKCNode { int (**x1)(); id x2; struct unordered_map<std::__1::basic_string<char>, SKAttributeValue *, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, SKAttributeValue *> > > { struct __hash_table<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::__unordered_map_hasher<std::__1::basic_string<char>, std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::hash<std::__1::basic_string<char> >, true>, std::__1::__unordered_map_equal<std::__1::basic_string<char>, std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::equal_to<std::__1::basic_string<char> >, true>, std::__1::allocator<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *> > > { struct unique_ptr<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *[], std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > > { struct __compressed_pair<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> **, std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > > { struct __hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> {} **x_1_4_1; struct __bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > { struct __compressed_pair<unsigned long, std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > { unsigned long x_1_6_1; } x_2_5_1; } x_1_4_2; } x_1_3_1; } x_1_2_1; } x_3_1_1; } x3; }*)_makeBackingNode;
 - (BOOL)_needsRender;
 - (BOOL)_needsUpdate;
+- (id)_parentFocusEnvironment;
 - (id)_pkPhysicsWorld;
 - (void)_registerConstraintsForNode:(id)arg1;
 - (void)_removeConstraintsForNode:(id)arg1;
@@ -74,11 +85,19 @@
 - (void)_update:(double)arg1;
 - (BOOL)_usesExplicitRender;
 - (BOOL)_usesExplicitUpdate;
+- (void)_willMoveFromView:(id)arg1;
 - (struct CGPoint { float x1; float x2; })anchorPoint;
+- (id)audioEngine;
+- (id)avAudioEnvironmentNode;
 - (id)backgroundColor;
+- (id)camera;
+- (void)checkAudioEngine;
+- (struct CGPoint { float x1; float x2; })convertPointFromParent:(struct CGPoint { float x1; float x2; })arg1;
 - (struct CGPoint { float x1; float x2; })convertPointFromView:(struct CGPoint { float x1; float x2; })arg1;
+- (struct CGPoint { float x1; float x2; })convertPointToParent:(struct CGPoint { float x1; float x2; })arg1;
 - (struct CGPoint { float x1; float x2; })convertPointToView:(struct CGPoint { float x1; float x2; })arg1;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
+- (void)dealloc;
 - (id)delegate;
 - (id)description;
 - (void)didApplyConstraints;
@@ -89,15 +108,21 @@
 - (void)didMoveToView:(id)arg1;
 - (void)didSimulatePhysics;
 - (void)encodeWithCoder:(id)arg1;
+- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })frame;
 - (id)init;
 - (id)initWithCoder:(id)arg1;
 - (id)initWithSize:(struct CGSize { float x1; float x2; })arg1;
+- (id)listener;
 - (id)physicsWorld;
 - (struct CGPoint { float x1; float x2; })position;
 - (int)scaleMode;
+- (void)sceneDidLoad;
 - (void)setAnchorPoint:(struct CGPoint { float x1; float x2; })arg1;
+- (void)setAvAudioEnvironmentNode:(id)arg1;
 - (void)setBackgroundColor:(id)arg1;
+- (void)setCamera:(id)arg1;
 - (void)setDelegate:(id)arg1;
+- (void)setListener:(id)arg1;
 - (void)setPaused:(BOOL)arg1;
 - (void)setPosition:(struct CGPoint { float x1; float x2; })arg1;
 - (void)setScale:(float)arg1;
@@ -110,6 +135,7 @@
 - (void)setYScale:(float)arg1;
 - (void)setZPosition:(float)arg1;
 - (void)setZRotation:(float)arg1;
+- (void)set_anchorPoint:(struct CGPoint { float x1; float x2; })arg1;
 - (void)set_needsRender:(BOOL)arg1;
 - (void)set_needsUpdate:(BOOL)arg1;
 - (void)set_pkPhysicsWorld:(id)arg1;
@@ -122,6 +148,7 @@
 - (struct CGPoint { float x1; float x2; })visibleRectCenter;
 - (struct CGSize { float x1; float x2; })visibleRectSize;
 - (void)willMoveFromView:(id)arg1;
+- (void)willRenderContent;
 - (float)xScale;
 - (float)yScale;
 - (float)zPosition;

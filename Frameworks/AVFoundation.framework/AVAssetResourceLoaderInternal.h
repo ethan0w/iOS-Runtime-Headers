@@ -3,15 +3,22 @@
  */
 
 @interface AVAssetResourceLoaderInternal : NSObject {
-    NSMutableDictionary *contentInformationCache;
-    NSObject<OS_dispatch_queue> *contentInformationCachingQueue;
-    NSObject<OS_dispatch_queue> *delegateQueue;
-    int loadingCancelled;
-    NSMutableDictionary *pendingRequests;
-    NSObject<OS_dispatch_queue> *stateQueue;
-    AVWeakReference *weakReference;
-    AVWeakReference *weakReferenceToAsset;
-    AVWeakReference *weakReferenceToDelegate;
+    AVAssetClientURLRequestHelper * URLRequestHelper;
+    NSURLSession * URLSession;
+    <NSURLSessionDataDelegate> * URLSessionDataDelegate;
+    NSOperationQueue * URLSessionOperationQueue;
+    NSMutableDictionary * contentInformationCache;
+    NSObject<OS_dispatch_queue> * contentInformationCachingQueue;
+    NSObject<OS_dispatch_queue> * delegateQueue;
+    int  loadingCancelled;
+    long  makeResourceLoaderURLSessionSupportStuffOnlyOnce;
+    NSMutableDictionary * pendingRequests;
+    BOOL  preloadsEligibleContentKeys;
+    AVAssetResourceLoaderURLSessionDataDelegate * shimURLSessionDataDelegate;
+    NSObject<OS_dispatch_queue> * stateQueue;
+    NSOperation * waitForAssetURLSessionStuffOperation;
+    AVWeakReference * weakReferenceToAsset;
+    AVWeakReference * weakReferenceToDelegate;
 }
 
 @end

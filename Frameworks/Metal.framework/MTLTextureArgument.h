@@ -2,13 +2,17 @@
    Image: /System/Library/Frameworks/Metal.framework/Metal
  */
 
-@interface MTLTextureArgument : MTLArgument {
-    unsigned short _textureDataType;
-    unsigned short _textureType;
+@interface MTLTextureArgument : MTLArgumentInternal {
+    unsigned int  _isDepthTexture;
+    unsigned short  _textureArrayLength;
+    unsigned short  _textureDataType;
+    unsigned int  _textureType;
 }
 
-- (id)description;
-- (id)initWithName:(id)arg1 access:(unsigned int)arg2 isActive:(BOOL)arg3 locationIndex:(unsigned int)arg4 arraySize:(unsigned int)arg5 dataType:(unsigned int)arg6 textureType:(unsigned int)arg7;
+- (unsigned int)arrayLength;
+- (id)formattedDescription:(unsigned int)arg1;
+- (id)initWithName:(id)arg1 access:(unsigned int)arg2 isActive:(BOOL)arg3 locationIndex:(unsigned int)arg4 arraySize:(unsigned int)arg5 dataType:(unsigned int)arg6 textureType:(unsigned int)arg7 isDepthTexture:(bool)arg8;
+- (BOOL)isDepthTexture;
 - (unsigned int)textureDataType;
 - (unsigned int)textureType;
 

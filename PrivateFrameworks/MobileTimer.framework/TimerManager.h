@@ -3,9 +3,9 @@
  */
 
 @interface TimerManager : NSObject {
-    UILocalNotification *_notification;
-    double _remainingTime;
-    int _state;
+    UILocalNotification * _notification;
+    double  _remainingTime;
+    int  _state;
 }
 
 @property (nonatomic) double defaultDuration;
@@ -20,8 +20,11 @@
 + (id)newNotificationAt:(double)arg1 withSound:(id)arg2;
 + (void)setSoundID:(id)arg1 forNotification:(id)arg2;
 + (id)sharedManager;
++ (void)updateTimerShortcutItem;
 + (BOOL)upgrade;
 
+- (void).cxx_destruct;
+- (void)_reloadStateAndRefreshLocalNotificationsWithCompletion:(id /* block */)arg1;
 - (BOOL)cancel;
 - (void)changeSound:(id)arg1;
 - (double)defaultDuration;

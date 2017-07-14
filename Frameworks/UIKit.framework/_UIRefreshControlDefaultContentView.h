@@ -2,24 +2,29 @@
    Image: /System/Library/Frameworks/UIKit.framework/UIKit
  */
 
-@interface _UIRefreshControlDefaultContentView : _UIRefreshControlContentView {
-    BOOL _animationsAreValid;
-    BOOL _areAnimationsValid;
-    UIImageView *_arrow;
-    UIImageView *_imageView;
-    NSMutableDictionary *_snappingArrowFromValues;
-    NSMutableDictionary *_snappingImageFromValues;
-    NSMutableDictionary *_snappingTextFromValues;
-    UIActivityIndicatorView *_spinner;
-    UILabel *_textLabel;
+@interface _UIRefreshControlDefaultContentView : _UIRefreshControlContentView <CAAnimationDelegate> {
+    BOOL  _animationsAreValid;
+    BOOL  _areAnimationsValid;
+    UIImageView * _arrow;
+    UIImageView * _imageView;
+    NSMutableDictionary * _snappingArrowFromValues;
+    NSMutableDictionary * _snappingImageFromValues;
+    NSMutableDictionary * _snappingTextFromValues;
+    UIActivityIndicatorView * _spinner;
+    UILabel * _textLabel;
 }
 
 @property (nonatomic) BOOL areAnimationsValid;
 @property (nonatomic, readonly) UIImageView *arrow;
+@property (readonly, copy) NSString *debugDescription;
+@property (readonly, copy) NSString *description;
+@property (readonly) unsigned int hash;
 @property (nonatomic, readonly) UIImageView *imageView;
 @property (nonatomic, readonly) UIActivityIndicatorView *spinner;
+@property (readonly) Class superclass;
 @property (nonatomic, readonly) UILabel *textLabel;
 
+- (void).cxx_destruct;
 - (double)_currentTimeOffset;
 - (void)_fadeInMagic;
 - (float)_heightAtWhichNoneOfTheInterfaceElementsAreVisibleEvenIfTheControlIsStillPartiallyOnScreen;
@@ -37,7 +42,6 @@
 - (BOOL)areAnimationsValid;
 - (id)arrow;
 - (id)attributedTitle;
-- (void)dealloc;
 - (void)didTransitionFromState:(int)arg1 toState:(int)arg2;
 - (id)imageView;
 - (id)initWithFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;

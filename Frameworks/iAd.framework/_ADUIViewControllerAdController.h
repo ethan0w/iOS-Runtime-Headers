@@ -3,19 +3,19 @@
  */
 
 @interface _ADUIViewControllerAdController : NSObject <ADBannerViewDelegate, ADInterstitialAdDelegate, _UIViewControllerContentViewEmbedding> {
-    NSString *_bannerAdSection;
-    NSString *_bannerAuthUserName;
-    NSURL *_bannerServerURL;
-    ADBannerView *_bannerView;
-    BOOL _canDisplayBannerAds;
-    BOOL _canOwnSharedBanner;
-    UIViewController *_contentViewController;
-    ADInterstitialAd *_interstitialAd;
-    NSString *_interstitialAdSection;
-    NSString *_interstitialAuthUserName;
-    int _interstitialPresentationPolicy;
-    NSURL *_interstitialServerURL;
-    BOOL _presentingFullScreenAd;
+    NSString * _bannerAdSection;
+    NSString * _bannerAuthUserName;
+    NSURL * _bannerServerURL;
+    ADBannerView * _bannerView;
+    BOOL  _canDisplayBannerAds;
+    BOOL  _canOwnSharedBanner;
+    UIViewController * _contentViewController;
+    ADInterstitialAd * _interstitialAd;
+    NSString * _interstitialAdSection;
+    NSString * _interstitialAuthUserName;
+    int  _interstitialPresentationPolicy;
+    NSURL * _interstitialServerURL;
+    BOOL  _presentingFullScreenAd;
 }
 
 @property (nonatomic, copy) NSString *bannerAdSection;
@@ -61,6 +61,7 @@
 - (id)interstitialAd;
 - (void)interstitialAd:(id)arg1 didFailWithError:(id)arg2;
 - (void)interstitialAdActionDidFinish:(id)arg1;
+- (BOOL)interstitialAdActionShouldBegin:(id)arg1 willLeaveApplication:(BOOL)arg2;
 - (void)interstitialAdDidUnload:(id)arg1;
 - (id)interstitialAdSection;
 - (id)interstitialAuthUserName;

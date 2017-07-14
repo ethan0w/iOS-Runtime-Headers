@@ -3,9 +3,9 @@
  */
 
 @interface SCROCallback : NSObject <NSCoding> {
-    BOOL _isAtomic;
-    int _key;
-    id _object;
+    BOOL  _isAtomic;
+    int  _key;
+    id  _object;
 }
 
 - (void)dealloc;

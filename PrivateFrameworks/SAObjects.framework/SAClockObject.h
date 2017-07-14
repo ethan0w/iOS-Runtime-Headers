@@ -8,8 +8,6 @@
 @property (nonatomic, copy) NSString *cityName;
 @property (nonatomic, copy) NSString *countryCode;
 @property (nonatomic, copy) NSString *countryName;
-@property (nonatomic, copy) NSNumber *latitude;
-@property (nonatomic, copy) NSNumber *longitude;
 @property (nonatomic, copy) NSString *timezoneId;
 @property (nonatomic, copy) NSString *unlocalizedCityName;
 @property (nonatomic, copy) NSString *unlocalizedCountryName;
@@ -23,20 +21,15 @@
 - (id)countryName;
 - (id)encodedClassName;
 - (id)groupIdentifier;
-- (id)latitude;
-- (id)longitude;
 - (void)setAlCityId:(id)arg1;
 - (void)setCityName:(id)arg1;
 - (void)setCountryCode:(id)arg1;
 - (void)setCountryName:(id)arg1;
-- (void)setLatitude:(id)arg1;
-- (void)setLongitude:(id)arg1;
 - (void)setTimezoneId:(id)arg1;
 - (void)setUnlocalizedCityName:(id)arg1;
 - (void)setUnlocalizedCountryName:(id)arg1;
 - (id)timezoneId;
 - (id)unlocalizedCityName;
 - (id)unlocalizedCountryName;
-- (void)updateUsingSet:(id)arg1 add:(id)arg2 remove:(id)arg3;
 
 @end

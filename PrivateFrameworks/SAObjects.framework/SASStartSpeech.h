@@ -26,6 +26,9 @@
 @property (nonatomic, copy) NSString *origin;
 @property (nonatomic, copy) NSString *refId;
 @property (readonly) Class superclass;
+@property (nonatomic, copy) NSDictionary *voiceTriggerEventInfo;
+
+// Image: /System/Library/PrivateFrameworks/SAObjects.framework/SAObjects
 
 + (id)startSpeech;
 + (id)startSpeechWithDictionary:(id)arg1 context:(id)arg2;
@@ -64,5 +67,11 @@
 - (void)setMotionConfidence:(id)arg1;
 - (void)setNoiseReductionLevel:(id)arg1;
 - (void)setOrigin:(id)arg1;
+- (void)setVoiceTriggerEventInfo:(id)arg1;
+- (id)voiceTriggerEventInfo;
+
+// Image: /System/Library/PrivateFrameworks/SiriCore.framework/SiriCore
+
+- (BOOL)siriCore_isRestartable;
 
 @end

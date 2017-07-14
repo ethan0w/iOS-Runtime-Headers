@@ -4,11 +4,13 @@
 
 @interface PBBridgeAggregateReporter : NSObject
 
++ (void)activationServerRespondedAtPage:(unsigned int)arg1;
 + (id)descriptionForCommTimingType:(unsigned int)arg1;
 + (id)descriptionForSuccessType:(unsigned int)arg1;
 + (id)descriptionForTimingType:(unsigned int)arg1;
 + (void)incrementSuccessType:(unsigned int)arg1;
 + (void)pushCommunicationTimingType:(unsigned int)arg1 withValue:(double)arg2;
++ (void)pushTimingForTypeNamed:(id)arg1 withValue:(double)arg2;
 + (void)pushTimingType:(unsigned int)arg1 withValue:(double)arg2;
 
 @end

@@ -10,11 +10,15 @@
 - (void)cameraController:(VKCameraController *)arg1 canZoomOutDidChange:(BOOL)arg2;
 - (void)cameraController:(VKCameraController *)arg1 didBecomePitched:(BOOL)arg2;
 - (void)cameraController:(VKCameraController *)arg1 didChangeRegionAnimated:(BOOL)arg2;
+- (void)cameraController:(VKCameraController *)arg1 flyoverModeDidChange:(int)arg2;
+- (void)cameraController:(VKCameraController *)arg1 flyoverModeWillChange:(int)arg2;
 - (<VKTrackableAnnotationPresentation> *)cameraController:(VKCameraController *)arg1 presentationForAnnotation:(id <VKTrackableAnnotation>)arg2;
 - (void)cameraController:(VKCameraController *)arg1 requestsDisplayRate:(int)arg2;
 - (void)cameraController:(VKCameraController *)arg1 willChangeRegionAnimated:(BOOL)arg2;
 - (void)cameraControllerDidChangeCameraState:(VKCameraController *)arg1;
 - (void)cameraControllerDidFinishInitialTrackingAnimation:(VKCameraController *)arg1;
+- (void)cameraControllerRequestsLayout:(VKCameraController *)arg1;
+- (void)cameraControllerRequestsUpdateDisplayLinkStatus:(VKCameraController *)arg1;
 - (void)runAnimation:(VKAnimation *)arg1;
 
 @end

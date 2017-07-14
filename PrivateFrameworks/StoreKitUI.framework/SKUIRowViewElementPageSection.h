@@ -3,7 +3,7 @@
  */
 
 @interface SKUIRowViewElementPageSection : SKUIStorePageSection <SKUIArtworkRequestDelegate> {
-    SKUIViewElementLayoutContext *_cellLayoutContext;
+    SKUIViewElementLayoutContext * _cellLayoutContext;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -40,6 +40,7 @@
 - (id)initWithPageComponent:(id)arg1;
 - (int)numberOfCells;
 - (void)prefetchResourcesWithReason:(int)arg1;
+- (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })sectionContentInset;
 - (BOOL)updateCellWithIndexPath:(id)arg1 itemState:(id)arg2 animated:(BOOL)arg3;
 - (void)willAppearInContext:(id)arg1;
 - (void)willTransitionToSize:(struct CGSize { float x1; float x2; })arg1 withTransitionCoordinator:(id)arg2;

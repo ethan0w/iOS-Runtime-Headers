@@ -36,6 +36,10 @@
 - (void)replacePointerAtIndex:(unsigned int)arg1 withPointer:(void*)arg2;
 - (void)setCount:(unsigned int)arg1;
 
+// Image: /System/Library/PrivateFrameworks/OfficeImport.framework/OfficeImport
+
+- (void)tsu_enumerateNonNullPointersUsingBlock:(id /* block */)arg1;
+
 // Image: /System/Library/PrivateFrameworks/PhotoEditSupport.framework/PhotoEditSupport
 
 - (id)bl_firstObject;
@@ -43,5 +47,6 @@
 // Image: /System/Library/PrivateFrameworks/iWorkImport.framework/iWorkImport
 
 - (void)tsu_enumerateNonNullPointersUsingBlock:(id /* block */)arg1;
+- (void)tsu_insertRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg1;
 
 @end

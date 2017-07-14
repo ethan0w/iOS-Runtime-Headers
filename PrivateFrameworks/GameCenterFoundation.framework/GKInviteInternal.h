@@ -3,24 +3,24 @@
  */
 
 @interface GKInviteInternal : GKInternalRepresentation {
-    NSString *_bundleID;
-    NSString *_deviceID;
-    NSString *_inviteID;
-    NSDictionary *_localizableMessage;
-    unsigned int _matchType;
-    NSString *_message;
-    NSString *_participantID;
-    NSData *_peerBlob;
-    NSString *_peerID;
-    NSData *_peerNATIP;
-    int _peerNATType;
-    NSData *_peerPushToken;
-    GKPlayerInternal *_player;
-    unsigned int _playerAttributes;
-    int _playerGroup;
-    NSString *_rid;
-    NSData *_sessionToken;
-    unsigned char _version;
+    NSString * _bundleID;
+    NSString * _deviceID;
+    NSString * _inviteID;
+    NSDictionary * _localizableMessage;
+    unsigned int  _matchType;
+    NSString * _message;
+    NSString * _participantID;
+    NSData * _peerBlob;
+    NSString * _peerID;
+    NSData * _peerNATIP;
+    int  _peerNATType;
+    NSData * _peerPushToken;
+    GKPlayerInternal * _player;
+    unsigned int  _playerAttributes;
+    int  _playerGroup;
+    NSString * _rid;
+    NSData * _sessionToken;
+    unsigned char  _version;
 }
 
 @property (nonatomic, retain) NSString *bundleID;
@@ -50,6 +50,7 @@
 
 - (id)bundleID;
 - (void)dealloc;
+- (id)descriptionSubstitutionMap;
 - (id)deviceID;
 - (unsigned int)hash;
 - (id)init;

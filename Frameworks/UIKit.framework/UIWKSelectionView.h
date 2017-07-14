@@ -3,15 +3,15 @@
  */
 
 @interface UIWKSelectionView : UIWebSelectionView {
-    UIWebSelectionHandle *_handle;
-    UIView<UIWKInteractionViewProtocol> *_interactionView;
+    UIWebSelectionHandle * _handle;
+    UIView<UIWKInteractionViewProtocol> * _interactionView;
     struct CGPoint { 
         float x; 
         float y; 
-    } _lastTouchPoint;
-    BOOL _selectionIsBlock;
-    BOOL _thresholdIsValid;
-    BOOL _usingGesture;
+    }  _lastTouchPoint;
+    BOOL  _selectionIsBlock;
+    BOOL  _thresholdIsValid;
+    BOOL  _usingGesture;
 }
 
 - (void)blockSelectionChangedWithTouch:(int)arg1 withFlags:(int)arg2 growThreshold:(float)arg3 shrinkThreshold:(float)arg4;
@@ -23,7 +23,9 @@
 - (BOOL)isHorizontalWritingMode;
 - (void)onAfterScrollOrZoomShowingSelection:(BOOL)arg1;
 - (void)onBeforeScrollOrZoomHidingSelection:(BOOL)arg1;
+- (void)resetSelection;
 - (id)scroller;
+- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })selectionBoundingRect;
 - (void)selectionChanged;
 - (void)selectionChangedWithTouchAt:(struct CGPoint { float x1; float x2; })arg1 withSelectionTouch:(int)arg2 withFlags:(int)arg3;
 - (void)selectionCreationEndedWithPoint:(struct CGPoint { float x1; float x2; })arg1;
@@ -37,15 +39,16 @@
 - (BOOL)shouldSwitchToBlockModeForHandle:(id)arg1;
 - (void)showControls;
 - (void)showCopyCalloutWithAnimation:(BOOL)arg1;
+- (void)showRangeSelection;
 - (void)startSelectionCreationWithPoint:(struct CGPoint { float x1; float x2; })arg1;
-- (void)switchToBlockModeForHandle:(id)arg1 withPoint:(struct CGPoint { float x1; float x2; })arg2;
+- (void)switchToBlockModeForHandle:(id)arg1;
 - (void)switchToTextModeForHandle:(id)arg1;
 - (id)tintView;
 - (void)touchChanged:(id)arg1 forHandle:(id)arg2;
 - (void)touchChanged:(id)arg1 forHandleInText:(id)arg2;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })unobscuredRect;
-- (void)updateFrameAndHandlesWithAnimation:(BOOL)arg1 showHandles:(BOOL)arg2;
-- (void)updateRangedSelectionData;
+- (void)updateFrameAndHandlesWithAnimation:(BOOL)arg1;
+- (void)updateRangedSelectionData:(id)arg1;
 - (BOOL)updateRectForCalloutBar:(id)arg1 inWindow:(id)arg2;
 - (void)updateSelectionCreationWithPoint:(struct CGPoint { float x1; float x2; })arg1;
 - (void)updateSelectionRects;

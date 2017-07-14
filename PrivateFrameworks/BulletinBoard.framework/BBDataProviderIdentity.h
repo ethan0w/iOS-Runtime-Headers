@@ -3,28 +3,28 @@
  */
 
 @interface BBDataProviderIdentity : NSObject <NSSecureCoding> {
-    BBSectionInfo *_defaultSectionInfo;
-    NSArray *_defaultSubsectionInfos;
-    NSString *_parentSectionIdentifier;
-    NSString *_sectionDisplayName;
-    BBSectionIcon *_sectionIcon;
-    NSString *_sectionIdentifier;
-    BBSectionParameters *_sectionParameters;
-    NSArray *_sortDescriptors;
-    NSString *_sortKey;
-    NSDictionary *_subsectionDisplayNames;
-    BOOL _syncsBulletinDismissal;
+    BBSectionInfo * _defaultSectionInfo;
+    NSArray * _defaultSubsectionInfos;
+    NSDictionary * _filterDisplayNames;
+    NSString * _parentSectionIdentifier;
+    NSString * _sectionDisplayName;
+    BBSectionIcon * _sectionIcon;
+    NSString * _sectionIdentifier;
+    BBSectionParameters * _sectionParameters;
+    NSArray * _sortDescriptors;
+    NSString * _sortKey;
+    NSDictionary * _subsectionDisplayNames;
+    BOOL  _syncsBulletinDismissal;
     struct { 
         unsigned int pushDataProvider : 1; 
         unsigned int dataProviderDidLoad : 1; 
         unsigned int bulletinsWithRequestParameters : 1; 
         unsigned int bulletinsFilteredByDEPRECATED : 1; 
         unsigned int bulletinsFilteredByEnabledSectionsDEPRECATED : 1; 
-        unsigned int clearedInfoAndBulletinsForClearingAllBulletins : 1; 
         unsigned int clearedInfoForBulletins : 1; 
+        unsigned int clearedInfoAndBulletinsForClearingAllBulletins : 1; 
+        unsigned int clearedInfoAndBulletinsForClearingBulletinsByDate : 1; 
         unsigned int clearedInfoForBulletinsDEPRECATED : 1; 
-        unsigned int attachmentPNGDataForRecordID : 1; 
-        unsigned int attachmentAspectRatioForRecordID : 1; 
         unsigned int defaultSectionInfo : 1; 
         unsigned int defaultSubsectionInfos : 1; 
         unsigned int displayNameForSubsectionID : 1; 
@@ -37,15 +37,17 @@
         unsigned int noteSectionInfoDidChange : 1; 
         unsigned int syncBulletinDismissal : 1; 
         unsigned int handleBulletinActionResponse : 1; 
+        unsigned int handleBulletinActionResponseWithCompletion : 1; 
         unsigned int universalSectionIdentifier : 1; 
         unsigned int parentSectionIdentifier : 1; 
-        unsigned int primaryAttachmentDataForRecordID : 1; 
-    } _traits;
-    NSString *_universalSectionIdentifier;
+        unsigned int displayNameForFilterID : 1; 
+    }  _traits;
+    NSString * _universalSectionIdentifier;
 }
 
 @property (nonatomic, copy) BBSectionInfo *defaultSectionInfo;
 @property (nonatomic, copy) NSArray *defaultSubsectionInfos;
+@property (nonatomic, copy) NSDictionary *filterDisplayNames;
 @property (nonatomic, copy) NSString *parentSectionIdentifier;
 @property (nonatomic, copy) NSString *sectionDisplayName;
 @property (nonatomic, copy) BBSectionIcon *sectionIcon;
@@ -62,11 +64,12 @@
 + (id)identityForRemoteDataProvider:(id)arg1;
 + (BOOL)supportsSecureCoding;
 
-- (void)dealloc;
+- (void).cxx_destruct;
 - (id)defaultSectionInfo;
 - (id)defaultSubsectionInfos;
 - (id)description;
 - (void)encodeWithCoder:(id)arg1;
+- (id)filterDisplayNames;
 - (id)initForDataProvider:(id)arg1 forRemoteDataProvider:(BOOL)arg2;
 - (id)initWithCoder:(id)arg1;
 - (id)parentSectionIdentifier;
@@ -76,6 +79,7 @@
 - (id)sectionParameters;
 - (void)setDefaultSectionInfo:(id)arg1;
 - (void)setDefaultSubsectionInfos:(id)arg1;
+- (void)setFilterDisplayNames:(id)arg1;
 - (void)setParentSectionIdentifier:(id)arg1;
 - (void)setSectionDisplayName:(id)arg1;
 - (void)setSectionIcon:(id)arg1;

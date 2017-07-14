@@ -3,7 +3,7 @@
  */
 
 @interface CMActivityManager : NSObject {
-    id _internal;
+    id  _internal;
 }
 
 @property (getter=isActivityAvailable, nonatomic, readonly) BOOL activityAvailable;
@@ -15,5 +15,6 @@
 - (BOOL)isActivityAvailable;
 - (int)overrideOscarSideband:(BOOL)arg1 withState:(int)arg2;
 - (void)setActivityHandler:(id /* block */)arg1;
+- (int)simulateMotionState:(BOOL)arg1 withState:(int)arg2;
 
 @end

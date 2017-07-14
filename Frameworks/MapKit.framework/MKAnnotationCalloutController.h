@@ -3,14 +3,21 @@
  */
 
 @interface MKAnnotationCalloutController : NSObject {
-    MKAnnotationView *_annotationView;
-    <MKAnnotationCalloutControllerDelegate> *_delegate;
-    unsigned int _mapDisplayStyle;
+    MKAnnotationView * _annotationView;
+    <MKAnnotationCalloutControllerDelegate> * _delegate;
+    struct { 
+        unsigned char timePeriod; 
+        unsigned char overlayType; 
+        unsigned char applicationState; 
+        unsigned char searchResultsType; 
+        BOOL mapHasLabels; 
+    }  _mapDisplayStyle;
+    BOOL  _needsCalloutUpdate;
 }
 
 @property (nonatomic, retain) MKAnnotationView *annotationView;
 @property (nonatomic) <MKAnnotationCalloutControllerDelegate> *delegate;
-@property (nonatomic) unsigned int mapDisplayStyle;
+@property (nonatomic) struct { unsigned char x1; unsigned char x2; unsigned char x3; unsigned char x4; BOOL x5; } mapDisplayStyle;
 
 - (void).cxx_destruct;
 - (void)_addAccessoryTargetForView:(id)arg1;
@@ -20,6 +27,7 @@
 - (void)_removeAccessoryTargets;
 - (void)_setDetailAccessoryView:(id)arg1 animated:(BOOL)arg2;
 - (void)_setLeftAccessoryView:(id)arg1 animated:(BOOL)arg2;
+- (void)_setNeedsCalloutUpdate;
 - (void)_setRightAccessoryView:(id)arg1 animated:(BOOL)arg2;
 - (void)_setSubtitle:(id)arg1 animated:(BOOL)arg2;
 - (void)_setTitle:(id)arg1;
@@ -34,11 +42,11 @@
 - (id)delegate;
 - (void)hideCalloutAnimated:(BOOL)arg1;
 - (BOOL)isCalloutExpanded;
-- (unsigned int)mapDisplayStyle;
+- (struct { unsigned char x1; unsigned char x2; unsigned char x3; unsigned char x4; BOOL x5; })mapDisplayStyle;
 - (void)observeValueForKeyPath:(id)arg1 ofObject:(id)arg2 change:(id)arg3 context:(void*)arg4;
 - (void)setAnnotationView:(id)arg1;
 - (void)setDelegate:(id)arg1;
-- (void)setMapDisplayStyle:(unsigned int)arg1;
+- (void)setMapDisplayStyle:(struct { unsigned char x1; unsigned char x2; unsigned char x3; unsigned char x4; BOOL x5; })arg1;
 - (void)showCalloutForAnnotationView:(id)arg1 animated:(BOOL)arg2 scrollToFit:(BOOL)arg3 avoid:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg4;
 
 @end

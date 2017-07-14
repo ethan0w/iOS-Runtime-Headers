@@ -3,12 +3,12 @@
  */
 
 @interface SCROMobileBrailleDisplayInputManagerCacheObject : NSObject {
-    int _brailleInputMode;
-    NSBundle *_bundle;
-    NSMutableDictionary *_commandDictionary;
-    NSString *_driverIdentifier;
-    NSString *_modelIdentifier;
-    NSMutableArray *_orderedIdentifiers;
+    int  _brailleInputMode;
+    NSBundle * _bundle;
+    NSMutableDictionary * _commandDictionary;
+    NSString * _driverIdentifier;
+    NSString * _modelIdentifier;
+    NSMutableArray * _orderedIdentifiers;
 }
 
 @property (nonatomic) int brailleInputMode;

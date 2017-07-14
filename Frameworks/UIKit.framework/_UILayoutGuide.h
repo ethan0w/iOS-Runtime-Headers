@@ -3,21 +3,24 @@
  */
 
 @interface _UILayoutGuide : UIView <UILayoutSupport> {
-    BOOL _allowsArchivingAsSubview;
-    NSString *_archivedIdentifier;
-    NSArray *_constraintsToRemoveAtRuntime;
-    BOOL _horizontal;
+    BOOL  _allowsArchivingAsSubview;
+    NSString * _archivedIdentifier;
+    NSArray * _constraintsToRemoveAtRuntime;
+    BOOL  _horizontal;
 }
 
 @property (setter=_setAllowsArchivingAsSubview:, nonatomic) BOOL _allowsArchivingAsSubview;
 @property (setter=_setArchivedIdentifier:, nonatomic, copy) NSString *_archivedIdentifier;
 @property (setter=_setConstraintsToRemoveAtRuntime:, nonatomic, copy) NSArray *_constraintsToRemoveAtRuntime;
 @property (getter=isHorizontal, setter=_setHorizontal:, nonatomic) BOOL _horizontal;
+@property (readonly) NSLayoutYAxisAnchor *bottomAnchor;
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (readonly) unsigned int hash;
+@property (readonly) NSLayoutDimension *heightAnchor;
 @property (nonatomic, readonly) float length;
 @property (readonly) Class superclass;
+@property (readonly) NSLayoutYAxisAnchor *topAnchor;
 
 + (id)_horizontalLayoutGuide;
 + (id)_verticalLayoutGuide;
@@ -28,7 +31,6 @@
 - (id)_constraintsToRemoveAtRuntime;
 - (BOOL)_isFloatingLayoutItem;
 - (id)_layoutVariablesWithAmbiguousValue;
-- (id)_relevantLayoutVariables;
 - (void)_setAllowsArchivingAsSubview:(BOOL)arg1;
 - (void)_setArchivedIdentifier:(id)arg1;
 - (void)_setConstraintsToRemoveAtRuntime:(id)arg1;

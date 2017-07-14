@@ -3,21 +3,23 @@
  */
 
 @interface EKCalendarNotification : NSObject <EKIdentityProtocol> {
-    NSURL *_URI;
-    BOOL _alerted;
-    struct CGColor { } *_dotColor;
-    NSString *_emailAddress;
-    NSString *_firstName;
-    BOOL _hiddenFromNotificationCenter;
-    NSString *_lastName;
-    NSString *_name;
-    EKObjectID *_objectID;
-    NSString *_title;
-    int _type;
+    NSURL * _URI;
+    BOOL  _alerted;
+    BOOL  _couldBeJunk;
+    struct CGColor { } * _dotColor;
+    NSString * _emailAddress;
+    NSString * _firstName;
+    BOOL  _hiddenFromNotificationCenter;
+    NSString * _lastName;
+    NSString * _name;
+    EKObjectID * _objectID;
+    NSString * _title;
+    int  _type;
 }
 
 @property (nonatomic, retain) NSURL *URI;
 @property (nonatomic) BOOL alerted;
+@property (nonatomic) BOOL couldBeJunk;
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (nonatomic) struct CGColor { }*dotColor;
@@ -33,8 +35,12 @@
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic) int type;
 
+// Image: /System/Library/Frameworks/EventKit.framework/EventKit
+
+- (void).cxx_destruct;
 - (id)URI;
 - (BOOL)alerted;
+- (BOOL)couldBeJunk;
 - (void)dealloc;
 - (struct CGColor { }*)dotColor;
 - (id)emailAddress;
@@ -46,6 +52,7 @@
 - (BOOL)needsAlert;
 - (id)objectID;
 - (void)setAlerted:(BOOL)arg1;
+- (void)setCouldBeJunk:(BOOL)arg1;
 - (void)setDotColor:(struct CGColor { }*)arg1;
 - (void)setEmailAddress:(id)arg1;
 - (void)setFirstName:(id)arg1;
@@ -58,5 +65,13 @@
 - (void)setURI:(id)arg1;
 - (id)title;
 - (int)type;
+
+// Image: /System/Library/PrivateFrameworks/CalendarUIKit.framework/CalendarUIKit
+
+- (id)_identityStringWithOptions:(unsigned int)arg1;
+- (id)allDescriptionStringsWithOptions:(unsigned int)arg1;
+- (id)importantDescriptionStringWithOptions:(unsigned int)arg1;
+- (BOOL)supportsDisplay;
+- (id)titleStringWithOptions:(unsigned int)arg1;
 
 @end

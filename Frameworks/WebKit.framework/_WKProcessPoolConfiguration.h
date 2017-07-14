@@ -2,29 +2,57 @@
    Image: /System/Library/Frameworks/WebKit.framework/WebKit
  */
 
-@interface _WKProcessPoolConfiguration : NSObject <NSCopying> {
-    struct RetainPtr<NSArray> { 
-        void *m_ptr; 
-    } _cachePartitionedURLSchemes;
-    struct RetainPtr<NSURL> { 
-        void *m_ptr; 
-    } _injectedBundleURL;
-    unsigned int _maximumProcessCount;
+@interface _WKProcessPoolConfiguration : NSObject <NSCopying, WKObject> {
+    struct ObjectStorage<API::ProcessPoolConfiguration> { 
+        struct type { 
+            unsigned char __lx[128]; 
+        } data; 
+    }  _processPoolConfiguration;
 }
 
+@property (nonatomic, copy) NSString *CTDataConnectionServiceType;
+@property (readonly) /* Warning: unhandled struct encoding: '{Object=^^?@}' */ struct Object { int (**x1)(); id x2; }*_apiObject;
+@property (nonatomic, copy) NSArray *alwaysRevalidatedURLSchemes;
+@property (nonatomic) BOOL alwaysRunsAtBackgroundPriority;
 @property (nonatomic, copy) NSArray *cachePartitionedURLSchemes;
+@property (readonly, copy) NSString *debugDescription;
+@property (readonly, copy) NSString *description;
+@property (nonatomic) int diskCacheSizeOverride;
+@property (nonatomic) BOOL diskCacheSpeculativeValidationEnabled;
+@property (readonly) unsigned int hash;
+@property (nonatomic) BOOL ignoreSynchronousMessagingTimeoutsForTesting;
 @property (nonatomic, copy) NSURL *injectedBundleURL;
 @property (nonatomic) unsigned int maximumProcessCount;
+@property (nonatomic, copy) NSString *sourceApplicationBundleIdentifier;
+@property (nonatomic, copy) NSString *sourceApplicationSecondaryIdentifier;
+@property (readonly) Class superclass;
 
-- (id).cxx_construct;
-- (void).cxx_destruct;
+- (id)CTDataConnectionServiceType;
+- (/* Warning: unhandled struct encoding: '{Object=^^?@}' */ struct Object { int (**x1)(); id x2; }*)_apiObject;
+- (id)alwaysRevalidatedURLSchemes;
+- (BOOL)alwaysRunsAtBackgroundPriority;
 - (id)cachePartitionedURLSchemes;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
+- (void)dealloc;
 - (id)description;
+- (int)diskCacheSizeOverride;
+- (BOOL)diskCacheSpeculativeValidationEnabled;
+- (BOOL)ignoreSynchronousMessagingTimeoutsForTesting;
+- (id)init;
 - (id)injectedBundleURL;
 - (unsigned int)maximumProcessCount;
+- (void)setAlwaysRevalidatedURLSchemes:(id)arg1;
+- (void)setAlwaysRunsAtBackgroundPriority:(BOOL)arg1;
+- (void)setCTDataConnectionServiceType:(id)arg1;
 - (void)setCachePartitionedURLSchemes:(id)arg1;
+- (void)setDiskCacheSizeOverride:(int)arg1;
+- (void)setDiskCacheSpeculativeValidationEnabled:(BOOL)arg1;
+- (void)setIgnoreSynchronousMessagingTimeoutsForTesting:(BOOL)arg1;
 - (void)setInjectedBundleURL:(id)arg1;
 - (void)setMaximumProcessCount:(unsigned int)arg1;
+- (void)setSourceApplicationBundleIdentifier:(id)arg1;
+- (void)setSourceApplicationSecondaryIdentifier:(id)arg1;
+- (id)sourceApplicationBundleIdentifier;
+- (id)sourceApplicationSecondaryIdentifier;
 
 @end

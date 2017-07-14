@@ -9,6 +9,7 @@
 @property (readonly) unsigned int hash;
 @property (readonly) Class superclass;
 
+- (id)createActivity;
 - (id)initWithSyncContext:(id)arg1;
 - (void)main;
 - (BOOL)shouldRetryForError:(id)arg1;

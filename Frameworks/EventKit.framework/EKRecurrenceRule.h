@@ -3,8 +3,8 @@
  */
 
 @interface EKRecurrenceRule : EKObject <NSCopying> {
-    EKRecurrenceEnd *_cachedEnd;
-    BOOL _usesEndDate;
+    EKRecurrenceEnd * _cachedEnd;
+    BOOL  _usesEndDate;
 }
 
 @property (nonatomic, readonly) NSString *UUID;
@@ -17,7 +17,7 @@
 @property (nonatomic, readonly) BOOL dirtyStateMayAffectExceptionDates;
 @property (nonatomic, readonly) int firstDayOfTheWeek;
 @property (nonatomic, readonly) int frequency;
-@property (readonly) struct { int x1; int x2; int x3; int x4; int x5; double x6; } gregorianUnits;
+@property (nonatomic, readonly) struct { int x1; int x2; int x3; int x4; int x5; double x6; } gregorianUnits;
 @property (nonatomic, readonly) int interval;
 @property (nonatomic, readonly) NSArray *monthsOfTheYear;
 @property (nonatomic, retain) EKCalendarItem *owner;
@@ -32,6 +32,7 @@
 + (id)iCalendarValueFromRecurrenceType:(int)arg1;
 + (id)recurrenceRuleWithType:(int)arg1 interval:(unsigned int)arg2 end:(id)arg3;
 
+- (void).cxx_destruct;
 - (id)UUID;
 - (id)_persistentRule;
 - (id)cachedEnd;
@@ -41,7 +42,6 @@
 - (id)daysOfTheMonth;
 - (id)daysOfTheWeek;
 - (id)daysOfTheYear;
-- (void)dealloc;
 - (id)description;
 - (BOOL)dirtyStateMayAffectExceptionDates;
 - (int)firstDayOfTheWeek;
@@ -52,6 +52,7 @@
 - (id)initRecurrenceWithFrequency:(int)arg1 interval:(int)arg2 end:(id)arg3;
 - (int)interval;
 - (BOOL)isAnyDayRule;
+- (BOOL)isSimpleRule;
 - (BOOL)isWeekdayRule;
 - (BOOL)isWeekendRule;
 - (id)lazyLoadRelationForKey:(id)arg1;

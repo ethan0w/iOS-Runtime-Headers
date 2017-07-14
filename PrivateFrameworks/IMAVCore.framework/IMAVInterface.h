@@ -3,7 +3,7 @@
  */
 
 @interface IMAVInterface : NSObject {
-    id _delegate;
+    id  _delegate;
 }
 
 @property (nonatomic, readonly) id _controller;
@@ -49,9 +49,11 @@
 - (void)avChat:(id)arg1 setSendingAudio:(BOOL)arg2;
 - (void)avChat:(id)arg1 setSendingVideo:(BOOL)arg2;
 - (void)avChat:(id)arg1 setValidatedIdentity:(struct __SecIdentity { }*)arg2;
+- (void)cancelConferenceForAVChat:(id)arg1;
 - (unsigned long long)capabilities;
 - (unsigned long long)capabilitiesOfCPU;
 - (unsigned long long)capabilitiesOfNetwork;
+- (void)chatRelayedStatusChanged:(id)arg1;
 - (void)chatStateUpdated;
 - (void)cleanupAVInterface;
 - (id)controller;
@@ -59,7 +61,6 @@
 - (id)delegate;
 - (void)endAVConferenceWithChat:(id)arg1 callID:(int)arg2;
 - (int)endConferenceForAVChat:(id)arg1;
-- (void)endInterruptionForChat:(id)arg1;
 - (id)getNatIPFromICEData:(id)arg1;
 - (void)handleRelayCancel:(id)arg1 fromParticipant:(id)arg2 callInfo:(id)arg3;
 - (void)handleRelayInitate:(id)arg1 fromParticipant:(id)arg2 callInfo:(id)arg3;
@@ -87,9 +88,10 @@
 - (void)setRemoteVideoBackLayer:(void*)arg1 forChat:(id)arg2;
 - (void)setRemoteVideoLayer:(void*)arg1 forChat:(id)arg2;
 - (void)setRemoteVideoLayersFromChat:(id)arg1 toChat:(id)arg2;
+- (void)setRemoteVideoPresentationSize:(struct CGSize { float x1; float x2; })arg1 forChat:(id)arg2;
+- (void)setRemoteVideoPresentationState:(unsigned int)arg1 forChat:(id)arg2;
 - (void)setShouldKeepCameraRunning:(BOOL)arg1;
 - (BOOL)shouldKeepCameraRunning;
-- (void)startInterruptionForChat:(id)arg1;
 - (BOOL)startPreviewWithError:(id*)arg1;
 - (BOOL)stopPreview;
 - (BOOL)supportsLayers;
@@ -99,7 +101,6 @@
 - (BOOL)systemSupportsBackFacingCamera;
 - (BOOL)systemSupportsFrontFacingCamera;
 - (void)unsetDelegate:(id)arg1;
-- (void)updateAVChat:(id)arg1 withCallMetadata:(id)arg2;
-- (void)updateInterruptionForChat:(id)arg1;
+- (void)updateAVChat:(id)arg1 withCallMetadata:(id)arg2 isFinalUpdate:(BOOL)arg3;
 
 @end

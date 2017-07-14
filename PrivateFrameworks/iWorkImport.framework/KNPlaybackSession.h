@@ -3,36 +3,41 @@
  */
 
 @interface KNPlaybackSession : NSObject <TSDAnimationSession> {
-    BOOL _isExitingShow;
-    TSULRUCache *mASVCache;
-    KNSlideNode *mAlternateNextSlideNode;
-    KNAnimationContext *mAnimationContext;
-    TSDBitmapRenderingQualityInfo *mBitmapRenderingQualityInfo;
-    NSMutableArray *mBreadCrumbTrail;
-    <TSDCanvasDelegate> *mCanvasDelegate;
-    KNSlideNode *mCurrentSlideNode;
-    BOOL mDisableAutoAnimationRemoval;
-    id /* block */ mEndShowHandler;
-    BOOL mHasEndShowHandlerBeenCancelled;
-    NSObject *mIncomingRenderingTicket;
-    KNSlideNode *mLastVisitedSlideNode;
-    NSObject *mOutgoingRenderingTicket;
-    int mPlayMode;
-    BOOL mShouldAlwaysSetCurrentGLContextWhenDrawing;
-    BOOL mShouldAnimateNullTransitions;
-    BOOL mShouldAnimateTransitionOnLastSlide;
-    BOOL mShouldAutomaticallyPlayMovies;
-    BOOL mShouldDrawTexturesAsynchronously;
-    BOOL mShouldForceTextureGeneration;
-    BOOL mShouldPreferCARenderer;
-    BOOL mShouldShowVideoReflectionsAndMasks;
-    BOOL mShouldUseContentlessLayers;
-    BOOL mShouldUseSourceImage;
-    KNShow *mShow;
-    BOOL mSkipBuilds;
-    BOOL mSkipSlides;
+    BOOL  _isExitingShow;
+    BOOL  _shouldNotBakeActionTextures;
+    TSULRUCache * mASVCache;
+    <TSKAccessControllerReadTicket> * mAccessControllerReadTicket;
+    KNSlideNode * mAlternateNextSlideNode;
+    KNAnimationContext * mAnimationContext;
+    TSDBitmapRenderingQualityInfo * mBitmapRenderingQualityInfo;
+    NSMutableArray * mBreadCrumbTrail;
+    <TSDCanvasDelegate> * mCanvasDelegate;
+    KNSlideNode * mCurrentSlideNode;
+    BOOL  mDisableAutoAnimationRemoval;
+    BOOL  mDisableTransitionTextureCaching;
+    id /* block */  mEndShowHandler;
+    BOOL  mHasEndShowHandlerBeenCancelled;
+    <TSKAccessControllerReadTicket> * mIncomingRenderingTicket;
+    KNSlideNode * mLastVisitedSlideNode;
+    <TSKAccessControllerReadTicket> * mOutgoingRenderingTicket;
+    int  mPlayMode;
+    BOOL  mShouldAlwaysSetCurrentGLContextWhenDrawing;
+    BOOL  mShouldAnimateNullTransitions;
+    BOOL  mShouldAnimateTransitionOnLastSlide;
+    BOOL  mShouldAutomaticallyPlayMovies;
+    BOOL  mShouldDrawTexturesAsynchronously;
+    BOOL  mShouldForceTextureGeneration;
+    BOOL  mShouldPreferCARenderer;
+    BOOL  mShouldRenderSlidesSynchronously;
+    BOOL  mShouldShowVideoReflectionsAndMasks;
+    BOOL  mShouldUseContentlessLayers;
+    BOOL  mShouldUseSourceImage;
+    KNShow * mShow;
+    BOOL  mSkipBuilds;
+    BOOL  mSkipSlides;
 }
 
+@property (nonatomic) <TSKAccessControllerReadTicket> *accessControllerReadTicket;
 @property (nonatomic) KNSlideNode *alternateNextSlideNode;
 @property (nonatomic, readonly) KNAnimationContext *animationContext;
 @property (nonatomic, retain) TSDBitmapRenderingQualityInfo *bitmapRenderingQualityInfo;
@@ -42,6 +47,7 @@
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (nonatomic) BOOL disableAutoAnimationRemoval;
+@property (nonatomic) BOOL disableTransitionTextureCaching;
 @property (nonatomic, copy) id /* block */ endShowHandler;
 @property (readonly) unsigned int hash;
 @property (nonatomic) BOOL isExitingShow;
@@ -54,7 +60,9 @@
 @property (nonatomic) BOOL shouldAutomaticallyPlayMovies;
 @property (nonatomic) BOOL shouldDrawTexturesAsynchronously;
 @property (nonatomic) BOOL shouldForceTextureGeneration;
+@property (nonatomic) BOOL shouldNotBakeActionTextures;
 @property (nonatomic) BOOL shouldPreferCARenderer;
+@property (nonatomic) BOOL shouldRenderSlidesSynchronously;
 @property (nonatomic, readonly) BOOL shouldShowInstructionalText;
 @property (nonatomic) BOOL shouldShowVideoReflectionsAndMasks;
 @property (nonatomic) BOOL shouldUseContentlessLayers;
@@ -64,6 +72,7 @@
 @property (nonatomic) BOOL skipSlides;
 @property (readonly) Class superclass;
 
+- (id)accessControllerReadTicket;
 - (id)alternateNextSlideNode;
 - (id)animatedSlideViewFor:(id)arg1 setupTransition:(BOOL)arg2;
 - (id)animationContext;
@@ -78,6 +87,7 @@
 - (id)currentSlideNode;
 - (void)dealloc;
 - (BOOL)disableAutoAnimationRemoval;
+- (BOOL)disableTransitionTextureCaching;
 - (void)dropABreadCrumb;
 - (id /* block */)endShowHandler;
 - (void)executeEndShowHandlerAfterDelay:(double)arg1;
@@ -110,11 +120,13 @@
 - (void)renderTextureContentsIfNeeded:(id)arg1;
 - (void)renderTextureSetContentsIfNeeded:(id)arg1;
 - (id)repForInfo:(id)arg1 onCanvas:(id)arg2;
+- (void)setAccessControllerReadTicket:(id)arg1;
 - (void)setAlternateNextSlideNode:(id)arg1;
 - (void)setBitmapRenderingQualityInfo:(id)arg1;
 - (void)setBreadCrumbTrail:(id)arg1;
 - (void)setCanvasDelegate:(id)arg1;
 - (void)setDisableAutoAnimationRemoval:(BOOL)arg1;
+- (void)setDisableTransitionTextureCaching:(BOOL)arg1;
 - (void)setEndShowHandler:(id /* block */)arg1;
 - (void)setIsExitingShow:(BOOL)arg1;
 - (void)setPlayMode:(int)arg1;
@@ -124,7 +136,9 @@
 - (void)setShouldAutomaticallyPlayMovies:(BOOL)arg1;
 - (void)setShouldDrawTexturesAsynchronously:(BOOL)arg1;
 - (void)setShouldForceTextureGeneration:(BOOL)arg1;
+- (void)setShouldNotBakeActionTextures:(BOOL)arg1;
 - (void)setShouldPreferCARenderer:(BOOL)arg1;
+- (void)setShouldRenderSlidesSynchronously:(BOOL)arg1;
 - (void)setShouldShowVideoReflectionsAndMasks:(BOOL)arg1;
 - (void)setShouldUseContentlessLayers:(BOOL)arg1;
 - (void)setShouldUseSourceImage:(BOOL)arg1;
@@ -136,7 +150,9 @@
 - (BOOL)shouldAutomaticallyPlayMovies;
 - (BOOL)shouldDrawTexturesAsynchronously;
 - (BOOL)shouldForceTextureGeneration;
+- (BOOL)shouldNotBakeActionTextures;
 - (BOOL)shouldPreferCARenderer;
+- (BOOL)shouldRenderSlidesSynchronously;
 - (BOOL)shouldShowInstructionalText;
 - (BOOL)shouldShowVideoReflectionsAndMasks;
 - (BOOL)shouldUseContentlessLayers;

@@ -2,17 +2,21 @@
    Image: /System/Library/PrivateFrameworks/FrontBoard.framework/FrontBoard
  */
 
-@interface FBProcessManager : NSObject <FBApplicationProcessDelegate, FBApplicationProcessObserver> {
-    NSObject<OS_dispatch_queue> *_callOutQueue;
-    FBApplicationProcess *_foregroundAppProcess;
-    NSHashTable *_observers;
-    NSMapTable *_processesByBundleID;
-    NSMapTable *_processesByPID;
-    NSObject<OS_dispatch_queue> *_queue;
-    FBApplicationProcess *_systemAppProcess;
-    BKSProcessAssertion *_systemAppProcessAssertion;
-    int _workspaceLocked;
-    int _workspaceLockedToken;
+@interface FBProcessManager : NSObject <FBApplicationProcessDelegate, FBUIProcessManagerInternal> {
+    FBApplicationLibrary * _appLibrary;
+    NSObject<OS_dispatch_queue> * _callOutQueue;
+    FBApplicationProcessWatchdogPolicy * _defaultWatchdogPolicy;
+    FBApplicationProcess * _foregroundAppProcess;
+    NSHashTable * _observers;
+    FBApplicationProcess * _preferredForegroundAppProcess;
+    NSMutableSet * _preventIdleSleepReasons;
+    NSMapTable * _processesByBundleID;
+    NSMapTable * _processesByPID;
+    NSObject<OS_dispatch_queue> * _processesQueue;
+    NSObject<OS_dispatch_queue> * _queue;
+    FBApplicationProcess * _systemAppProcess;
+    BKSProcessAssertion * _systemAppProcessAssertion;
+    NSMutableDictionary * _workspacesByClientIdentity;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -23,28 +27,27 @@
 
 + (id)sharedInstance;
 
-- (BOOL)_isWorkspaceLocked;
+- (id)_processesQueue_processForPID:(int)arg1;
+- (id)_processesQueue_processesForBundleIdentifier:(id)arg1;
 - (void)_queue_addProcess:(id)arg1 completion:(id /* block */)arg2;
+- (void)_queue_evaluateForegroundEventRouting;
 - (void)_queue_notifyObserversUsingBlock:(id /* block */)arg1 completion:(id /* block */)arg2;
-- (id)_queue_processForPID:(int)arg1;
-- (id)_queue_processesForBundleIdentifier:(id)arg1;
 - (void)_queue_removeProcess:(id)arg1 withBundleID:(id)arg2 pid:(int)arg3;
-- (id)_serviceClientAddedWithAuditToken:(struct { unsigned int x1[8]; }*)arg1;
-- (id)_serviceClientAddedWithConnection:(id)arg1;
-- (id)_serviceClientAddedWithPID:(int)arg1 isUIApp:(BOOL)arg2 isExtension:(BOOL)arg3 bundleID:(id)arg4;
-- (id)_systemServiceClientAdded:(id)arg1;
-- (void)_updateWorkspaceLockedState;
+- (id)_serviceClientAddedWithProcessHandle:(id)arg1;
+- (void)_setPreferredForegroundApplicationProcess:(id)arg1;
+- (void)_setSystemIdleSleepDisabled:(BOOL)arg1 forReason:(id)arg2;
 - (void)addObserver:(id)arg1;
 - (id)allApplicationProcesses;
 - (id)allProcesses;
 - (id)applicationProcessForPID:(int)arg1;
-- (void)applicationProcessWillLaunch:(id)arg1;
 - (id)applicationProcessesForBundleIdentifier:(id)arg1;
 - (id)createApplicationProcessForBundleID:(id)arg1;
 - (id)createApplicationProcessForBundleID:(id)arg1 withExecutionContext:(id)arg2;
+- (id)currentProcess;
 - (void)dealloc;
 - (id)description;
 - (id)init;
+- (void)invalidateClientWorkspace:(id)arg1;
 - (void)noteProcess:(id)arg1 didUpdateState:(id)arg2;
 - (void)noteProcessDidExit:(id)arg1;
 - (BOOL)ping;
@@ -52,5 +55,7 @@
 - (id)processesForBundleIdentifier:(id)arg1;
 - (void)removeObserver:(id)arg1;
 - (id)systemApplicationProcess;
+- (id)watchdogPolicyForProcess:(id)arg1 eventContext:(id)arg2;
+- (id)workspaceForSceneClientWithIdentity:(id)arg1;
 
 @end

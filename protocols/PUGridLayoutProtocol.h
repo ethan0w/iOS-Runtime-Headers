@@ -14,9 +14,11 @@
 - (float)globalTopPadding;
 - (NSSet *)hiddenItemIndexPaths;
 - (void)invalidateLayoutForVerticalScroll;
-- (void)prepareForViewTransitionToSize:(struct CGSize { float x1; float x2; })arg1;
+- (struct CGSize { float x1; float x2; })itemSize;
+- (id)prepareForViewTransitionToSize:(struct CGSize { float x1; float x2; })arg1;
 - (NSString *)sectionHeaderElementKind;
 - (float)sectionHeaderHeight;
+- (BOOL)sectionHeadersEnabled;
 - (float)sectionTopPadding;
 - (void)setGlobalBottomPadding:(float)arg1;
 - (void)setGlobalFooterHeight:(float)arg1;
@@ -25,6 +27,10 @@
 - (void)setHiddenItemIndexPaths:(NSSet *)arg1;
 - (void)setSectionHeaderElementKind:(NSString *)arg1;
 - (void)setSectionHeaderHeight:(float)arg1;
+- (void)setSectionHeadersEnabled:(BOOL)arg1;
 - (void)setSectionTopPadding:(float)arg1;
+- (void)setUsesAspectItems:(BOOL)arg1;
+- (struct CGPoint { float x1; float x2; })targetContentOffsetForViewSizeTransitionContext:(id)arg1;
+- (BOOL)usesAspectItems;
 
 @end

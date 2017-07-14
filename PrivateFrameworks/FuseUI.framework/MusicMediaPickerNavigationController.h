@@ -3,48 +3,46 @@
  */
 
 @interface MusicMediaPickerNavigationController : MPUNavigationController <MusicClientContextConsuming, MusicSearchBarDelegate, MusicSearchViewControllerMediaPickerDelegate> {
-    BOOL _allowsCollectionsInSelectedEntities;
-    BOOL _allowsMultipleSelection;
-    MusicClientContext *_clientContext;
-    NSString *_collectionName;
-    BOOL _hidesRightBarButtonItem;
-    BOOL _includeStoreItemsInSearch;
-    BOOL _invokedForPlaylistEditing;
-    <MusicMediaPickerDelegate> *_mediaPickerDelegate;
-    NSMutableArray *_pickedEntities;
-    unsigned int _pickedEntitiesCount;
-    NSString *_prompt;
-    UIBarButtonItem *_rightBarButtonItem;
-    BOOL _showsOnlyStoreItems;
-    int _state;
-    NSMutableArray *_storeItemIDs;
+    BOOL  _allowsCollectionsInSelectedEntities;
+    BOOL  _allowsMultipleSelection;
+    MusicClientContext * _clientContext;
+    BOOL  _includeStoreItemsInSearch;
+    <MusicMediaPickerDelegate> * _mediaPickerDelegate;
+    NSMutableArray * _pickedEntities;
+    unsigned int  _pickedEntitiesCount;
+    NSString * _prompt;
+    UIBarButtonItem * _rightBarButtonItem;
+    NSMutableArray * _selectedEntitiesForActiveSession;
+    BOOL  _showsOnlyStoreItems;
+    int  _state;
+    NSMutableArray * _storeItemIDs;
 }
 
 @property (nonatomic) BOOL allowsCollectionsInSelectedEntities;
 @property (nonatomic) BOOL allowsMultipleSelection;
 @property (nonatomic, retain) SKUIClientContext *clientContext;
-@property (nonatomic, copy) NSString *collectionName;
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (readonly) unsigned int hash;
-@property (nonatomic) BOOL hidesRightBarButtonItem;
 @property (nonatomic) BOOL includeStoreItemsInSearch;
-@property (getter=isInvokedForPlaylistEditing, nonatomic) BOOL invokedForPlaylistEditing;
 @property (nonatomic) <MusicMediaPickerDelegate> *mediaPickerDelegate;
 @property (nonatomic, readonly) NSArray *pickedEntities;
 @property (nonatomic, copy) NSString *prompt;
 @property (nonatomic, readonly) UIBarButtonItem *rightBarButtonItem;
+@property (nonatomic, retain) NSMutableArray *selectedEntitiesForActiveSession;
 @property (nonatomic) BOOL showsOnlyStoreItems;
 @property (nonatomic) int state;
 @property (readonly) Class superclass;
 
 + (id)navigationController;
++ (id)selectedItemsForActiveSession;
 
 - (void).cxx_destruct;
 - (id)_allPlayableChildrenMetadataObjectsForMetadata:(id)arg1;
 - (void)_configureNavigationBar;
 - (void)_insertSearchBarIntoTableView:(id)arg1;
-- (BOOL)_isMetadataPlayable:(id)arg1;
+- (BOOL)_isMetadataAddable:(id)arg1;
+- (void)_reloadDataInViewController:(id)arg1;
 - (void)_selectItem:(id)arg1;
 - (void)_stylizeSearchBar:(id)arg1;
 - (void)_updatePrompt;
@@ -53,12 +51,9 @@
 - (BOOL)allowsCollectionsInSelectedEntities;
 - (BOOL)allowsMultipleSelection;
 - (id)clientContext;
-- (id)collectionName;
 - (void)finish;
-- (BOOL)hidesRightBarButtonItem;
 - (BOOL)includeStoreItemsInSearch;
 - (id)initWithNibName:(id)arg1 bundle:(id)arg2;
-- (BOOL)isInvokedForPlaylistEditing;
 - (id)mediaPickerDelegate;
 - (void)musicSearchViewController:(id)arg1 didSelectStoreItemWithID:(id)arg2;
 - (void)musicSearchViewControllerDidFinish:(id)arg1 withSearchBar:(id)arg2;
@@ -68,17 +63,16 @@
 - (void)reset;
 - (id)rightBarButtonItem;
 - (BOOL)searchBarShouldBeginEditing:(id)arg1;
-- (void)selectAllMediaItemsInCollection:(id)arg1;
-- (void)selectMediaItem:(id)arg1;
+- (void)selectAllMediaItemsInCollection:(id)arg1 fromViewController:(id)arg2;
+- (void)selectMediaItem:(id)arg1 fromViewController:(id)arg2;
+- (id)selectedEntitiesForActiveSession;
 - (void)setAllowsCollectionsInSelectedEntities:(BOOL)arg1;
 - (void)setAllowsMultipleSelection:(BOOL)arg1;
 - (void)setClientContext:(id)arg1;
-- (void)setCollectionName:(id)arg1;
-- (void)setHidesRightBarButtonItem:(BOOL)arg1;
 - (void)setIncludeStoreItemsInSearch:(BOOL)arg1;
-- (void)setInvokedForPlaylistEditing:(BOOL)arg1;
 - (void)setMediaPickerDelegate:(id)arg1;
 - (void)setPrompt:(id)arg1;
+- (void)setSelectedEntitiesForActiveSession:(id)arg1;
 - (void)setShowsOnlyStoreItems:(BOOL)arg1;
 - (void)setState:(int)arg1;
 - (BOOL)showsOnlyStoreItems;

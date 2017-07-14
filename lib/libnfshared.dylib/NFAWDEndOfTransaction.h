@@ -3,22 +3,17 @@
  */
 
 @interface NFAWDEndOfTransaction : NSObject <NFAWDEventProtocol> {
-    AWDNFCHCIEndOfTransactionEvent *_metric;
-    NSData *aid;
-    unsigned long long amount;
-    NSData *cdi;
-    unsigned int command;
-    unsigned int currencyCode;
-    unsigned long long iad;
-    unsigned int informative;
-    NSData *maid;
-    NSData *mcii;
-    unsigned int mobileCVMResult;
-    unsigned int msc;
-    unsigned int status;
-    NSData *transactionId;
-    unsigned int transactionStatus;
-    unsigned int version;
+    unsigned long long  _amount;
+    unsigned int  _command;
+    unsigned int  _currencyCode;
+    unsigned long long  _iad;
+    unsigned int  _informative;
+    AWDNFCHCIEndOfTransactionEvent * _metric;
+    unsigned int  _mobileCVMResult;
+    unsigned int  _msc;
+    unsigned int  _status;
+    unsigned int  _transactionStatus;
+    unsigned int  _version;
 }
 
 @property (nonatomic, retain) NSData *aid;
@@ -33,13 +28,14 @@
 @property (nonatomic) unsigned int informative;
 @property (nonatomic, retain) NSData *maid;
 @property (nonatomic, retain) NSData *mcii;
-@property AWDNFCHCIEndOfTransactionEvent *metric;
+@property (nonatomic, retain) AWDNFCHCIEndOfTransactionEvent *metric;
 @property (nonatomic) unsigned int mobileCVMResult;
 @property (nonatomic) unsigned int msc;
 @property (nonatomic) unsigned int status;
 @property (readonly) Class superclass;
 @property (nonatomic, retain) NSData *transactionId;
 @property (nonatomic) unsigned int transactionStatus;
+@property (nonatomic) unsigned int transactionType;
 @property (nonatomic) unsigned int version;
 
 - (id)aid;
@@ -73,11 +69,14 @@
 - (void)setStatus:(unsigned int)arg1;
 - (void)setTransactionId:(id)arg1;
 - (void)setTransactionStatus:(unsigned int)arg1;
+- (void)setTransactionType:(unsigned int)arg1;
 - (void)setVersion:(unsigned int)arg1;
 - (unsigned int)status;
 - (id)transactionId;
 - (unsigned int)transactionStatus;
-- (unsigned int)updateTransactionStateInfoPreviousState:(unsigned int)arg1 withUUID:(id)arg2 withUUIDRefTimestamp:(unsigned long long)arg3;
+- (unsigned int)transactionType;
+- (unsigned int)updateTransactionStateInfoWithPreviousState:(unsigned int)arg1;
+- (void)updateUUID:(id)arg1 withUUIDRefTimestamp:(unsigned long long)arg2;
 - (unsigned int)version;
 
 @end

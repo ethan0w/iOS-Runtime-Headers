@@ -5,8 +5,13 @@
 @interface SGDeviceState : NSObject
 
 + (void)blockUntilFirstUnlock;
++ (id)currentOsBuild;
 + (BOOL)isClassCLocked;
++ (BOOL)isDeviceFormattedForProtection;
 + (BOOL)isUnlocked;
-+ (void)registerBlockForFirstUnlock:(id /* block */)arg1;
++ (int)lockState;
++ (id)registerForLockStateChangeNotifications:(id /* block */)arg1;
++ (void)runBlockWhenDeviceIsReadyForSuggestions:(id /* block */)arg1;
++ (void)unregisterForLockStateChangeNotifications:(id)arg1;
 
 @end

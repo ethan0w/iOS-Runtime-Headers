@@ -3,10 +3,10 @@
  */
 
 @interface MFMailComposeViewController : UINavigationController {
-    BOOL _didChangeStatusBarStyle;
-    id _internal;
-    int _savedStatusBarStyle;
-    id /* block */ _setupAnimationBlock;
+    BOOL  _didChangeStatusBarStyle;
+    id  _internal;
+    int  _savedStatusBarStyle;
+    id /* block */  _setupAnimationBlock;
 }
 
 @property (nonatomic) <MFMailComposeViewControllerDelegate> *mailComposeDelegate;
@@ -14,21 +14,25 @@
 + (BOOL)canSendMail;
 + (BOOL)canSendMailSourceAccountManagement:(int)arg1;
 + (BOOL)hasAutosavedMessageWithIdentifier:(id)arg1;
++ (BOOL)isMailDropConfigured;
 + (unsigned int)maximumAttachmentSize;
 + (void)removeAutosavedMessageWithIdentifier:(id)arg1;
 
 - (void)__viewControllerWillBePresented:(BOOL)arg1;
 - (id)_addAttachmentData:(id)arg1 mimeType:(id)arg2 fileName:(id)arg3;
+- (id)_addAttachmentWithFileURL:(id)arg1 mimeType:(id)arg2;
 - (id)_internalViewController;
 - (id)_validEmailAddressesFromArray:(id)arg1;
 - (void)addAttachmentData:(id)arg1 mimeType:(id)arg2 fileName:(id)arg3;
 - (void)addSetupAnimationBlock:(id /* block */)arg1;
 - (BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers;
 - (void)autosaveWithHandler:(id /* block */)arg1;
+- (void)currentAttachmentLimitWithHandler:(id /* block */)arg1;
 - (void)dealloc;
 - (void)finalizeCompositionValues;
 - (id)initWithNibName:(id)arg1 bundle:(id)arg2;
 - (id)initWithURL:(id)arg1;
+- (id)initWithURL:(id)arg1 sourceAccountManagement:(int)arg2;
 - (id)mailComposeDelegate;
 - (void)recoverAutosavedMessageWithIdentifier:(id)arg1;
 - (void)requestFramesForAttachmentsWithIdentifiers:(id)arg1 resultHandler:(id /* block */)arg2;

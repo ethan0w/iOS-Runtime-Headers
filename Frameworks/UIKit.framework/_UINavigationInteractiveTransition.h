@@ -3,13 +3,15 @@
  */
 
 @interface _UINavigationInteractiveTransition : _UINavigationInteractiveTransitionBase {
-    UIScreenEdgePanGestureRecognizer *_edgePanRecognizer;
+    UIScreenEdgePanGestureRecognizer * _edgePanRecognizer;
 }
 
 @property (nonatomic, readonly) UIScreenEdgePanGestureRecognizer *screenEdgePanGestureRecognizer;
 
+- (void).cxx_destruct;
 - (void)_configureNavigationGesture;
 - (BOOL)_gestureRecognizer:(id)arg1 shouldBeRequiredToFailByGestureRecognizer:(id)arg2;
+- (void)_setShouldReverseLayoutDirection:(BOOL)arg1;
 - (void)dealloc;
 - (BOOL)gestureRecognizer:(id)arg1 shouldReceiveTouch:(id)arg2;
 - (BOOL)gestureRecognizer:(id)arg1 shouldRecognizeSimultaneouslyWithGestureRecognizer:(id)arg2;

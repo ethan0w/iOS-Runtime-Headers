@@ -3,10 +3,9 @@
  */
 
 @interface IKTextElement : IKViewElement {
-    IKViewElementFactory *_elementFactory;
-    NSMutableArray *_textBadges;
-    IKTextParser *_textParser;
-    unsigned int _textStyle;
+    NSMutableArray * _textBadges;
+    IKTextParser * _textParser;
+    unsigned int  _textStyle;
 }
 
 @property (nonatomic, readonly) unsigned int alignment;
@@ -26,6 +25,8 @@
 - (unsigned int)alignment;
 - (id)attributedStringWithFont:(id)arg1;
 - (id)attributedStringWithFont:(id)arg1 foregroundColor:(id)arg2 textAlignment:(int)arg3;
+- (id)attributedStringWithFontHandler:(id /* block */)arg1;
+- (id)attributedStringWithFontHandler:(id /* block */)arg1 foregroundColor:(id)arg2 textAlignment:(int)arg3;
 - (id)badges;
 - (id)color;
 - (id)initWithDOMElement:(id)arg1 parent:(id)arg2 elementFactory:(id)arg3;
@@ -33,7 +34,15 @@
 - (id)text;
 - (unsigned int)textStyle;
 
-// Image: /System/Library/PrivateFrameworks/MediaPlayerUI.framework/MediaPlayerUI
+// Image: /System/Library/PrivateFrameworks/TVMLKit.framework/TVMLKit
+
+- (id)tv_associatedViewElement;
+- (id)tv_attributedString;
+- (id)tv_attributedStringWithForegroundColor:(id)arg1 textAlignment:(int)arg2;
+- (id)tv_textAttributes;
+- (int)tv_textStyle;
+
+// Image: /System/Library/PrivateFrameworks/VideosExtras.framework/VideosExtras
 
 - (id)textAttributes;
 

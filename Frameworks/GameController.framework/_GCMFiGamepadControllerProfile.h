@@ -3,8 +3,8 @@
  */
 
 @interface _GCMFiGamepadControllerProfile : _GCGamepad <_GCACHomeButtonDelegate> {
-    _GCACHomeButton *_acHome;
-    GCMotion *_motion;
+    _GCACHomeButton * _acHome;
+    GCMotion * _motion;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -16,6 +16,7 @@
 - (id)initWithCoder:(id)arg1;
 - (id)initWithController:(id)arg1;
 - (id)inputForElement:(struct __IOHIDElement { }*)arg1;
+- (id)menuButton;
 - (id)motion;
 - (id)name;
 - (void)setPlayerIndex:(int)arg1;

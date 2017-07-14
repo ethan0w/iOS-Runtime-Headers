@@ -2,34 +2,32 @@
    Image: /System/Library/Frameworks/WebKit.framework/WebKit
  */
 
-@interface WKNavigationResponse : NSObject {
-    BOOL _canShowMIMEType;
-    struct RetainPtr<WKFrameInfo> { 
-        void *m_ptr; 
-    } _frame;
-    struct RetainPtr<NSURLRequest> { 
-        void *m_ptr; 
-    } _request;
-    struct RetainPtr<NSURLResponse> { 
-        void *m_ptr; 
-    } _response;
+@interface WKNavigationResponse : NSObject <WKObject> {
+    struct ObjectStorage<API::NavigationResponse> { 
+        struct type { 
+            unsigned char __lx[532]; 
+        } data; 
+    }  _navigationResponse;
 }
 
+@property (readonly) /* Warning: unhandled struct encoding: '{Object=^^?@}' */ struct Object { int (**x1)(); id x2; }*_apiObject;
 @property (nonatomic, readonly) WKFrameInfo *_frame;
 @property (nonatomic, readonly) NSURLRequest *_request;
-@property (nonatomic) BOOL canShowMIMEType;
+@property (nonatomic, readonly) BOOL canShowMIMEType;
+@property (readonly, copy) NSString *debugDescription;
+@property (readonly, copy) NSString *description;
 @property (getter=isForMainFrame, nonatomic, readonly) BOOL forMainFrame;
-@property (nonatomic, copy) NSURLResponse *response;
+@property (readonly) unsigned int hash;
+@property (nonatomic, readonly, copy) NSURLResponse *response;
+@property (readonly) Class superclass;
 
-- (id).cxx_construct;
-- (void).cxx_destruct;
+- (/* Warning: unhandled struct encoding: '{Object=^^?@}' */ struct Object { int (**x1)(); id x2; }*)_apiObject;
 - (id)_frame;
 - (id)_request;
 - (BOOL)canShowMIMEType;
+- (void)dealloc;
 - (id)description;
 - (BOOL)isForMainFrame;
 - (id)response;
-- (void)setCanShowMIMEType:(BOOL)arg1;
-- (void)setResponse:(id)arg1;
 
 @end

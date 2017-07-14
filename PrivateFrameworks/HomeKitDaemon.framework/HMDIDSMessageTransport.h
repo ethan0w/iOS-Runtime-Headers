@@ -2,67 +2,55 @@
    Image: /System/Library/PrivateFrameworks/HomeKitDaemon.framework/HomeKitDaemon
  */
 
-@interface HMDIDSMessageTransport : NSObject <HMIDSMessageTransport, HMMessageTransport, IDSServiceDelegate> {
-    IDSService *_idsService;
-    HMMessageDispatcher *_messageDispatcher;
-    NSMutableSet *_peerResidentDeviceAddresses;
-    NSMutableSet *_peerTransientDeviceAddresses;
-    NSMutableDictionary *_pendingResponseTimers;
-    NSMutableDictionary *_pendingResponses;
-    NSMutableDictionary *_pendingSentMessages;
-    NSObject<OS_dispatch_queue> *_workQueue;
+@interface HMDIDSMessageTransport : HMDRemoteMessageTransport <IDSServiceDelegate> {
+    NSMutableDictionary * _destinationAddress;
+    NSMutableDictionary * _pendingResponseTimers;
+    NSMutableDictionary * _pendingResponses;
+    NSMutableDictionary * _pendingSentMessages;
+    NSMutableDictionary * _receivedResponses;
+    NSMutableDictionary * _requestedCapabilities;
+    IDSService * _service;
+    NSObject<OS_dispatch_queue> * _workQueue;
 }
 
+@property (nonatomic, readonly) int awdTransportType;
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
+@property (nonatomic, readonly) NSMutableDictionary *destinationAddress;
 @property (readonly) unsigned int hash;
-@property (nonatomic, retain) IDSService *idsService;
-@property (nonatomic) HMMessageDispatcher *messageDispatcher;
-@property (nonatomic, retain) NSMutableSet *peerResidentDeviceAddresses;
-@property (nonatomic, retain) NSMutableSet *peerTransientDeviceAddresses;
-@property (nonatomic, retain) NSMutableDictionary *pendingResponseTimers;
-@property (nonatomic, retain) NSMutableDictionary *pendingResponses;
-@property (nonatomic, retain) NSMutableDictionary *pendingSentMessages;
+@property (nonatomic, readonly) NSMutableDictionary *pendingResponseTimers;
+@property (nonatomic, readonly) NSMutableDictionary *pendingResponses;
+@property (nonatomic, readonly) NSMutableDictionary *pendingSentMessages;
+@property (nonatomic, readonly) NSMutableDictionary *receivedResponses;
+@property (nonatomic, readonly) NSMutableDictionary *requestedCapabilities;
+@property (nonatomic, readonly) IDSService *service;
 @property (readonly) Class superclass;
-@property (nonatomic, retain) NSObject<OS_dispatch_queue> *workQueue;
+@property (nonatomic, readonly) NSObject<OS_dispatch_queue> *workQueue;
 
-+ (id)dictionaryForMessageName:(id)arg1 messageIdentifier:(id)arg2 messagePayload:(id)arg3 target:(id)arg4 transactionID:(id)arg5 msgType:(unsigned int)arg6;
-+ (id)idsMessageTypeDescription:(unsigned int)arg1;
-+ (void)messageElementsFromDictionary:(id)arg1 messageName:(id*)arg2 messageIdentifier:(id*)arg3 messagePayload:(id*)arg4 target:(id*)arg5 transactionID:(id*)arg6 isRequest:(BOOL*)arg7 isResponse:(BOOL*)arg8 isNotification:(BOOL*)arg9;
++ (unsigned int)restriction;
 
 - (void).cxx_destruct;
+- (void)_pendingResponseTimeoutFor:(id)arg1;
 - (void)_removePendingResponseTimerForTransaction:(id)arg1;
-- (void)_startPendingResponseTimer:(id)arg1 identifier:(id)arg2;
-- (void)configure:(id)arg1;
-- (void)handleMessageWithName:(id)arg1 messageIdentifier:(id)arg2 messagePayload:(id)arg3 target:(id)arg4;
-- (void)handleMessageWithName:(id)arg1 messageIdentifier:(id)arg2 messagePayload:(id)arg3 target:(id)arg4 destination:(id)arg5;
-- (void)handleMessageWithName:(id)arg1 messageIdentifier:(id)arg2 messagePayload:(id)arg3 target:(id)arg4 destination:(id)arg5 responseHandler:(id /* block */)arg6;
-- (void)handleMessageWithName:(id)arg1 messageIdentifier:(id)arg2 messagePayload:(id)arg3 target:(id)arg4 responseHandler:(id /* block */)arg5;
-- (id)idsService;
-- (id)initWithIDSService:(id)arg1;
-- (id)messageDispatcher;
-- (id)peerResidentDeviceAddresses;
-- (id)peerTransientDeviceAddresses;
+- (void)_removePendingResponseTransaction:(id)arg1;
+- (void)_restartPendingResponseTimerFor:(id)arg1 withReducedFactor:(unsigned long)arg2;
+- (void)_startPendingResponseTimer:(id)arg1 responseTimeout:(double)arg2 identifier:(id)arg3;
+- (int)awdTransportType;
+- (BOOL)canSendMessage:(id)arg1;
+- (id)destinationAddress;
+- (id)initWithAccountRegistry:(id)arg1;
 - (id)pendingResponseTimers;
 - (id)pendingResponses;
 - (id)pendingSentMessages;
-- (id)residentDevices;
-- (id)sendMessage:(id)arg1 destinations:(id)arg2 msgType:(unsigned int)arg3 error:(id*)arg4;
-- (void)service:(id)arg1 account:(id)arg2 identifier:(id)arg3 didSendWithSuccess:(BOOL)arg4 error:(id)arg5;
-- (void)service:(id)arg1 account:(id)arg2 incomingMessage:(id)arg3 fromID:(id)arg4;
-- (void)service:(id)arg1 activeAccountsChanged:(id)arg2;
-- (void)service:(id)arg1 devicesChanged:(id)arg2;
-- (void)setIdsService:(id)arg1;
-- (void)setMessageDispatcher:(id)arg1;
-- (void)setPeerResidentDeviceAddresses:(id)arg1;
-- (void)setPeerTransientDeviceAddresses:(id)arg1;
-- (void)setPendingResponseTimers:(id)arg1;
-- (void)setPendingResponses:(id)arg1;
-- (void)setPendingSentMessages:(id)arg1;
-- (void)setWorkQueue:(id)arg1;
+- (int)qualityOfService;
+- (id)receivedResponses;
+- (id)requestedCapabilities;
+- (void)sendMessage:(id)arg1 completionHandler:(id /* block */)arg2;
+- (id)sendMessage:(id)arg1 destination:(id)arg2 options:(unsigned int)arg3 error:(id*)arg4;
+- (id)service;
+- (void)service:(id)arg1 account:(id)arg2 identifier:(id)arg3 didSendWithSuccess:(BOOL)arg4 error:(id)arg5 context:(id)arg6;
+- (void)service:(id)arg1 account:(id)arg2 incomingMessage:(id)arg3 fromID:(id)arg4 context:(id)arg5;
 - (void)start;
-- (id)transientDevices;
-- (void)updatePeerDeviceAddresses:(id)arg1;
 - (id)workQueue;
 
 @end

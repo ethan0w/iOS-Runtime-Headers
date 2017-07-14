@@ -3,17 +3,19 @@
  */
 
 @interface PUPhotoEditProtoSettings : PUSettings {
-    BOOL _allowAnyPlugin;
-    BOOL _autoCropEnabled;
-    BOOL _cropMaskBlurred;
-    double _cropRecomposeDelay;
-    float _cropSideMargins;
-    float _cropWheelSize;
-    BOOL _showLevelIndicator;
-    BOOL _showResetToolButton;
-    BOOL _simulateDownload;
-    BOOL _simulateDownloadFailure;
-    BOOL _useOldPhotosEditor2;
+    BOOL  _allowAnyPlugin;
+    BOOL  _autoCropEnabled;
+    BOOL  _cropMaskBlurred;
+    double  _cropRecomposeDelay;
+    float  _cropSideMargins;
+    float  _cropWheelSize;
+    BOOL  _previewOriginalAllowsLongPress;
+    double  _previewOriginalDuration;
+    BOOL  _previewOriginalTimesOut;
+    BOOL  _showLevelIndicator;
+    BOOL  _showResetToolButton;
+    BOOL  _simulateDownload;
+    BOOL  _simulateDownloadFailure;
 }
 
 @property (nonatomic) BOOL allowAnyPlugin;
@@ -22,11 +24,13 @@
 @property (nonatomic) double cropRecomposeDelay;
 @property (nonatomic) float cropSideMargins;
 @property (nonatomic) float cropWheelSize;
+@property (nonatomic) BOOL previewOriginalAllowsLongPress;
+@property (nonatomic) double previewOriginalDuration;
+@property (nonatomic) BOOL previewOriginalTimesOut;
 @property (nonatomic) BOOL showLevelIndicator;
 @property (nonatomic) BOOL showResetToolButton;
 @property (nonatomic) BOOL simulateDownload;
 @property (nonatomic) BOOL simulateDownloadFailure;
-@property (nonatomic) BOOL useOldPhotosEditor2;
 
 + (id)settingsControllerModule;
 + (id)sharedInstance;
@@ -37,6 +41,9 @@
 - (double)cropRecomposeDelay;
 - (float)cropSideMargins;
 - (float)cropWheelSize;
+- (BOOL)previewOriginalAllowsLongPress;
+- (double)previewOriginalDuration;
+- (BOOL)previewOriginalTimesOut;
 - (void)setAllowAnyPlugin:(BOOL)arg1;
 - (void)setAutoCropEnabled:(BOOL)arg1;
 - (void)setCropMaskBlurred:(BOOL)arg1;
@@ -44,15 +51,16 @@
 - (void)setCropSideMargins:(float)arg1;
 - (void)setCropWheelSize:(float)arg1;
 - (void)setDefaultValues;
+- (void)setPreviewOriginalAllowsLongPress:(BOOL)arg1;
+- (void)setPreviewOriginalDuration:(double)arg1;
+- (void)setPreviewOriginalTimesOut:(BOOL)arg1;
 - (void)setShowLevelIndicator:(BOOL)arg1;
 - (void)setShowResetToolButton:(BOOL)arg1;
 - (void)setSimulateDownload:(BOOL)arg1;
 - (void)setSimulateDownloadFailure:(BOOL)arg1;
-- (void)setUseOldPhotosEditor2:(BOOL)arg1;
 - (BOOL)showLevelIndicator;
 - (BOOL)showResetToolButton;
 - (BOOL)simulateDownload;
 - (BOOL)simulateDownloadFailure;
-- (BOOL)useOldPhotosEditor2;
 
 @end

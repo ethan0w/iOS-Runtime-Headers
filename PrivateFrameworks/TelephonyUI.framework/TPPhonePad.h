@@ -3,34 +3,33 @@
  */
 
 @interface TPPhonePad : UIControl <TPDialerKeypadProtocol> {
-    float _bottomHeight;
-    <TPDialerKeypadDelegate> *_delegate;
-    unsigned int _delegateSoundCallbacks;
-    int _downKey;
-    int _highlightKey;
-    unsigned int _incompleteSounds;
-    struct __CFSet { } *_inflightSounds;
-    struct __CFDictionary { } *_keyToButtonMap;
-    float _leftWidth;
-    float _midHeight;
-    float _midWidth;
-    BOOL _playsSounds;
-    float _rightWidth;
-    unsigned int _soundsActivated;
-    BOOL _supportsHardPause;
-    float _topHeight;
+    float  _bottomHeight;
+    <TPDialerKeypadDelegate> * _delegate;
+    unsigned int  _delegateSoundCallbacks;
+    int  _downKey;
+    int  _highlightKey;
+    unsigned int  _incompleteSounds;
+    struct __CFSet { } * _inflightSounds;
+    struct __CFDictionary { } * _keyToButtonMap;
+    float  _leftWidth;
+    float  _midHeight;
+    float  _midWidth;
+    BOOL  _playsSounds;
+    float  _rightWidth;
+    unsigned int  _soundsActivated;
+    float  _topHeight;
 }
 
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (readonly) unsigned int hash;
 @property (readonly) Class superclass;
-@property BOOL supportsHardPause;
 
 + (void)_delayedDeactivate;
 + (BOOL)launchFieldTestIfNeeded:(id)arg1;
 + (BOOL)shouldStringAutoDial:(id)arg1 givenLastChar:(BOOL)arg2;
 
+- (void).cxx_destruct;
 - (void)_activateSounds:(BOOL)arg1;
 - (void)_appResumed;
 - (void)_appSuspended;
@@ -61,17 +60,15 @@
 - (id)initWithFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (void)movedFromWindow:(id)arg1;
 - (void)movedToWindow:(id)arg1;
+- (void)performTapActionCancelForHighlightedKey;
 - (void)performTapActionDownForHighlightedKey;
 - (void)performTapActionEndForHighlightedKey;
 - (BOOL)pointMostlyInside:(struct CGPoint { float x1; float x2; })arg1 withEvent:(id)arg2;
 - (void)removeFromSuperview;
-- (id)scriptingInfoWithChildren;
 - (void)setButton:(id)arg1 forKeyAtIndex:(unsigned int)arg2;
 - (void)setDelegate:(id)arg1;
 - (void)setHighlighted:(BOOL)arg1;
 - (void)setNeedsDisplayForKey:(int)arg1;
 - (void)setPlaysSounds:(BOOL)arg1;
-- (void)setSupportsHardPause:(BOOL)arg1;
-- (BOOL)supportsHardPause;
 
 @end

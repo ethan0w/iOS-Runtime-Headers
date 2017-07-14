@@ -3,11 +3,11 @@
  */
 
 @interface NSCalendarDate : NSDate {
-    NSString *_formatString;
-    void *_reserved;
-    double _timeIntervalSinceReferenceDate;
-    NSTimeZone *_timeZone;
-    unsigned int refCount;
+    NSString * _formatString;
+    void * _reserved;
+    double  _timeIntervalSinceReferenceDate;
+    NSTimeZone * _timeZone;
+    unsigned int  refCount;
 }
 
 // Image: /System/Library/Frameworks/Foundation.framework/Foundation
@@ -58,9 +58,18 @@
 - (int)yearOfCommonEra;
 - (void)years:(int*)arg1 months:(int*)arg2 days:(int*)arg3 hours:(int*)arg4 minutes:(int*)arg5 seconds:(int*)arg6 sinceDate:(id)arg7;
 
-// Image: /System/Library/Frameworks/EventKit.framework/EventKit
+// Image: /System/Library/PrivateFrameworks/CalendarDatabase.framework/CalendarDatabase
 
 - (id)ekmsuidGMTDateToDateInTimeZone:(id)arg1;
 - (id)ekmsuidStringForYearMonthDay;
+
+// Image: /System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DAEAS.framework/DAEAS
+
++ (id)combinedDateWithYMDFrom:(id)arg1 HMSFrom:(id)arg2 componentDatesTimezone:(id)arg3;
+
+- (void)getGregorianDate:(struct { int x1; BOOL x2; BOOL x3; BOOL x4; BOOL x5; double x6; }*)arg1;
+- (id)gmtDateToDateInTimeZone:(id)arg1;
+- (id)nearestMidnight;
+- (id)tzDateToDateInGMT:(id)arg1;
 
 @end

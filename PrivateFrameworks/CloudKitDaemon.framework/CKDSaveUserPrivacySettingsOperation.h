@@ -3,14 +3,15 @@
  */
 
 @interface CKDSaveUserPrivacySettingsOperation : CKDOperation {
-    NSString *_applicationBundleID;
-    int _discoverable;
+    NSString * _applicationBundleID;
+    int  _discoverable;
 }
 
 @property (nonatomic, copy) NSString *applicationBundleID;
 @property (nonatomic) int discoverable;
 
 - (void).cxx_destruct;
+- (id)activityCreate;
 - (id)applicationBundleID;
 - (int)discoverable;
 - (id)initWithOperationInfo:(id)arg1 clientContext:(id)arg2;

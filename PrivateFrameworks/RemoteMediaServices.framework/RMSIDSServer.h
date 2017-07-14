@@ -3,11 +3,11 @@
  */
 
 @interface RMSIDSServer : NSObject <IDSServiceDelegate, RMSDAAPControlSessionDelegate, RMSDiscoverySessionDelegate, RMSPairingSessionDelegate, RMSSessionManagerDelegate> {
-    IDSService *_idsService;
-    NSMutableDictionary *_nowPlayingSessions;
-    NSMutableDictionary *_pairingSessions;
-    RMSSessionManager *_sessionManager;
-    NSMutableDictionary *_touchRemoteSessions;
+    IDSService * _idsService;
+    NSMutableDictionary * _nowPlayingSessions;
+    NSMutableDictionary * _pairingSessions;
+    RMSSessionManager * _sessionManager;
+    NSMutableDictionary * _touchRemoteSessions;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -38,6 +38,7 @@
 - (void)_handleSetVolume:(id)arg1;
 - (void)_handleTouchEnd:(id)arg1;
 - (void)_handleTouchMove:(id)arg1;
+- (void)_handleUpdatePairedNetworkNames:(id)arg1;
 - (void)_sendData:(id)arg1 type:(unsigned short)arg2 priority:(int)arg3 timeout:(int)arg4 queueOneID:(id)arg5 inResponseTo:(id)arg6;
 - (void)_sendData:(id)arg1 type:(unsigned short)arg2 timeout:(int)arg3 queueOneID:(id)arg4 inResponseTo:(id)arg5;
 - (void)controlSession:(id)arg1 artworkDataDidBecomeAvailable:(id)arg2 identifier:(id)arg3;
@@ -51,6 +52,6 @@
 - (void)pairingSession:(id)arg1 didPairWithServiceNetworkName:(id)arg2 pairingGUID:(id)arg3;
 - (void)pairingSessionDidFail:(id)arg1;
 - (void)service:(id)arg1 account:(id)arg2 incomingUnhandledProtobuf:(id)arg3 fromID:(id)arg4 context:(id)arg5;
-- (void)sessionManager:(id)arg1 sessionDidTimeout:(int)arg2;
+- (void)sessionManager:(id)arg1 sessionDidTimeout:(id)arg2 withIdentifier:(int)arg3;
 
 @end

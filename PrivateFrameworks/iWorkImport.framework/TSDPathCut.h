@@ -3,9 +3,9 @@
  */
 
 @interface TSDPathCut : NSObject {
-    int mSegment;
-    float mSkew;
-    float mT;
+    int  mSegment;
+    float  mSkew;
+    float  mT;
 }
 
 @property (nonatomic, readonly) int segment;

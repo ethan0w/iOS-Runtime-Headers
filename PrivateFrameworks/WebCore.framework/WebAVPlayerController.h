@@ -2,38 +2,44 @@
    Image: /System/Library/PrivateFrameworks/WebCore.framework/WebCore
  */
 
-@interface WebAVPlayerController : NSObject <AVPlayerViewControllerDelegate> {
-    NSArray *_audioMediaSelectionOptions;
-    BOOL _canPause;
-    BOOL _canPlay;
-    BOOL _canScanBackward;
-    BOOL _canSeek;
-    BOOL _canTogglePlayback;
+@interface WebAVPlayerController : NSObject {
+    BOOL  _allowsExternalPlayback;
+    NSArray * _audioMediaSelectionOptions;
+    BOOL  _canPause;
+    BOOL  _canPlay;
+    BOOL  _canScanBackward;
+    BOOL  _canSeek;
+    BOOL  _canTogglePlayback;
     struct CGSize { 
         float width; 
         float height; 
-    } _contentDimensions;
-    double _contentDuration;
-    double _contentDurationWithinEndTimes;
-    WebAVMediaSelectionOption *_currentAudioMediaSelectionOption;
-    WebAVMediaSelectionOption *_currentLegibleMediaSelectionOption;
-    struct WebVideoFullscreenModel { int (**x1)(); } *_delegate;
-    BOOL _externalPlaybackActive;
-    NSString *_externalPlaybackAirPlayDeviceLocalizedName;
-    int _externalPlaybackType;
-    BOOL _hasEnabledAudio;
-    BOOL _hasEnabledVideo;
-    NSArray *_legibleMediaSelectionOptions;
-    NSArray *_loadedTimeRanges;
-    double _maxTime;
-    double _minTime;
-    AVPlayerController *_playerControllerProxy;
-    double _rate;
-    NSArray *_seekableTimeRanges;
-    int _status;
-    AVValueTiming *_timing;
+    }  _contentDimensions;
+    double  _contentDuration;
+    double  _contentDurationWithinEndTimes;
+    WebAVMediaSelectionOption * _currentAudioMediaSelectionOption;
+    WebAVMediaSelectionOption * _currentLegibleMediaSelectionOption;
+    struct WebPlaybackSessionModel { int (**x1)(); } * _delegate;
+    BOOL  _externalPlaybackActive;
+    NSString * _externalPlaybackAirPlayDeviceLocalizedName;
+    int  _externalPlaybackType;
+    BOOL  _hasEnabledAudio;
+    BOOL  _hasEnabledVideo;
+    NSArray * _legibleMediaSelectionOptions;
+    NSArray * _loadedTimeRanges;
+    double  _maxTime;
+    double  _minTime;
+    BOOL  _pictureInPictureInterrupted;
+    BOOL  _pictureInPicturePossible;
+    struct WebPlaybackSessionInterfaceAVKit { int (**x1)(); int (**x2)(); unsigned int x3; struct RetainPtr<WebAVPlayerController> { void *x_4_1_1; } x4; struct WebPlaybackSessionModel {} *x5; } * _playbackSessionInterface;
+    AVPlayerController * _playerControllerProxy;
+    BOOL  _playingOnSecondScreen;
+    double  _rate;
+    NSArray * _seekableTimeRanges;
+    int  _status;
+    AVValueTiming * _timing;
 }
 
+@property BOOL allowsExternalPlayback;
 @property (retain) NSArray *audioMediaSelectionOptions;
 @property BOOL canPause;
 @property BOOL canPlay;
@@ -48,9 +54,7 @@
 @property double contentDurationWithinEndTimes;
 @property (retain) WebAVMediaSelectionOption *currentAudioMediaSelectionOption;
 @property (retain) WebAVMediaSelectionOption *currentLegibleMediaSelectionOption;
-@property (readonly, copy) NSString *debugDescription;
-@property struct WebVideoFullscreenModel { int (**x1)(); }*delegate;
-@property (readonly, copy) NSString *description;
+@property struct WebPlaybackSessionModel { int (**x1)(); }*delegate;
 @property (getter=isExternalPlaybackActive) BOOL externalPlaybackActive;
 @property (retain) NSString *externalPlaybackAirPlayDeviceLocalizedName;
 @property int externalPlaybackType;
@@ -59,23 +63,26 @@
 @property BOOL hasEnabledVideo;
 @property (readonly) BOOL hasLegibleMediaSelectionOptions;
 @property (readonly) BOOL hasMediaSelectionOptions;
-@property (readonly) unsigned int hash;
 @property (retain) NSArray *legibleMediaSelectionOptions;
 @property (retain) NSArray *loadedTimeRanges;
 @property double maxTime;
 @property double minTime;
+@property (getter=isPictureInPictureInterrupted) BOOL pictureInPictureInterrupted;
+@property (getter=isPictureInPicturePossible) BOOL pictureInPicturePossible;
+@property struct WebPlaybackSessionInterfaceAVKit { int (**x1)(); int (**x2)(); unsigned int x3; struct RetainPtr<WebAVPlayerController> { void *x_4_1_1; } x4; struct WebPlaybackSessionModel {} *x5; }*playbackSessionInterface;
 @property (retain) AVPlayerController *playerControllerProxy;
 @property (getter=isPlaying) BOOL playing;
 @property (getter=isPlayingOnExternalScreen, readonly) BOOL playingOnExternalScreen;
+@property (getter=isPlayingOnSecondScreen, readonly) BOOL playingOnSecondScreen;
 @property double rate;
 @property (retain) NSArray *seekableTimeRanges;
 @property int status;
-@property (readonly) Class superclass;
 @property (retain) AVValueTiming *timing;
 
 + (id)keyPathsForValuesAffectingCanScanForward;
 + (id)keyPathsForValuesAffectingCanSeekToBeginning;
 + (id)keyPathsForValuesAffectingCanSeekToEnd;
++ (id)keyPathsForValuesAffectingCurrentTimeWithinEndTimes;
 + (id)keyPathsForValuesAffectingHasAudioMediaSelectionOptions;
 + (id)keyPathsForValuesAffectingHasLegibleMediaSelectionOptions;
 + (id)keyPathsForValuesAffectingHasLiveStreamingContent;
@@ -83,7 +90,7 @@
 + (id)keyPathsForValuesAffectingPlaying;
 + (id)keyPathsForValuesAffectingPlayingOnExternalScreen;
 
-- (id).cxx_construct;
+- (BOOL)allowsExternalPlayback;
 - (id)audioMediaSelectionOptions;
 - (void)beginScanningBackward:(id)arg1;
 - (void)beginScanningForward:(id)arg1;
@@ -101,8 +108,9 @@
 - (double)contentDurationWithinEndTimes;
 - (id)currentAudioMediaSelectionOption;
 - (id)currentLegibleMediaSelectionOption;
+- (double)currentTimeWithinEndTimes;
 - (void)dealloc;
-- (struct WebVideoFullscreenModel { int (**x1)(); }*)delegate;
+- (struct WebPlaybackSessionModel { int (**x1)(); }*)delegate;
 - (void)endScanningBackward:(id)arg1;
 - (void)endScanningForward:(id)arg1;
 - (void)endScrubbing:(id)arg1;
@@ -118,24 +126,28 @@
 - (BOOL)hasMediaSelectionOptions;
 - (id)init;
 - (BOOL)isExternalPlaybackActive;
+- (BOOL)isPictureInPictureInterrupted;
+- (BOOL)isPictureInPicturePossible;
 - (BOOL)isPlaying;
 - (BOOL)isPlayingOnExternalScreen;
+- (BOOL)isPlayingOnSecondScreen;
 - (id)legibleMediaSelectionOptions;
 - (id)loadedTimeRanges;
 - (double)maxTime;
 - (double)minTime;
 - (void)pause:(id)arg1;
 - (void)play:(id)arg1;
+- (struct WebPlaybackSessionInterfaceAVKit { int (**x1)(); int (**x2)(); unsigned int x3; struct RetainPtr<WebAVPlayerController> { void *x_4_1_1; } x4; struct WebPlaybackSessionModel {} *x5; }*)playbackSessionInterface;
+- (id)player;
 - (id)playerControllerProxy;
-- (BOOL)playerViewController:(id)arg1 shouldExitFullScreenWithReason:(int)arg2;
 - (double)rate;
-- (void)resetState;
 - (void)seekChapterBackward:(id)arg1;
 - (void)seekChapterForward:(id)arg1;
 - (void)seekToBeginning:(id)arg1;
 - (void)seekToEnd:(id)arg1;
 - (void)seekToTime:(double)arg1;
 - (id)seekableTimeRanges;
+- (void)setAllowsExternalPlayback:(BOOL)arg1;
 - (void)setAudioMediaSelectionOptions:(id)arg1;
 - (void)setCanPause:(BOOL)arg1;
 - (void)setCanPlay:(BOOL)arg1;
@@ -147,7 +159,8 @@
 - (void)setContentDurationWithinEndTimes:(double)arg1;
 - (void)setCurrentAudioMediaSelectionOption:(id)arg1;
 - (void)setCurrentLegibleMediaSelectionOption:(id)arg1;
-- (void)setDelegate:(struct WebVideoFullscreenModel { int (**x1)(); }*)arg1;
+- (void)setCurrentTimeWithinEndTimes:(double)arg1;
+- (void)setDelegate:(struct WebPlaybackSessionModel { int (**x1)(); }*)arg1;
 - (void)setExternalPlaybackActive:(BOOL)arg1;
 - (void)setExternalPlaybackAirPlayDeviceLocalizedName:(id)arg1;
 - (void)setExternalPlaybackType:(int)arg1;
@@ -157,6 +170,9 @@
 - (void)setLoadedTimeRanges:(id)arg1;
 - (void)setMaxTime:(double)arg1;
 - (void)setMinTime:(double)arg1;
+- (void)setPictureInPictureInterrupted:(BOOL)arg1;
+- (void)setPictureInPicturePossible:(BOOL)arg1;
+- (void)setPlaybackSessionInterface:(struct WebPlaybackSessionInterfaceAVKit { int (**x1)(); int (**x2)(); unsigned int x3; struct RetainPtr<WebAVPlayerController> { void *x_4_1_1; } x4; struct WebPlaybackSessionModel {} *x5; }*)arg1;
 - (void)setPlayerControllerProxy:(id)arg1;
 - (void)setPlaying:(BOOL)arg1;
 - (void)setRate:(double)arg1;
@@ -167,5 +183,6 @@
 - (int)status;
 - (id)timing;
 - (void)togglePlayback:(id)arg1;
+- (void)togglePlaybackEvenWhenInBackground:(id)arg1;
 
 @end

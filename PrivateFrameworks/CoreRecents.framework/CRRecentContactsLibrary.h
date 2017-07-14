@@ -3,8 +3,8 @@
  */
 
 @interface CRRecentContactsLibrary : NSObject {
-    NSXPCConnection *_connection;
-    NSObject<OS_dispatch_queue> *_replyQueue;
+    NSXPCConnection * _connection;
+    NSObject<OS_dispatch_queue> * _replyQueue;
 }
 
 // Image: /System/Library/PrivateFrameworks/CoreRecents.framework/CoreRecents
@@ -24,14 +24,19 @@
 
 - (int)_daemonProcessID;
 - (id)_newConnection;
+- (id)_recentContactsWithQuery:(id)arg1;
 - (id)_remoteLibraryWithErrorHandler:(id /* block */)arg1;
+- (void)_removeAllRecentContactsWithCompletion:(id /* block */)arg1;
 - (BOOL)_removeRecentContactsWithRecentIDs:(id)arg1 syncKeys:(id)arg2 recentsDomain:(id)arg3 error:(out id*)arg4;
-- (void)_searchRecentsUsingQuery:(id)arg1 synchronously:(BOOL)arg2 completion:(id /* block */)arg3;
+- (id)_searchRecentsUsingQuery:(id)arg1;
+- (void)_searchRecentsUsingQuery:(id)arg1 completion:(id /* block */)arg2;
+- (id)_searchRecentsUsingQuery:(id)arg1 error:(id*)arg2;
 - (id)copyOrderedRecentsForSearchText:(id)arg1 recentsDomain:(id)arg2 sendingAddress:(id)arg3 kinds:(id)arg4;
 - (id)copyRecentsForDomain:(id)arg1;
 - (void)dealloc;
 - (id)init;
 - (unsigned int)maxDateEventsPerRecentContact;
+- (void)performRecentsSearch:(id)arg1 operationQueue:(id)arg2 completion:(id /* block */)arg3;
 - (void)performRecentsSearch:(id)arg1 queue:(id)arg2 completion:(id /* block */)arg3;
 - (void)recordContactEvents:(id)arg1 recentsDomain:(id)arg2 sendingAddress:(id)arg3;
 - (void)recordContactEvents:(id)arg1 recentsDomain:(id)arg2 sendingAddress:(id)arg3 source:(id)arg4 userInitiated:(BOOL)arg5;

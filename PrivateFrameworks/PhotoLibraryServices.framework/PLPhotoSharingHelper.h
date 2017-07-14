@@ -4,14 +4,17 @@
 
 @interface PLPhotoSharingHelper : NSObject
 
++ (BOOL)_derivativeExistsForAsset:(id)arg1 cloudPlaceholderKind:(short)arg2;
 + (id)_downloadRequestQueue;
 + (id)_localizationKeyForAssets:(id)arg1;
 + (id)_pathToServerConfigurationCache;
 + (id)_phoneInvitationFailureFile;
 + (id)_processPhoneFailuresQueue;
++ (BOOL)_recentlyRequestedDownloadAsset:(id)arg1 cloudPlaceholderKind:(short)arg2;
++ (void)_resetServerSideConfigurationDictionary;
 + (int)_serverLimitValueForKey:(id)arg1 withDefaultResult:(int)arg2;
-+ (BOOL)_shouldDownloadAsset:(id)arg1 requestThumbnail:(BOOL)arg2;
-+ (void)acceptPendingInvitationForAlbum:(id)arg1 completion:(id /* block */)arg2;
++ (id)_transactionWithName:(const char *)arg1;
++ (void)acceptPendingInvitationForAlbum:(id)arg1 completionHandler:(id /* block */)arg2;
 + (BOOL)accountMatchesEmail:(id)arg1;
 + (void)accountSettingsChanged;
 + (void)applicationIsInForeground:(BOOL)arg1;
@@ -37,7 +40,8 @@
 + (float)derivedAssetSmallDimensionLimitForType:(int)arg1;
 + (id)directoryPathForDownloadActivityForAlbumGUID:(id)arg1 create:(BOOL)arg2;
 + (id)directoryPathForUploadActivityForAlbumGUID:(id)arg1 create:(BOOL)arg2;
-+ (void)downloadAsset:(id)arg1 requestThumbnail:(BOOL)arg2 shouldPrioritize:(BOOL)arg3 shouldExtendTimer:(BOOL)arg4;
++ (void)downloadAsset:(id)arg1 cloudPlaceholderKind:(short)arg2 shouldPrioritize:(BOOL)arg3 shouldExtendTimer:(BOOL)arg4;
++ (id)downloadNotificationForAssetwithUUID:(id)arg1 cloudPlaceholderKind:(short)arg2;
 + (void)enqueueCloudSharedAssetsForPublishToServer:(id)arg1 inSharedAlbum:(id)arg2;
 + (void)forgetSharingPersonID:(id)arg1;
 + (void)handlePhoneInvitationFailuresWithCompletionBlock:(id /* block */)arg1;
@@ -52,6 +56,7 @@
 + (void)isMstreamdBusyPerformingSharingActivityWithCompletionBlock:(id /* block */)arg1;
 + (void)markAlbumGUIDAsViewed:(id)arg1 clearUnseenAssetsCount:(BOOL)arg2;
 + (void)markCommentsForAssetCollectionWithGUID:(id)arg1 asViewedWithLastViewedDate:(id)arg2;
++ (void)markPendingInvitationAsSpamForAlbum:(id)arg1 completionHandler:(id /* block */)arg2;
 + (int)maxAssetsPerStream;
 + (int)maxCharactersPerComment;
 + (int)maxCommentsPerAsset;

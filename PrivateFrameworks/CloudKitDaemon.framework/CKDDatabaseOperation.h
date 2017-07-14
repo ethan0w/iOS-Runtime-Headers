@@ -3,11 +3,13 @@
  */
 
 @interface CKDDatabaseOperation : CKDOperation {
-    int _databaseScope;
+    int  _databaseScope;
 }
 
 @property (nonatomic) int databaseScope;
 
+- (id)CKStatusReportProperties;
+- (id)activityCreate;
 - (void)configureRequest:(id)arg1;
 - (int)databaseScope;
 - (id)initWithOperationInfo:(id)arg1 clientContext:(id)arg2;

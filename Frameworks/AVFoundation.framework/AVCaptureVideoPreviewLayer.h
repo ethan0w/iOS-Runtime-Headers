@@ -3,7 +3,7 @@
  */
 
 @interface AVCaptureVideoPreviewLayer : CALayer {
-    AVCaptureVideoPreviewLayerInternal *_internal;
+    AVCaptureVideoPreviewLayerInternal * _internal;
 }
 
 @property (nonatomic) BOOL automaticallyAdjustsMirroring;
@@ -15,7 +15,6 @@
 @property (nonatomic, retain) AVCaptureSession *session;
 @property (copy) NSString *videoGravity;
 
-+ (id)alloc;
 + (void)initialize;
 + (id)layerWithSession:(id)arg1;
 + (id)layerWithSessionWithNoConnection:(id)arg1;
@@ -28,6 +27,7 @@
 - (int)_orientation;
 - (void)_setSensorAndEstimatedPreviewSizes;
 - (void)_updateCaptureDeviceTransform;
+- (void)_updatePreviewTransforms;
 - (id)activeConnections;
 - (id)addConnection:(id)arg1 error:(id*)arg2;
 - (void)attachToFigCaptureSession:(struct OpaqueFigCaptureSession { }*)arg1;
@@ -60,8 +60,6 @@
 - (int)orientation;
 - (struct CGPoint { float x1; float x2; })pointForCaptureDevicePointOfInterest:(struct CGPoint { float x1; float x2; })arg1;
 - (float)previewRotationDegrees;
-- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })rectForCaptureDeviceFaceRect:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
-- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })rectForMetadataObject:(id)arg1;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })rectForMetadataOutputRectOfInterest:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (void)removeConnection:(id)arg1;
 - (id)session;

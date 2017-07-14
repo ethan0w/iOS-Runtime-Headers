@@ -10,12 +10,13 @@
             int lock; 
             int count; 
         } queue; 
-    } _priv;
-    int _resourceListCapacity;
+    }  _priv;
+    int  _resourceListCapacity;
 }
 
 - (int)availableCount;
 - (void)dealloc;
 - (id)initWithResourceListCapacity:(int)arg1;
+- (void)purge;
 
 @end

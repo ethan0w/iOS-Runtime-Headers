@@ -3,25 +3,30 @@
  */
 
 @interface PUFeedRecentsManager : NSObject <PLAssetChangeObserver, PLCloudFeedEntriesObserver, PLPhotoLibraryShouldReloadObserver> {
-    NSOrderedSet *__cachedRecentAssets;
-    int _count;
-    <PUFeedRecentsManagerDelegate> *_delegate;
-    NSMutableArray *_pendingAssetsChangeNotifications;
-    NSMutableArray *_pendingFeedEntriesChangeNotifications;
-    PLPhotoLibrary *_photoLibrary;
+    NSOrderedSet * __cachedRecentAssets;
+    NSArray * __cachedRecentPHAssets;
+    int  _count;
+    <PUFeedRecentsManagerDelegate> * _delegate;
+    NSMutableArray * _pendingAssetsChangeNotifications;
+    NSMutableArray * _pendingFeedEntriesChangeNotifications;
+    PLPhotoLibrary * _photoLibrary;
 }
 
 @property (setter=_setCachedRecentAssets:, nonatomic, copy) NSOrderedSet *_cachedRecentAssets;
-@property (nonatomic) int count;
+@property (setter=_setCachedRecentPHAssets:, nonatomic, copy) NSArray *_cachedRecentPHAssets;
+@property (setter=_setCount:, nonatomic) int count;
 @property (nonatomic) <PUFeedRecentsManagerDelegate> *delegate;
-@property (nonatomic, retain) PLPhotoLibrary *photoLibrary;
+@property (setter=_setPhotoLibrary:, nonatomic, retain) PLPhotoLibrary *photoLibrary;
 @property (nonatomic, readonly, copy) NSOrderedSet *recentAssets;
+@property (nonatomic, readonly, copy) NSArray *recentPHAssets;
 
 - (void).cxx_destruct;
 - (id)_cachedRecentAssets;
+- (id)_cachedRecentPHAssets;
 - (void)_didFinishPostingNotifications:(id)arg1;
 - (void)_invalidateCachedRecentAssets;
 - (void)_setCachedRecentAssets:(id)arg1;
+- (void)_setCachedRecentPHAssets:(id)arg1;
 - (void)_setCount:(int)arg1;
 - (void)_setPhotoLibrary:(id)arg1;
 - (BOOL)_updateCachedRecentAssets;
@@ -33,6 +38,7 @@
 - (id)initWithPhotoLibrary:(id)arg1 count:(int)arg2;
 - (id)photoLibrary;
 - (id)recentAssets;
+- (id)recentPHAssets;
 - (void)setDelegate:(id)arg1;
 - (void)shouldReload:(id)arg1;
 

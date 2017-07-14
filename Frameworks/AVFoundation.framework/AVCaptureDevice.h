@@ -3,7 +3,7 @@
  */
 
 @interface AVCaptureDevice : NSObject {
-    AVCaptureDeviceInternal *_internal;
+    AVCaptureDeviceInternal * _internal;
 }
 
 @property (nonatomic, retain) AVCaptureDeviceFormat *activeFormat;
@@ -15,8 +15,17 @@
 @property (nonatomic, readonly) NSString *modelID;
 @property (nonatomic, readonly) NSString *uniqueID;
 
+// Image: /System/Library/Frameworks/AVFoundation.framework/AVFoundation
+
 + (id)_devices;
++ (id)_devicesWithDeviceTypes:(id)arg1 mediaType:(id)arg2 position:(int)arg3;
++ (void)_filterConnectedDevices:(id)arg1 withDeviceTypes:(id)arg2 mediaType:(id)arg3 position:(int)arg4;
++ (void)_filterConnectedLegacyDevices:(id)arg1;
++ (id)_legacyDevicesWithMediaType:(id)arg1;
++ (void)_reconnectDevices:(id)arg1;
++ (void)_registerOnceForServerConnectionDiedNotification;
 + (int)authorizationStatusForMediaType:(id)arg1;
++ (id)defaultDeviceWithDeviceType:(id)arg1 mediaType:(id)arg2 position:(int)arg3;
 + (id)defaultDeviceWithMediaType:(id)arg1;
 + (id)deviceWithUniqueID:(id)arg1;
 + (id)devices;
@@ -27,12 +36,19 @@
 - (id)AVVideoSettingsForSessionPreset:(id)arg1;
 - (float)ISO;
 - (float)ISODigitalThreshold;
+- (void)_checkTCCAccess;
+- (BOOL)_isFlashScene;
+- (BOOL)_isHighDynamicRangeScene;
 - (void)_setActiveVideoMaxFrameDuration:(struct { long long x1; int x2; unsigned int x3; long long x4; })arg1;
 - (void)_setActiveVideoMinFrameDuration:(struct { long long x1; int x2; unsigned int x3; long long x4; })arg1;
+- (void)_setFlashSceneDetectionEnabled:(BOOL)arg1;
+- (void)_setHighDynamicRangeSceneDetectionEnabled:(BOOL)arg1;
 - (void)_setStillImageStabilizationAutomaticallyEnabled:(BOOL)arg1;
+- (void)_setStillImageStabilizationDetectionEnabled:(BOOL)arg1;
 - (void)_setVideoHDREnabled:(BOOL)arg1;
 - (BOOL)_startUsingDevice:(id*)arg1;
 - (void)_stopUsingDevice;
+- (int)activeColorSpace;
 - (id)activeFormat;
 - (struct { long long x1; int x2; unsigned int x3; long long x4; })activeVideoMaxFrameDuration;
 - (struct { long long x1; int x2; unsigned int x3; long long x4; })activeVideoMinFrameDuration;
@@ -41,6 +57,7 @@
 - (BOOL)automaticallyAdjustsVideoHDREnabled;
 - (BOOL)automaticallyEnablesLowLightBoostWhenAvailable;
 - (id)availableBoxedMetadataFormatDescriptions;
+- (id)bravoCameraSelectionBehavior;
 - (BOOL)cachesFigCaptureSourceConfigurationChanges;
 - (void)cancelVideoZoomRamp;
 - (struct { float x1; float x2; })chromaticityValuesForDeviceWhiteBalanceGains:(struct { float x1; float x2; float x3; })arg1;
@@ -49,6 +66,8 @@
 - (void)dealloc;
 - (id)description;
 - (struct OpaqueCMClock { }*)deviceClock;
+- (int)deviceSourceOrigin;
+- (id)deviceType;
 - (struct { float x1; float x2; float x3; })deviceWhiteBalanceGains;
 - (struct { float x1; float x2; float x3; })deviceWhiteBalanceGainsForChromaticityValues:(struct { float x1; float x2; })arg1;
 - (struct { float x1; float x2; float x3; })deviceWhiteBalanceGainsForTemperatureAndTintValues:(struct { float x1; float x2; })arg1;
@@ -77,6 +96,7 @@
 - (BOOL)isAdjustingFocus;
 - (BOOL)isAdjustingWhiteBalance;
 - (BOOL)isAutoFocusRangeRestrictionSupported;
+- (BOOL)isAutoShallowDepthOfFieldEffectEnabled;
 - (BOOL)isConnected;
 - (BOOL)isExposureModeSupported:(int)arg1;
 - (BOOL)isExposurePointOfInterestSupported;
@@ -88,6 +108,7 @@
 - (BOOL)isFlashActive;
 - (BOOL)isFlashAvailable;
 - (BOOL)isFlashModeSupported:(int)arg1;
+- (BOOL)isFlashSceneDetectedForPhotoOutput;
 - (BOOL)isFocusModeSupported:(int)arg1;
 - (BOOL)isFocusPointOfInterestSupported;
 - (BOOL)isHDRSupported;
@@ -96,7 +117,10 @@
 - (BOOL)isHighDynamicRangeSceneDetectionSupported;
 - (BOOL)isImageControlModeSupported:(int)arg1;
 - (BOOL)isInUseByAnotherApplication;
+- (BOOL)isLensStabilizationSupported;
 - (BOOL)isLockedForConfiguration;
+- (BOOL)isLockingFocusWithCustomLensPositionSupported;
+- (BOOL)isLockingWhiteBalanceWithCustomDeviceGainsSupported;
 - (BOOL)isLowLightBoostEnabled;
 - (BOOL)isLowLightBoostSupported;
 - (BOOL)isMachineReadableCodeDetectionSupported;
@@ -113,6 +137,7 @@
 - (BOOL)isVideoHDREnabled;
 - (BOOL)isVideoStabilizationSupported;
 - (BOOL)isWhiteBalanceModeSupported:(int)arg1;
+- (BOOL)isWideColorSupported;
 - (float)lensAperture;
 - (float)lensPosition;
 - (id)localizedName;
@@ -121,20 +146,27 @@
 - (struct { int x1; int x2; })maxH264PhotoDimensions;
 - (struct { int x1; int x2; })maxH264VideoDimensions;
 - (float)maxWhiteBalanceGain;
+- (float)minAvailableVideoZoomFactor;
 - (float)minExposureTargetBias;
+- (int)minMacroblocksForHighProfileAbove30fps;
+- (int)minMacroblocksForHighProfileUpTo30fps;
 - (id)modelID;
 - (BOOL)open:(id*)arg1;
 - (int)position;
 - (BOOL)providesStortorgetMetadata;
+- (void)rampExponentiallyToVideoZoomFactor:(float)arg1 withDuration:(double)arg2;
 - (void)rampToVideoZoomFactor:(float)arg1 withRate:(float)arg2;
 - (float)saturation;
+- (void)setActiveColorSpace:(int)arg1;
 - (void)setActiveFormat:(id)arg1;
 - (void)setActiveVideoMaxFrameDuration:(struct { long long x1; int x2; unsigned int x3; long long x4; })arg1;
 - (void)setActiveVideoMinFrameDuration:(struct { long long x1; int x2; unsigned int x3; long long x4; })arg1;
 - (void)setAutoFocusRangeRestriction:(int)arg1;
+- (void)setAutoShallowDepthOfFieldEffectEnabled:(BOOL)arg1;
 - (void)setAutomaticallyAdjustsImageControlMode:(BOOL)arg1;
 - (void)setAutomaticallyAdjustsVideoHDREnabled:(BOOL)arg1;
 - (void)setAutomaticallyEnablesLowLightBoostWhenAvailable:(BOOL)arg1;
+- (void)setBravoCameraSelectionBehavior:(id)arg1;
 - (void)setCachesFigCaptureSourceConfigurationChanges:(BOOL)arg1;
 - (void)setContrast:(float)arg1;
 - (void)setExposureMode:(int)arg1;
@@ -161,6 +193,7 @@
 - (void)setVideoZoomFactor:(float)arg1;
 - (void)setWhiteBalanceMode:(int)arg1;
 - (void)setWhiteBalanceModeLockedWithDeviceWhiteBalanceGains:(struct { float x1; float x2; float x3; })arg1 completionHandler:(id /* block */)arg2;
+- (int)shallowDepthOfFieldEffectStatus;
 - (BOOL)smileDetectionEnabled;
 - (BOOL)startUsingDevice:(id*)arg1;
 - (void)stopUsingDevice;
@@ -171,7 +204,18 @@
 - (int)torchMode;
 - (id)uniqueID;
 - (void)unlockForConfiguration;
+- (BOOL)usesQuantizationScalingMatrix_H264_Steep_16_48;
 - (float)videoZoomFactor;
 - (int)whiteBalanceMode;
+
+// Image: /System/Library/PrivateFrameworks/CameraUI.framework/CameraUI
+
+- (void)cam_debugExposureState;
+- (void)cam_debugFocusAndExposureState;
+- (void)cam_debugFocusState;
+- (id)cameraPanoramaFormatForConfiguration:(id)arg1;
+- (id)cameraStillImageFormat;
+- (id)cameraVideoFormatForVideoConfiguration:(int)arg1;
+- (id)cameraVideoPresetForVideoConfiguration:(int)arg1;
 
 @end

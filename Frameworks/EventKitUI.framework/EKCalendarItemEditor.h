@@ -3,34 +3,35 @@
  */
 
 @interface EKCalendarItemEditor : UITableViewController <EKCalendarItemEditItemDelegate, UIActionSheetDelegate, UIAlertViewDelegate> {
-    _UIAccessDeniedView *_accessDeniedView;
-    EKCalendarItem *_calendarItem;
-    BOOL _canHideDoneAndCancelButtons;
-    UIBarButtonItem *_cancelButton;
-    EKCalendarItemEditItem *_currentEditItem;
-    NSArray *_currentItems;
-    UIBarButtonItem *_doneButton;
-    int _editItemVisibility;
-    NSArray *_editItems;
-    NSMutableSet *_editItemsDisablingDoneButton;
-    <EKCalendarItemEditorDelegate> *_editorDelegate;
-    BOOL _giveTitleCellKeyboardFocus;
-    BOOL _hasAppeared;
-    BOOL _isIgnoringCellHeightChange;
-    int _lastAuthorizationStatus;
-    float _leftButtonSpace;
-    UIBarButtonItem *_leftButtonSpacer;
-    BOOL _needsCellHeightChange;
-    NSArray *_orderedEditItems;
-    EKUIRecurrenceAlertController *_recurrenceAlertController;
-    UIResponder *_responderToRestoreOnAppearence;
-    id _revertState;
-    float _rightButtonSpace;
-    UIBarButtonItem *_rightButtonSpacer;
-    BOOL _scrollToNotes;
-    BOOL _showsTimeZone;
-    EKEventStore *_store;
-    unsigned int _visibleSectionToRestoreOnAppearence;
+    _UIAccessDeniedView * _accessDeniedView;
+    EKCalendarItem * _calendarItem;
+    BOOL  _canHideDoneAndCancelButtons;
+    UIBarButtonItem * _cancelButton;
+    EKCalendarItemEditItem * _currentEditItem;
+    NSArray * _currentItems;
+    UIBarButtonItem * _doneButton;
+    int  _editItemVisibility;
+    NSArray * _editItems;
+    NSMutableSet * _editItemsDisablingDoneButton;
+    <EKCalendarItemEditorDelegate> * _editorDelegate;
+    BOOL  _giveTitleCellKeyboardFocus;
+    BOOL  _hasAppeared;
+    BOOL  _isIgnoringCellHeightChange;
+    int  _lastAuthorizationStatus;
+    float  _leftButtonSpace;
+    UIBarButtonItem * _leftButtonSpacer;
+    BOOL  _needsCellHeightChange;
+    NSArray * _orderedEditItems;
+    EKUIRecurrenceAlertController * _recurrenceAlertController;
+    UIResponder * _responderToRestoreOnAppearence;
+    id  _revertState;
+    float  _rightButtonSpace;
+    UIBarButtonItem * _rightButtonSpacer;
+    BOOL  _scrollToNotes;
+    BOOL  _showsTimeZone;
+    EKEventStore * _store;
+    BOOL  _timeImplicitlySet;
+    unsigned int  _visibleSectionToRestoreOnAppearence;
 }
 
 @property (nonatomic, retain) _UIAccessDeniedView *accessDeniedView;
@@ -48,7 +49,11 @@
 @property (nonatomic) BOOL showsTimeZone;
 @property (nonatomic, retain) EKEventStore *store;
 @property (readonly) Class superclass;
+@property (nonatomic) BOOL timeImplicitlySet;
 @property (nonatomic) unsigned int visibleSectionToRestoreOnAppearence;
+
++ (id)_addLocalizedString;
++ (id)_doneLocalizedString;
 
 - (void).cxx_destruct;
 - (BOOL)_canDetachSingleOccurrence;
@@ -63,6 +68,7 @@
 - (void)_localeChanged;
 - (id)_nameForDeleteButton;
 - (id)_orderedEditItems;
+- (void)_performCloseKeyCommand;
 - (void)_performDelete:(int)arg1;
 - (BOOL)_performSave:(int)arg1 animated:(BOOL)arg2;
 - (void)_pinKeyboard:(BOOL)arg1;
@@ -72,6 +78,7 @@
 - (void)_setCalendarItemOnEditItems;
 - (void)_setDoneAndCancelButtonVisible:(BOOL)arg1;
 - (void)_setShowingAccessDeniedView:(BOOL)arg1 showSettingsInstructions:(BOOL)arg2;
+- (void)_setUpKeyCommands;
 - (void)_setWantsToEnableDoneButton:(BOOL)arg1;
 - (void)_setWantsToEnableDoneButtonAfterTextChanged;
 - (void)_tableViewDidUpdateHeights;
@@ -82,9 +89,11 @@
 - (BOOL)allowsDeletingFutureOccurrences;
 - (void)applicationDidResume;
 - (id)calendarItem;
+- (BOOL)canBecomeFirstResponder;
 - (BOOL)canHideDoneAndCancelButtons;
 - (void)cancel:(id)arg1;
 - (void)cancelEditingWithDelegateNotification:(BOOL)arg1;
+- (id)cellWithReuseIdentifier:(id)arg1 forEditItem:(id)arg2;
 - (void)completeAndSave;
 - (void)completeWithAction:(int)arg1 animated:(BOOL)arg2;
 - (id)currentEditItem;
@@ -95,7 +104,7 @@
 - (id)defaultTitleForCalendarItem;
 - (void)deleteClicked:(id)arg1;
 - (void)done:(id)arg1;
-- (void)editItem:(id)arg1 didCommitFromDetailViewController:(BOOL)arg2;
+- (void)editItem:(id)arg1 didSaveFromDetailViewController:(BOOL)arg2;
 - (void)editItem:(id)arg1 performActionsOnCellAtSubitem:(unsigned int)arg2 actions:(id /* block */)arg3;
 - (void)editItem:(id)arg1 textViewShouldReturn:(id)arg2;
 - (void)editItem:(id)arg1 wantsDoneButtonDisabled:(BOOL)arg2;
@@ -110,11 +119,14 @@
 - (void)editItemRequiresPopoverSizeUpdate:(id)arg1;
 - (void)editItemTextChanged:(id)arg1;
 - (int)editItemVisibility;
+- (void)editItemVisibilityChanged:(id)arg1;
 - (void)editItemWantsInjectableViewControllerToBeShown:(id)arg1;
 - (id)editorDelegate;
 - (unsigned int)entityType;
 - (int)firstTableRowForEditItem:(id)arg1;
+- (void)focusAndSelectTitle;
 - (void)handleTapOutside;
+- (BOOL)hasUnsavedChanges;
 - (id)init;
 - (void)loadView;
 - (float)navBarLeftContentInset;
@@ -143,6 +155,7 @@
 - (void)setScrollToNotes:(BOOL)arg1;
 - (void)setShowsTimeZone:(BOOL)arg1;
 - (void)setStore:(id)arg1;
+- (void)setTimeImplicitlySet:(BOOL)arg1;
 - (void)setVisibleSectionToRestoreOnAppearence:(unsigned int)arg1;
 - (void)setupDeleteButton;
 - (void)setupForEvent;
@@ -160,11 +173,13 @@
 - (float)tableView:(id)arg1 heightForRowAtIndexPath:(id)arg2;
 - (int)tableView:(id)arg1 numberOfRowsInSection:(int)arg2;
 - (id)tableView:(id)arg1 titleForFooterInSection:(int)arg2;
+- (id)tableView:(id)arg1 titleForHeaderInSection:(int)arg2;
 - (id)tableView:(id)arg1 viewForFooterInSection:(int)arg2;
 - (id)tableView:(id)arg1 viewForHeaderInSection:(int)arg2;
 - (id)tableView:(id)arg1 willSelectRowAtIndexPath:(id)arg2;
 - (void)tableViewDidFinishReload:(id)arg1;
 - (void)tableViewDidStartReload:(id)arg1;
+- (BOOL)timeImplicitlySet;
 - (id)viewControllerForEditItem:(id)arg1;
 - (void)viewDidAppear:(BOOL)arg1;
 - (void)viewDidDisappear:(BOOL)arg1;

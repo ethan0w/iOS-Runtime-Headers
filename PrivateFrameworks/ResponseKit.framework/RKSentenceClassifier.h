@@ -3,27 +3,37 @@
  */
 
 @interface RKSentenceClassifier : NSObject {
-    NSArray *_alternatives;
-    NSArray *_appreciations;
-    NSArray *_choiceDelimiters;
-    NSArray *_interrogatives;
-    NSArray *_inversions;
-    NSArray *_sentenceEntities;
-    BOOL _sentenceHasAlternativeConjunction;
-    BOOL _sentenceHasQuestionTerminator;
-    BOOL _sentenceIsAllSymbols;
-    BOOL _sentenceIsTerminated;
-    NSString *_sentenceString;
-    NSString *_sentenceStringOriginal;
-    NSValue *_sentenceTag;
+    NSString * _RKLinguisticTagDataDetected;
+    NSArray * _alternatives;
+    NSArray * _appreciations;
+    NSArray * _choiceDelimiters;
+    NSArray * _dataDetected;
+    NSArray * _interrogatives;
+    NSArray * _inversions;
+    NSString * _languageIdentifier;
+    BOOL  _lemmaAvailable;
+    BOOL  _lexicalClassAvailable;
+    NSArray * _sentenceEntities;
+    BOOL  _sentenceHasAlternativeConjunction;
+    BOOL  _sentenceHasQuestionTerminator;
+    BOOL  _sentenceIsAllSymbols;
+    BOOL  _sentenceIsTerminated;
+    NSString * _sentenceString;
+    NSString * _sentenceStringOriginal;
+    NSValue * _sentenceTag;
 }
 
-@property (readonly) NSString *alternativeConjunction;
+@property (retain) NSString *RKLinguisticTagDataDetected;
+@property (readonly) NSArray *alternativeConjunctions;
 @property (retain) NSArray *alternatives;
 @property (retain) NSArray *appreciations;
 @property (retain) NSArray *choiceDelimiters;
+@property (retain) NSArray *dataDetected;
 @property (retain) NSArray *interrogatives;
 @property (retain) NSArray *inversions;
+@property (readonly) NSString *languageIdentifier;
+@property (readonly) BOOL lemmaAvailable;
+@property (readonly) BOOL lexicalClassAvailable;
 @property (retain) NSArray *sentenceEntities;
 @property BOOL sentenceHasAlternativeConjunction;
 @property BOOL sentenceHasQuestionTerminator;
@@ -36,14 +46,10 @@
 + (id)alternativeInversionsForLanguage:(id)arg1;
 + (id)appreciationKeywordsForLanguage:(id)arg1;
 + (BOOL)canClassifyLanguageIdentifier:(id)arg1;
-+ (unsigned int)categoryForPreferenceKey:(id)arg1;
 + (id)categoryKeywordMapForLanguage:(id)arg1;
-+ (id)keyToCategoryMap;
 + (id)languageIdentifierFromClassName;
-+ (id)lexicalEntitiesFromString:(id)arg1;
 + (id)polarTagRegularExpressionForLanguage:(id)arg1;
 + (id)preProcessTextMessageForLinguisticTagger:(id)arg1 withLocale:(id)arg2;
-+ (id)preferenceKeyForCategory:(unsigned int)arg1;
 + (id)sensitiveSubjectRegularExpressionForLanguage:(id)arg1;
 + (id)sentenceClassification:(id)arg1 withLanguageIdentifier:(id)arg2 options:(unsigned int)arg3;
 + (id)stringFromLexicalEntities:(id)arg1;
@@ -51,17 +57,22 @@
 + (Class)subclassForLocale:(id)arg1;
 
 - (void).cxx_destruct;
+- (id)RKLinguisticTagDataDetected;
 - (id)addSentenceTerminatorQuestion:(id)arg1;
-- (id)alternativeConjunction;
+- (id)alternativeConjunctions;
 - (id)alternatives;
 - (void)analyzeSentence;
 - (id)appreciations;
 - (id)choiceDelimiters;
 - (id)classifySentence;
+- (id)dataDetected;
+- (id)init;
 - (id)interrogatives;
 - (id)inversions;
-- (BOOL)isLexicalClassAvailable;
 - (id)languageIdentifier;
+- (BOOL)lemmaAvailable;
+- (BOOL)lexicalClassAvailable;
+- (id)lexicalEntitiesFromString:(id)arg1;
 - (id)sentenceClassification:(id)arg1 options:(unsigned int)arg2;
 - (id)sentenceEntities;
 - (BOOL)sentenceHasAlternativeConjunction;
@@ -74,8 +85,10 @@
 - (void)setAlternatives:(id)arg1;
 - (void)setAppreciations:(id)arg1;
 - (void)setChoiceDelimiters:(id)arg1;
+- (void)setDataDetected:(id)arg1;
 - (void)setInterrogatives:(id)arg1;
 - (void)setInversions:(id)arg1;
+- (void)setRKLinguisticTagDataDetected:(id)arg1;
 - (void)setSentenceEntities:(id)arg1;
 - (void)setSentenceHasAlternativeConjunction:(BOOL)arg1;
 - (void)setSentenceHasQuestionTerminator:(BOOL)arg1;

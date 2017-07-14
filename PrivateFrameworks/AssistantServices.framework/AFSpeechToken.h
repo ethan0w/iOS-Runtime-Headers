@@ -3,12 +3,12 @@
  */
 
 @interface AFSpeechToken : NSObject <NSSecureCoding> {
-    int _confidenceScore;
-    double _endTime;
-    BOOL _removeSpaceAfter;
-    BOOL _removeSpaceBefore;
-    double _startTime;
-    NSString *_text;
+    int  _confidenceScore;
+    double  _endTime;
+    BOOL  _removeSpaceAfter;
+    BOOL  _removeSpaceBefore;
+    double  _startTime;
+    NSString * _text;
 }
 
 @property (nonatomic) int confidenceScore;
@@ -25,7 +25,9 @@
 - (id)description;
 - (void)encodeWithCoder:(id)arg1;
 - (double)endTime;
+- (unsigned int)hash;
 - (id)initWithCoder:(id)arg1;
+- (BOOL)isEqual:(id)arg1;
 - (BOOL)removeSpaceAfter;
 - (BOOL)removeSpaceBefore;
 - (void)setConfidenceScore:(int)arg1;

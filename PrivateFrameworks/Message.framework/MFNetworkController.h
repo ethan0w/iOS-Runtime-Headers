@@ -3,31 +3,33 @@
  */
 
 @interface MFNetworkController : NSObject <MFDiagnosticsGenerator, RadiosPreferencesDelegate> {
-    NSMutableSet *_backgroundWifiClients;
-    NSMutableSet *_calls;
-    BOOL _data;
-    NSString *_dataIndicator;
-    BOOL _dns;
-    unsigned int _flags;
-    BOOL _hasCellDataCapability;
-    BOOL _hasWiFiCapability;
-    long _interface;
-    BOOL _isRoamingAllowed;
-    BOOL _isWiFiEnabled;
-    NSLock *_lock;
-    NSMutableArray *_observers;
-    NSObject<OS_dispatch_queue> *_prefsQueue;
-    RadiosPreferences *_radiosPreferences;
-    struct __SCNetworkReachability { } *_reachability;
-    struct __CFRunLoop { } *_rl;
-    struct __SCDynamicStore { } *_store;
-    struct __CFRunLoopSource { } *_store_source;
-    struct __CTServerConnection { } *_telephony;
-    NSThread *_thread;
-    struct __SCPreferences { } *_wiFiPreferences;
-    void *_wifiManager;
+    NSMutableSet * _backgroundWifiClients;
+    NSMutableSet * _calls;
+    BOOL  _data;
+    NSString * _dataIndicator;
+    BOOL  _dns;
+    unsigned int  _flags;
+    BOOL  _hasCellDataCapability;
+    BOOL  _hasWiFiCapability;
+    long  _interface;
+    BOOL  _isRoamingAllowed;
+    BOOL  _isWiFiEnabled;
+    NSLock * _lock;
+    NSMutableArray * _observers;
+    NSObject<OS_dispatch_queue> * _prefsQueue;
+    RadiosPreferences * _radiosPreferences;
+    struct __SCNetworkReachability { } * _reachability;
+    struct __CFRunLoop { } * _rl;
+    struct __SCDynamicStore { } * _store;
+    struct __CFRunLoopSource { } * _store_source;
+    int  _symptomsToken;
+    struct __CTServerConnection { } * _telephony;
+    NSThread * _thread;
+    struct __SCPreferences { } * _wiFiPreferences;
+    void * _wifiManager;
 }
 
+@property (nonatomic, readonly) AWDMailNetworkDiagnosticsReport *awdNetworkDiagnosticReport;
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (readonly) unsigned int hash;
@@ -47,12 +49,14 @@
 - (void)_setDataStatus_nts:(id)arg1;
 - (void)_setFlags:(unsigned int)arg1 forReachability:(struct __SCNetworkReachability { }*)arg2;
 - (void)_setUpTelephony_nts;
+- (void)_setupSymptons;
 - (BOOL)_simulationOverrideForType:(unsigned int)arg1 actualValue:(BOOL)arg2;
 - (void)_tearDownTelephony_nts;
 - (void)_updateWifiClientType;
 - (void)addBackgroundWifiClient:(id)arg1;
 - (id)addNetworkObserverBlock:(id /* block */)arg1 queue:(id)arg2;
 - (void)airplaneModeChanged;
+- (id)awdNetworkDiagnosticReport;
 - (id)copyDiagnosticInformation;
 - (int)dataStatus;
 - (void)dealloc;

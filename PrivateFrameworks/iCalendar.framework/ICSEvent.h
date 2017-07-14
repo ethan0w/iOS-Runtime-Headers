@@ -32,6 +32,7 @@
 @property (retain) NSURL *url;
 @property (nonatomic) BOOL x_apple_dontschedule;
 @property (retain) NSString *x_apple_dropbox;
+@property (retain) ICSStructuredLocation *x_apple_end_location;
 @property (nonatomic) int x_apple_ews_busystatus;
 @property (retain) NSString *x_apple_ews_changekey;
 @property (retain) NSString *x_apple_ews_itemid;
@@ -50,8 +51,11 @@
 @property (nonatomic) BOOL x_wr_itipstatusml;
 @property (nonatomic) BOOL x_wr_rsvpneeded;
 
+// Image: /System/Library/PrivateFrameworks/iCalendar.framework/iCalendar
+
 + (id)name;
 
+- (void)fixAttendeeComments;
 - (void)fixComponent;
 - (BOOL)isDefaultAlarmDeleted;
 - (id)propertiesThatIfPresentExcludeThisComponentFromChecksummingForVersion:(int)arg1;
@@ -77,5 +81,12 @@
 - (BOOL)x_wr_itipstatusattendeeml;
 - (BOOL)x_wr_itipstatusml;
 - (BOOL)x_wr_rsvpneeded;
+
+// Image: /System/Library/PrivateFrameworks/CoreSuggestionsInternals.framework/CoreSuggestionsInternals
+
+- (id)attendeeEmailAddresses;
+- (id)entityWithParentEntity:(id)arg1;
+- (id)firstValueOfPropertyForName:(id)arg1;
+- (int)method;
 
 @end

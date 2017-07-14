@@ -3,7 +3,7 @@
  */
 
 @interface TSUUIImageAutoreleasePoolGuard : NSObject {
-    UIImage *mImage;
+    UIImage * mImage;
 }
 
 - (void)dealloc;

@@ -3,20 +3,18 @@
  */
 
 @interface MTLArgument : NSObject {
-    unsigned int _access;
-    BOOL _active;
-    unsigned int _index;
-    NSString *_name;
-    unsigned int _type;
+    unsigned int  _arrayLength;
 }
 
 @property (readonly) unsigned int access;
 @property (getter=isActive, readonly) BOOL active;
+@property (readonly) unsigned int arrayLength;
 @property (readonly) unsigned int bufferAlignment;
 @property (readonly) unsigned int bufferDataSize;
 @property (readonly) unsigned int bufferDataType;
 @property (readonly) MTLStructType *bufferStructType;
 @property (readonly) unsigned int index;
+@property (readonly) BOOL isDepthTexture;
 @property (readonly) NSString *name;
 @property (readonly) unsigned int textureDataType;
 @property (readonly) unsigned int textureType;
@@ -24,22 +22,9 @@
 @property (readonly) unsigned int threadgroupMemoryDataSize;
 @property (readonly) unsigned int type;
 
-- (unsigned int)access;
-- (unsigned int)bufferAlignment;
-- (unsigned int)bufferDataSize;
-- (unsigned int)bufferDataType;
-- (id)bufferStructType;
-- (void)dealloc;
-- (id)describe;
-- (id)description;
-- (unsigned int)index;
-- (id)initWithName:(id)arg1 type:(unsigned int)arg2 access:(unsigned int)arg3 index:(unsigned int)arg4 active:(BOOL)arg5;
-- (BOOL)isActive;
-- (id)name;
-- (unsigned int)textureDataType;
-- (unsigned int)textureType;
-- (unsigned int)threadgroupMemoryAlignment;
-- (unsigned int)threadgroupMemoryDataSize;
-- (unsigned int)type;
++ (id)alloc;
++ (id)allocWithZone:(struct _NSZone { }*)arg1;
+
+- (unsigned int)arrayLength;
 
 @end

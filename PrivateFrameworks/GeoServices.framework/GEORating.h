@@ -8,14 +8,14 @@
         unsigned int score : 1; 
         unsigned int numberOfRatings : 1; 
         unsigned int numberOfReviews : 1; 
-    } _has;
-    double _maxScore;
-    int _numberOfRatings;
-    int _numberOfReviews;
-    NSString *_provider;
-    NSMutableArray *_reviews;
-    double _score;
-    NSString *_uRL;
+    }  _has;
+    double  _maxScore;
+    int  _numberOfRatings;
+    int  _numberOfReviews;
+    NSString * _provider;
+    NSMutableArray * _reviews;
+    double  _score;
+    NSString * _uRL;
 }
 
 @property (nonatomic) BOOL hasMaxScore;
@@ -32,6 +32,8 @@
 @property (nonatomic) double score;
 @property (nonatomic, retain) NSString *uRL;
 
++ (Class)reviewType;
+
 - (void)addReview:(id)arg1;
 - (void)clearReviews;
 - (void)copyTo:(id)arg1;
@@ -46,7 +48,6 @@
 - (BOOL)hasScore;
 - (BOOL)hasURL;
 - (unsigned int)hash;
-- (id)initWithPlaceDataRating:(id)arg1 reviews:(id)arg2;
 - (id)initWithSampleSizeForUserRatingScore:(unsigned int)arg1 normalizedUserRatingScore:(float)arg2;
 - (BOOL)isEqual:(id)arg1;
 - (double)maxScore;

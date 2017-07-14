@@ -3,22 +3,24 @@
  */
 
 @interface AVTrackReaderInspector : AVAssetTrackInspector {
-    struct OpaqueFigFormatReader { } *_formatReader;
-    unsigned long _mediaType;
-    int _trackID;
-    struct OpaqueFigTrackReader { } *_trackReader;
-    AVWeakReference *_weakReferenceToAsset;
+    struct OpaqueFigFormatReader { } * _formatReader;
+    unsigned long  _mediaType;
+    int  _trackID;
+    struct OpaqueFigTrackReader { } * _trackReader;
+    AVWeakReference * _weakReferenceToAsset;
 }
 
 - (unsigned long)_figMediaType;
 - (struct OpaqueFigTrackReader { }*)_figTrackReader;
 - (id)_initWithAsset:(id)arg1 trackID:(int)arg2 trackIndex:(long)arg3;
+- (id)_trackReferences;
 - (void*)_valueAsCFTypeForProperty:(struct __CFString { }*)arg1;
 - (int)alternateGroupID;
 - (id)asset;
 - (id)availableMetadataFormats;
 - (id)commonMetadata;
 - (void)dealloc;
+- (int)defaultAlternateGroupID;
 - (struct CGSize { float x1; float x2; })dimensions;
 - (float)estimatedDataRate;
 - (id)extendedLanguageTag;
@@ -28,18 +30,22 @@
 - (BOOL)isEnabled;
 - (BOOL)isEqual:(id)arg1;
 - (BOOL)isExcludedFromAutoselectionInTrackGroup;
+- (BOOL)isPlayable;
 - (BOOL)isSelfContained;
 - (id)languageCode;
 - (int)layer;
 - (id)loudnessInfo;
+- (id)mediaCharacteristics;
 - (id)mediaType;
 - (id)metadataForFormat:(id)arg1;
 - (struct { long long x1; int x2; unsigned int x3; long long x4; })minSampleDuration;
 - (struct CGSize { float x1; float x2; })naturalSize;
 - (int)naturalTimeScale;
 - (float)nominalFrameRate;
+- (long)playabilityValidationResult;
 - (struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; })preferredTransform;
 - (float)preferredVolume;
+- (int)provisionalAlternateGroupID;
 - (BOOL)requiresFrameReordering;
 - (id)segmentForTrackTime:(struct { long long x1; int x2; unsigned int x3; long long x4; })arg1;
 - (id)segments;

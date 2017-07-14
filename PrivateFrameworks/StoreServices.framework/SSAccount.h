@@ -3,29 +3,31 @@
  */
 
 @interface SSAccount : NSObject <NSCopying, SSXPCCoding> {
-    int _accountKind;
-    NSString *_accountName;
-    int _accountScope;
-    int _accountSource;
-    BOOL _active;
-    BOOL _activeLockerAccount;
-    int _availableServiceTypes;
-    NSData *_bioToken;
-    NSString *_creditsString;
-    BOOL _demo;
-    BOOL _didFallbackToPassword;
-    int _enabledServiceTypes;
-    NSString *_firstName;
-    int _freeDownloadsPasswordSetting;
-    NSString *_itunesPassSerialNumber;
-    NSString *_lastName;
-    NSLock *_lock;
-    BOOL _newCustomer;
-    int _paidPurchasesPasswordSetting;
-    NSString *_secureToken;
-    NSMutableDictionary *_serviceEligibility;
-    NSString *_storeFrontID;
-    NSNumber *_uniqueIdentifier;
+    int  _accountKind;
+    NSString * _accountName;
+    int  _accountScope;
+    int  _accountSource;
+    BOOL  _active;
+    BOOL  _activeLockerAccount;
+    NSString * _altDSID;
+    int  _availableServiceTypes;
+    NSData * _bioToken;
+    NSString * _creditsString;
+    BOOL  _demo;
+    BOOL  _didFallbackToPassword;
+    int  _enabledServiceTypes;
+    NSString * _firstName;
+    int  _freeDownloadsPasswordSetting;
+    NSString * _itunesPassSerialNumber;
+    NSString * _lastName;
+    NSLock * _lock;
+    BOOL  _managedAppleID;
+    BOOL  _newCustomer;
+    int  _paidPurchasesPasswordSetting;
+    NSString * _secureToken;
+    NSMutableDictionary * _serviceEligibility;
+    NSString * _storeFrontID;
+    NSNumber * _uniqueIdentifier;
 }
 
 @property (copy) NSString *ITunesPassSerialNumber;
@@ -35,6 +37,7 @@
 @property int accountSource;
 @property (getter=isActive) BOOL active;
 @property (getter=isActiveLockerAccount) BOOL activeLockerAccount;
+@property (copy) NSString *altDSID;
 @property (getter=isAuthenticated, readonly) BOOL authenticated;
 @property int availableServiceTypes;
 @property (copy) NSString *creditsString;
@@ -46,6 +49,7 @@
 @property int freeDownloadsPasswordSetting;
 @property (readonly) unsigned int hash;
 @property (copy) NSString *lastName;
+@property (getter=isManagedAppleID) BOOL managedAppleID;
 @property (getter=isNewCustomer) BOOL newCustomer;
 @property int paidPurchasesPasswordSetting;
 @property (copy) NSString *secureToken;
@@ -64,6 +68,7 @@
 - (int)accountSource;
 - (void)addAvailableServiceTypes:(int)arg1;
 - (void)addEnabledServiceTypes:(int)arg1;
+- (id)altDSID;
 - (int)availableServiceTypes;
 - (id)copyLockdownRepresentation;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
@@ -91,6 +96,7 @@
 - (BOOL)isAuthenticated;
 - (BOOL)isDemoAccount;
 - (BOOL)isEqual:(id)arg1;
+- (BOOL)isManagedAppleID;
 - (BOOL)isNewCustomer;
 - (BOOL)isSocialEnabled;
 - (id)lastName;
@@ -107,6 +113,7 @@
 - (void)setAccountSource:(int)arg1;
 - (void)setActive:(BOOL)arg1;
 - (void)setActiveLockerAccount:(BOOL)arg1;
+- (void)setAltDSID:(id)arg1;
 - (void)setAvailableServiceTypes:(int)arg1;
 - (void)setBiometricToken:(id)arg1;
 - (void)setCreditsString:(id)arg1;
@@ -119,6 +126,7 @@
 - (void)setITunesPassSerialNumber:(id)arg1;
 - (void)setLastName:(id)arg1;
 - (void)setLockdownDictionary:(id)arg1;
+- (void)setManagedAppleID:(BOOL)arg1;
 - (void)setNewCustomer:(BOOL)arg1;
 - (void)setPaidPurchasesPasswordSetting:(int)arg1;
 - (void)setSecureToken:(id)arg1;
@@ -128,5 +136,6 @@
 - (id)storeFrontIdentifier;
 - (id)uniqueIdentifier;
 - (void)updateAccountPasswordSettings:(id /* block */)arg1;
+- (void)updateAccountPasswordSettingsWithRequestProperties:(id)arg1 completionBlock:(id /* block */)arg2;
 
 @end

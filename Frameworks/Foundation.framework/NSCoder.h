@@ -6,7 +6,15 @@
 
 // Image: /System/Library/Frameworks/Foundation.framework/Foundation
 
-- (void)_validateAllowedClass:(Class)arg1 forKey:(id)arg2 allowingInvocations:(BOOL)arg3;
++ (BOOL)__categorizeException:(id)arg1 intoError:(id*)arg2;
+
+- (BOOL)__failWithException:(id)arg1;
+- (BOOL)__failWithExceptionName:(id)arg1 errorCode:(int)arg2 format:(id)arg3;
+- (void)__failWithExternalError:(id)arg1;
+- (void)__setError:(id)arg1;
+- (id)__tryDecodeObjectForKey:(id)arg1 error:(id*)arg2 decodeBlock:(id /* block */)arg3;
+- (BOOL)_allowsValueCoding;
+- (BOOL)_validateAllowedClass:(Class)arg1 forKey:(id)arg2 allowingInvocations:(BOOL)arg3;
 - (id)allowedClasses;
 - (BOOL)allowsKeyedCoding;
 - (BOOL)containsValueForKey:(id)arg1;
@@ -24,8 +32,11 @@
 - (long)decodeLongForKey:(id)arg1;
 - (id)decodeObject;
 - (id)decodeObjectForKey:(id)arg1;
+- (id)decodeObjectForKey:(id)arg1 error:(id*)arg2;
 - (id)decodeObjectOfClass:(Class)arg1 forKey:(id)arg2;
+- (id)decodeObjectOfClass:(Class)arg1 forKey:(id)arg2 error:(id*)arg3;
 - (id)decodeObjectOfClasses:(id)arg1 forKey:(id)arg2;
+- (id)decodeObjectOfClasses:(id)arg1 forKey:(id)arg2 error:(id*)arg3;
 - (struct CGPoint { float x1; float x2; })decodePoint;
 - (struct CGPoint { float x1; float x2; })decodePointForKey:(id)arg1;
 - (id)decodePropertyListForKey:(id)arg1;
@@ -33,8 +44,13 @@
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })decodeRectForKey:(id)arg1;
 - (struct CGSize { float x1; float x2; })decodeSize;
 - (struct CGSize { float x1; float x2; })decodeSizeForKey:(id)arg1;
+- (id)decodeTopLevelObjectAndReturnError:(id*)arg1;
+- (id)decodeTopLevelObjectForKey:(id)arg1 error:(id*)arg2;
+- (id)decodeTopLevelObjectOfClass:(Class)arg1 forKey:(id)arg2 error:(id*)arg3;
+- (id)decodeTopLevelObjectOfClasses:(id)arg1 forKey:(id)arg2 error:(id*)arg3;
 - (void)decodeValueOfObjCType:(const char *)arg1 at:(void*)arg2;
 - (void)decodeValuesOfObjCTypes:(const char *)arg1;
+- (int)decodingFailurePolicy;
 - (void)encodeArrayOfObjCType:(const char *)arg1 count:(unsigned int)arg2 at:(const void*)arg3;
 - (void)encodeBool:(BOOL)arg1 forKey:(id)arg2;
 - (void)encodeBycopyObject:(id)arg1;
@@ -62,13 +78,15 @@
 - (void)encodeSize:(struct CGSize { float x1; float x2; })arg1 forKey:(id)arg2;
 - (void)encodeValueOfObjCType:(const char *)arg1 at:(const void*)arg2;
 - (void)encodeValuesOfObjCTypes:(const char *)arg1;
+- (id)error;
+- (void)failWithError:(id)arg1;
 - (struct _NSZone { }*)objectZone;
 - (BOOL)requiresSecureCoding;
 - (void)setAllowedClasses:(id)arg1;
 - (void)setObjectZone:(struct _NSZone { }*)arg1;
 - (unsigned int)systemVersion;
-- (void)validateAllowedClass:(Class)arg1 forKey:(id)arg2;
-- (void)validateClassSupportsSecureCoding:(Class)arg1;
+- (BOOL)validateAllowedClass:(Class)arg1 forKey:(id)arg2;
+- (BOOL)validateClassSupportsSecureCoding:(Class)arg1;
 - (int)versionForClassName:(id)arg1;
 
 // Image: /System/Library/Frameworks/AVFoundation.framework/AVFoundation
@@ -87,6 +105,18 @@
 - (void)encodeArrayOfConditionalObjects:(id)arg1 forKey:(id)arg2;
 - (void)encodeSetOfConditionalObjects:(id)arg1 forKey:(id)arg2;
 
+// Image: /System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices
+
+- (id)ls_decodeArrayWithValuesOfClass:(Class)arg1 forKey:(id)arg2;
+- (id)ls_decodeDictionaryWithKeysOfClass:(Class)arg1 valuesOfClass:(Class)arg2 forKey:(id)arg3;
+- (id)ls_decodeDictionaryWithKeysOfClass:(Class)arg1 valuesOfClasses:(id)arg2 forKey:(id)arg3;
+
+// Image: /System/Library/Frameworks/Photos.framework/Photos
+
+- (id)_ph_sandboxExtensionTokenKeyForURLKey:(id)arg1;
+- (id)ph_decodeSandboxedURLForKey:(id)arg1 sandboxExtensionWrapper:(id*)arg2;
+- (void)ph_encodeSandboxedURL:(id)arg1 forKey:(id)arg2;
+
 // Image: /System/Library/Frameworks/QuartzCore.framework/QuartzCore
 
 - (BOOL)CA_decodeCGFloatArray:(float*)arg1 count:(unsigned long)arg2 forKey:(id)arg3;
@@ -96,7 +126,7 @@
 
 // Image: /System/Library/Frameworks/UIKit.framework/UIKit
 
-- (id)_copyDecodedObjectForKey:(id)arg1 ofClass:(Class)arg2;
+- (BOOL)_ui_isInterprocess;
 - (struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; })decodeCGAffineTransformForKey:(id)arg1;
 - (struct CGPoint { float x1; float x2; })decodeCGPointForKey:(id)arg1;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })decodeCGRectForKey:(id)arg1;
@@ -111,6 +141,20 @@
 - (void)encodeCGVector:(struct CGVector { float x1; float x2; })arg1 forKey:(id)arg2;
 - (void)encodeUIEdgeInsets:(struct UIEdgeInsets { float x1; float x2; float x3; float x4; })arg1 forKey:(id)arg2;
 - (void)encodeUIOffset:(struct UIOffset { float x1; float x2; })arg1 forKey:(id)arg2;
+
+// Image: /System/Library/Frameworks/UserNotifications.framework/UserNotifications
+
+- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })un_decodeCGRectForKey:(id)arg1;
+- (struct { long long x1; int x2; unsigned int x3; long long x4; })un_decodeCMTimeForKey:(id)arg1;
+- (void)un_encodeCGRect:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1 forKey:(id)arg2;
+- (void)un_encodeCMTime:(struct { long long x1; int x2; unsigned int x3; long long x4; })arg1 forKey:(id)arg2;
+
+// Image: /System/Library/PrivateFrameworks/AnnotationKit.framework/AnnotationKit
+
+- (id)akDecodeColorForKey:(id)arg1;
+- (id)akDecodeImageForKey:(id)arg1;
+- (void)akEncodeColor:(id)arg1 forKey:(id)arg2;
+- (void)akEncodeImage:(id)arg1 forKey:(id)arg2;
 
 // Image: /System/Library/PrivateFrameworks/CoreHAP.framework/CoreHAP
 
@@ -128,14 +172,27 @@
 
 // Image: /System/Library/PrivateFrameworks/HomeKitDaemon.framework/HomeKitDaemon
 
+- (id)applicationBundleIdentifier;
 - (id)decodeArrayOfConditionalObjects:(Class)arg1 forKey:(id)arg2;
 - (id)decodeSetOfConditionalObjects:(Class)arg1 forKey:(id)arg2;
 - (void)encodeArrayOfConditionalObjects:(id)arg1 forKey:(id)arg2;
 - (void)encodeSetOfConditionalObjects:(id)arg1 forKey:(id)arg2;
+- (BOOL)isAuthorizedForLocationAccess;
+- (BOOL)isEntitledForSPIAccess;
 - (BOOL)isLocalStore;
+- (BOOL)isRemoteGatewayCoder;
 - (BOOL)isRemoteTransport;
 - (BOOL)isRemoteTransportOnSameAccount;
+- (BOOL)isRemoteUserAdministrator;
 - (BOOL)isXPCTransport;
+
+// Image: /System/Library/PrivateFrameworks/LinkPresentation.framework/LinkPresentation
+
+- (void)_lp_encodeArrayIfNotEmpty:(id)arg1 forKey:(id)arg2;
+- (void)_lp_encodeObjectIfNotNil:(id)arg1 forKey:(id)arg2;
+- (id)_lp_strictlyDecodeArrayOfObjectsOfClass:(Class)arg1 forKey:(id)arg2;
+- (id)_lp_strictlyDecodeDictionaryOfObjectsWithKeysOfClass:(Class)arg1 andObjectsOfClass:(Class)arg2 forKey:(id)arg3;
+- (id)_lp_strictlyDecodeObjectOfClass:(Class)arg1 forKey:(id)arg2;
 
 // Image: /System/Library/PrivateFrameworks/Parsec.framework/Parsec
 
@@ -147,7 +204,6 @@
 - (id)prs_dictionaryForKey:(id)arg1;
 - (double)prs_doubleForKey:(id)arg1;
 - (float)prs_floatForKey:(id)arg1;
-- (id)prs_imageForKey:(id)arg1;
 - (int)prs_intForKey:(id)arg1;
 - (int)prs_integerForKey:(id)arg1;
 - (id)prs_numberForKey:(id)arg1;
@@ -168,17 +224,6 @@
 - (void)encodeCGPoint:(struct CGPoint { float x1; float x2; })arg1 forKey:(id)arg2;
 - (void)encodeCGSize:(struct CGSize { float x1; float x2; })arg1 forKey:(id)arg2;
 - (void)encodeCGVector:(struct CGVector { float x1; float x2; })arg1 forKey:(id)arg2;
-
-// Image: /System/Library/PrivateFrameworks/XPCObjects.framework/XPCObjects
-
-- (id)_safeDecodeContainerForKey:(id)arg1 containerClass:(Class)arg2 valueClass:(Class)arg3;
-- (id)safeDecodeArrayForKey:(id)arg1 valueClass:(Class)arg2;
-- (id)safeDecodeDateForKey:(id)arg1;
-- (id)safeDecodeDictionaryForKey:(id)arg1 keyClass:(Class)arg2 valueClass:(Class)arg3;
-- (id)safeDecodeNumberForKey:(id)arg1;
-- (id)safeDecodeObjectForKey:(id)arg1 expectedClass:(Class)arg2;
-- (id)safeDecodeSetForKey:(id)arg1 valueClass:(Class)arg2;
-- (id)safeDecodeStringForKey:(id)arg1;
 
 // Image: /System/Library/PrivateFrameworks/iTunesStoreUI.framework/iTunesStoreUI
 

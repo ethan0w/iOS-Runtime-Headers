@@ -2,10 +2,8 @@
    Image: /System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities
  */
 
-@interface AXSubsystemGAXAppLaunching : AXSubsystem
+@interface AXSubsystemGAXAppLaunching : AXLoggingSubsystem
 
-+ (int)defaultLogLevel;
 + (id)identifier;
-+ (BOOL)shouldProcessMessageForLogs;
 
 @end

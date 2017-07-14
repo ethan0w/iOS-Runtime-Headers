@@ -4,8 +4,8 @@
 
 @interface MusicFormattingUtilities : NSObject
 
-+ (id)formattedStringForDuration:(double)arg1;
 + (id)formattedStringWithAlbumsCount:(unsigned int)arg1 songsCount:(unsigned int)arg2;
 + (id)formattedStringWithSongsCount:(unsigned int)arg1;
++ (id)formattedStringWithTrackCountInformation:(id)arg1;
 
 @end

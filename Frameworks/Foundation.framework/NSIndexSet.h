@@ -8,7 +8,7 @@
         unsigned int _hasSingleRange : 1; 
         unsigned int _cacheValid : 1; 
         unsigned int _reservedArrayBinderController : 29; 
-    } _indexSetFlags;
+    }  _indexSetFlags;
     union { 
         struct { 
             struct _NSRange { 
@@ -20,23 +20,25 @@
             void *_data; 
             void *_reserved; 
         } _multipleRanges; 
-    } _internal;
+    }  _internal;
 }
 
 @property (readonly) unsigned int count;
 @property (readonly) unsigned int firstIndex;
-@property (nonatomic, readonly) BOOL isSingleContiguousRange;
 @property (readonly) unsigned int lastIndex;
+@property (nonatomic, readonly) struct _NSRange { unsigned int x1; unsigned int x2; } px_coveringRange;
 @property (nonatomic, readonly) BOOL tsu_isSingleContiguousRange;
 
 // Image: /System/Library/Frameworks/Foundation.framework/Foundation
 
++ (id)allocWithZone:(struct _NSZone { }*)arg1;
 + (id)indexSet;
 + (id)indexSetWithIndex:(unsigned int)arg1;
 + (id)indexSetWithIndexes:(const unsigned int*)arg1 count:(unsigned int)arg2;
 + (id)indexSetWithIndexesInRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg1;
 + (BOOL)supportsSecureCoding;
 
+- (void)__forwardEnumerateRanges:(id /* block */)arg1;
 - (unsigned int)__getContainmentVector:(out BOOL*)arg1 inRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg2;
 - (unsigned int)_indexAtIndex:(unsigned int)arg1;
 - (unsigned int)_indexClosestToIndex:(unsigned int)arg1 equalAllowed:(BOOL)arg2 following:(BOOL)arg3;
@@ -90,10 +92,6 @@
 - (unsigned int)rangeCount;
 - (id)replacementObjectForPortCoder:(id)arg1;
 
-// Image: /System/Library/Frameworks/MediaPlayer.framework/MediaPlayer
-
-+ (id)indexSetWithIndexes:(unsigned int)arg1;
-
 // Image: /System/Library/Frameworks/PhotosUI.framework/PhotosUI
 
 - (unsigned int)pu_indexAtIndex:(unsigned int)arg1;
@@ -104,6 +102,11 @@
 - (id)__ck_indexPathItemsInSection:(int)arg1;
 - (id)__ck_indexPathRowsInSection:(int)arg1;
 - (id)__ck_indexSetShiftedForInsertedIndexes:(id)arg1 removedIndexes:(id)arg2;
+
+// Image: /System/Library/PrivateFrameworks/ContactsFoundation.framework/ContactsFoundation
+
+- (BOOL)_cn_all:(id /* block */)arg1;
+- (BOOL)_cn_any:(id /* block */)arg1;
 
 // Image: /System/Library/PrivateFrameworks/GameCenterFoundation.framework/GameCenterFoundation
 
@@ -116,15 +119,31 @@
 
 - (id)mf_commaSeparatedString;
 
+// Image: /System/Library/PrivateFrameworks/NewsCore.framework/NewsCore
+
+- (unsigned int)fc_countOfContiguousIndexesGreaterThanOrEqualToIndex:(unsigned int)arg1;
+- (unsigned int)fc_countOfContiguousIndexesLessThanIndex:(unsigned int)arg1;
+- (struct _NSRange { unsigned int x1; unsigned int x2; })fc_enclosingRange;
+- (void)fc_enumerateGapsInRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg1 usingBlock:(id /* block */)arg2;
+- (id)fc_indexSetWithGapsInRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg1;
+- (BOOL)fc_isContiguous;
+
 // Image: /System/Library/PrivateFrameworks/OfficeImport.framework/OfficeImport
 
-+ (id)indexSetWithIndices:(unsigned int*)arg1 count:(unsigned int)arg2;
++ (id)tsu_indexSetWithIndices:(unsigned int*)arg1 count:(unsigned int)arg2;
 
-- (id)indexSetByAddingIndexes:(id)arg1;
-- (id)indexSetByInsertingIndexes:(id)arg1 inRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg2;
-- (id)initWithIndices:(unsigned int*)arg1 count:(unsigned int)arg2;
-- (BOOL)intersectsIndexesInIndexSet:(id)arg1;
-- (BOOL)isSingleContiguousRange;
+- (unsigned int)tsu_indexAtPosition:(unsigned int)arg1;
+- (id)tsu_indexSetByAddingIndex:(unsigned int)arg1;
+- (id)tsu_indexSetByAddingIndexes:(id)arg1;
+- (id)tsu_indexSetByInsertingIndexes:(id)arg1 inRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg2;
+- (id)tsu_indexSetByIntersectingWithIndexes:(id)arg1;
+- (id)tsu_indexSetByIntersectingWithRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg1;
+- (id)tsu_initWithIndices:(unsigned int*)arg1 count:(unsigned int)arg2;
+- (BOOL)tsu_intersectsIndexesInIndexSet:(id)arg1;
+- (BOOL)tsu_isSingleContiguousRange;
+- (struct _NSRange { unsigned int x1; unsigned int x2; })tsu_leadingRangeInRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg1;
+- (unsigned int)tsu_positionOfIndex:(unsigned int)arg1;
+- (struct _NSRange { unsigned int x1; unsigned int x2; })tsu_trailingRangeInRange:(struct _NSRange { unsigned int x1; unsigned int x2; })arg1;
 
 // Image: /System/Library/PrivateFrameworks/PhotoLibraryServices.framework/PhotoLibraryServices
 
@@ -133,6 +152,14 @@
 - (id)pl_indexSetAdjustedForInsertions:(id)arg1;
 - (struct _NSRange { unsigned int x1; unsigned int x2; })pl_rangeCoveringIndexSet;
 - (id)pl_shortDescription;
+
+// Image: /System/Library/PrivateFrameworks/PhotosUICore.framework/PhotosUICore
+
+- (id)_px_indexSetByUpdatingWithChangedIndexes:(id)arg1 asInserts:(BOOL)arg2;
+- (struct _NSRange { unsigned int x1; unsigned int x2; })px_coveringRange;
+- (id)px_indexSetAdjustedForDeletions:(id)arg1;
+- (id)px_indexSetAdjustedForInsertions:(id)arg1;
+- (id)px_shortDescription;
 
 // Image: /System/Library/PrivateFrameworks/StoreServices.framework/StoreServices
 

@@ -5,8 +5,7 @@
 @interface FBUIApplicationWorkspace : FBWorkspace
 
 - (id)_applicationServer;
-- (id)_newSceneWithHost:(id)arg1 initialClientSettings:(id)arg2;
-- (id)_newWorkspaceServer;
-- (void)_queue_parentProcessDidExitWithContext:(id)arg1;
+- (Class)_sceneClassForIdentity:(id)arg1;
+- (Class)_serverClass;
 
 @end

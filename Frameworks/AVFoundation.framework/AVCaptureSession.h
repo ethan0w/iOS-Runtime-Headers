@@ -3,10 +3,11 @@
  */
 
 @interface AVCaptureSession : NSObject {
-    AVCaptureSessionInternal *_internal;
+    AVCaptureSessionInternal * _internal;
 }
 
 @property (nonatomic) BOOL automaticallyConfiguresApplicationAudioSession;
+@property (nonatomic) BOOL automaticallyConfiguresCaptureDeviceForWideColor;
 @property (nonatomic, readonly) NSArray *inputs;
 @property (getter=isInterrupted, nonatomic, readonly) BOOL interrupted;
 @property (nonatomic, readonly) struct OpaqueCMClock { }*masterClock;
@@ -15,19 +16,26 @@
 @property (nonatomic, copy) NSString *sessionPreset;
 @property (nonatomic) BOOL usesApplicationAudioSession;
 
+// Image: /System/Library/Frameworks/AVFoundation.framework/AVFoundation
+
++ (void)_beginConfiguringActiveColorSpaceForDevice:(id)arg1;
++ (void)_beginConfiguringAutoShallowDepthOfFieldEffectEnabledForDevice:(id)arg1;
++ (void)_finishConfiguringActiveColorSpaceForDevice:(id)arg1;
++ (void)_finishConfiguringAutoShallowDepthOfFieldEffectEnabledForDevice:(id)arg1;
++ (BOOL)_isActiveColorSpaceBeingConfiguredForDevice:(id)arg1;
++ (BOOL)_isAutoShallowDepthOfFieldEffectEnabledBeingConfiguredForDevice:(id)arg1;
 + (id)allSessionPresets;
-+ (id)alloc;
 + (BOOL)automaticallyNotifiesObserversOfMasterClock;
 + (BOOL)automaticallyNotifiesObserversOfRunning;
 + (id)dotString;
 + (void)initialize;
-+ (id)publicSessionPresets;
 
-- (void)_addConnection:(id)arg1;
-- (void)_addInputWithNoConnections:(id)arg1;
-- (void)_addOutputWithNoConnections:(id)arg1;
-- (void)_addVideoPreviewLayer:(id)arg1;
-- (void)_addVideoPreviewLayerWithNoConnection:(id)arg1;
+- (BOOL)_addConnection:(id)arg1 exceptionReason:(id*)arg2;
+- (BOOL)_addInputWithNoConnections:(id)arg1 exceptionReason:(id*)arg2;
+- (BOOL)_addOutputWithNoConnections:(id)arg1 exceptionReason:(id*)arg2;
+- (BOOL)_addVideoPreviewLayer:(id)arg1 exceptionReason:(id*)arg2;
+- (BOOL)_addVideoPreviewLayerWithNoConnection:(id)arg1 exceptionReason:(id*)arg2;
+- (BOOL)_allowsRecordingOfPhotoFormats;
 - (void)_beginConfiguration;
 - (BOOL)_buildAndRunGraph;
 - (BOOL)_canAddConnection:(id)arg1 failureReason:(id*)arg2;
@@ -51,13 +59,16 @@
 - (void)_notifyMediaServerdDied;
 - (void)_notifySessionStarted;
 - (void)_notifySessionStopped;
+- (id)_outputWithClass:(Class)arg1 forSourceDevice:(id)arg2;
 - (void)_postRuntimeError:(id)arg1;
 - (void)_rebuildGraph;
+- (void)_reconnectAfterServerConnectionDied;
 - (void)_removeAllPreviewLayers;
 - (void)_removeConnection:(id)arg1;
 - (void)_removeConnectionsForInputPort:(id)arg1;
+- (void)_removeInput:(id)arg1;
 - (void)_removeVideoPreviewLayer:(id)arg1;
-- (void)_setInterrupted:(BOOL)arg1;
+- (void)_setInterrupted:(BOOL)arg1 withReason:(int)arg2;
 - (void)_setMasterClock:(struct OpaqueCMClock { }*)arg1;
 - (void)_setRunning:(BOOL)arg1;
 - (BOOL)_startFigCaptureSession;
@@ -65,14 +76,14 @@
 - (id)_stopError;
 - (BOOL)_stopFigCaptureSession;
 - (void)_teardownFigCaptureSession;
-- (void)_updateActiveConnections;
-- (void)_updateDeviceActiveFormats;
+- (void)_updateDeviceActiveFormatsAndActiveConnections;
 - (void)addConnection:(id)arg1;
 - (void)addInput:(id)arg1;
 - (void)addInputWithNoConnections:(id)arg1;
 - (void)addOutput:(id)arg1;
 - (void)addOutputWithNoConnections:(id)arg1;
 - (BOOL)automaticallyConfiguresApplicationAudioSession;
+- (BOOL)automaticallyConfiguresCaptureDeviceForWideColor;
 - (void)beginConfiguration;
 - (BOOL)canAddConnection:(id)arg1;
 - (BOOL)canAddInput:(id)arg1;
@@ -96,6 +107,7 @@
 - (id)sessionPreset;
 - (id)sessionVideoCaptureDevices;
 - (void)setAutomaticallyConfiguresApplicationAudioSession:(BOOL)arg1;
+- (void)setAutomaticallyConfiguresCaptureDeviceForWideColor:(BOOL)arg1;
 - (void)setSessionPreset:(id)arg1;
 - (void)setUsesApplicationAudioSession:(BOOL)arg1;
 - (void)startRunning;
@@ -103,5 +115,17 @@
 - (BOOL)usesApplicationAudioSession;
 - (id)valueForUndefinedKey:(id)arg1;
 - (BOOL)videoHDREnabledForDevice:(id)arg1 format:(id)arg2 sessionPreset:(id)arg3;
+
+// Image: /System/Library/PrivateFrameworks/CameraUI.framework/CameraUI
+
+- (BOOL)cam_ensureInputs:(id)arg1;
+- (BOOL)cam_ensureInputs:(id)arg1 exclusively:(BOOL)arg2;
+- (BOOL)cam_ensureOutputs:(id)arg1 exclusively:(BOOL)arg2;
+- (BOOL)cam_ensureOutputs:(id)arg1 whileRemoving:(id)arg2;
+- (BOOL)cam_hasAddedInput:(id)arg1;
+- (BOOL)cam_hasAddedOutput:(id)arg1;
+- (void)cam_removeAllInputs;
+- (void)cam_removeAllOutputs;
+- (void)cam_removeInputs:(id)arg1;
 
 @end

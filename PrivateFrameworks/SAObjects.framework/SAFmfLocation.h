@@ -4,24 +4,20 @@
 
 @interface SAFmfLocation : SALocation
 
-@property (nonatomic, retain) NSNumber *distance;
-@property (nonatomic, copy) NSString *emailAddress;
+@property (nonatomic, copy) NSNumber *distance;
 @property (nonatomic, retain) SAPersonAttribute *friend;
-@property (nonatomic, retain) NSNumber *locationDate;
+@property (nonatomic, copy) NSNumber *locationDate;
 
 + (id)location;
 + (id)locationWithDictionary:(id)arg1 context:(id)arg2;
 
 - (id)distance;
-- (id)emailAddress;
 - (id)encodedClassName;
 - (id)friend;
 - (id)groupIdentifier;
 - (id)locationDate;
 - (void)setDistance:(id)arg1;
-- (void)setEmailAddress:(id)arg1;
 - (void)setFriend:(id)arg1;
 - (void)setLocationDate:(id)arg1;
-- (void)updateUsingSet:(id)arg1 add:(id)arg2 remove:(id)arg3;
 
 @end

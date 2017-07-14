@@ -3,8 +3,8 @@
  */
 
 @interface GKScoreChallengeInternal : GKChallengeInternal {
-    GKLeaderboardInternal *_leaderboard;
-    GKScoreInternal *_score;
+    GKLeaderboardInternal * _leaderboard;
+    GKScoreInternal * _score;
 }
 
 @property (nonatomic, retain) GKLeaderboardInternal *leaderboard;
@@ -19,6 +19,7 @@
 - (id)serverRepresentationForReceivingPlayer:(id)arg1;
 - (void)setLeaderboard:(id)arg1;
 - (void)setScore:(id)arg1;
+- (id)titleText;
 - (unsigned int)type;
 
 @end

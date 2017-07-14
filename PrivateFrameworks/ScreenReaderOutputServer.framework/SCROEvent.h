@@ -3,12 +3,12 @@
  */
 
 @interface SCROEvent : NSObject {
-    NSMutableArray *_actions;
-    NSMutableArray *_callbacks;
-    NSMutableDictionary *_getDictionary;
-    int _handlerType;
-    BOOL _readOnly;
-    NSMutableDictionary *_setDictionary;
+    NSMutableArray * _actions;
+    NSMutableArray * _callbacks;
+    NSMutableDictionary * _getDictionary;
+    int  _handlerType;
+    BOOL  _readOnly;
+    NSMutableDictionary * _setDictionary;
 }
 
 + (id)brailleEvent;

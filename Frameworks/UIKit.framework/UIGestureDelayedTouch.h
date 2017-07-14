@@ -3,23 +3,23 @@
  */
 
 @interface UIGestureDelayedTouch : NSObject <NSCopying> {
-    BOOL _cloneForSecondDelivery;
-    int _delayCount;
-    UIEvent *_event;
-    UITouch *_stateWhenDelayed;
-    UITouch *_stateWhenDelivered;
-    UITouch *_touch;
+    BOOL  _cloneForSecondDelivery;
+    int  _delayCount;
+    UIEvent * _event;
+    UITouch * _stateWhenDelayed;
+    UITouch * _stateWhenDelivered;
+    UITouch * _touch;
 }
 
 @property BOOL cloneForSecondDelivery;
-@property (retain) UIEvent *event;
-@property (retain) UITouch *stateWhenDelayed;
-@property (retain) UITouch *stateWhenDelivered;
-@property (retain) UITouch *touch;
+@property (nonatomic, retain) UIEvent *event;
+@property (nonatomic, retain) UITouch *stateWhenDelayed;
+@property (nonatomic, retain) UITouch *stateWhenDelivered;
+@property (nonatomic, retain) UITouch *touch;
 
+- (void).cxx_destruct;
 - (BOOL)cloneForSecondDelivery;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
-- (void)dealloc;
 - (int)decrementDelayCount;
 - (int)delayCount;
 - (id)description;

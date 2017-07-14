@@ -6,11 +6,11 @@
     struct CGPoint { 
         float x; 
         float y; 
-    } mPoint;
-    int mSegment;
-    int mSegmentB;
-    float mT;
-    float mTB;
+    }  mPoint;
+    int  mSegment;
+    int  mSegmentB;
+    float  mT;
+    float  mTB;
 }
 
 @property (nonatomic) struct CGPoint { float x1; float x2; } point;

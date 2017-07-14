@@ -3,12 +3,13 @@
  */
 
 @interface TSWPTOCLayout : TSWPShapeLayout {
-    TSWPTOCLayoutHint *_hint;
-    unsigned int _initialCharIndex;
+    TSWPTOCLayoutHint * _hint;
+    unsigned int  _initialCharIndex;
     struct CGSize { 
         float width; 
         float height; 
-    } _maxSize;
+    }  _maxSize;
+    unsigned int  _storageChangeCount;
 }
 
 @property (nonatomic, readonly) TSWPTOCLayoutHint *hint;
@@ -16,7 +17,6 @@
 @property (getter=isLastLayoutInTOC, nonatomic, readonly) BOOL lastLayoutInTOC;
 @property (nonatomic) struct CGSize { float x1; float x2; } maxSize;
 
-- (id).cxx_construct;
 - (struct CGSize { float x1; float x2; })adjustedInsetsForTarget:(id)arg1;
 - (BOOL)alwaysStartsNewTarget;
 - (unsigned int)autosizeFlagsForTextLayout:(id)arg1;
@@ -34,7 +34,6 @@
 - (void)invalidateForAutosizingTextLayout:(id)arg1;
 - (BOOL)isDraggable;
 - (BOOL)isLastLayoutInTOC;
-- (BOOL)isSelectable;
 - (id)layoutMargins;
 - (void)layoutSearchForString:(id)arg1 options:(unsigned int)arg2 hitBlock:(id /* block */)arg3;
 - (float)maxAutoGrowHeightForTextLayout:(id)arg1;
@@ -44,6 +43,7 @@
 - (Class)repClassForTextLayout:(id)arg1;
 - (void)setMaxSize:(struct CGSize { float x1; float x2; })arg1;
 - (BOOL)shrinkTextToFit;
+- (BOOL)textLayoutShouldWrapAroundExternalDrawables:(id)arg1;
 - (int)verticalAlignmentForTextLayout:(id)arg1;
 - (float)widthForColumnIndex:(unsigned int)arg1 bodyWidth:(float)arg2;
 

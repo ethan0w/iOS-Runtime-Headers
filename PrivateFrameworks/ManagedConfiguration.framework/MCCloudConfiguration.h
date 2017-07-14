@@ -3,8 +3,8 @@
  */
 
 @interface MCCloudConfiguration : NSObject {
-    NSObject<OS_dispatch_queue> *_memberQueue;
-    NSDictionary *_memberQueueDetails;
+    NSObject<OS_dispatch_queue> * _memberQueue;
+    NSDictionary * _memberQueueDetails;
 }
 
 @property (nonatomic, copy) NSDictionary *details;
@@ -16,12 +16,15 @@
 - (void).cxx_destruct;
 - (id)details;
 - (id)init;
+- (BOOL)isAwaitingConfiguration;
 - (BOOL)isSupervised;
+- (BOOL)isTeslaEnrolled;
 - (id)memberQueue;
 - (id)memberQueueDetails;
 - (void)refreshDetailsFromDisk;
 - (void)setDetails:(id)arg1;
 - (void)setMemberQueue:(id)arg1;
 - (void)setMemberQueueDetails:(id)arg1;
+- (int)userMode;
 
 @end

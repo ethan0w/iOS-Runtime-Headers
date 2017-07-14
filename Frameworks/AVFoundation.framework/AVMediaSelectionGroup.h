@@ -3,12 +3,14 @@
  */
 
 @interface AVMediaSelectionGroup : NSObject <NSCopying> {
-    AVMediaSelectionGroupInternal *_mediaSelectionGroup;
+    AVMediaSelectionGroupInternal * _mediaSelectionGroup;
 }
 
 @property (nonatomic, readonly) BOOL allowsEmptySelection;
 @property (nonatomic, readonly) AVMediaSelectionOption *defaultOption;
 @property (nonatomic, readonly) NSArray *options;
+
+// Image: /System/Library/Frameworks/AVFoundation.framework/AVFoundation
 
 + (id)mediaSelectionGroupWithAsset:(id)arg1 dictionary:(id)arg2;
 + (id)mediaSelectionOptionsFromArray:(id)arg1 filteredAndSortedAccordingToPreferredLanguages:(id)arg2;
@@ -18,6 +20,7 @@
 + (id)playableMediaSelectionOptionsFromArray:(id)arg1;
 
 - (id)_groupID;
+- (id)_groupMediaCharacteristics;
 - (id)_groupMediaType;
 - (BOOL)_isStreamingGroup;
 - (BOOL)_matchesGroupID:(id)arg1 mediaType:(id)arg2;
@@ -34,5 +37,9 @@
 - (id)init;
 - (id)mediaSelectionOptionWithPropertyList:(id)arg1;
 - (id)options;
+
+// Image: /System/Library/Frameworks/MediaPlayer.framework/MediaPlayer
+
+- (id)makeNowPlayingInfoLanguageOptionGroup;
 
 @end

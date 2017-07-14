@@ -3,25 +3,27 @@
  */
 
 @interface LSInstallProgressDelegate : NSObject <LSInstallProgressProtocol, NSXPCListenerDelegate> {
-    NSMutableSet *_inactiveInstalls;
-    NSObject<OS_dispatch_queue> *_installControlsQueue;
-    NSMutableDictionary *_installIndexes;
-    NSMutableDictionary *_observers;
-    NSObject<OS_dispatch_queue> *_observersQueue;
-    NSMutableOrderedSet *_orderedInstalls;
-    LSInstallProgressList *_progresses;
-    BOOL _usingNetwork;
-    LSObserverTimer *didUninstallTimer;
-    LSObserverTimer *iconsUpdatedTimer;
-    LSObserverTimer *installsFinishedTimer;
-    LSObserverTimer *installsStartedTimer;
-    LSObserverTimer *installsUpdatedTimer;
+    NSMutableSet * _inactiveInstalls;
+    NSObject<OS_dispatch_queue> * _installControlsQueue;
+    NSMutableDictionary * _installIndexes;
+    NSMutableDictionary * _observers;
+    NSObject<OS_dispatch_queue> * _observersQueue;
+    NSMutableOrderedSet * _orderedInstalls;
+    LSInstallProgressList * _progresses;
+    BOOL  _usingNetwork;
+    LSObserverTimer * didUninstallTimer;
+    LSObserverTimer * iconsUpdatedTimer;
+    LSObserverTimer * installsFinishedTimer;
+    LSObserverTimer * installsStartedTimer;
+    LSObserverTimer * installsUpdatedTimer;
 }
 
 @property (readonly, copy) NSString *debugDescription;
 @property (readonly, copy) NSString *description;
 @property (readonly) unsigned int hash;
 @property (readonly) Class superclass;
+
++ (void)beginListening;
 
 - (void)addObserver:(id)arg1 withUUID:(id)arg2;
 - (void)beginObservingConnection;
@@ -42,12 +44,12 @@
 - (void)sendAppControlsNotificationForApp:(id)arg1 withName:(id)arg2;
 - (void)sendChangeNotificationForApp:(id)arg1;
 - (void)sendFailedNotificationForApp:(id)arg1 isUninstall:(BOOL)arg2;
-- (void)sendIconUpdatedNotificationForApp:(id)arg1;
+- (void)sendIconUpdatedNotificationForApp:(id)arg1 userInitiated:(BOOL)arg2;
 - (void)sendInstalledNotificationForApp:(id)arg1 reply:(id /* block */)arg2;
-- (void)sendInstalledNotificationForApps:(id)arg1;
+- (void)sendInstalledNotificationForApps:(id)arg1 Plugins:(id)arg2;
 - (void)sendNetworkUsageChangedNotification;
 - (void)sendUninstalledNotificationForApp:(id)arg1 reply:(id /* block */)arg2;
-- (void)sendUninstalledNotificationForApps:(id)arg1;
+- (void)sendUninstalledNotificationForApps:(id)arg1 Plugins:(id)arg2;
 - (void)sendWillUninstallNotificationForApps:(id)arg1 Plugins:(id)arg2 isUpdate:(BOOL)arg3;
 
 @end

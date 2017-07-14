@@ -3,20 +3,12 @@
  */
 
 @interface AFFuture : NSObject {
-    NSObject<OS_dispatch_group> *_executionGroup;
-    id _result;
+    NSObject<OS_dispatch_group> * _group;
+    id  _value;
 }
 
-+ (id)futureWithResultGenerator:(id /* block */)arg1;
-+ (id)futureWithSynchronousResultGenerator:(id /* block */)arg1;
-
 - (void).cxx_destruct;
-- (void)_wait;
-- (id)chainResultGenerator:(id /* block */)arg1;
-- (id)init;
-- (id)initWithResultGenerator:(id /* block */)arg1;
-- (id)initWithSynchronousResultGenerator:(id /* block */)arg1;
-- (id)notifyWithCompletion:(id /* block */)arg1;
-- (id)result;
+- (id)initAndGetSetterBlock:(id /* block */*)arg1;
+- (id)waitForValue:(unsigned long long)arg1;
 
 @end

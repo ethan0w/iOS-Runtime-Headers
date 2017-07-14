@@ -2,44 +2,59 @@
    Image: /System/Library/Frameworks/SpriteKit.framework/SpriteKit
  */
 
-@interface SKNode : UIResponder <NSCoding, NSCopying> {
-    NSMutableArray *_actions;
-    NSMutableArray *_children;
-    NSArray *_constraints;
-    NSMutableArray *_deleteList;
-    NSMutableDictionary *_info;
-    NSMutableDictionary *_keyedActions;
-    NSMutableDictionary *_keyedSubSprites;
-    NSString *_name;
-    BOOL _needsDelete;
-    SKNode *_parent;
-    SKReachConstraints *_reachConstraints;
-    BOOL _spritesNeedsRemove;
-    NSMutableDictionary *_userData;
-    unsigned int _version;
-    void *csprite;
+@interface SKNode : UIResponder <NSCoding, NSCopying, UIFocusItem> {
+    NSMutableArray * _actions;
+    NSMutableDictionary * _attributeValues;
+    NSMutableArray * _children;
+    NSArray * _constraints;
+    GKEntity * _entity;
+    NSMutableDictionary * _info;
+    NSMutableDictionary * _keyedActions;
+    NSMutableDictionary * _keyedSubSprites;
+    NSString * _name;
+    SKNode * _parent;
+    BOOL  _performFullCapture;
+    SKReachConstraints * _reachConstraints;
+    struct SKCNode { int (**x1)(); id x2; struct unordered_map<std::__1::basic_string<char>, SKAttributeValue *, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, SKAttributeValue *> > > { struct __hash_table<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::__unordered_map_hasher<std::__1::basic_string<char>, std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::hash<std::__1::basic_string<char> >, true>, std::__1::__unordered_map_equal<std::__1::basic_string<char>, std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::equal_to<std::__1::basic_string<char> >, true>, std::__1::allocator<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *> > > { struct unique_ptr<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *[], std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > > { struct __compressed_pair<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> **, std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > > { struct __hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> {} **x_1_4_1; struct __bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > { struct __compressed_pair<unsigned long, std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > { unsigned long x_1_6_1; } x_2_5_1; } x_1_4_2; } x_1_3_1; } x_1_2_1; } x_3_1_1; } x3; } * _skcNode;
+    NSMutableDictionary * _userData;
+    BOOL  _userInteractionEnabled;
+    unsigned int  _version;
 }
 
 @property (nonatomic, readonly) struct shared_ptr<PKCAether> { struct PKCAether {} *x1; struct __shared_weak_count {} *x2; } _aether;
+@property (nonatomic, readonly) NSArray *_allActions;
 @property (nonatomic) struct CGPoint { float x1; float x2; } _anchorPoint;
+@property (nonatomic, readonly) /* Warning: unhandled struct encoding: '{SKCNode=^^?@B{unordered_map<std::__1::basic_string<char>' */ struct *_backingNode; /* unknown property attribute:  void *> > >=L}}B@{shared_ptr<PKPath>=^{PKPath}^{__shared_weak_count}}IIBiffBB{?=[4]}{?=[4]}} */
 @property (nonatomic, retain) NSMutableDictionary *_info;
 @property (nonatomic) BOOL _showBounds;
 @property (nonatomic, readonly) struct CGSize { float x1; float x2; } _size;
 @property (nonatomic, readonly) struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; } _untransformedBounds;
 @property (nonatomic) float alpha;
+@property (nonatomic, copy) NSDictionary *attributeValues;
+@property (nonatomic, readonly) BOOL canBecomeFocused;
 @property (nonatomic, readonly) NSArray *children;
 @property (nonatomic, copy) NSArray *constraints;
+@property (readonly, copy) NSString *debugDescription;
+@property (readonly, copy) NSString *description;
+@property (nonatomic) GKEntity *entity;
 @property (nonatomic, readonly) struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; } frame;
+@property (nonatomic, readonly) struct { /* Warning: Unrecognized filer type: ']' using 'void*' */ void*x1[4]; } globalAccumulatedBoundingVerts;
+@property (nonatomic, readonly) struct { /* Warning: Unrecognized filer type: ']' using 'void*' */ void*x1[4]; } globalBoundingVerts;
+@property (readonly) unsigned int hash;
 @property (getter=isHidden, nonatomic) BOOL hidden;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, readonly) struct CGPath { }*outline;
+@property (nonatomic, readonly) const struct CGPath { }*outline;
 @property (nonatomic, readonly) SKNode *parent;
 @property (getter=isPaused, nonatomic) BOOL paused;
+@property BOOL performFullCapture;
 @property (nonatomic, retain) SKPhysicsBody *physicsBody;
 @property (nonatomic) struct CGPoint { float x1; float x2; } position;
+@property (nonatomic, readonly, copy) NSArray *preferredFocusEnvironments;
+@property (nonatomic, readonly) UIView *preferredFocusedView;
 @property (nonatomic, copy) SKReachConstraints *reachConstraints;
 @property (nonatomic, readonly) SKScene *scene;
 @property (nonatomic) float speed;
+@property (readonly) Class superclass;
 @property (nonatomic, retain) NSMutableDictionary *userData;
 @property (getter=isUserInteractionEnabled, nonatomic) BOOL userInteractionEnabled;
 @property (nonatomic) float xRotation;
@@ -49,21 +64,45 @@
 @property (nonatomic) float zPosition;
 @property (nonatomic) float zRotation;
 
+// Image: /System/Library/Frameworks/SpriteKit.framework/SpriteKit
+
 + (id)node;
++ (id)nodeFromCaptureData:(id)arg1;
 + (id)nodeWithFileNamed:(id)arg1;
 
 - (void).cxx_destruct;
 - (struct shared_ptr<PKCAether> { struct PKCAether {} *x1; struct __shared_weak_count {} *x2; })_aether;
+- (id)_allActions;
 - (struct CGPoint { float x1; float x2; })_anchorPoint;
+- (struct SKCNode { int (**x1)(); id x2; struct unordered_map<std::__1::basic_string<char>, SKAttributeValue *, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, SKAttributeValue *> > > { struct __hash_table<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::__unordered_map_hasher<std::__1::basic_string<char>, std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::hash<std::__1::basic_string<char> >, true>, std::__1::__unordered_map_equal<std::__1::basic_string<char>, std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::equal_to<std::__1::basic_string<char> >, true>, std::__1::allocator<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *> > > { struct unique_ptr<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *[], std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > > { struct __compressed_pair<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> **, std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > > { struct __hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> {} **x_1_4_1; struct __bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > { struct __compressed_pair<unsigned long, std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > { unsigned long x_1_6_1; } x_2_5_1; } x_1_4_2; } x_1_3_1; } x_1_2_1; } x_3_1_1; } x3; }*)_backingNode;
+- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_convertFrameToView:(id)arg1;
+- (id)_copyImageData;
+- (void)_debugPrint:(int)arg1;
+- (void)_debugPrint:(int)arg1 mask:(unsigned long long)arg2;
+- (id)_descendants;
+- (void)_descendantsToMutableArray:(id)arg1;
+- (id)_descendantsWithPredicate:(id /* block */)arg1;
+- (void)_descendantsWithPredicate:(id /* block */)arg1 toMutableArray:(id)arg2;
+- (void)_didMakeBackingNode;
 - (void)_enumerateChildNodesWithName:(id)arg1 usingBlock:(id /* block */)arg2 stopPointer:(BOOL*)arg3;
 - (void)_flippedChangedFrom:(BOOL)arg1 to:(BOOL)arg2;
+- (void)_getBasePhysicsScale:(float*)arg1 yScale:(float*)arg2;
 - (void)_getWorldTransform:(float*)arg1 positionY:(float*)arg2 rotation:(float*)arg3 xScale:(float*)arg4 yScale:(float*)arg5;
 - (id)_info;
+- (void)_initAccessibility;
+- (BOOL)_isEligibleForFocus;
+- (struct SKCNode { int (**x1)(); id x2; struct unordered_map<std::__1::basic_string<char>, SKAttributeValue *, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, SKAttributeValue *> > > { struct __hash_table<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::__unordered_map_hasher<std::__1::basic_string<char>, std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::hash<std::__1::basic_string<char> >, true>, std::__1::__unordered_map_equal<std::__1::basic_string<char>, std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, std::__1::equal_to<std::__1::basic_string<char> >, true>, std::__1::allocator<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *> > > { struct unique_ptr<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *[], std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > > { struct __compressed_pair<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> **, std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > > { struct __hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> {} **x_1_4_1; struct __bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > { struct __compressed_pair<unsigned long, std::__1::allocator<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__hash_value_type<std::__1::basic_string<char>, SKAttributeValue *>, void *> *> *> > { unsigned long x_1_6_1; } x_2_5_1; } x_1_4_2; } x_1_3_1; } x_1_2_1; } x_3_1_1; } x3; }*)_makeBackingNode;
+- (id)_parentFocusEnvironment;
+- (BOOL)_pathFromPhysicsBodyToPoints:(/* Warning: Unrecognized filer type: '8' using 'void*' */ void***)arg1 outSize:(unsigned int*)arg2;
 - (void)_performCleanup;
-- (void)_processSearchTokens:(struct vector<Token, std::__1::allocator<Token> > { struct Token {} *x1; struct Token {} *x2; struct __compressed_pair<Token *, std::__1::allocator<Token> > { struct Token {} *x_3_1_1; } x3; })arg1 visited:(struct set<SKNode *, std::__1::less<SKNode *>, std::__1::allocator<SKNode *> > { struct __tree<SKNode *, std::__1::less<SKNode *>, std::__1::allocator<SKNode *> > { struct __tree_node<SKNode *, void *> {} *x_1_1_1; struct __compressed_pair<std::__1::__tree_end_node<std::__1::__tree_node_base<void *> *>, std::__1::allocator<std::__1::__tree_node<SKNode *, void *> > > { struct __tree_end_node<std::__1::__tree_node_base<void *> *> { struct __tree_node_base<void *> {} *x_1_3_1; } x_2_2_1; } x_1_1_2; struct __compressed_pair<unsigned long, std::__1::less<SKNode *> > { unsigned long x_3_2_1; } x_1_1_3; } x1; }*)arg2 usingBlock:(id /* block */)arg3 stopPointer:(BOOL*)arg4;
+- (void)_processSearchTokens:(struct vector<Token, std::__1::allocator<Token> > { struct Token {} *x1; struct Token {} *x2; struct __compressed_pair<Token *, std::__1::allocator<Token> > { struct Token {} *x_3_1_1; } x3; })arg1 visited:(struct set<SKNode *, std::__1::less<SKNode *>, std::__1::allocator<SKNode *> > { struct __tree<SKNode *, std::__1::less<SKNode *>, std::__1::allocator<SKNode *> > { struct __tree_end_node<std::__1::__tree_node_base<void *> *> {} *x_1_1_1; struct __compressed_pair<std::__1::__tree_end_node<std::__1::__tree_node_base<void *> *>, std::__1::allocator<std::__1::__tree_node<SKNode *, void *> > > { struct __tree_end_node<std::__1::__tree_node_base<void *> *> { struct __tree_node_base<void *> {} *x_1_3_1; } x_2_2_1; } x_1_1_2; struct __compressed_pair<unsigned long, std::__1::less<SKNode *> > { unsigned long x_3_2_1; } x_1_1_3; } x1; }*)arg2 usingBlock:(id /* block */)arg3 stopPointer:(BOOL*)arg4;
+- (void)_removeAction:(id)arg1;
+- (void)_removeChild:(id)arg1;
+- (void)_runAction:(id)arg1;
 - (void)_scaleFactorChangedFrom:(float)arg1 to:(float)arg2;
 - (BOOL)_showBounds;
 - (struct CGSize { float x1; float x2; })_size;
+- (id)_subnodeFromIndexPath:(id)arg1;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_untransformedBounds;
 - (void)_update:(double)arg1;
 - (id)actionForKey:(id)arg1;
@@ -71,7 +110,10 @@
 - (void)addChild:(id)arg1 withKey:(id)arg2;
 - (id)allIntersectionsWithNode:(id)arg1 useAlphaTest:(BOOL)arg2;
 - (float)alpha;
+- (id)archiveToFile:(id)arg1;
+- (id)attributeValues;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })calculateAccumulatedFrame;
+- (BOOL)canBecomeFocused;
 - (id)childNodeWithName:(id)arg1;
 - (id)children;
 - (id)childrenInRect:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
@@ -85,12 +127,17 @@
 - (struct CGPoint { float x1; float x2; })convertPointToParent:(struct CGPoint { float x1; float x2; })arg1;
 - (id)copy;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
-- (struct SKCSprite { int (**x1)(); struct list<SKCAction *, std::__1::allocator<SKCAction *> > { struct __list_node_base<SKCAction *, void *> { struct __list_node<SKCAction *, void *> {} *x_1_2_1; struct __list_node<SKCAction *, void *> {} *x_1_2_2; } x_2_1_1; struct __compressed_pair<unsigned long, std::__1::allocator<std::__1::__list_node<SKCAction *, void *> > > { unsigned long x_2_2_1; } x_2_1_2; } x2; struct shared_ptr<PKPath> { struct PKPath {} *x_3_1_1; struct __shared_weak_count {} *x_3_1_2; } x3; id x4; /* Warning: Unrecognized filer type: '1' using 'void*' */ void*x5; unsigned int x6 : 1; unsigned int x7 : 1; unsigned int x8 : 1; unsigned int x9 : 1; unsigned int x10 : 1; unsigned int x11 : 1; unsigned int x12 : 1; unsigned int x13 : 1; unsigned int x14 : 1; unsigned int x15 : 1; unsigned int x16 : 1; unsigned int x17 : 1; unsigned int x18 : 1; unsigned int x19 : 1; unsigned int x20 : 1; unsigned int x21 : 1; unsigned int x22 : 1; unsigned int x23 : 1; unsigned int x24 : 1; unsigned int x25 : 1; unsigned int x26 : 1; unsigned int x27 : 1; unsigned int x28 : 1; unsigned int x29 : 1; unsigned int x30 : 1; bool x31; unsigned int x32 : 1; unsigned int x33 : 1; unsigned int x34 : 1; unsigned int x35 : 1; unsigned int x36 : 1; unsigned int x37 : 1; unsigned int x38 : 1; unsigned int x39 : 1; unsigned int x40 : 1; unsigned int x41 : 1; float x42; struct SKCSprite {} *x43; unsigned int x44; unsigned int x45; unsigned int x46; id x47; bool x48; bool x49; struct __CVBuffer {} *x50; struct __CVBuffer {} *x51; struct __CVOpenGLESTextureCache {} *x52; id x53; id x54; unsigned int x55; unsigned int x56; struct { float x_57_1_1; float x_57_1_2; } x57; struct { float x_58_1_1; float x_58_1_2; } x58; struct { float x_59_1_1; float x_59_1_2; } x59; struct { struct { float x_1_2_1; float x_1_2_2; } x_60_1_1; struct { float x_2_2_1; float x_2_2_2; } x_60_1_2; } x60; struct __CVBuffer {} *x61; struct __CVBuffer {} *x62; bool x63; struct { struct { union _GLKVector4 { struct { float x_1_4_1; float x_1_4_2; float x_1_4_3; float x_1_4_4; } x_1_3_1; struct { float x_2_4_1; float x_2_4_2; float x_2_4_3; float x_2_4_4; } x_1_3_2; struct { float x_3_4_1; float x_3_4_2; float x_3_4_3; float x_3_4_4; } x_1_3_3; float x_1_3_4[4]; } x_1_2_1; unsigned char x_1_2_2[4]; float x_1_2_3[3]; } x_64_1_1[4]; } x64; struct { /* ? */ } *x65; struct { /* ? */ } *x66; struct { struct { float x_1_2_1; float x_1_2_2; } x_67_1_1; struct { float x_2_2_1; float x_2_2_2; } x_67_1_2; struct { float x_3_2_1; float x_3_2_2; } x_67_1_3; struct { float x_4_2_1; float x_4_2_2; } x_67_1_4; } x67; struct { struct { float x_1_2_1; float x_1_2_2; } x_68_1_1; struct { float x_2_2_1; float x_2_2_2; } x_68_1_2; } x68; int x69; struct { struct { float x_1_2_1; float x_1_2_2; } x_70_1_1; struct { float x_2_2_1; float x_2_2_2; } x_70_1_2; } x70; struct SKCSprite {} *x71; union _GLKMatrix4 { struct { float x_1_2_1; float x_1_2_2; float x_1_2_3; float x_1_2_4; float x_1_2_5; float x_1_2_6; float x_1_2_7; float x_1_2_8; float x_1_2_9; float x_1_2_10; float x_1_2_11; float x_1_2_12; float x_1_2_13; float x_1_2_14; float x_1_2_15; float x_1_2_16; } x_72_1_1; float x_72_1_2[16]; } x72; struct list<SKCSprite *, std::__1::allocator<SKCSprite *> > { struct __list_node_base<SKCSprite *, void *> { struct __list_node<SKCSprite *, void *> {} *x_1_2_1; struct __list_node<SKCSprite *, void *> {} *x_1_2_2; } x_73_1_1; struct __compressed_pair<unsigned long, std::__1::allocator<std::__1::__list_node<SKCSprite *, void *> > > { unsigned long x_2_2_1; } x_73_1_2; } x73; struct set<SKCSprite *, std::__1::less<SKCSprite *>, std::__1::allocator<SKCSprite *> > {} *x74; struct list<SKCSprite *, std::__1::allocator<SKCSprite *> > {} *x75; unsigned int x76; unsigned int x77; bool x78; struct set<SKCSprite *, std::__1::less<SKCSprite *>, std::__1::allocator<SKCSprite *> > { struct __tree<SKCSprite *, std::__1::less<SKCSprite *>, std::__1::allocator<SKCSprite *> > { struct __tree_node<SKCSprite *, void *> {} *x_1_2_1; struct __compressed_pair<std::__1::__tree_end_node<std::__1::__tree_node_base<void *> *>, std::__1::allocator<std::__1::__tree_node<SKCSprite *, void *> > > { struct __tree_end_node<std::__1::__tree_node_base<void *> *> { struct __tree_node_base<void *> {} *x_1_4_1; } x_2_3_1; } x_1_2_2; struct __compressed_pair<unsigned long, std::__1::less<SKCSprite *> > { unsigned long x_3_3_1; } x_1_2_3; } x_79_1_1; } x79; struct unordered_set<SKCAction *, std::__1::hash<SKCAction *>, std::__1::equal_to<SKCAction *>, std::__1::allocator<SKCAction *> > { struct __hash_table<SKCAction *, std::__1::hash<SKCAction *>, std::__1::equal_to<SKCAction *>, std::__1::allocator<SKCAction *> > { struct unique_ptr<std::__1::__hash_node<SKCAction *, void *> *[], std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node<SKCAction *, void *> *> > > { struct __compressed_pair<std::__1::__hash_node<SKCAction *, void *> **, std::__1::__bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node<SKCAction *, void *> *> > > { struct __hash_node<SKCAction *, void *> {} **x_1_4_1; struct __bucket_list_deallocator<std::__1::allocator<std::__1::__hash_node<SKCAction *, void *> *> > { struct __compressed_pair<unsigned long, std::__1::allocator<std::__1::__hash_node<SKCAction *, void *> *> > { unsigned long x_1_6_1; } x_2_5_1; } x_1_4_2; } x_1_3_1; } x_1_2_1; struct __compressed_pair<std::__1::__hash_node_base<std::__1::__hash_node<SKCAction *, void *> *>, std::__1::allocator<std::__1::__hash_node<SKCAction *, void *> > > { struct __hash_node_base<std::__1::__hash_node<SKCAction *, void *> *> { struct __hash_node<SKCAction *, void *> {} *x_1_4_1; } x_2_3_1; } x_1_2_2; struct __compressed_pair<unsigned long, std::__1::hash<SKCAction *> > { unsigned long x_3_3_1; } x_1_2_3; struct __compressed_pair<float, std::__1::equal_to<SKCAction *> > { float x_4_3_1; } x_1_2_4; } x_80_1_1; } x80; float x81; float x82; float x83; id x84; void*x85; void*x86; float x87; float x88; }*)csprite;
+- (id)createFullCaptureData;
 - (void)dealloc;
+- (void)debugPrint;
 - (id)description;
+- (void)didUpdateFocusInContext:(id)arg1 withAnimationCoordinator:(id)arg2;
 - (void)encodeWithCoder:(id)arg1;
+- (id)entity;
 - (void)enumerateChildNodesWithName:(id)arg1 usingBlock:(id /* block */)arg2;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })frame;
+- (struct { /* Warning: Unrecognized filer type: ']' using 'void*' */ void*x1[4]; })globalAccumulatedBoundingVerts;
+- (struct { /* Warning: Unrecognized filer type: ']' using 'void*' */ void*x1[4]; })globalBoundingVerts;
 - (BOOL)hasActions;
 - (BOOL)hasChildren;
 - (BOOL)hasUniformAlphaAndIsVisible;
@@ -104,19 +151,21 @@
 - (BOOL)isHidden;
 - (BOOL)isPaused;
 - (BOOL)isUserInteractionEnabled;
+- (void)moveToParent:(id)arg1;
 - (id)name;
 - (BOOL)needsUpdate;
 - (id)nodeAtPoint:(struct CGPoint { float x1; float x2; })arg1;
 - (id)nodeAtPoint:(struct CGPoint { float x1; float x2; })arg1 recursive:(BOOL)arg2;
 - (id)nodesAtPoint:(struct CGPoint { float x1; float x2; })arg1;
 - (id)objectForKeyedSubscript:(id)arg1;
-- (struct CGPath { }*)outline;
+- (const struct CGPath { }*)outline;
 - (id)parent;
+- (BOOL)performFullCapture;
 - (id)physicsBody;
 - (id)physicsField;
 - (struct CGPoint { float x1; float x2; })position;
+- (id)preferredFocusEnvironments;
 - (id)reachConstraints;
-- (void)removeAction:(id)arg1;
 - (void)removeActionForKey:(id)arg1;
 - (void)removeAllActions;
 - (void)removeAllChildren;
@@ -129,19 +178,24 @@
 - (void)runAction:(id)arg1 withKey:(id)arg2;
 - (id)scene;
 - (void)setAlpha:(float)arg1;
+- (void)setAttributeValues:(id)arg1;
 - (void)setConstraints:(id)arg1;
+- (void)setEntity:(id)arg1;
 - (void)setHidden:(BOOL)arg1;
 - (void)setName:(id)arg1;
+- (void)setNeedsFocusUpdate;
 - (void)setParent:(id)arg1;
 - (void)setPaused:(BOOL)arg1;
+- (void)setPerformFullCapture:(BOOL)arg1;
 - (void)setPhysicsBody:(id)arg1;
-- (void)setPhysicsField:(id)arg1;
 - (void)setPosition:(struct CGPoint { float x1; float x2; })arg1;
 - (void)setReachConstraints:(id)arg1;
 - (void)setScale:(float)arg1;
+- (void)setSize:(struct CGSize { float x1; float x2; })arg1;
 - (void)setSpeed:(float)arg1;
 - (void)setUserData:(id)arg1;
 - (void)setUserInteractionEnabled:(BOOL)arg1;
+- (void)setValue:(id)arg1 forAttributeNamed:(id)arg2;
 - (void)setXRotation:(float)arg1;
 - (void)setXScale:(float)arg1;
 - (void)setYRotation:(float)arg1;
@@ -151,14 +205,25 @@
 - (void)set_anchorPoint:(struct CGPoint { float x1; float x2; })arg1;
 - (void)set_info:(id)arg1;
 - (void)set_showBounds:(BOOL)arg1;
+- (BOOL)shouldUpdateFocusInContext:(id)arg1;
+- (struct CGSize { float x1; float x2; })size;
 - (float)speed;
+- (Class)swiftClassFromString:(id)arg1 moduleName:(id)arg2;
+- (void)updateFocusIfNeeded;
 - (void)updatePhysicsPositionAndScaleFromSprite;
 - (id)userData;
+- (id)valueForAttributeNamed:(id)arg1;
 - (float)xRotation;
 - (float)xScale;
 - (float)yRotation;
 - (float)yScale;
 - (float)zPosition;
 - (float)zRotation;
+
+// Image: /System/Library/Frameworks/GameplayKit.framework/GameplayKit
+
++ (id)obstaclesFromNodeBounds:(id)arg1;
++ (id)obstaclesFromNodePhysicsBodies:(id)arg1;
++ (id)obstaclesFromSpriteTextures:(id)arg1 accuracy:(float)arg2;
 
 @end

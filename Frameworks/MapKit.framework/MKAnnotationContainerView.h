@@ -2,23 +2,30 @@
    Image: /System/Library/Frameworks/MapKit.framework/MapKit
  */
 
-@interface MKAnnotationContainerView : UIView <MKAnnotationCalloutControllerDelegate> {
-    BOOL _addingSubview;
-    MKAnnotationView *_annotationViewToSelect;
-    NSMutableArray *_annotationViews;
-    float _annotationViewsRotationRadians;
-    NSMutableArray *_awaitingDropPins;
-    MKAnnotationCalloutController *_calloutController;
-    BOOL _clickedOnAnnotationView;
-    <MKAnnotationContainerViewDelegate> *_delegate;
-    BOOL _didDragAnnotationView;
-    MKAnnotationView *_draggingAnnotationView;
+@interface MKAnnotationContainerView : UIView <MKAnnotationCalloutControllerDelegate, _MKPinAnnotationViewDelegate> {
+    BOOL  _addingSubview;
+    MKAnnotationView * _annotationViewToSelect;
+    NSMutableArray * _annotationViews;
+    float  _annotationViewsRotationRadians;
+    NSMutableArray * _awaitingDropPins;
+    _MKBalloonAnnotationCalloutController * _balloonCalloutController;
+    MKAnnotationCalloutController * _calloutController;
+    BOOL  _clickedOnAnnotationView;
+    <MKAnnotationContainerViewDelegate> * _delegate;
+    BOOL  _didDragAnnotationView;
+    MKAnnotationView * _draggingAnnotationView;
     struct CGPoint { 
         float x; 
         float y; 
-    } _draggingAnnotationViewCenter;
-    unsigned int _mapDisplayStyle;
-    float _mapPitchRadians;
+    }  _draggingAnnotationViewCenter;
+    struct { 
+        unsigned char timePeriod; 
+        unsigned char overlayType; 
+        unsigned char applicationState; 
+        unsigned char searchResultsType; 
+        BOOL mapHasLabels; 
+    }  _mapDisplayStyle;
+    float  _mapPitchRadians;
     struct CGAffineTransform { 
         float a; 
         float b; 
@@ -26,22 +33,23 @@
         float d; 
         float tx; 
         float ty; 
-    } _mapTransform;
-    unsigned int _mapType;
+    }  _mapTransform;
+    unsigned int  _mapType;
     struct CGPoint { 
         float x; 
         float y; 
-    } _mouseDownPoint;
-    MKAnnotationView *_selectedAnnotationView;
-    MKAnnotationView *_userLocationView;
-    NSMutableSet *_viewsToAnimate;
+    }  _mouseDownPoint;
+    MKAnnotationView * _selectedAnnotationView;
+    BOOL  _suppressCallout;
+    MKAnnotationView * _userLocationView;
+    NSMutableSet * _viewsToAnimate;
 }
 
 @property (nonatomic) BOOL allowsPopoverWhenNotInWindow;
 @property (nonatomic, readonly) NSMutableArray *annotationViews;
 @property (nonatomic, readonly) MKPinAnnotationView *bubblePin;
 @property (nonatomic, readonly) MKAnnotationView *calloutAnnotationView;
-@property (nonatomic, readonly) struct { int x1; struct { double x_2_1_1; double x_2_1_2; } x2; struct CGPoint { float x_3_1_1; float x_3_1_2; } x3; struct CGPoint { float x_4_1_1; float x_4_1_2; } x4; id x5; } currentComparisonContext;
+@property (nonatomic, readonly) struct { int x1; struct CLLocationCoordinate2D { double x_2_1_1; double x_2_1_2; } x2; struct CGPoint { float x_3_1_1; float x_3_1_2; } x3; struct CGPoint { float x_4_1_1; float x_4_1_2; } x4; id x5; } currentComparisonContext;
 @property (readonly, copy) NSString *debugDescription;
 @property (nonatomic) <MKAnnotationContainerViewDelegate> *delegate;
 @property (readonly, copy) NSString *description;
@@ -51,6 +59,7 @@
 @property (nonatomic) unsigned int mapType;
 @property (nonatomic, readonly) UIPopoverController *popoverController;
 @property (readonly) Class superclass;
+@property (nonatomic) BOOL suppressCallout;
 @property (nonatomic, readonly) MKAnnotationView *userLocationView;
 
 - (void).cxx_destruct;
@@ -68,14 +77,15 @@
 - (void)_updateAnnotationView:(id)arg1;
 - (void)_updateAnnotationViewPerspective;
 - (void)_updateOrientationOfViews:(id)arg1;
-- (void)_updateOrientationOfViews:(id)arg1 relative:(id)arg2 projectionView:(struct UIView { Class x1; id x2; id x3; float x4; int x5; id x6; unsigned int x7; unsigned int x8; struct { unsigned int x_9_1_1 : 1; unsigned int x_9_1_2 : 1; unsigned int x_9_1_3 : 1; unsigned int x_9_1_4 : 1; unsigned int x_9_1_5 : 1; unsigned int x_9_1_6 : 1; unsigned int x_9_1_7 : 1; unsigned int x_9_1_8 : 1; unsigned int x_9_1_9 : 1; unsigned int x_9_1_10 : 1; unsigned int x_9_1_11 : 1; unsigned int x_9_1_12 : 1; unsigned int x_9_1_13 : 1; unsigned int x_9_1_14 : 1; unsigned int x_9_1_15 : 1; unsigned int x_9_1_16 : 1; unsigned int x_9_1_17 : 6; unsigned int x_9_1_18 : 1; unsigned int x_9_1_19 : 1; unsigned int x_9_1_20 : 1; unsigned int x_9_1_21 : 1; unsigned int x_9_1_22 : 1; unsigned int x_9_1_23 : 1; unsigned int x_9_1_24 : 1; unsigned int x_9_1_25 : 1; unsigned int x_9_1_26 : 1; unsigned int x_9_1_27 : 1; unsigned int x_9_1_28 : 1; unsigned int x_9_1_29 : 1; unsigned int x_9_1_30 : 1; unsigned int x_9_1_31 : 1; unsigned int x_9_1_32 : 1; unsigned int x_9_1_33 : 1; unsigned int x_9_1_34 : 1; unsigned int x_9_1_35 : 1; unsigned int x_9_1_36 : 1; unsigned int x_9_1_37 : 1; unsigned int x_9_1_38 : 1; unsigned int x_9_1_39 : 1; unsigned int x_9_1_40 : 1; unsigned int x_9_1_41 : 1; unsigned int x_9_1_42 : 1; unsigned int x_9_1_43 : 1; unsigned int x_9_1_44 : 1; unsigned int x_9_1_45 : 1; unsigned int x_9_1_46 : 1; unsigned int x_9_1_47 : 1; unsigned int x_9_1_48 : 1; unsigned int x_9_1_49 : 1; unsigned int x_9_1_50 : 1; unsigned int x_9_1_51 : 1; unsigned int x_9_1_52 : 1; unsigned int x_9_1_53 : 1; unsigned int x_9_1_54 : 1; unsigned int x_9_1_55 : 1; unsigned int x_9_1_56 : 1; unsigned int x_9_1_57 : 1; unsigned int x_9_1_58 : 1; unsigned int x_9_1_59 : 1; unsigned int x_9_1_60 : 1; unsigned int x_9_1_61 : 1; unsigned int x_9_1_62 : 1; unsigned int x_9_1_63 : 1; unsigned int x_9_1_64 : 1; unsigned int x_9_1_65 : 5; unsigned int x_9_1_66 : 1; unsigned int x_9_1_67 : 1; unsigned int x_9_1_68 : 1; unsigned int x_9_1_69 : 2; unsigned int x_9_1_70 : 2; unsigned int x_9_1_71 : 1; unsigned int x_9_1_72 : 1; unsigned int x_9_1_73 : 3; unsigned int x_9_1_74 : 1; unsigned int x_9_1_75 : 1; unsigned int x_9_1_76 : 1; unsigned int x_9_1_77 : 1; unsigned int x_9_1_78 : 1; unsigned int x_9_1_79 : 1; unsigned int x_9_1_80 : 1; unsigned int x_9_1_81 : 1; unsigned int x_9_1_82 : 1; unsigned int x_9_1_83 : 1; unsigned int x_9_1_84 : 1; } x9; }*)arg3;
-- (void)_updateOrientationOfViewsCorrect:(id)arg1 relative:(id)arg2 projectionView:(struct UIView { Class x1; id x2; id x3; float x4; int x5; id x6; unsigned int x7; unsigned int x8; struct { unsigned int x_9_1_1 : 1; unsigned int x_9_1_2 : 1; unsigned int x_9_1_3 : 1; unsigned int x_9_1_4 : 1; unsigned int x_9_1_5 : 1; unsigned int x_9_1_6 : 1; unsigned int x_9_1_7 : 1; unsigned int x_9_1_8 : 1; unsigned int x_9_1_9 : 1; unsigned int x_9_1_10 : 1; unsigned int x_9_1_11 : 1; unsigned int x_9_1_12 : 1; unsigned int x_9_1_13 : 1; unsigned int x_9_1_14 : 1; unsigned int x_9_1_15 : 1; unsigned int x_9_1_16 : 1; unsigned int x_9_1_17 : 6; unsigned int x_9_1_18 : 1; unsigned int x_9_1_19 : 1; unsigned int x_9_1_20 : 1; unsigned int x_9_1_21 : 1; unsigned int x_9_1_22 : 1; unsigned int x_9_1_23 : 1; unsigned int x_9_1_24 : 1; unsigned int x_9_1_25 : 1; unsigned int x_9_1_26 : 1; unsigned int x_9_1_27 : 1; unsigned int x_9_1_28 : 1; unsigned int x_9_1_29 : 1; unsigned int x_9_1_30 : 1; unsigned int x_9_1_31 : 1; unsigned int x_9_1_32 : 1; unsigned int x_9_1_33 : 1; unsigned int x_9_1_34 : 1; unsigned int x_9_1_35 : 1; unsigned int x_9_1_36 : 1; unsigned int x_9_1_37 : 1; unsigned int x_9_1_38 : 1; unsigned int x_9_1_39 : 1; unsigned int x_9_1_40 : 1; unsigned int x_9_1_41 : 1; unsigned int x_9_1_42 : 1; unsigned int x_9_1_43 : 1; unsigned int x_9_1_44 : 1; unsigned int x_9_1_45 : 1; unsigned int x_9_1_46 : 1; unsigned int x_9_1_47 : 1; unsigned int x_9_1_48 : 1; unsigned int x_9_1_49 : 1; unsigned int x_9_1_50 : 1; unsigned int x_9_1_51 : 1; unsigned int x_9_1_52 : 1; unsigned int x_9_1_53 : 1; unsigned int x_9_1_54 : 1; unsigned int x_9_1_55 : 1; unsigned int x_9_1_56 : 1; unsigned int x_9_1_57 : 1; unsigned int x_9_1_58 : 1; unsigned int x_9_1_59 : 1; unsigned int x_9_1_60 : 1; unsigned int x_9_1_61 : 1; unsigned int x_9_1_62 : 1; unsigned int x_9_1_63 : 1; unsigned int x_9_1_64 : 1; unsigned int x_9_1_65 : 5; unsigned int x_9_1_66 : 1; unsigned int x_9_1_67 : 1; unsigned int x_9_1_68 : 1; unsigned int x_9_1_69 : 2; unsigned int x_9_1_70 : 2; unsigned int x_9_1_71 : 1; unsigned int x_9_1_72 : 1; unsigned int x_9_1_73 : 3; unsigned int x_9_1_74 : 1; unsigned int x_9_1_75 : 1; unsigned int x_9_1_76 : 1; unsigned int x_9_1_77 : 1; unsigned int x_9_1_78 : 1; unsigned int x_9_1_79 : 1; unsigned int x_9_1_80 : 1; unsigned int x_9_1_81 : 1; unsigned int x_9_1_82 : 1; unsigned int x_9_1_83 : 1; unsigned int x_9_1_84 : 1; } x9; }*)arg3;
-- (void)_updateOrientationOfViewsFast:(id)arg1 relative:(id)arg2 projectionView:(struct UIView { Class x1; id x2; id x3; float x4; int x5; id x6; unsigned int x7; unsigned int x8; struct { unsigned int x_9_1_1 : 1; unsigned int x_9_1_2 : 1; unsigned int x_9_1_3 : 1; unsigned int x_9_1_4 : 1; unsigned int x_9_1_5 : 1; unsigned int x_9_1_6 : 1; unsigned int x_9_1_7 : 1; unsigned int x_9_1_8 : 1; unsigned int x_9_1_9 : 1; unsigned int x_9_1_10 : 1; unsigned int x_9_1_11 : 1; unsigned int x_9_1_12 : 1; unsigned int x_9_1_13 : 1; unsigned int x_9_1_14 : 1; unsigned int x_9_1_15 : 1; unsigned int x_9_1_16 : 1; unsigned int x_9_1_17 : 6; unsigned int x_9_1_18 : 1; unsigned int x_9_1_19 : 1; unsigned int x_9_1_20 : 1; unsigned int x_9_1_21 : 1; unsigned int x_9_1_22 : 1; unsigned int x_9_1_23 : 1; unsigned int x_9_1_24 : 1; unsigned int x_9_1_25 : 1; unsigned int x_9_1_26 : 1; unsigned int x_9_1_27 : 1; unsigned int x_9_1_28 : 1; unsigned int x_9_1_29 : 1; unsigned int x_9_1_30 : 1; unsigned int x_9_1_31 : 1; unsigned int x_9_1_32 : 1; unsigned int x_9_1_33 : 1; unsigned int x_9_1_34 : 1; unsigned int x_9_1_35 : 1; unsigned int x_9_1_36 : 1; unsigned int x_9_1_37 : 1; unsigned int x_9_1_38 : 1; unsigned int x_9_1_39 : 1; unsigned int x_9_1_40 : 1; unsigned int x_9_1_41 : 1; unsigned int x_9_1_42 : 1; unsigned int x_9_1_43 : 1; unsigned int x_9_1_44 : 1; unsigned int x_9_1_45 : 1; unsigned int x_9_1_46 : 1; unsigned int x_9_1_47 : 1; unsigned int x_9_1_48 : 1; unsigned int x_9_1_49 : 1; unsigned int x_9_1_50 : 1; unsigned int x_9_1_51 : 1; unsigned int x_9_1_52 : 1; unsigned int x_9_1_53 : 1; unsigned int x_9_1_54 : 1; unsigned int x_9_1_55 : 1; unsigned int x_9_1_56 : 1; unsigned int x_9_1_57 : 1; unsigned int x_9_1_58 : 1; unsigned int x_9_1_59 : 1; unsigned int x_9_1_60 : 1; unsigned int x_9_1_61 : 1; unsigned int x_9_1_62 : 1; unsigned int x_9_1_63 : 1; unsigned int x_9_1_64 : 1; unsigned int x_9_1_65 : 5; unsigned int x_9_1_66 : 1; unsigned int x_9_1_67 : 1; unsigned int x_9_1_68 : 1; unsigned int x_9_1_69 : 2; unsigned int x_9_1_70 : 2; unsigned int x_9_1_71 : 1; unsigned int x_9_1_72 : 1; unsigned int x_9_1_73 : 3; unsigned int x_9_1_74 : 1; unsigned int x_9_1_75 : 1; unsigned int x_9_1_76 : 1; unsigned int x_9_1_77 : 1; unsigned int x_9_1_78 : 1; unsigned int x_9_1_79 : 1; unsigned int x_9_1_80 : 1; unsigned int x_9_1_81 : 1; unsigned int x_9_1_82 : 1; unsigned int x_9_1_83 : 1; unsigned int x_9_1_84 : 1; } x9; }*)arg3;
+- (void)_updateOrientationOfViews:(id)arg1 relative:(id)arg2 projectionView:(id)arg3;
+- (void)_updateOrientationOfViewsCorrect:(id)arg1 relative:(id)arg2 projectionView:(id)arg3;
+- (void)_updateOrientationOfViewsFast:(id)arg1 relative:(id)arg2 projectionView:(id)arg3;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_visibleCenteringRect;
-- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_visibleCenteringRectInView:(struct UIView { Class x1; id x2; id x3; float x4; int x5; id x6; unsigned int x7; unsigned int x8; struct { unsigned int x_9_1_1 : 1; unsigned int x_9_1_2 : 1; unsigned int x_9_1_3 : 1; unsigned int x_9_1_4 : 1; unsigned int x_9_1_5 : 1; unsigned int x_9_1_6 : 1; unsigned int x_9_1_7 : 1; unsigned int x_9_1_8 : 1; unsigned int x_9_1_9 : 1; unsigned int x_9_1_10 : 1; unsigned int x_9_1_11 : 1; unsigned int x_9_1_12 : 1; unsigned int x_9_1_13 : 1; unsigned int x_9_1_14 : 1; unsigned int x_9_1_15 : 1; unsigned int x_9_1_16 : 1; unsigned int x_9_1_17 : 6; unsigned int x_9_1_18 : 1; unsigned int x_9_1_19 : 1; unsigned int x_9_1_20 : 1; unsigned int x_9_1_21 : 1; unsigned int x_9_1_22 : 1; unsigned int x_9_1_23 : 1; unsigned int x_9_1_24 : 1; unsigned int x_9_1_25 : 1; unsigned int x_9_1_26 : 1; unsigned int x_9_1_27 : 1; unsigned int x_9_1_28 : 1; unsigned int x_9_1_29 : 1; unsigned int x_9_1_30 : 1; unsigned int x_9_1_31 : 1; unsigned int x_9_1_32 : 1; unsigned int x_9_1_33 : 1; unsigned int x_9_1_34 : 1; unsigned int x_9_1_35 : 1; unsigned int x_9_1_36 : 1; unsigned int x_9_1_37 : 1; unsigned int x_9_1_38 : 1; unsigned int x_9_1_39 : 1; unsigned int x_9_1_40 : 1; unsigned int x_9_1_41 : 1; unsigned int x_9_1_42 : 1; unsigned int x_9_1_43 : 1; unsigned int x_9_1_44 : 1; unsigned int x_9_1_45 : 1; unsigned int x_9_1_46 : 1; unsigned int x_9_1_47 : 1; unsigned int x_9_1_48 : 1; unsigned int x_9_1_49 : 1; unsigned int x_9_1_50 : 1; unsigned int x_9_1_51 : 1; unsigned int x_9_1_52 : 1; unsigned int x_9_1_53 : 1; unsigned int x_9_1_54 : 1; unsigned int x_9_1_55 : 1; unsigned int x_9_1_56 : 1; unsigned int x_9_1_57 : 1; unsigned int x_9_1_58 : 1; unsigned int x_9_1_59 : 1; unsigned int x_9_1_60 : 1; unsigned int x_9_1_61 : 1; unsigned int x_9_1_62 : 1; unsigned int x_9_1_63 : 1; unsigned int x_9_1_64 : 1; unsigned int x_9_1_65 : 5; unsigned int x_9_1_66 : 1; unsigned int x_9_1_67 : 1; unsigned int x_9_1_68 : 1; unsigned int x_9_1_69 : 2; unsigned int x_9_1_70 : 2; unsigned int x_9_1_71 : 1; unsigned int x_9_1_72 : 1; unsigned int x_9_1_73 : 3; unsigned int x_9_1_74 : 1; unsigned int x_9_1_75 : 1; unsigned int x_9_1_76 : 1; unsigned int x_9_1_77 : 1; unsigned int x_9_1_78 : 1; unsigned int x_9_1_79 : 1; unsigned int x_9_1_80 : 1; unsigned int x_9_1_81 : 1; unsigned int x_9_1_82 : 1; unsigned int x_9_1_83 : 1; unsigned int x_9_1_84 : 1; } x9; }*)arg1;
+- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_visibleCenteringRectInView:(id)arg1;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })_visibleRect;
 - (void)_willRemoveInternalAnnotationView:(id)arg1;
 - (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })accessoryPadding;
+- (id)activeCalloutController;
 - (void)addAnnotationView:(id)arg1 allowAnimation:(BOOL)arg2;
 - (void)addSubview:(id)arg1;
 - (BOOL)allowsPopoverWhenNotInWindow;
@@ -87,19 +97,20 @@
 - (id)calloutAnnotationView;
 - (BOOL)calloutContainsPoint:(struct CGPoint { float x1; float x2; })arg1;
 - (void)calloutController:(id)arg1 annotationView:(id)arg2 calloutAccessoryControlTapped:(id)arg3;
-- (void)calloutController:(id)arg1 scrollToRevealCalloutWithOffset:(struct CGPoint { float x1; float x2; })arg2 annotationCoordinate:(struct { double x1; double x2; })arg3 completionHandler:(id /* block */)arg4;
+- (void)calloutController:(id)arg1 calloutPrimaryActionTriggeredForAnnotationView:(id)arg2;
+- (void)calloutController:(id)arg1 scrollToRevealCalloutWithOffset:(struct CGPoint { float x1; float x2; })arg2 annotationCoordinate:(struct CLLocationCoordinate2D { double x1; double x2; })arg3 completionHandler:(id /* block */)arg4;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })calloutController:(id)arg1 visibleCenteringRectInAnnotationView:(id)arg2;
 - (void)calloutControllerDidFinishMapsTransitionExpanding:(id)arg1;
 - (void)calloutDidAppearForAnnotationView:(id)arg1 inCalloutController:(id)arg2;
-- (struct CGPoint { float x1; float x2; })convertCoordinate:(struct { double x1; double x2; })arg1 toPointToView:(struct UIView { Class x1; id x2; id x3; float x4; int x5; id x6; unsigned int x7; unsigned int x8; struct { unsigned int x_9_1_1 : 1; unsigned int x_9_1_2 : 1; unsigned int x_9_1_3 : 1; unsigned int x_9_1_4 : 1; unsigned int x_9_1_5 : 1; unsigned int x_9_1_6 : 1; unsigned int x_9_1_7 : 1; unsigned int x_9_1_8 : 1; unsigned int x_9_1_9 : 1; unsigned int x_9_1_10 : 1; unsigned int x_9_1_11 : 1; unsigned int x_9_1_12 : 1; unsigned int x_9_1_13 : 1; unsigned int x_9_1_14 : 1; unsigned int x_9_1_15 : 1; unsigned int x_9_1_16 : 1; unsigned int x_9_1_17 : 6; unsigned int x_9_1_18 : 1; unsigned int x_9_1_19 : 1; unsigned int x_9_1_20 : 1; unsigned int x_9_1_21 : 1; unsigned int x_9_1_22 : 1; unsigned int x_9_1_23 : 1; unsigned int x_9_1_24 : 1; unsigned int x_9_1_25 : 1; unsigned int x_9_1_26 : 1; unsigned int x_9_1_27 : 1; unsigned int x_9_1_28 : 1; unsigned int x_9_1_29 : 1; unsigned int x_9_1_30 : 1; unsigned int x_9_1_31 : 1; unsigned int x_9_1_32 : 1; unsigned int x_9_1_33 : 1; unsigned int x_9_1_34 : 1; unsigned int x_9_1_35 : 1; unsigned int x_9_1_36 : 1; unsigned int x_9_1_37 : 1; unsigned int x_9_1_38 : 1; unsigned int x_9_1_39 : 1; unsigned int x_9_1_40 : 1; unsigned int x_9_1_41 : 1; unsigned int x_9_1_42 : 1; unsigned int x_9_1_43 : 1; unsigned int x_9_1_44 : 1; unsigned int x_9_1_45 : 1; unsigned int x_9_1_46 : 1; unsigned int x_9_1_47 : 1; unsigned int x_9_1_48 : 1; unsigned int x_9_1_49 : 1; unsigned int x_9_1_50 : 1; unsigned int x_9_1_51 : 1; unsigned int x_9_1_52 : 1; unsigned int x_9_1_53 : 1; unsigned int x_9_1_54 : 1; unsigned int x_9_1_55 : 1; unsigned int x_9_1_56 : 1; unsigned int x_9_1_57 : 1; unsigned int x_9_1_58 : 1; unsigned int x_9_1_59 : 1; unsigned int x_9_1_60 : 1; unsigned int x_9_1_61 : 1; unsigned int x_9_1_62 : 1; unsigned int x_9_1_63 : 1; unsigned int x_9_1_64 : 1; unsigned int x_9_1_65 : 5; unsigned int x_9_1_66 : 1; unsigned int x_9_1_67 : 1; unsigned int x_9_1_68 : 1; unsigned int x_9_1_69 : 2; unsigned int x_9_1_70 : 2; unsigned int x_9_1_71 : 1; unsigned int x_9_1_72 : 1; unsigned int x_9_1_73 : 3; unsigned int x_9_1_74 : 1; unsigned int x_9_1_75 : 1; unsigned int x_9_1_76 : 1; unsigned int x_9_1_77 : 1; unsigned int x_9_1_78 : 1; unsigned int x_9_1_79 : 1; unsigned int x_9_1_80 : 1; unsigned int x_9_1_81 : 1; unsigned int x_9_1_82 : 1; unsigned int x_9_1_83 : 1; unsigned int x_9_1_84 : 1; } x9; }*)arg2;
-- (struct { double x1; double x2; })coordinateForAnnotationView:(id)arg1;
-- (struct { int x1; struct { double x_2_1_1; double x_2_1_2; } x2; struct CGPoint { float x_3_1_1; float x_3_1_2; } x3; struct CGPoint { float x_4_1_1; float x_4_1_2; } x4; id x5; })currentComparisonContext;
+- (struct CGPoint { float x1; float x2; })convertCoordinate:(struct CLLocationCoordinate2D { double x1; double x2; })arg1 toPointToView:(id)arg2;
+- (struct CLLocationCoordinate2D { double x1; double x2; })coordinateForAnnotationView:(id)arg1;
+- (struct { int x1; struct CLLocationCoordinate2D { double x_2_1_1; double x_2_1_2; } x2; struct CGPoint { float x_3_1_1; float x_3_1_2; } x3; struct CGPoint { float x_4_1_1; float x_4_1_2; } x4; id x5; })currentComparisonContext;
 - (void)dealloc;
 - (id)delegate;
 - (void)deselectAnnotationView:(id)arg1 animated:(BOOL)arg2;
 - (struct CGPoint { float x1; float x2; })draggingAnnotationViewDropPoint;
 - (struct CGPoint { float x1; float x2; })draggingAnnotationViewDropPointForPoint:(struct CGPoint { float x1; float x2; })arg1;
-- (void)draggingTouchMovedToPoint:(struct CGPoint { float x1; float x2; })arg1;
+- (void)draggingTouchMovedToPoint:(struct CGPoint { float x1; float x2; })arg1 edgeInsets:(struct UIEdgeInsets { float x1; float x2; float x3; float x4; })arg2;
 - (void)dropPinsIfNeeded;
 - (void)finishAddingAnnotationViews;
 - (BOOL)hasDroppingPins;
@@ -109,19 +120,22 @@
 - (BOOL)isCalloutExpanded;
 - (unsigned int)mapType;
 - (void)pinDidDrop:(id)arg1 animated:(BOOL)arg2;
-- (struct CGPoint { float x1; float x2; })pointForCoordinate:(struct { double x1; double x2; })arg1;
+- (struct CGPoint { float x1; float x2; })pointForCoordinate:(struct CLLocationCoordinate2D { double x1; double x2; })arg1;
 - (id)popoverController;
+- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })popoverTargetRectForSelectedAnnotationInView:(id)arg1;
 - (void)removeAnnotationView:(id)arg1;
 - (void)removeAnnotationViewsRotationAnimations;
 - (void)selectAnnotationView:(id)arg1 animated:(BOOL)arg2 avoid:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg3;
 - (void)setAllowsPopoverWhenNotInWindow:(BOOL)arg1;
 - (void)setAnnotationViewsRotationRadians:(float)arg1 animation:(id)arg2;
 - (void)setDelegate:(id)arg1;
-- (void)setMapDisplayStyle:(unsigned int)arg1;
+- (void)setMapDisplayStyle:(struct { unsigned char x1; unsigned char x2; unsigned char x3; unsigned char x4; BOOL x5; })arg1;
 - (void)setMapPitchRadians:(float)arg1;
 - (void)setMapType:(unsigned int)arg1;
+- (void)setSuppressCallout:(BOOL)arg1;
 - (void)setUserLocationView:(id)arg1;
 - (void)stopSuppressingUpdates;
+- (BOOL)suppressCallout;
 - (void)suppressUpdates;
 - (void)transitionFrom:(int)arg1 to:(int)arg2 duration:(double)arg3;
 - (void)updateAnnotationLocationsDuringAnimation:(BOOL)arg1;

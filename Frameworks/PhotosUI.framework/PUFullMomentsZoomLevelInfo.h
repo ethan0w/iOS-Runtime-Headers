@@ -3,7 +3,7 @@
  */
 
 @interface PUFullMomentsZoomLevelInfo : PUGridZoomLevelInfo <PUPhotosSectionHeaderViewDelegate, PUSectionedGridLayoutDelegate> {
-    PUGridZoomLevelInfo *_transitionOtherLevelInfo;
+    PUGridZoomLevelInfo * _transitionOtherLevelInfo;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -23,8 +23,9 @@
 - (id)diagnosticsProviderForVisualSection:(int)arg1;
 - (void)didFinishZoomLevelTransition;
 - (id)displayTitle;
+- (void)getPhotosDataSource:(id*)arg1 displayTitleInfo:(id*)arg2 forDetailsForVisualSection:(int)arg3;
 - (void)headerView:(id)arg1 actionButtonPressed:(id)arg2;
-- (int)imageFormat;
+- (struct CGSize { float x1; float x2; })imageRequestItemSize;
 - (id)newCollectionViewLayout;
 - (void)prepareForTransitionFromZoomLevelInfo:(id)arg1 animated:(BOOL)arg2 interactive:(BOOL)arg3;
 - (void)prepareForTransitionToZoomLevelInfo:(id)arg1 animated:(BOOL)arg2 interactive:(BOOL)arg3;
@@ -32,11 +33,11 @@
 - (void)sectionedGridLayout:(id)arg1 didFinalizePrepareTransitionIsAppearing:(BOOL)arg2;
 - (BOOL)supportsEditMode;
 - (BOOL)supportsIncrementalChangeNotifications;
+- (struct CGSize { float x1; float x2; })thumbnailImageSize;
 - (void)updateLayoutMetricsForWidth:(float)arg1;
 - (BOOL)wantsAssetCountsVisible;
 - (BOOL)wantsAutomaticContentOffsetAdjustment;
 - (BOOL)wantsCloudStatusVisible;
 - (BOOL)wantsMagnifierNavigation;
-- (double)zoomInDuration;
 
 @end

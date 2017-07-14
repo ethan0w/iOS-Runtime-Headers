@@ -3,25 +3,28 @@
  */
 
 @interface GEOAnnouncement : PBCodable <NSCopying> {
-    unsigned int _announcementID;
-    NSString *_buttonOneAppURI;
-    NSString *_buttonOneMessage;
-    NSString *_buttonTwoAppURI;
-    NSString *_buttonTwoMessage;
-    unsigned int _displayDestinations;
-    GEOPDFlyover *_flyoverInfo;
+    unsigned int  _announcementID;
+    int  _announcementType;
+    NSString * _buttonOneAppURI;
+    NSString * _buttonOneMessage;
+    NSString * _buttonTwoAppURI;
+    NSString * _buttonTwoMessage;
+    unsigned int  _displayDestinations;
+    GEOPDFlyover * _flyoverInfo;
     struct { 
         unsigned int announcementID : 1; 
+        unsigned int announcementType : 1; 
         unsigned int displayDestinations : 1; 
         unsigned int releasePhase : 1; 
-    } _has;
-    GEOMapRegion *_mapRegion;
-    int _releasePhase;
-    NSString *_title;
-    NSString *_userMessage;
+    }  _has;
+    GEOMapRegion * _mapRegion;
+    int  _releasePhase;
+    NSString * _title;
+    NSString * _userMessage;
 }
 
 @property (nonatomic) unsigned int announcementID;
+@property (nonatomic) int announcementType;
 @property (nonatomic, retain) NSString *buttonOneAppURI;
 @property (nonatomic, retain) NSString *buttonOneMessage;
 @property (nonatomic, retain) NSString *buttonTwoAppURI;
@@ -29,6 +32,7 @@
 @property (nonatomic) unsigned int displayDestinations;
 @property (nonatomic, retain) GEOPDFlyover *flyoverInfo;
 @property (nonatomic) BOOL hasAnnouncementID;
+@property (nonatomic) BOOL hasAnnouncementType;
 @property (nonatomic, readonly) BOOL hasButtonOneAppURI;
 @property (nonatomic, readonly) BOOL hasButtonOneMessage;
 @property (nonatomic, readonly) BOOL hasButtonTwoAppURI;
@@ -44,7 +48,11 @@
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *userMessage;
 
+- (int)StringAsAnnouncementType:(id)arg1;
+- (int)StringAsReleasePhase:(id)arg1;
 - (unsigned int)announcementID;
+- (int)announcementType;
+- (id)announcementTypeAsString:(int)arg1;
 - (id)buttonOneAppURI;
 - (id)buttonOneMessage;
 - (id)buttonTwoAppURI;
@@ -57,6 +65,7 @@
 - (unsigned int)displayDestinations;
 - (id)flyoverInfo;
 - (BOOL)hasAnnouncementID;
+- (BOOL)hasAnnouncementType;
 - (BOOL)hasButtonOneAppURI;
 - (BOOL)hasButtonOneMessage;
 - (BOOL)hasButtonTwoAppURI;
@@ -73,7 +82,9 @@
 - (void)mergeFrom:(id)arg1;
 - (BOOL)readFrom:(id)arg1;
 - (int)releasePhase;
+- (id)releasePhaseAsString:(int)arg1;
 - (void)setAnnouncementID:(unsigned int)arg1;
+- (void)setAnnouncementType:(int)arg1;
 - (void)setButtonOneAppURI:(id)arg1;
 - (void)setButtonOneMessage:(id)arg1;
 - (void)setButtonTwoAppURI:(id)arg1;
@@ -81,6 +92,7 @@
 - (void)setDisplayDestinations:(unsigned int)arg1;
 - (void)setFlyoverInfo:(id)arg1;
 - (void)setHasAnnouncementID:(BOOL)arg1;
+- (void)setHasAnnouncementType:(BOOL)arg1;
 - (void)setHasDisplayDestinations:(BOOL)arg1;
 - (void)setHasReleasePhase:(BOOL)arg1;
 - (void)setMapRegion:(id)arg1;

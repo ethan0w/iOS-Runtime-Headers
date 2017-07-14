@@ -2,11 +2,13 @@
    Image: /System/Library/Frameworks/UIKit.framework/UIKit
  */
 
-@interface UIWebView : UIView <NSCoding, UIScrollViewDelegate> {
-    UIWebViewInternal *_internal;
+@interface UIWebView : UIView <NSCoding, UIScrollViewDelegate, WebPolicyDelegate> {
+    UIWebViewInternal * _internal;
 }
 
 @property (nonatomic) BOOL allowsInlineMediaPlayback;
+@property (nonatomic) BOOL allowsLinkPreview;
+@property (nonatomic) BOOL allowsPictureInPictureMediaPlayback;
 @property (getter=canGoBack, nonatomic, readonly) BOOL canGoBack;
 @property (getter=canGoForward, nonatomic, readonly) BOOL canGoForward;
 @property (nonatomic) unsigned int dataDetectorTypes;
@@ -24,9 +26,9 @@
 @property (nonatomic) float pageLength;
 @property (nonatomic) int paginationBreakingMode;
 @property (nonatomic) int paginationMode;
-@property (nonatomic, readonly, retain) NSURLRequest *request;
+@property (nonatomic, readonly) NSURLRequest *request;
 @property (nonatomic) BOOL scalesPageToFit;
-@property (nonatomic, readonly, retain) UIScrollView *scrollView;
+@property (nonatomic, readonly) UIScrollView *scrollView;
 @property (readonly) Class superclass;
 @property (nonatomic) BOOL suppressesIncrementalRendering;
 
@@ -38,6 +40,8 @@
 + (void)initialize;
 
 - (void)_addShortcut:(id)arg1;
+- (BOOL)_allowsPictureInPictureVideo;
+- (BOOL)_alwaysConstrainsScale;
 - (BOOL)_alwaysDispatchesScrollEvents;
 - (BOOL)_appliesExclusiveTouchToSubviewTree;
 - (unsigned int)_audioSessionCategoryOverride;
@@ -64,11 +68,14 @@
 - (void)_reportError:(id)arg1;
 - (void)_rescaleDocument;
 - (id)_scrollView;
+- (void)_setAllowsPictureInPictureVideo:(BOOL)arg1;
+- (void)_setAlwaysConstrainsScale:(BOOL)arg1;
 - (void)_setAlwaysDispatchesScrollEvents:(BOOL)arg1;
 - (void)_setAudioSessionCategoryOverride:(unsigned int)arg1;
 - (void)_setDrawInWebThread:(BOOL)arg1;
 - (void)_setDrawsCheckeredPattern:(BOOL)arg1;
 - (void)_setGapBetweenPages:(float)arg1;
+- (void)_setIsBlankBeforeFirstNonEmptyLayout:(BOOL)arg1;
 - (void)_setNetworkInterfaceName:(id)arg1;
 - (void)_setOverridesOrientationChangeEventHandling:(BOOL)arg1;
 - (void)_setPageLength:(float)arg1;
@@ -77,19 +84,28 @@
 - (void)_setRichTextReaderViewportSettings;
 - (void)_setScalesPageToFitViewportSettings;
 - (void)_setWebSelectionEnabled:(BOOL)arg1;
+- (void)_share:(id)arg1;
 - (void)_updateBrowserViewExposedScrollViewRect;
 - (void)_updateCheckeredPattern;
 - (void)_updateOpaqueAndBackgroundColor;
 - (void)_updateRequest;
 - (void)_updateScrollerViewForInputView:(id)arg1;
 - (void)_updateViewSettings;
+- (void)_webView:(id)arg1 commitPreview:(id)arg2;
+- (void)_webView:(id)arg1 didDismissPreview:(id)arg2 committing:(BOOL)arg3;
+- (id)_webView:(id)arg1 presentationRectsForPreview:(id)arg2;
+- (id)_webView:(id)arg1 presentationSnapshotForPreview:(id)arg2;
+- (BOOL)_webView:(id)arg1 previewIsAllowedForPosition:(struct CGPoint { float x1; float x2; })arg2;
+- (id)_webView:(id)arg1 previewViewControllerForURL:(id)arg2;
+- (void)_webView:(id)arg1 willPresentPreview:(id)arg2;
 - (void)_webViewCommonInitWithWebView:(id)arg1 scalesPageToFit:(BOOL)arg2;
 - (void)alertView:(id)arg1 didDismissWithButtonIndex:(int)arg2;
 - (BOOL)allowsInlineMediaPlayback;
+- (BOOL)allowsLinkPreview;
+- (BOOL)allowsPictureInPictureMediaPlayback;
 - (BOOL)canGoBack;
 - (BOOL)canGoForward;
 - (BOOL)canPerformAction:(SEL)arg1 withSender:(id)arg2;
-- (void)configureWithSettings:(id)arg1;
 - (void)copy:(id)arg1;
 - (struct CGImage { }*)createSnapshotWithRect:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (unsigned int)dataDetectorTypes;
@@ -135,6 +151,8 @@
 - (void)select:(id)arg1;
 - (void)selectAll:(id)arg1;
 - (void)setAllowsInlineMediaPlayback:(BOOL)arg1;
+- (void)setAllowsLinkPreview:(BOOL)arg1;
+- (void)setAllowsPictureInPictureMediaPlayback:(BOOL)arg1;
 - (void)setBackgroundColor:(id)arg1;
 - (void)setBounds:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (void)setDataDetectorTypes:(unsigned int)arg1;
@@ -193,9 +211,17 @@
 - (void)webViewMainFrameDidFirstVisuallyNonEmptyLayoutInFrame:(id)arg1;
 - (void)webViewSupportedOrientationsUpdated:(id)arg1;
 
+// Image: /System/Library/AccessibilityBundles/QuickSpeak.bundle/QuickSpeak
+
++ (Class)safeCategoryBaseClass;
+
+- (void)_accessibilityPauseSpeaking:(id)arg1;
+- (void)_accessibilitySpeak:(id)arg1;
+- (id)_accessibilitySpeakSelectionTextInputResponder;
+
 // Image: /System/Library/PrivateFrameworks/HelpKit.framework/HelpKit
 
-- (int)highlightAllOccurencesOfString:(id)arg1;
+- (int)highlightAllOccurencesOfTokens:(id)arg1;
 - (void)removeAllHighlights;
 
 @end

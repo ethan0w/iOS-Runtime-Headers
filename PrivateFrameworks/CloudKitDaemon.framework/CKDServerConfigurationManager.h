@@ -3,22 +3,20 @@
  */
 
 @interface CKDServerConfigurationManager : NSObject {
-    BOOL _allowsCellularAccess;
-    NSOperationQueue *_configurationQueue;
-    NSMutableDictionary *_containerOperations;
-    NSMutableDictionary *_containerSpecificInfoOperations;
-    NSOperationQueue *_containerSpecificInfoQueue;
-    NSMutableDictionary *_containerSpecificInfos;
-    CKDServerConfiguration *_globalConfiguration;
-    CKDGlobalConfigurationOperation *_globalConfigurationOp;
-    int _iCloudEnvNotifToken;
-    NSObject<OS_dispatch_queue> *_queue;
-    BOOL _usesBackgroundSession;
+    BOOL  _allowsCellularAccess;
+    NSOperationQueue * _configurationQueue;
+    NSMutableDictionary * _containerSpecificInfoOperations;
+    NSOperationQueue * _containerSpecificInfoQueue;
+    NSMutableDictionary * _containerSpecificInfos;
+    CKDServerConfiguration * _globalConfiguration;
+    CKDGlobalConfigurationOperation * _globalConfigurationOp;
+    int  _iCloudEnvNotifToken;
+    NSObject<OS_dispatch_queue> * _queue;
+    BOOL  _usesBackgroundSession;
 }
 
 @property (nonatomic) BOOL allowsCellularAccess;
 @property (nonatomic, retain) NSOperationQueue *configurationQueue;
-@property (nonatomic, retain) NSMutableDictionary *containerOperations;
 @property (nonatomic, retain) NSMutableDictionary *containerSpecificInfoOperations;
 @property (nonatomic, retain) NSOperationQueue *containerSpecificInfoQueue;
 @property (nonatomic, retain) NSMutableDictionary *containerSpecificInfos;
@@ -33,6 +31,7 @@
 + (id)sharedManagerUsingBackgroundSession:(BOOL)arg1 allowsCellularAccess:(BOOL)arg2;
 
 - (void).cxx_destruct;
+- (id)CKStatusReportArray;
 - (void)_behaviorOptionsChanged:(id)arg1;
 - (void)_dropAllConfigurations;
 - (void)_expireConfigurationForContext:(id)arg1;
@@ -41,7 +40,6 @@
 - (BOOL)allowsCellularAccess;
 - (void)configurationForContext:(id)arg1 completionHandler:(id /* block */)arg2;
 - (id)configurationQueue;
-- (id)containerOperations;
 - (void)containerScopedUserIDForContext:(id)arg1 completionHandler:(id /* block */)arg2;
 - (id)containerSpecificInfoOperations;
 - (id)containerSpecificInfoQueue;
@@ -55,9 +53,9 @@
 - (id)init;
 - (void)publicURLForServerType:(int)arg1 context:(id)arg2 completionHandler:(id /* block */)arg3;
 - (id)queue;
+- (void)serverEnvironmentForContext:(id)arg1 completionHandler:(id /* block */)arg2;
 - (void)setAllowsCellularAccess:(BOOL)arg1;
 - (void)setConfigurationQueue:(id)arg1;
-- (void)setContainerOperations:(id)arg1;
 - (void)setContainerSpecificInfoOperations:(id)arg1;
 - (void)setContainerSpecificInfoQueue:(id)arg1;
 - (void)setContainerSpecificInfos:(id)arg1;

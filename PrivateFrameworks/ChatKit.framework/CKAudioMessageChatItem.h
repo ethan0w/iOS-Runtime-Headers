@@ -4,9 +4,10 @@
 
 @interface CKAudioMessageChatItem : CKExpirableMessageChatItem
 
-@property (nonatomic, readonly, retain) CKAudioMediaObject *mediaObject;
+@property (nonatomic, readonly) CKAudioMediaObject *mediaObject;
 
 - (unsigned int)balloonCorners;
 - (Class)balloonViewClass;
+- (Class)cellClass;
 
 @end

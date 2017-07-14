@@ -2,21 +2,21 @@
    Image: /System/Library/PrivateFrameworks/iWorkImport.framework/iWorkImport
  */
 
-@interface TNDocumentRoot : TSADocumentRoot <TSTResolverContainerNameProvider> {
+@interface TNDocumentRoot : TSADocumentRoot <TSTFormsSheetProvider, TSTResolverContainerNameProvider> {
     struct CGSize { 
         float width; 
         float height; 
-    } _pageSize;
-    NSString *_paperID;
-    NSString *_printerID;
-    BOOL _printingAllSheets;
-    BOOL mDocumentWasPreparedFromTemplate;
-    unsigned int mSheetNameCounter;
-    NSMutableArray *mSheets;
-    TSKTreeNode *mSidebarOrder;
-    TSSStylesheet *mStylesheet;
-    TNTheme *mTheme;
-    TNUIState *mUIState;
+    }  _pageSize;
+    NSString * _paperID;
+    NSString * _printerID;
+    BOOL  _printingAllSheets;
+    BOOL  mDocumentWasPreparedFromTemplate;
+    unsigned int  mSheetNameCounter;
+    NSMutableArray * mSheets;
+    TSKTreeNode * mSidebarOrder;
+    TSSStylesheet * mStylesheet;
+    TNTheme * mTheme;
+    TNUIState * mUIState;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -39,12 +39,12 @@
 + (struct CGSize { float x1; float x2; })previewImageMaxSizeForType:(unsigned int)arg1;
 + (struct CGSize { float x1; float x2; })previewImageSizeForType:(unsigned int)arg1;
 
-- (id).cxx_construct;
 - (id)UIStateForChart:(id)arg1;
 - (id)activeSheet;
 - (void)addSheet:(id)arg1 dolcContext:(id)arg2;
 - (unsigned int)applicationType;
 - (id)childEnumerator;
+- (BOOL)containsForms;
 - (void)dealloc;
 - (void)documentDidLoad;
 - (void)incrementSheetNameCounter;
@@ -54,10 +54,13 @@
 - (void)initializeHardCodedBlankDocument;
 - (void)insertSheet:(id)arg1 sheetIndex:(unsigned int)arg2 context:(id)arg3;
 - (BOOL)isMultiPageForQuickLook;
+- (BOOL)isPendingTableNameUniquification;
 - (BOOL)isPrintingAllSheets;
+- (BOOL)isTableLinkedToAForm:(struct __CFUUID { }*)arg1;
 - (void)moveSheetFromIndex:(unsigned int)arg1 toIndex:(unsigned int)arg2;
 - (id)nameForResolverContainer:(id)arg1;
 - (int)naturalAlignmentAtCharIndex:(unsigned int)arg1 inTextStorage:(id)arg2;
+- (id)nearestDisplayableSheetToSheet:(id)arg1;
 - (void)p_addSidebarNodeForSheet:(id)arg1;
 - (struct CGSize { float x1; float x2; })p_adjustCapturedContentSize:(struct CGSize { float x1; float x2; })arg1 toAspectRatio:(struct CGSize { float x1; float x2; })arg2;
 - (void)p_buildSidebarOrder;
@@ -68,11 +71,11 @@
 - (void)p_removeSidebarNodeForSheet:(id)arg1;
 - (id)p_resolverContainerForResolver:(id)arg1;
 - (unsigned int)p_tableCountForSheet:(id)arg1;
-- (id)p_untitledSheetName;
 - (struct CGSize { float x1; float x2; })pageSize;
 - (id)paperID;
 - (void)performDeferredUpgradeImportOperationsOnNewThreadForCharts:(id)arg1;
 - (void)performDeferredUpgradeImportOperationsRequiringCalcEngine;
+- (BOOL)prepareAndValidateSidecarViewStateObjectWithVersionUUIDMismatch:(id)arg1 originalDocumentViewStateObject:(id)arg2;
 - (void)prepareNewDocumentWithTemplateBundle:(id)arg1;
 - (id)previewImageForSize:(struct CGSize { float x1; float x2; })arg1;
 - (id)printerID;
@@ -110,11 +113,12 @@
 - (id)sidebarOrder;
 - (id)stylesheet;
 - (unsigned int)tableCount;
+- (void)tableID:(struct __CFUUID { }*)arg1 changedToTableID:(struct __CFUUID { }*)arg2;
 - (id)theme;
 - (id)uiState;
+- (id)untitledSheetName;
 - (BOOL)validName:(id)arg1 forRenamingSheet:(id)arg2;
 - (BOOL)validNameForNewSheet:(id)arg1;
-- (void)validateViewState:(id)arg1;
 - (int)verticalAlignmentForTextStorage:(id)arg1;
 
 @end

@@ -5,9 +5,8 @@
 
 @required
 
-- (void)xpcConnection:(CBXpcConnection *)arg1 didReceiveMsg:(unsigned short)arg2 args:(NSDictionary *)arg3;
-- (void)xpcConnectionDidFinalize:(CBXpcConnection *)arg1;
-- (void)xpcConnectionDidReset:(CBXpcConnection *)arg1;
-- (void)xpcConnectionIsInvalid:(CBXpcConnection *)arg1;
+- (void)xpcConnectionDidReceiveMsg:(unsigned short)arg1 args:(NSDictionary *)arg2;
+- (void)xpcConnectionDidReset;
+- (void)xpcConnectionIsInvalid;
 
 @end

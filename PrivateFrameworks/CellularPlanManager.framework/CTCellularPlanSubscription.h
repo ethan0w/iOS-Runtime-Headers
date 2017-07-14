@@ -3,20 +3,20 @@
  */
 
 @interface CTCellularPlanSubscription : NSObject <NSCopying, NSSecureCoding> {
-    int _accountStatus;
-    NSString *_accountURL;
-    BOOL _autoRenew;
-    double _billingEndDate;
-    double _billingStartDate;
-    NSString *_carrierName;
-    NSArray *_dataUsage;
-    NSArray *_homeCountryList;
-    NSString *_iccid;
-    NSString *_planDescription;
-    int _planStatus;
-    int _planType;
-    int _subscriptionResult;
-    double _timestamp;
+    int  _accountStatus;
+    NSString * _accountURL;
+    BOOL  _autoRenew;
+    double  _billingEndDate;
+    double  _billingStartDate;
+    NSString * _carrierName;
+    NSArray * _dataUsage;
+    NSArray * _homeCountryList;
+    NSString * _iccid;
+    NSString * _planDescription;
+    int  _planStatus;
+    int  _planType;
+    int  _subscriptionResult;
+    double  _timestamp;
 }
 
 @property (nonatomic, readonly) int accountStatus;
@@ -24,12 +24,12 @@
 @property (nonatomic, readonly) BOOL autoRenew;
 @property (nonatomic, readonly) double billingEndDate;
 @property (nonatomic, readonly) double billingStartDate;
-@property (nonatomic, readonly) NSString *carrierName;
+@property (nonatomic) NSString *carrierName;
 @property (nonatomic, readonly) NSArray *dataUsage;
 @property (nonatomic, readonly) NSArray *homeCountryList;
 @property (nonatomic, readonly) NSString *iccid;
 @property (nonatomic, readonly) NSString *planDescription;
-@property (nonatomic, readonly) int planStatus;
+@property (nonatomic) int planStatus;
 @property (nonatomic, readonly) int planType;
 @property (nonatomic) int subscriptionResult;
 @property (nonatomic, readonly) double timestamp;
@@ -55,6 +55,8 @@
 - (id)planDescription;
 - (int)planStatus;
 - (int)planType;
+- (void)setCarrierName:(id)arg1;
+- (void)setPlanStatus:(int)arg1;
 - (void)setSubscriptionResult:(int)arg1;
 - (int)subscriptionResult;
 - (double)timestamp;

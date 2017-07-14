@@ -3,7 +3,7 @@
  */
 
 @interface UIKeyboardCandidateView_iPhone : UIKeyboardCandidateView <UICollectionViewDelegate, UIGestureRecognizerDelegate> {
-    UIKeyboardCandidateGridHeader *_header;
+    UIKeyboardCandidateGridHeader * _header;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -20,7 +20,6 @@
 - (void)dealloc;
 - (BOOL)gestureRecognizerShouldBegin:(id)arg1;
 - (void)handleTap;
-- (void)layoutSubviews;
 - (void)scrollViewWillBeginDragging:(id)arg1;
 
 @end

@@ -3,12 +3,11 @@
  */
 
 @interface NFAWDTSMStart : NSObject <NFAWDEventProtocol> {
-    AWDNFCTSMStartEvent *_metric;
-    unsigned int memoryIndexTable;
-    unsigned int memoryPersistent;
-    unsigned int memoryTransientDeselect;
-    unsigned int memoryTransientReset;
-    NSString *url;
+    unsigned int  _memoryIndexTable;
+    unsigned int  _memoryPersistent;
+    unsigned int  _memoryTransientDeselect;
+    unsigned int  _memoryTransientReset;
+    AWDNFCTSMStartEvent * _metric;
 }
 
 @property (readonly, copy) NSString *debugDescription;
@@ -18,7 +17,7 @@
 @property (nonatomic) unsigned int memoryPersistent;
 @property (nonatomic) unsigned int memoryTransientDeselect;
 @property (nonatomic) unsigned int memoryTransientReset;
-@property AWDNFCTSMStartEvent *metric;
+@property (nonatomic, retain) AWDNFCTSMStartEvent *metric;
 @property (readonly) Class superclass;
 @property (nonatomic, retain) NSString *url;
 
@@ -37,7 +36,7 @@
 - (void)setMemoryTransientReset:(unsigned int)arg1;
 - (void)setMetric:(id)arg1;
 - (void)setUrl:(id)arg1;
-- (void)updateTSMTransactionStateWithUUID:(id)arg1 withUUIDRefTimestamp:(unsigned long long)arg2;
+- (void)updateUUID:(id)arg1 withUUIDRefTimestamp:(unsigned long long)arg2;
 - (id)url;
 
 @end

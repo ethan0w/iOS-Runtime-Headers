@@ -3,20 +3,17 @@
  */
 
 @interface KeychainSyncPhoneNumberController : PSKeychainSyncViewController <KeychainSyncPhoneSettingsFragmentDelegate, KeychainSyncViewController, UIAlertViewDelegate> {
-    UILabel *_footerLabel;
-    UIAlertView *_invalidPhoneNumberAlert;
-    KeychainSyncPhoneSettingsFragment *_phoneSettingsFragment;
+    UILabel * _footerLabel;
+    KeychainSyncPhoneSettingsFragment * _phoneSettingsFragment;
 }
 
 @property (readonly, copy) NSString *debugDescription;
-@property (nonatomic) <KeychainSyncViewControllerDelegate> *delegate;
 @property (readonly, copy) NSString *description;
 @property (readonly) unsigned int hash;
 @property (readonly) Class superclass;
 
-- (void)alertView:(id)arg1 didDismissWithButtonIndex:(int)arg2;
+- (void).cxx_destruct;
 - (void)controllerDone;
-- (void)dealloc;
 - (void)loadView;
 - (void)nextPressed;
 - (void)phoneSettingsFragment:(id)arg1 didChangePhoneNumber:(id)arg2 countryInfo:(id)arg3;

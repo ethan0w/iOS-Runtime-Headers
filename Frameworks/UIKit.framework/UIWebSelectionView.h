@@ -8,7 +8,7 @@
         double startTime; 
         int direction; 
         NSTimer *timer; 
-    } _autoscrollData;
+    }  _autoscrollData;
     struct { 
         UIWebSelectionHandle *activeHandle; 
         struct CGPoint { 
@@ -16,16 +16,16 @@
             float y; 
         } handleCenterStart; 
         float handleOffset; 
-    } _blockSelectionData;
-    UIWebSelectionHandle *_bottom;
-    BOOL _calloutBarIsHiddenBeforeRotation;
-    UIView *_center;
-    BOOL _creatingSelection;
-    UIWebDocumentView *_documentView;
-    float _growThreshold;
-    UIWebSelectionHandle *_left;
-    int _nestedLayoutCalls;
-    UIWebSelectionOutline *_outline;
+    }  _blockSelectionData;
+    UIWebSelectionHandle * _bottom;
+    BOOL  _calloutBarIsHiddenBeforeRotation;
+    UIView * _center;
+    BOOL  _creatingSelection;
+    UIWebDocumentView * _documentView;
+    float  _growThreshold;
+    UIWebSelectionHandle * _left;
+    int  _nestedLayoutCalls;
+    UIWebSelectionOutline * _outline;
     struct { 
         UIWebSelectionHandle *start; 
         UIWebSelectionHandle *end; 
@@ -48,9 +48,9 @@
                 } size; 
             } originalSelectionRect; 
         } flipData; 
-    } _rangedSelectionData;
-    UIWebSelectionHandle *_right;
-    BOOL _rotating;
+    }  _rangedSelectionData;
+    UIWebSelectionHandle * _right;
+    BOOL  _rotating;
     struct CGRect { 
         struct CGPoint { 
             float x; 
@@ -60,15 +60,16 @@
             float width; 
             float height; 
         } size; 
-    } _selectionFrame;
-    UIWebSelectionGraph *_selectionGraph;
-    int _selectionInFixedPosition;
-    UIWebSelectionNode *_selectionNode;
-    float _shrinkThreshold;
-    UIWebTextRangeView *_textRangeView;
-    UIWebSelectionHandle *_top;
+    }  _selectionFrame;
+    UIWebSelectionGraph * _selectionGraph;
+    int  _selectionInFixedPosition;
+    UIWebSelectionNode * _selectionNode;
+    float  _shrinkThreshold;
+    UIWebTextRangeView * _textRangeView;
+    UIWebSelectionHandle * _top;
 }
 
+@property (nonatomic) BOOL creatingSelection;
 @property (nonatomic, readonly) UIWebSelection *selection;
 @property (nonatomic) struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; } selectionFrame;
 @property (nonatomic, retain) UIWebSelectionNode *selectionNode;
@@ -87,6 +88,7 @@
 - (void)computeExpandAndContractThresholdsForActiveHandle;
 - (void)considerFlipping;
 - (void)contractForActiveHandle;
+- (BOOL)creatingSelection;
 - (void)dealloc;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })desiredBox;
 - (void)didEndScrollingOrZoomingPage;
@@ -112,9 +114,11 @@
 - (void)scaleChanged;
 - (id)scroller;
 - (id)selection;
+- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })selectionBoundingRect;
 - (void)selectionChanged;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })selectionFrame;
 - (id)selectionNode;
+- (void)setCreatingSelection:(BOOL)arg1;
 - (void)setHandleCenters;
 - (void)setOrientationOfMagnifier:(id)arg1 forHandleInText:(id)arg2;
 - (void)setSelectionFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
@@ -127,6 +131,7 @@
 - (void)showControls;
 - (void)showControlsAfterRotation;
 - (void)showCopyCalloutWithAnimation:(BOOL)arg1;
+- (void)showRangeSelection;
 - (void)startSelectionCreationWithPoint:(struct CGPoint { float x1; float x2; })arg1;
 - (void)stopAnyAutoscrolling;
 - (void)switchToBlockModeForHandle:(id)arg1;

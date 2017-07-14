@@ -3,34 +3,40 @@
  */
 
 @interface AVEmbeddedPlaybackControlsViewController : AVPlaybackControlsViewController {
-    NSLayoutConstraint *_controlsContainerViewHeightLayoutConstraint;
-    unsigned int _controlsVisibilityHasBeenManagedBefore;
-    UILabel *_elapsedTimeLabel;
-    NSString *_elapsedTimeLabelText;
-    UIButton *_fullScreenButton;
-    NSMutableArray *_layoutConstraints;
-    UILabel *_liveStreamingLabel;
-    AVLoadingIndicatorView *_loadingIndicatorView;
-    UIView *_lowerControlsSubContainerView;
-    UIButton *_mediaSelectionButton;
-    UIButton *_playPauseButton;
-    unsigned int _playPauseButtonEnabled;
-    unsigned int _playing;
-    UILabel *_remainingTimeLabel;
-    NSString *_remainingTimeLabelText;
-    UILabel *_scrubInstructionsSubtitleLabel;
-    UILabel *_scrubInstructionsTitleLabel;
-    AVScrubber *_scrubber;
-    unsigned int _scrubberEnabled;
-    NSArray *_scrubberLoadedTimeRanges;
-    float _scrubberMaximumValue;
-    float _scrubberMinimumValue;
-    float _scrubberValue;
-    unsigned int _showsLoadingIndicator;
-    unsigned int _showsMediaSelectionButton;
-    unsigned int _showsScrubInstructions;
-    unsigned int _showsStreamingControls;
+    NSLayoutConstraint * _controlsContainerViewHeightLayoutConstraint;
+    BOOL  _controlsVisibilityHasBeenManagedBefore;
+    UILabel * _elapsedTimeLabel;
+    NSString * _elapsedTimeLabelText;
+    AVButton * _fullScreenButton;
+    NSMutableArray * _layoutConstraints;
+    UILabel * _liveStreamingLabel;
+    AVLoadingIndicatorView * _loadingIndicatorView;
+    UIView * _lowerControlsSubContainerView;
+    AVButton * _mediaSelectionButton;
+    AVButton * _pictureInPictureButton;
+    BOOL  _pictureInPictureButtonEnabled;
+    AVButton * _playPauseButton;
+    BOOL  _playPauseButtonEnabled;
+    BOOL  _playing;
+    UILabel * _remainingTimeLabel;
+    NSString * _remainingTimeLabelText;
+    UILabel * _scrubInstructionsSubtitleLabel;
+    UILabel * _scrubInstructionsTitleLabel;
+    AVScrubber * _scrubber;
+    BOOL  _scrubberEnabled;
+    NSArray * _scrubberLoadedTimeRanges;
+    float  _scrubberMaximumValue;
+    float  _scrubberMinimumValue;
+    float  _scrubberValue;
+    BOOL  _showsLoadingIndicator;
+    BOOL  _showsMediaSelectionButton;
+    BOOL  _showsPictureInPictureButton;
+    BOOL  _showsScrubInstructions;
+    BOOL  _showsStreamingControls;
+    float  scrubberWidth;
 }
+
+@property (nonatomic) float scrubberWidth;
 
 - (void).cxx_destruct;
 - (void)_hideScrubInstructions;
@@ -40,6 +46,7 @@
 - (void)_showScrubInstructions;
 - (void)dealloc;
 - (id)initWithNibName:(id)arg1 bundle:(id)arg2;
+- (BOOL)isPictureInPictureButtonEnabled;
 - (BOOL)isPlayPauseButtonEnabled;
 - (BOOL)isPlaying;
 - (BOOL)isScrubberEnabled;
@@ -47,15 +54,19 @@
 - (void)observeValueForKeyPath:(id)arg1 ofObject:(id)arg2 change:(id)arg3 context:(void*)arg4;
 - (id)scrubberLoadedTimeRanges;
 - (float)scrubberWidth;
+- (void)setPictureInPictureButtonEnabled:(BOOL)arg1;
 - (void)setPlayPauseButtonEnabled:(BOOL)arg1;
 - (void)setPlaying:(BOOL)arg1;
 - (void)setScrubberEnabled:(BOOL)arg1;
 - (void)setScrubberLoadedTimeRanges:(id)arg1;
+- (void)setScrubberWidth:(float)arg1;
 - (void)setShowsLoadingIndicator:(BOOL)arg1;
 - (void)setShowsMediaSelectionButton:(BOOL)arg1;
+- (void)setShowsPictureInPictureButton:(BOOL)arg1;
 - (void)setShowsStreamingControls:(BOOL)arg1;
 - (BOOL)showsLoadingIndicator;
 - (BOOL)showsMediaSelectionButton;
+- (BOOL)showsPictureInPictureButton;
 - (BOOL)showsStreamingControls;
 - (void)updateElapsedTimeLabel:(id)arg1;
 - (void)updateRemainingTimeLabel:(id)arg1;

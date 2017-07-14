@@ -4,44 +4,63 @@
 
 @interface GCController : NSObject
 
-@property (getter=isAttachedToDevice, readonly) BOOL attachedToDevice;
-@property (copy) id /* block */ controllerPausedHandler;
-@property (readonly) struct __IOHIDDevice { }*deviceRef;
-@property (readonly, retain) GCExtendedGamepad *extendedGamepad;
-@property (readonly, retain) GCGamepad *gamepad;
-@property (readonly, retain) GCMotion *motion;
+@property (getter=isAttachedToDevice, nonatomic, readonly) BOOL attachedToDevice;
+@property (nonatomic, copy) id /* block */ controllerPausedHandler;
+@property (nonatomic, readonly, retain) GCExtendedGamepad *extendedGamepad;
+@property (nonatomic, readonly, retain) GCGamepad *gamepad;
+@property (retain) NSObject<OS_dispatch_queue> *handlerQueue;
+@property (nonatomic, readonly, retain) NSArray *hidServices;
+@property (nonatomic, readonly, retain) GCMicroGamepad *microGamepad;
+@property (nonatomic, readonly, retain) GCMotion *motion;
+@property (nonatomic, retain) NSString *physicalDeviceUniqueID;
 @property (nonatomic) int playerIndex;
-@property (retain) <GCNamedProfile> *profile;
-@property (readonly) unsigned int service;
-@property (readonly, copy) NSString *vendorName;
+@property (nonatomic, retain) <GCNamedProfile> *profile;
+@property (nonatomic, readonly) unsigned int service;
+@property (nonatomic, readonly, copy) NSString *vendorName;
 
 + (void)__daemon__addController:(id)arg1;
++ (void)__daemon__appDidEnterBackground;
++ (void)__daemon__appWillEnterForeground;
 + (void)__daemon__controllerWithUDID:(unsigned int)arg1 setValue:(float)arg2 forElement:(int)arg3;
 + (void)__daemon__removeController:(id)arg1;
 + (void)__daemon__requestConnectedHostUpdatesWithHandler:(id /* block */)arg1;
 + (void)__daemon__setUserActivityUserInfo:(id)arg1;
 + (void)__daemon__startBonjourService;
++ (void)__openXPC__;
 + (void)__open__;
 + (void)__setLogger__:(id /* block */)arg1;
 + (void)_startWirelessControllerDiscoveryWithCompanions:(BOOL)arg1 btClassic:(BOOL)arg2 btle:(BOOL)arg3 completionHandler:(id /* block */)arg4;
 + (id)controllers;
++ (void)handleUIEvent:(id)arg1;
 + (void)startWirelessControllerDiscoveryWithCompletionHandler:(id /* block */)arg1;
 + (void)stopWirelessControllerDiscovery;
 
+- (void)addServiceRefs:(id)arg1;
 - (id /* block */)controllerPausedHandler;
+- (void*)createInputBufferForDevice:(struct __IOHIDDevice { }*)arg1 withSize:(unsigned long)arg2;
 - (unsigned int)deviceHash;
-- (struct __IOHIDDevice { }*)deviceRef;
 - (id)extendedGamepad;
 - (id)gamepad;
+- (id)handlerQueue;
+- (BOOL)hasServiceRef:(struct __IOHIDServiceClient { }*)arg1;
+- (id)hidServices;
 - (BOOL)isAttachedToDevice;
+- (BOOL)isEqualToController:(id)arg1;
 - (BOOL)isForwarded;
+- (id)microGamepad;
 - (id)motion;
+- (id)physicalDeviceUniqueID;
 - (int)playerIndex;
 - (id)profile;
+- (void)removeServiceRef:(struct __IOHIDServiceClient { }*)arg1;
+- (unsigned int)sampleRate;
 - (unsigned int)service;
 - (void)setControllerPausedHandler:(id /* block */)arg1;
+- (void)setHandlerQueue:(id)arg1;
+- (void)setPhysicalDeviceUniqueID:(id)arg1;
 - (void)setPlayerIndex:(int)arg1;
 - (void)setProfile:(id)arg1;
+- (BOOL)supportsMotionLite;
 - (id)vendorName;
 
 @end

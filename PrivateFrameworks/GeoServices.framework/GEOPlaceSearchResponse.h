@@ -6,23 +6,30 @@
     struct { 
         unsigned int turnaroundTime : 1; 
         unsigned int statusCodeInfo : 1; 
-    } _has;
-    GEOMapRegion *_mapRegion;
-    NSMutableArray *_namedFeatures;
-    NSMutableArray *_placeResults;
-    int _status;
-    int _statusCodeInfo;
-    NSMutableArray *_suggestionEntryLists;
-    NSData *_suggestionMetadata;
-    double _turnaroundTime;
+        unsigned int isChainResultSet : 1; 
+    }  _has;
+    BOOL  _isChainResultSet;
+    GEOMapRegion * _mapRegion;
+    NSMutableArray * _namedFeatures;
+    NSString * _nearbySectionHeader;
+    NSMutableArray * _placeResults;
+    int  _status;
+    int  _statusCodeInfo;
+    NSMutableArray * _suggestionEntryLists;
+    NSData * _suggestionMetadata;
+    double  _turnaroundTime;
 }
 
+@property (nonatomic) BOOL hasIsChainResultSet;
 @property (nonatomic, readonly) BOOL hasMapRegion;
+@property (nonatomic, readonly) BOOL hasNearbySectionHeader;
 @property (nonatomic) BOOL hasStatusCodeInfo;
 @property (nonatomic, readonly) BOOL hasSuggestionMetadata;
 @property (nonatomic) BOOL hasTurnaroundTime;
+@property (nonatomic) BOOL isChainResultSet;
 @property (nonatomic, retain) GEOMapRegion *mapRegion;
 @property (nonatomic, retain) NSMutableArray *namedFeatures;
+@property (nonatomic, retain) NSString *nearbySectionHeader;
 @property (nonatomic, retain) NSMutableArray *placeResults;
 @property (nonatomic) int status;
 @property (nonatomic) int statusCodeInfo;
@@ -30,7 +37,12 @@
 @property (nonatomic, retain) NSData *suggestionMetadata;
 @property (nonatomic) double turnaroundTime;
 
-- (void)_geoMapItemsWithHandler:(id /* block */)arg1;
++ (Class)namedFeaturesType;
++ (Class)placeResultType;
++ (Class)suggestionEntryListsType;
+
+- (int)StringAsStatus:(id)arg1;
+- (int)StringAsStatusCodeInfo:(id)arg1;
 - (void)addNamedFeatures:(id)arg1;
 - (void)addPlaceResult:(id)arg1;
 - (void)addSuggestionEntryLists:(id)arg1;
@@ -42,25 +54,32 @@
 - (void)dealloc;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (BOOL)hasIsChainResultSet;
 - (BOOL)hasMapRegion;
+- (BOOL)hasNearbySectionHeader;
 - (BOOL)hasStatusCodeInfo;
 - (BOOL)hasSuggestionMetadata;
 - (BOOL)hasTurnaroundTime;
 - (unsigned int)hash;
+- (BOOL)isChainResultSet;
 - (BOOL)isEqual:(id)arg1;
 - (id)mapRegion;
 - (void)mergeFrom:(id)arg1;
 - (id)namedFeatures;
 - (id)namedFeaturesAtIndex:(unsigned int)arg1;
 - (unsigned int)namedFeaturesCount;
+- (id)nearbySectionHeader;
 - (id)placeResultAtIndex:(unsigned int)arg1;
 - (id)placeResults;
 - (unsigned int)placeResultsCount;
 - (BOOL)readFrom:(id)arg1;
+- (void)setHasIsChainResultSet:(BOOL)arg1;
 - (void)setHasStatusCodeInfo:(BOOL)arg1;
 - (void)setHasTurnaroundTime:(BOOL)arg1;
+- (void)setIsChainResultSet:(BOOL)arg1;
 - (void)setMapRegion:(id)arg1;
 - (void)setNamedFeatures:(id)arg1;
+- (void)setNearbySectionHeader:(id)arg1;
 - (void)setPlaceResults:(id)arg1;
 - (void)setStatus:(int)arg1;
 - (void)setStatusCodeInfo:(int)arg1;
@@ -68,7 +87,9 @@
 - (void)setSuggestionMetadata:(id)arg1;
 - (void)setTurnaroundTime:(double)arg1;
 - (int)status;
+- (id)statusAsString:(int)arg1;
 - (int)statusCodeInfo;
+- (id)statusCodeInfoAsString:(int)arg1;
 - (id)suggestionEntryLists;
 - (id)suggestionEntryListsAtIndex:(unsigned int)arg1;
 - (unsigned int)suggestionEntryListsCount;

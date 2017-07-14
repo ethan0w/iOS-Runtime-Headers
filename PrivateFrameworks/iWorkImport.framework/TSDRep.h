@@ -3,18 +3,15 @@
  */
 
 @interface TSDRep : NSObject <TSDMagicMoveMatching> {
-    TSDCanvas *mCanvas;
-    CALayer *mCollaboratorCursorLayer;
-    BOOL mCollaboratorCursorLayerValid;
-    struct CGColor { } *mDefaultSelectionHighlightColor;
-    CALayer *mDragAndDropHighlightLayer;
-    BOOL mHasBeenRemoved;
-    BOOL mKnobPositionsInvalid;
-    TSDKnobTracker *mKnobTracker;
-    NSArray *mKnobs;
-    BOOL mKnobsAreShowing;
-    TSDLayoutGeometry *mLastGeometryInRoot;
-    TSDLayout *mLayout;
+    TSDCanvas * mCanvas;
+    CALayer * mCollaboratorCursorLayer;
+    BOOL  mCollaboratorCursorLayerValid;
+    struct CGColor { } * mDefaultSelectionHighlightColor;
+    CALayer * mDragAndDropHighlightLayer;
+    BOOL  mHasBeenRemoved;
+    TSDKnobTracker * mKnobTracker;
+    TSDLayoutGeometry * mLastGeometryInRoot;
+    TSDLayout * mLayout;
     struct CGRect { 
         struct CGPoint { 
             float x; 
@@ -24,32 +21,33 @@
             float width; 
             float height; 
         } size; 
-    } mOriginalLayerFrameInScaledCanvas;
-    TSDRep<TSDContainerRep> *mParentRep;
-    CALayer *mSelectionHighlightLayer;
-    BOOL mSelectionHighlightLayerValid;
-    BOOL mShowDragAndDropHighlight;
-    BOOL mShowKnobsWhenManipulated;
-    BOOL mShowTemporaryHighlight;
-    CALayer *mTemporaryHighlightLayer;
-    TSDLayout *mTemporaryMixingLayout;
-    TSDTextureSet *mTexture;
-    NSObject<OS_dispatch_queue> *mTextureAccessQueue;
-    NSDictionary *mTextureActionAttributes;
-    NSDictionary *mTextureAnimationInfo;
-    int mTextureByGlyphStyle;
-    TSDTextureContext *mTextureContext;
-    unsigned int mTextureDeliveryStyle;
-    unsigned int mTextureStage;
+    }  mOriginalLayerFrameInScaledCanvas;
+    TSDRep<TSDContainerRep> * mParentRep;
+    CALayer * mSelectionHighlightLayer;
+    BOOL  mSelectionHighlightLayerValid;
+    BOOL  mShowDragAndDropHighlight;
+    BOOL  mShowTemporaryHighlight;
+    CALayer * mTemporaryHighlightLayer;
+    TSDLayout * mTemporaryMixingLayout;
+    TSDTextureSet * mTexture;
+    NSObject<OS_dispatch_queue> * mTextureAccessQueue;
+    NSDictionary * mTextureActionAttributes;
+    NSDictionary * mTextureAnimationInfo;
+    int  mTextureByGlyphStyle;
+    TSDTextureContext * mTextureContext;
+    unsigned int  mTextureDeliveryStyle;
+    unsigned int  mTextureStage;
+    BOOL  mWantsToRedrawWithOpenGL;
 }
 
 @property (nonatomic, readonly) TSDCanvas *canvas;
+@property (nonatomic, readonly) struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; } frameForMagicMove;
 @property (nonatomic, readonly) NSArray *hyperlinkRegions;
 @property (nonatomic, readonly) TSDLayout *layout;
 @property (nonatomic) TSDRep<TSDContainerRep> *parentRep;
 @property (nonatomic, retain) TSDLayout *temporaryMixingLayout;
 @property (retain) TSDTextureSet *texture;
-@property (nonatomic) NSDictionary *textureActionAttributes;
+@property (nonatomic, retain) NSDictionary *textureActionAttributes;
 @property (nonatomic, readonly) float textureAngle;
 @property (nonatomic, retain) NSDictionary *textureAnimationInfo;
 @property (nonatomic) int textureByGlyphStyle;
@@ -60,9 +58,11 @@
 - (void)addBitmapsToRenderingQualityInfo:(id)arg1 inContext:(struct CGContext { }*)arg2;
 - (void)addToSet:(id)arg1;
 - (id)additionalRepsForDragging;
+- (BOOL)allowDragAcrossPageBoundaries;
 - (float)angleInRoot;
 - (void)antiAliasDefeatLayerFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; }*)arg1 forTransform:(struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; })arg2;
 - (void)antiAliasDefeatLayerTransform:(struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; }*)arg1 forFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg2;
+- (void)beginDragInlineWithText;
 - (void)beginDrawingOperation;
 - (BOOL)canClipThemeContentToCanvas;
 - (BOOL)canEditWithEditor:(id)arg1;
@@ -88,7 +88,9 @@
 - (id)description;
 - (BOOL)directlyManagesLayerContent;
 - (void)drawInContext:(struct CGContext { }*)arg1;
+- (void)endDragInlineWithText;
 - (void)endDrawingOperation;
+- (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })frameForMagicMove;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })frameInScreenSpace;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })frameInUnscaledCanvas;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })frameInUnscaledCanvasIncludingChrome;
@@ -103,12 +105,15 @@
 - (id)hitReps:(struct CGPoint { float x1; float x2; })arg1 withSlop:(struct CGSize { float x1; float x2; })arg2;
 - (id)hitReps:(struct CGPoint { float x1; float x2; })arg1 withSlopBlock:(id /* block */)arg2;
 - (id)hyperlinkRegions;
+- (void)i_applicationDidBecomeActive;
 - (void)i_configureFontSmoothingForContext:(struct CGContext { }*)arg1 layer:(id)arg2;
 - (BOOL)i_hasInteractiveCanvasController;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })i_layerFrameInScaledCanvasIgnoringDragging;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })i_originalLayerFrameInScaledCanvas;
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })i_partition_deepClipRect;
+- (id)i_repForDraggingIgnoringTopLevelEditing;
 - (void)i_willBeRemoved;
+- (void)i_willEnterForeground;
 - (id)info;
 - (id)infoForTransforming;
 - (id)initWithLayout:(id)arg1 canvas:(id)arg2;
@@ -130,6 +135,7 @@
 - (struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })naturalBounds;
 - (struct CGPath { }*)newPathInScaledCanvasFromNaturalRect:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (float)opacity;
+- (id)p_repForDraggingIgnoringTopLevelEditing:(BOOL)arg1;
 - (struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; })parentLayerInverseTransformInRootForZeroAnchor;
 - (id)parentRep;
 - (void)processChangedProperty:(int)arg1;
@@ -153,7 +159,7 @@
 - (void)setTexture:(id)arg1;
 - (void)setTextureActionAttributes:(id)arg1;
 - (void)setTextureAnimationInfo:(id)arg1;
-- (void)setTextureAttributes:(id)arg1;
+- (void)setTextureAttributes:(id)arg1 textureBounds:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg2;
 - (void)setTextureByGlyphStyle:(int)arg1;
 - (void)setTextureContext:(id)arg1;
 - (void)setTextureDeliveryStyle:(unsigned int)arg1;

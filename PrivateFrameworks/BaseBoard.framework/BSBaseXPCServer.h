@@ -3,13 +3,13 @@
  */
 
 @interface BSBaseXPCServer : NSObject {
-    NSMutableSet *_clients;
-    BOOL _connectionResumed;
-    NSObject<OS_xpc_object> *_listenerConnection;
-    int _notifyToken;
-    NSObject<OS_dispatch_queue> *_queue;
-    NSString *_serviceName;
-    BOOL _usesAnonymousConnection;
+    NSMutableSet * _clients;
+    BOOL  _connectionResumed;
+    NSObject<OS_xpc_object> * _listenerConnection;
+    int  _notifyToken;
+    NSObject<OS_dispatch_queue> * _queue;
+    NSString * _serviceName;
+    BOOL  _usesAnonymousConnection;
 }
 
 @property (getter=usesAnonymousConnection, nonatomic) BOOL usesAnonymousConnection;
@@ -23,7 +23,9 @@
 - (id)_notifyTokenName;
 - (id)_queue_clientForConnection:(id)arg1;
 - (void)_queue_removeClientConnection:(id)arg1;
+- (void)_sendMessageReply:(id)arg1 messagePacker:(id /* block */)arg2;
 - (void)_sendReply:(id)arg1 messagePacker:(id /* block */)arg2;
+- (void)_sendReplyForMessage:(id)arg1 messagePacker:(id /* block */)arg2;
 - (void)dealloc;
 - (id)initWithServiceName:(id)arg1;
 - (id)initWithServiceName:(id)arg1 onQueue:(id)arg2;
@@ -31,7 +33,7 @@
 - (Class)queue_classForNewClientConnection:(id)arg1;
 - (void)queue_clientAdded:(id)arg1;
 - (void)queue_clientRemoved:(id)arg1;
-- (void)queue_handleMessage:(id)arg1;
+- (void)queue_handleMessage:(id)arg1 client:(id)arg2;
 - (id)queue_newClientForConnection:(id)arg1;
 - (BOOL)queue_shouldAcceptNewConnection:(id)arg1;
 - (void)registerServerSuspended;

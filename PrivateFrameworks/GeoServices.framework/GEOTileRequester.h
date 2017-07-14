@@ -3,18 +3,21 @@
  */
 
 @interface GEOTileRequester : NSObject {
-    NSData *_auditToken;
-    NSString *_bundleIdentifier;
-    NSString *_bundleVersion;
-    GEOTileKeyMap *_cachedData;
-    GEOTileKeyMap *_cachedEtags;
-    id _context;
-    <GEOTileRequesterDelegate> *_delegate;
-    GEOTileKeyList *_keyList;
-    NSLocale *_locale;
-    GEOResourceManifestConfiguration *_manifestConfiguration;
-    BOOL _requireWiFi;
-    NSThread *_thread;
+    NSData * _auditToken;
+    NSString * _bundleIdentifier;
+    NSString * _bundleVersion;
+    GEOTileKeyMap * _cachedData;
+    GEOTileKeyMap * _cachedEtags;
+    id  _context;
+    <GEOTileRequesterDelegate> * _delegate;
+    NSString * _deviceCountry;
+    NSString * _deviceRegion;
+    GEOTileKeyList * _keyList;
+    NSLocale * _locale;
+    GEOResourceManifestConfiguration * _manifestConfiguration;
+    GEOTileKeyMap * _priorities;
+    BOOL  _requireWiFi;
+    NSThread * _thread;
 }
 
 @property (nonatomic, retain) NSData *auditToken;
@@ -23,8 +26,11 @@
 @property (nonatomic, readonly) GEOTileKeyMap *cachedData;
 @property (nonatomic, readonly) GEOTileKeyMap *cachedEtags;
 @property (nonatomic, retain) id context;
-@property (nonatomic, retain) <GEOTileRequesterDelegate> *delegate;
+@property (nonatomic) <GEOTileRequesterDelegate> *delegate;
+@property (nonatomic, retain) NSString *deviceCountry;
+@property (nonatomic, retain) NSString *deviceRegion;
 @property (nonatomic, readonly) GEOTileKeyList *keyList;
+@property (nonatomic, readonly) GEOTileKeyMap *priorities;
 @property (nonatomic) BOOL requireWiFi;
 @property (nonatomic, retain) NSThread *thread;
 
@@ -39,17 +45,24 @@
 - (id)cachedData;
 - (id)cachedEtags;
 - (void)cancel;
+- (void)cancelKey:(const struct _GEOTileKey { unsigned int x1 : 6; unsigned int x2 : 26; unsigned int x3 : 26; unsigned int x4 : 6; unsigned int x5 : 8; unsigned int x6 : 8; unsigned int x7 : 8; unsigned int x8 : 1; unsigned int x9 : 7; unsigned char x10[4]; }*)arg1;
 - (id)context;
 - (void)dealloc;
 - (id)delegate;
-- (id)initWithKeyList:(id)arg1 manifestConfiguration:(id)arg2 locale:(id)arg3 cachedEtags:(id)arg4 cachedData:(id)arg5;
+- (id)deviceCountry;
+- (id)deviceRegion;
+- (id)initWithKeyList:(id)arg1 manifestConfiguration:(id)arg2 locale:(id)arg3 cachedEtags:(id)arg4 cachedData:(id)arg5 priorities:(id)arg6;
 - (id)keyList;
+- (id)priorities;
+- (void)reprioritizeKey:(const struct _GEOTileKey { unsigned int x1 : 6; unsigned int x2 : 26; unsigned int x3 : 26; unsigned int x4 : 6; unsigned int x5 : 8; unsigned int x6 : 8; unsigned int x7 : 8; unsigned int x8 : 1; unsigned int x9 : 7; unsigned char x10[4]; }*)arg1 newPriority:(unsigned int)arg2;
 - (BOOL)requireWiFi;
 - (void)setAuditToken:(id)arg1;
 - (void)setBundleIdentifier:(id)arg1;
 - (void)setBundleVersion:(id)arg1;
 - (void)setContext:(id)arg1;
 - (void)setDelegate:(id)arg1;
+- (void)setDeviceCountry:(id)arg1;
+- (void)setDeviceRegion:(id)arg1;
 - (void)setRequireWiFi:(BOOL)arg1;
 - (void)setThread:(id)arg1;
 - (void)start;

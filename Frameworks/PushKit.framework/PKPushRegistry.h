@@ -2,40 +2,57 @@
    Image: /System/Library/Frameworks/PushKit.framework/PushKit
  */
 
-@interface PKPushRegistry : NSObject <PKVoIPXPCClient> {
-    <PKPushRegistryDelegate> *_delegate;
-    NSSet *_desiredPushTypes;
-    NSMutableDictionary *_pushTypeToConnection;
-    NSMutableDictionary *_pushTypeToToken;
-    NSObject<OS_dispatch_queue> *_queue;
+@interface PKPushRegistry : NSObject <PKComplicationXPCClient, PKVoIPXPCClient> {
+    int  _complicationToken;
+    <PKPushRegistryDelegate> * _delegate;
+    NSObject<OS_dispatch_queue> * _delegateQueue;
+    NSSet * _desiredPushTypes;
+    NSObject<OS_dispatch_queue> * _ivarQueue;
+    NSMutableDictionary * _pushTypeToConnection;
+    NSMutableDictionary * _pushTypeToToken;
+    int  _voipToken;
 }
 
+@property (nonatomic) int complicationToken;
 @property <PKPushRegistryDelegate> *delegate;
+@property (nonatomic, retain) NSObject<OS_dispatch_queue> *delegateQueue;
 @property (copy) NSSet *desiredPushTypes;
+@property (nonatomic, retain) NSObject<OS_dispatch_queue> *ivarQueue;
 @property (nonatomic, retain) NSMutableDictionary *pushTypeToConnection;
 @property (nonatomic, retain) NSMutableDictionary *pushTypeToToken;
-@property (nonatomic, retain) NSObject<OS_dispatch_queue> *queue;
+@property (nonatomic) int voipToken;
 
-+ (id)pushTypeToMachServiceName;
++ (id)_pushTypeToMachServiceName;
 
 - (void).cxx_destruct;
-- (id)createConnectionForPushType:(id)arg1;
+- (id)_createConnectionForPushType:(id)arg1;
+- (void)_registerForPushType:(id)arg1;
+- (void)_renewConnectionForPushTypeIfRegistered:(id)arg1;
+- (void)_unregisterForPushType:(id)arg1;
+- (void)complicationPayloadReceived:(id)arg1;
+- (void)complicationRegistrationFailed;
+- (void)complicationRegistrationSucceededWithDeviceToken:(id)arg1;
+- (int)complicationToken;
+- (void)dealloc;
 - (id)delegate;
+- (id)delegateQueue;
 - (id)desiredPushTypes;
 - (id)initWithQueue:(id)arg1;
+- (id)ivarQueue;
 - (id)pushTokenForType:(id)arg1;
 - (id)pushTypeToConnection;
 - (id)pushTypeToToken;
-- (id)queue;
-- (void)registerForPushType:(id)arg1;
+- (void)setComplicationToken:(int)arg1;
 - (void)setDelegate:(id)arg1;
+- (void)setDelegateQueue:(id)arg1;
 - (void)setDesiredPushTypes:(id)arg1;
+- (void)setIvarQueue:(id)arg1;
 - (void)setPushTypeToConnection:(id)arg1;
 - (void)setPushTypeToToken:(id)arg1;
-- (void)setQueue:(id)arg1;
-- (void)unregisterForPushType:(id)arg1;
+- (void)setVoipToken:(int)arg1;
 - (void)voipPayloadReceived:(id)arg1;
 - (void)voipRegistrationFailed;
 - (void)voipRegistrationSucceededWithDeviceToken:(id)arg1;
+- (int)voipToken;
 
 @end

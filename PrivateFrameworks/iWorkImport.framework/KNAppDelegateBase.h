@@ -3,7 +3,7 @@
  */
 
 @interface KNAppDelegateBase : TSABaseApplicationDelegate {
-    BOOL _cachedBidiIsSupported;
+    BOOL  _cachedBidiIsSupported;
 }
 
 @property (nonatomic, readonly) NSArray *powerPointDocumentTypes;
@@ -13,10 +13,13 @@
 - (void)applicationDidFinishLaunching;
 - (id)applicationName;
 - (id)applicationTemplateVariantsForLocale:(struct __CFLocale { }*)arg1;
+- (id)bladerunnerContainerIdentifier;
+- (id)cloudKitContainerIdentifier;
 - (id)createCompatibilityDelegate;
 - (id)defaultHyperlinkURL;
 - (Class)documentRootClass;
 - (id)documentTypeDisplayName;
+- (id)documentTypeDisplayNameForSharingInvitation;
 - (id)importableDocumentTypes;
 - (id)init;
 - (id)invalidURLSchemes;
@@ -26,21 +29,34 @@
 - (id)nativeSFFDocumentType;
 - (void)p_inputMethodsChanged:(id)arg1;
 - (id)powerPointDocumentTypes;
-- (id)previewImageNameForDocumentType:(id)arg1;
 - (id)previewImageNameForEncryptedNativeDocument;
 - (id)previewImageNameForNativeDocument;
 - (void)registerAllowedElementKinds;
 - (void)registerClassTypeMappings;
+- (id)sharedAlertMessageWithUserName:(id)arg1;
+- (id)sharedReadOnlyAlertMessageWithUserName:(id)arg1;
+- (BOOL)sidebarPositionRespectsUserInterfaceLayoutDirection;
 - (id)stringForCloseDocument;
+- (id)stringForCollaborator1_6ConflictDetails;
+- (id)stringForCollaborator1_6ConflictWithKeepDetails;
 - (id)stringForCollaboratorConflict;
 - (id)stringForCollaboratorConflictDetails;
 - (id)stringForCollaboratorConflictWithKeepDetails;
 - (id)stringForCollaboratorsBlockedWhileOffline;
 - (id)stringForDocumentUpdated;
-- (id)stringForDocumentUpdatedByOwner;
+- (id)stringForDocumentUpdatedByOwnerDetails;
+- (id)stringForDocumentUpdatedByOwnerWithKeepDetails;
 - (id)stringForDocumentUpdatedTitle;
+- (id)stringForLearnMoreSharingURL;
+- (id)stringForOwnerConflictWithSaveACopyAlertMessage;
+- (id)stringForOwnerPasswordOnConflictAlertMessage;
+- (id)stringForOwnerPasswordOnConflictAlertTitle;
 - (id)stringForRemoteVersionRestorationAlertMessage;
 - (id)stringForRemoteVersionRestorationWithUnsavedChangesAlertMessage;
+- (id)stringForRemoveSelfAlertConfirmationMessage;
+- (id)stringForRemoveSelfAlertConfirmationTitle;
+- (id)stringForStopSharingAlertConfirmationMessage;
+- (id)stringForStopSharingAlertConfirmationTitle;
 - (id)stringForUpdatingDocument;
 - (BOOL)supportsRTL;
 - (BOOL)supportsShrinkTextToFit;
@@ -48,5 +64,6 @@
 - (id)templateDocumentType;
 - (id)templateSFFDocumentType;
 - (id)templateTypeDisplayName;
+- (id)universalPreviewImageNameForDocumentType:(id)arg1;
 
 @end

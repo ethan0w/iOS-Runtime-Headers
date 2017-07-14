@@ -3,10 +3,10 @@
  */
 
 @interface NSComparisonPredicate : NSPredicate {
-    NSExpression *_lhs;
-    NSPredicateOperator *_predicateOperator;
-    void *_reserved2;
-    NSExpression *_rhs;
+    NSExpression * _lhs;
+    NSPredicateOperator * _predicateOperator;
+    void * _reserved2;
+    NSExpression * _rhs;
 }
 
 @property (readonly) unsigned int comparisonPredicateModifier;
@@ -54,20 +54,6 @@
 - (id)rightExpression;
 - (void)setPredicateOperator:(id)arg1;
 
-// Image: /System/Library/Frameworks/CloudKit.framework/CloudKit
-
-- (unsigned int)_comparisonOptionForString:(id)arg1;
-- (void)validate;
-- (BOOL)validateBasicOperatorPredicate;
-- (BOOL)validateBeginsWithPredicate;
-- (BOOL)validateBetweenPredicate;
-- (BOOL)validateContainsAllInPredicate;
-- (BOOL)validateContainsAnyPredicate;
-- (BOOL)validateContainsPredicate;
-- (BOOL)validateFullTextSearchPredicate;
-- (BOOL)validateInPredicate;
-- (BOOL)validateNearPredicate;
-
 // Image: /System/Library/Frameworks/CoreData.framework/CoreData
 
 - (BOOL)_isForeignObjectExpression:(id)arg1 givenContext:(id)arg2;
@@ -80,6 +66,9 @@
 
 // Image: /System/Library/PrivateFrameworks/CloudDocs.framework/CloudDocs
 
+- (id)br_fileObjectIDWithWatchedChildren;
+- (id)br_urlWithWatchedChildren;
+- (id)br_watchedFileObjectID;
 - (id)br_watchedURL;
 
 // Image: /System/Library/PrivateFrameworks/CloudKitDaemon.framework/CloudKitDaemon
@@ -91,10 +80,30 @@
 - (id)_parseBeginsWithFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
 - (id)_parseBetweenFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
 - (id)_parseFullTextSearchFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
+- (id)_parseFullTextSearchUsingContainsTranslator:(id)arg1 withError:(id*)arg2;
 - (id)_parseInFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
 - (id)_parseListContainsAllFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
 - (id)_parseListContainsAnyFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
 - (id)_parseListContainsFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
 - (id)_parseNearFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
+
+// Image: /System/Library/PrivateFrameworks/HealthDaemon.framework/HealthDaemon
+
+- (id)_checkTypeForValue:(id)arg1 inKeyPath:(id)arg2;
+- (id)_sqlPredicateForSelect;
+
+// Image: /System/Library/PrivateFrameworks/NewsCore.framework/NewsCore
+
+- (id)FCCKPQueryFiltersWithTranslator:(id)arg1 error:(id*)arg2;
+- (unsigned int)_comparisonOptionForString:(id)arg1;
+- (id)_parseBasicOperatorFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
+- (id)_parseBeginsWithFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
+- (id)_parseBetweenFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
+- (id)_parseFullTextSearchFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
+- (id)_parseFullTextSearchUsingContainsTranslator:(id)arg1 withError:(id*)arg2;
+- (id)_parseInFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
+- (id)_parseListContainsAllFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
+- (id)_parseListContainsAnyFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
+- (id)_parseListContainsFiltersWithTranslator:(id)arg1 withError:(id*)arg2;
 
 @end

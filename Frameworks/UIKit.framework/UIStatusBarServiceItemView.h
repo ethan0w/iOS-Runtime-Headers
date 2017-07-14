@@ -3,20 +3,20 @@
  */
 
 @interface UIStatusBarServiceItemView : UIStatusBarItemView {
-    int _contentType;
-    unsigned int _crossfadeStep;
-    NSString *_crossfadeString;
-    float _crossfadeWidth;
-    float _letterSpacing;
-    BOOL _loopNowIfNecessary;
-    BOOL _loopingNecessaryForString;
-    BOOL _loopingNow;
-    float _maxWidth;
-    NSString *_serviceString;
-    float _serviceWidth;
+    int  _contentType;
+    unsigned int  _crossfadeStep;
+    NSString * _crossfadeString;
+    float  _crossfadeWidth;
+    float  _letterSpacing;
+    BOOL  _loopNowIfNecessary;
+    BOOL  _loopingNecessaryForString;
+    BOOL  _loopingNow;
+    float  _maxWidth;
+    NSString * _serviceString;
+    float  _serviceWidth;
 }
 
-- (id)_cachedContentImageForString:(id)arg1 withWidth:(float)arg2 letterSpacing:(float)arg3;
+- (void).cxx_destruct;
 - (id)_contentsImageFromString:(id)arg1 withWidth:(float)arg2 letterSpacing:(float)arg3;
 - (id)_crossfadeContentsImage;
 - (void)_crossfadeStepAnimation;
@@ -28,7 +28,6 @@
 - (float)addContentOverlap:(float)arg1;
 - (BOOL)animatesDataChange;
 - (id)contentsImage;
-- (void)dealloc;
 - (float)extraRightPadding;
 - (int)legibilityStyle;
 - (void)performPendedActions;

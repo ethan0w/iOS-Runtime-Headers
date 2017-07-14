@@ -2,7 +2,7 @@
    Image: /System/Library/PrivateFrameworks/Notes.framework/Notes
  */
 
-@interface NoteObject : NSManagedObject
+@interface NoteObject : NSManagedObject <ICSearchIndexableNote>
 
 @property (nonatomic, retain) NSSet *attachments;
 @property (nonatomic, retain) NSString *author;
@@ -12,7 +12,9 @@
 @property (nonatomic, readonly) NSString *contentAsPlainText;
 @property (nonatomic, retain) NSNumber *contentType;
 @property (nonatomic, retain) NSDate *creationDate;
+@property (readonly, copy) NSString *debugDescription;
 @property (nonatomic, retain) NSNumber *deletedFlag;
+@property (readonly, copy) NSString *description;
 @property (nonatomic, retain) NSString *externalContentRef;
 @property (nonatomic, retain) NSNumber *externalFlags;
 @property (nonatomic, retain) NSData *externalRepresentation;
@@ -21,6 +23,7 @@
 @property (nonatomic) unsigned long long flags;
 @property (nonatomic, readonly, retain) NSString *guid;
 @property (nonatomic, readonly) BOOL hasValidServerIntId;
+@property (readonly) unsigned int hash;
 @property (nonatomic, retain) NSNumber *integerId;
 @property (nonatomic, readonly) BOOL isBeingMarkedForDeletion;
 @property (nonatomic, retain) NSNumber *isBookkeepingEntry;
@@ -33,22 +36,46 @@
 @property (nonatomic) long long serverIntId;
 @property (nonatomic, retain) NoteStoreObject *store;
 @property (nonatomic, retain) NSString *summary;
+@property (readonly) Class superclass;
 @property (nonatomic, retain) NSString *title;
 
++ (BOOL)didChooseToMigrateNote:(id)arg1 context:(/* Warning: unhandled struct encoding: '{NoteContext=#@@@@@@@@Icccc@}' */ struct NoteContext { Class x1; id x2; id x3; id x4; id x5; unsigned int x6; BOOL x7; BOOL x8; BOOL x9; BOOL x10; id x11; }*)arg2;
++ (id)searchIndexableObjectWithIdentifier:(id)arg1 includeDeleted:(BOOL)arg2 inNoteContext:(id)arg3;
+
+- (id)authorsExcludingCurrentUser;
 - (BOOL)belongsToCollection:(id)arg1;
 - (BOOL)containsAttachments;
 - (id)content;
 - (id)contentAsPlainText;
 - (id)contentAsPlainTextPreservingNewlines;
+- (id)contentInfoText;
+- (id)dateForCurrentSortType;
+- (id)defaultTitleForEmptyNote;
 - (id)externalContentRef;
 - (id)externalRepresentation;
 - (unsigned long long)flags;
 - (BOOL)hasValidServerIntId;
+- (id)identifier;
+- (BOOL)ignoreInSearchIndexer;
 - (BOOL)isBeingMarkedForDeletion;
+- (BOOL)isHiddenFromSearch;
 - (BOOL)isMarkedForDeletion;
+- (BOOL)isPasswordProtected;
 - (BOOL)isPlainText;
+- (BOOL)isSharedViaICloud;
 - (void)markForDeletion;
+- (id)noteAsPlainTextWithoutTitle;
 - (id)noteId;
+- (id)objectIdentifier;
+- (void)releaseMemoryForIndexing;
+- (id)searchDomainIdentifier;
+- (id)searchIndexStringsOutHasAdditionalStrings:(BOOL*)arg1;
+- (id)searchIndexableTitleUsingContentTextIfNecessary:(id)arg1;
+- (BOOL)searchResultCanBeDeletedFromNoteContext;
+- (unsigned int)searchResultsSection;
+- (id)searchableContentKeyPaths;
+- (id)searchableItemAttributeSet;
+- (id)searchableItemIdentifier;
 - (unsigned long long)sequenceNumber;
 - (long long)serverIntId;
 - (void)setContent:(id)arg1;
@@ -58,5 +85,9 @@
 - (void)setIsPlainText:(BOOL)arg1;
 - (void)setSequenceNumber:(unsigned long long)arg1;
 - (void)setServerIntId:(long long)arg1;
+- (void)setTitle:(id)arg1;
+- (BOOL)shouldUpdateIndexForChangedValues:(id)arg1;
+- (id)trimmedTitle;
+- (int)visibilityTestingType;
 
 @end

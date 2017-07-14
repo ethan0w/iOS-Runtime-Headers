@@ -7,27 +7,32 @@
         int *list; 
         unsigned int count; 
         unsigned int size; 
-    } _additionalPlaceTypes;
-    struct { 
-        unsigned int splitIntoClusters : 1; 
-    } _has;
-    NSMutableArray *_locations;
-    NSMutableArray *_serviceTags;
-    BOOL _splitIntoClusters;
+    }  _additionalPlaceTypes;
+    NSString * _deviceCountryCode;
+    NSString * _displayRegion;
+    NSMutableArray * _locations;
+    NSMutableArray * _serviceTags;
 }
 
 @property (nonatomic, readonly) int*additionalPlaceTypes;
 @property (nonatomic, readonly) unsigned int additionalPlaceTypesCount;
-@property (nonatomic) BOOL hasSplitIntoClusters;
+@property (nonatomic, retain) NSString *deviceCountryCode;
+@property (nonatomic, retain) NSString *displayRegion;
+@property (nonatomic, readonly) BOOL hasDeviceCountryCode;
+@property (nonatomic, readonly) BOOL hasDisplayRegion;
 @property (nonatomic, retain) NSMutableArray *locations;
 @property (nonatomic, retain) NSMutableArray *serviceTags;
-@property (nonatomic) BOOL splitIntoClusters;
 
++ (Class)locationType;
++ (Class)serviceTagType;
+
+- (int)StringAsAdditionalPlaceTypes:(id)arg1;
 - (void)addAdditionalPlaceType:(int)arg1;
 - (void)addLocation:(id)arg1;
 - (void)addServiceTag:(id)arg1;
 - (int)additionalPlaceTypeAtIndex:(unsigned int)arg1;
 - (int*)additionalPlaceTypes;
+- (id)additionalPlaceTypesAsString:(int)arg1;
 - (unsigned int)additionalPlaceTypesCount;
 - (void)clearAdditionalPlaceTypes;
 - (void)clearLocations;
@@ -36,8 +41,11 @@
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
 - (void)dealloc;
 - (id)description;
+- (id)deviceCountryCode;
 - (id)dictionaryRepresentation;
-- (BOOL)hasSplitIntoClusters;
+- (id)displayRegion;
+- (BOOL)hasDeviceCountryCode;
+- (BOOL)hasDisplayRegion;
 - (unsigned int)hash;
 - (BOOL)isEqual:(id)arg1;
 - (id)locationAtIndex:(unsigned int)arg1;
@@ -51,11 +59,10 @@
 - (id)serviceTags;
 - (unsigned int)serviceTagsCount;
 - (void)setAdditionalPlaceTypes:(int*)arg1 count:(unsigned int)arg2;
-- (void)setHasSplitIntoClusters:(BOOL)arg1;
+- (void)setDeviceCountryCode:(id)arg1;
+- (void)setDisplayRegion:(id)arg1;
 - (void)setLocations:(id)arg1;
 - (void)setServiceTags:(id)arg1;
-- (void)setSplitIntoClusters:(BOOL)arg1;
-- (BOOL)splitIntoClusters;
 - (void)writeTo:(id)arg1;
 
 @end

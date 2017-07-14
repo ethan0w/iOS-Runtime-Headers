@@ -9,7 +9,6 @@
 @property (readonly, copy) NSString *description;
 @property (readonly) unsigned int hash;
 @property (nonatomic, copy) NSString *refId;
-@property (nonatomic, copy) NSArray *stockList;
 @property (nonatomic, copy) NSArray *stockReferences;
 @property (readonly) Class superclass;
 
@@ -18,9 +17,7 @@
 
 - (id)encodedClassName;
 - (id)groupIdentifier;
-- (void)setStockList:(id)arg1;
 - (void)setStockReferences:(id)arg1;
-- (id)stockList;
 - (id)stockReferences;
 
 @end

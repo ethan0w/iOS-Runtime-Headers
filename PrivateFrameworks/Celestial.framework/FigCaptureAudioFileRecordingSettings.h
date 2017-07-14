@@ -2,16 +2,20 @@
    Image: /System/Library/PrivateFrameworks/Celestial.framework/Celestial
  */
 
-@interface FigCaptureAudioFileRecordingSettings : FigCaptureRecordingSettings <NSCoding> {
-    NSDictionary *_audioSettings;
-    NSDictionary *_metadata;
+@interface FigCaptureAudioFileRecordingSettings : FigCaptureRecordingSettings {
+    NSDictionary * _audioSettings;
+    NSArray * _metadata;
 }
 
 @property (nonatomic, copy) NSDictionary *audioSettings;
-@property (nonatomic, copy) NSDictionary *metadata;
+@property (nonatomic, copy) NSArray *metadata;
+
++ (BOOL)supportsSecureCoding;
 
 - (id)audioSettings;
+- (id)copyWithZone:(struct _NSZone { }*)arg1;
 - (void)dealloc;
+- (id)description;
 - (void)encodeWithCoder:(id)arg1;
 - (id)init;
 - (id)initWithCoder:(id)arg1;

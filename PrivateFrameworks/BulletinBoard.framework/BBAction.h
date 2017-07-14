@@ -3,21 +3,23 @@
  */
 
 @interface BBAction : NSObject <NSCopying, NSSecureCoding> {
-    int _actionType;
-    NSDictionary *_activatePluginContext;
-    NSString *_activatePluginName;
-    unsigned int _activationMode;
-    BBAppearance *_appearance;
-    BOOL _authenticationRequired;
-    BOOL _deliverResponse;
-    NSString *_identifier;
-    id /* block */ _internalBlock;
-    NSString *_launchBundleID;
-    BOOL _launchCanBypassPinLock;
-    NSURL *_launchURL;
-    NSString *_remoteServiceBundleIdentifier;
-    NSString *_remoteViewControllerClassName;
-    BOOL _shouldDismissBulletin;
+    int  _actionType;
+    NSDictionary * _activatePluginContext;
+    NSString * _activatePluginName;
+    unsigned int  _activationMode;
+    BBAppearance * _appearance;
+    BOOL  _authenticationRequired;
+    int  _behavior;
+    NSDictionary * _behaviorParameters;
+    BOOL  _deliverResponse;
+    NSString * _identifier;
+    id /* block */  _internalBlock;
+    NSString * _launchBundleID;
+    BOOL  _launchCanBypassPinLock;
+    NSURL * _launchURL;
+    NSString * _remoteServiceBundleIdentifier;
+    NSString * _remoteViewControllerClassName;
+    BOOL  _shouldDismissBulletin;
 }
 
 @property (nonatomic) int actionType;
@@ -26,6 +28,8 @@
 @property (nonatomic) unsigned int activationMode;
 @property (nonatomic, copy) BBAppearance *appearance;
 @property (getter=isAuthenticationRequired, nonatomic) BOOL authenticationRequired;
+@property (nonatomic) int behavior;
+@property (nonatomic, copy) NSDictionary *behaviorParameters;
 @property (nonatomic) BOOL canBypassPinLock;
 @property (nonatomic, copy) NSString *identifier;
 @property (nonatomic, copy) id /* block */ internalBlock;
@@ -48,19 +52,23 @@
 + (id)actionWithLaunchURL:(id)arg1 callblock:(id /* block */)arg2;
 + (BOOL)supportsSecureCoding;
 
+- (void).cxx_destruct;
 - (id)_nameForActionType:(int)arg1;
 - (int)actionType;
 - (id)activatePluginContext;
 - (id)activatePluginName;
 - (unsigned int)activationMode;
 - (id)appearance;
+- (id)awakeAfterUsingCoder:(id)arg1;
+- (int)behavior;
+- (id)behaviorParameters;
 - (id)bundleID;
 - (BOOL)canBypassPinLock;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
-- (void)dealloc;
 - (BOOL)deliverResponse:(id)arg1;
 - (id)description;
 - (void)encodeWithCoder:(id)arg1;
+- (BOOL)hasInteractiveAction;
 - (BOOL)hasLaunchAction;
 - (BOOL)hasPluginAction;
 - (BOOL)hasRemoteViewAction;
@@ -78,12 +86,15 @@
 - (id)partialDescription;
 - (id)remoteServiceBundleIdentifier;
 - (id)remoteViewControllerClassName;
+- (id)replacementObjectForCoder:(id)arg1;
 - (void)setActionType:(int)arg1;
 - (void)setActivatePluginContext:(id)arg1;
 - (void)setActivatePluginName:(id)arg1;
 - (void)setActivationMode:(unsigned int)arg1;
 - (void)setAppearance:(id)arg1;
 - (void)setAuthenticationRequired:(BOOL)arg1;
+- (void)setBehavior:(int)arg1;
+- (void)setBehaviorParameters:(id)arg1;
 - (void)setCallblock:(id /* block */)arg1;
 - (void)setCanBypassPinLock:(BOOL)arg1;
 - (void)setIdentifier:(id)arg1;

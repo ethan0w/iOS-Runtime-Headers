@@ -3,22 +3,17 @@
  */
 
 @interface XBLaunchImageProvider : NSObject {
-    NSMutableDictionary *_clients;
-    NSObject<OS_dispatch_queue> *_workQueue;
+    NSObject<OS_dispatch_queue> * _workQueue;
 }
 
-@property (nonatomic, retain) NSMutableDictionary *clients;
-
-+ (void*)createIOSurfaceWithContextIds:(const unsigned int*)arg1 count:(unsigned int)arg2 frame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg3 scale:(float)arg4 orientation:(int)arg5 outTransform:(struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; }*)arg6;
 + (id)sharedInstance;
 
-- (id)_clientForApplicationWithBundleID:(id)arg1;
-- (void)captureLaunchImageApplicationWithCompatibilityInfo:(id)arg1 launchRequests:(id)arg2 firstImageIsReady:(id /* block */)arg3;
-- (id)clients;
+- (void)_generateLaunchImageWithCompatibilityInfo:(id)arg1 launchRequest:(id)arg2 generationHandler:(id /* block */)arg3 completionHandler:(id /* block */)arg4;
+- (void)_generateSnapshotInManifest:(id)arg1 store:(id)arg2 withCompatibilityInfo:(id)arg3 launchRequest:(id)arg4 remoteContextID:(unsigned int)arg5 snapshotProvider:(id /* block */)arg6 completion:(id /* block */)arg7;
+- (void)captureLaunchImageForManifest:(id)arg1 withCompatibilityInfo:(id)arg2 launchRequests:(id)arg3 firstImageIsReady:(id /* block */)arg4 withCompletionHandler:(id /* block */)arg5;
+- (void)configureLaunchImageSnapshot:(id)arg1 withCompatibilityInfo:(id)arg2 launchRequest:(id)arg3 completionHandler:(id /* block */)arg4;
 - (void)dealloc;
 - (id)init;
-- (void)launchImageViewDidGetRemovedFromViewHierarchy:(id)arg1 forApplicationWithBundleID:(id)arg2;
-- (id)launchImageViewForApplicationWithCompatibilityInfo:(id)arg1 launchRequest:(id)arg2;
-- (void)setClients:(id)arg1;
+- (void)launchImageForManifest:(id)arg1 withCompatibilityInfo:(id)arg2 launchRequest:(id)arg3 completionHandler:(id /* block */)arg4;
 
 @end

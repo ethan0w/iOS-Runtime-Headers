@@ -3,31 +3,32 @@
  */
 
 @interface CPLLibraryManager : NSObject <CPLAbstractObject> {
-    NSURL *_clientLibraryBaseURL;
-    NSURL *_cloudLibraryResourceStorageURL;
-    NSURL *_cloudLibraryStateStorageURL;
-    CPLConfiguration *_configuration;
-    long _configurationOnce;
-    CPLChangeSession *_currentSession;
-    <CPLLibraryManagerDelegate> *_delegate;
-    NSString *_effectiveClientBundleIdentifier;
-    NSString *_libraryIdentifier;
-    NSString *_libraryVersion;
-    unsigned int _numberOfImagesToUpload;
-    unsigned int _numberOfOtherItemsToUpload;
-    unsigned int _numberOfVideosToUpload;
-    CPLPlatformObject *_platformObject;
-    NSObject<OS_dispatch_queue> *_queue;
-    <CPLResourceProgressDelegate> *_resourceProgressDelegate;
-    NSObject<OS_dispatch_queue> *_sessionLock;
-    unsigned long long _sizeOfResourcesToUpload;
-    BOOL _sizeOfResourcesToUploadIsSet;
-    unsigned int _state;
-    unsigned int _status;
-    NSError *_statusError;
-    long _statusOnce;
-    CPLStatus *_syncStatus;
-    NSString *_userOverride;
+    NSURL * _clientLibraryBaseURL;
+    NSURL * _cloudLibraryResourceStorageURL;
+    NSURL * _cloudLibraryStateStorageURL;
+    CPLConfiguration * _configuration;
+    long  _configurationOnce;
+    CPLChangeSession * _currentSession;
+    <CPLLibraryManagerDelegate> * _delegate;
+    NSString * _effectiveClientBundleIdentifier;
+    NSString * _libraryIdentifier;
+    NSString * _libraryVersion;
+    unsigned int  _numberOfImagesToUpload;
+    unsigned int  _numberOfOtherItemsToUpload;
+    unsigned int  _numberOfVideosToUpload;
+    CPLPlatformObject * _platformObject;
+    NSObject<OS_dispatch_queue> * _queue;
+    <CPLResourceProgressDelegate> * _resourceProgressDelegate;
+    NSObject<OS_dispatch_queue> * _sessionLock;
+    unsigned long long  _sizeOfOriginalResourcesToUpload;
+    unsigned long long  _sizeOfResourcesToUpload;
+    BOOL  _sizeOfResourcesToUploadIsSet;
+    unsigned int  _state;
+    unsigned int  _status;
+    NSError * _statusError;
+    long  _statusOnce;
+    CPLStatus * _syncStatus;
+    NSString * _userOverride;
 }
 
 @property (nonatomic, readonly, copy) NSURL *clientLibraryBaseURL;
@@ -47,6 +48,7 @@
 @property (nonatomic, readonly) unsigned int numberOfVideosToUpload;
 @property (nonatomic, readonly) CPLPlatformObject *platformObject;
 @property (nonatomic) <CPLResourceProgressDelegate> *resourceProgressDelegate;
+@property (nonatomic, readonly) unsigned long long sizeOfOriginalResourcesToUpload;
 @property (nonatomic, readonly) unsigned long long sizeOfResourcesToUpload;
 @property (nonatomic) unsigned int state;
 @property (nonatomic, readonly) unsigned int status;
@@ -65,16 +67,19 @@
 - (void)_getMappedIdentifiersForIdentifiers:(id)arg1 inAreLocalIdentifiers:(BOOL)arg2 completionHandler:(id /* block */)arg3;
 - (void)_setCurrentSession:(id)arg1;
 - (void)_setLibraryVersion:(id)arg1;
-- (void)_setSizeOfResourcesToUpload:(unsigned long long)arg1 numberOfImages:(unsigned int)arg2 numberOfVideos:(unsigned int)arg3 numberOfOtherItems:(unsigned int)arg4;
+- (void)_setSizeOfResourcesToUpload:(unsigned long long)arg1 sizeOfOriginalResourcesToUpload:(unsigned long long)arg2 numberOfImages:(unsigned int)arg3 numberOfVideos:(unsigned int)arg4 numberOfOtherItems:(unsigned int)arg5;
 - (BOOL)_setStatus:(unsigned int)arg1 andError:(id)arg2;
 - (void)_statusDidChange;
 - (void)addInfoToLog:(id)arg1;
 - (id)addSubscriberUsingPublishingHandler:(id /* block */)arg1;
 - (void)barrier;
 - (void)beginDownloadForResource:(id)arg1 clientBundleID:(id)arg2 highPriority:(BOOL)arg3 completionHandler:(id /* block */)arg4;
+- (void)beginDownloadForResource:(id)arg1 clientBundleID:(id)arg2 highPriority:(BOOL)arg3 proposedTaskIdentifier:(id)arg4 completionHandler:(id /* block */)arg5;
 - (void)beginDownloadForResource:(id)arg1 highPriority:(BOOL)arg2 completionHandler:(id /* block */)arg3;
+- (void)beginInMemoryDownloadOfResource:(id)arg1 completionHandler:(id /* block */)arg2;
 - (void)beginPullChangeSessionWithKnownLibraryVersion:(id)arg1 completionHandler:(id /* block */)arg2;
 - (void)beginPushChangeSessionWithKnownLibraryVersion:(id)arg1 completionHandler:(id /* block */)arg2;
+- (void)checkHasBackgroundDownloadOperationsWithCompletionHandler:(id /* block */)arg1;
 - (id)clientLibraryBaseURL;
 - (void)closeWithCompletionHandler:(id /* block */)arg1;
 - (void)cloudCacheGetDescriptionForRecordWithIdentifier:(id)arg1 completionHandler:(id /* block */)arg2;
@@ -87,6 +92,7 @@
 - (void)deactivateWithCompletionHandler:(id /* block */)arg1;
 - (void)dealloc;
 - (id)delegate;
+- (void)deleteResources:(id)arg1 completionHandler:(id /* block */)arg2;
 - (void)deleteResourcesIfSafe:(id)arg1 completionHandler:(id /* block */)arg2;
 - (id)description;
 - (BOOL)diagnosticsEnabled;
@@ -108,6 +114,8 @@
 - (id)initWithClientLibraryBaseURL:(id)arg1 cloudLibraryStateStorageURL:(id)arg2 cloudLibraryResourceStorageURL:(id)arg3 libraryIdentifier:(id)arg4;
 - (id)libraryIdentifier;
 - (id)libraryVersion;
+- (void)noteClientIsBeginningSignificantWork;
+- (void)noteClientIsEndingSignificantWork;
 - (void)noteClientIsInBackground;
 - (void)noteClientIsInForeground;
 - (void)noteClientReceivedNotificationOfServerChanges;
@@ -117,6 +125,7 @@
 - (void)openWithCompletionHandler:(id /* block */)arg1;
 - (id)platformObject;
 - (void)publishResource:(id)arg1 completionHandler:(id /* block */)arg2;
+- (void)rampingRequestForResourceType:(unsigned int)arg1 numRequested:(unsigned int)arg2 completionHandler:(id /* block */)arg3;
 - (void)removeCloudLibraryWithCompletionHandler:(id /* block */)arg1;
 - (void)resetCacheWithOption:(unsigned int)arg1 completionHandler:(id /* block */)arg2;
 - (void)resetStatus;
@@ -127,6 +136,7 @@
 - (void)setResourceProgressDelegate:(id)arg1;
 - (void)setState:(unsigned int)arg1;
 - (void)setUserOverride:(id)arg1;
+- (unsigned long long)sizeOfOriginalResourcesToUpload;
 - (unsigned long long)sizeOfResourcesToUpload;
 - (void)startSyncSession;
 - (unsigned int)state;

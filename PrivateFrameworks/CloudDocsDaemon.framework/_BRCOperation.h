@@ -3,25 +3,26 @@
  */
 
 @interface _BRCOperation : NSOperation {
-    NSObject<OS_dispatch_queue> *_callbackQueue;
-    BOOL _executing;
-    id /* block */ _finishBlock;
-    BOOL _finished;
-    NSObject<OS_dispatch_group> *_group;
-    NSObject<OS_dispatch_queue> *_internalQueue;
-    NSError *_lastError;
-    NSDate *_lastTryDate;
-    id _logSections;
-    id /* block */ _mainBlock;
-    NSDate *_nextTryDate;
-    BRCThrottle *_operationThrottle;
-    unsigned char _operationUUID;
-    NSObject<OS_dispatch_source> *_retryTimer;
-    NSDate *_startDate;
-    NSMutableArray *_subOperations;
-    BRCSyncContext *_syncContext;
-    long long _throttleHash;
-    BOOL _usesBackgroundSession;
+    NSObject<OS_os_activity> * _Activity;
+    NSObject<OS_dispatch_queue> * _callbackQueue;
+    NSObject<OS_os_transaction> * _executionTransaction;
+    id /* block */  _finishBlock;
+    NSDate * _finishDate;
+    BOOL  _finished;
+    NSObject<OS_dispatch_group> * _group;
+    NSObject<OS_dispatch_queue> * _internalQueue;
+    NSError * _lastError;
+    NSDate * _lastTryDate;
+    _BRCLogSection * _logSections;
+    id /* block */  _mainBlock;
+    NSDate * _nextTryDate;
+    BRCThrottle * _operationFailureThrottle;
+    BRCThrottle * _operationThrottle;
+    unsigned char  _operationUUID;
+    NSObject<OS_dispatch_source> * _retryTimer;
+    NSDate * _startDate;
+    BRCSyncContext * _syncContext;
+    long long  _throttleHash;
 }
 
 @property (nonatomic, readonly) NSObject<OS_dispatch_queue> *callbackQueue;
@@ -29,29 +30,30 @@
 @property (getter=isExecuting, nonatomic) BOOL executing;
 @property (nonatomic, copy) id /* block */ finishBlock;
 @property (getter=isFinished, nonatomic) BOOL finished;
-@property (nonatomic, readonly) id logSections;
+@property (nonatomic, readonly) _BRCLogSection *logSections;
 @property (nonatomic, copy) id /* block */ mainBlock;
+@property (nonatomic) BRCThrottle *operationFailureThrottle;
 @property (nonatomic, readonly) NSUUID *operationID;
 @property (nonatomic) BRCThrottle *operationThrottle;
+@property (nonatomic, readonly) NSDate *startDate;
 @property (nonatomic, readonly) BRCSyncContext *syncContext;
-@property (nonatomic) BOOL usesBackgroundSession;
+@property (nonatomic, readonly) BOOL usesBackgroundSession;
 
 - (void).cxx_destruct;
 - (void)_completedWithResult:(id)arg1 error:(id)arg2;
-- (id)_description;
-- (void)_executeAndBumpThrottle:(id)arg1;
+- (void)_executeWithPreviousError:(id)arg1;
 - (BOOL)_finishIfCancelled;
 - (void)_main;
-- (void)_scheduleExecutionWithPreviousError:(id)arg1 throttle:(id)arg2;
-- (void)addRegisterSubscriptionForZoneID:(id)arg1 completion:(id /* block */)arg2;
+- (void)_scheduleExecutionWithPreviousError:(id)arg1;
 - (void)addSubOperation:(id)arg1;
-- (void)addSubOperation:(id)arg1 overrideContext:(id)arg2;
-- (void)addZoneCreationWithZoneID:(id)arg1 completion:(id /* block */)arg2;
+- (void)addSubOperation:(id)arg1 overrideContext:(id)arg2 allowsCellularAccess:(id)arg3;
 - (id)callbackQueue;
 - (void)cancel;
 - (void)completedWithResult:(id)arg1 error:(id)arg2;
+- (id)createActivity;
 - (void)dealloc;
 - (id)description;
+- (id)descriptionWithContext:(id)arg1;
 - (id)error;
 - (id /* block */)finishBlock;
 - (BOOL)finishIfCancelled;
@@ -59,14 +61,13 @@
 - (id)init;
 - (id)initWithName:(id)arg1 syncContext:(id)arg2;
 - (id)initWithName:(id)arg1 syncContext:(id)arg2 group:(id)arg3;
-- (id)initWithName:(id)arg1 zone:(id)arg2;
-- (id)initWithName:(id)arg1 zone:(id)arg2 group:(id)arg3;
 - (BOOL)isConcurrent;
 - (BOOL)isExecuting;
 - (BOOL)isFinished;
 - (id)logSections;
 - (void)main;
 - (id /* block */)mainBlock;
+- (id)operationFailureThrottle;
 - (id)operationID;
 - (id)operationThrottle;
 - (void)schedule;
@@ -74,11 +75,13 @@
 - (void)setFinishBlock:(id /* block */)arg1;
 - (void)setFinished:(BOOL)arg1;
 - (void)setMainBlock:(id /* block */)arg1;
+- (void)setOperationFailureThrottle:(id)arg1;
 - (void)setOperationThrottle:(id)arg1;
-- (void)setUsesBackgroundSession:(BOOL)arg1;
 - (BOOL)shouldRetryForError:(id)arg1;
 - (void)start;
-- (id)state;
+- (id)startDate;
+- (id)stateWithContext:(id)arg1;
+- (id)subclassableDescriptionWithContext:(id)arg1;
 - (id)syncContext;
 - (BOOL)usesBackgroundSession;
 

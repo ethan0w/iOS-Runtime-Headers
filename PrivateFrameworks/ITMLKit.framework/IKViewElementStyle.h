@@ -3,9 +3,11 @@
  */
 
 @interface IKViewElementStyle : NSObject {
-    NSString *_classSelector;
-    NSArray *_mediaQueryList;
-    NSMutableDictionary *_styleDict;
+    NSString * _classDescriptorString;
+    IKCSSRule * _cssRule;
+    BOOL  _filterBlockedStyles;
+    NSArray * _mediaQueryList;
+    NSMutableDictionary * _styleDict;
 }
 
 @property (nonatomic, readonly) UIColor *backgroundColor;
@@ -15,11 +17,12 @@
 @property (nonatomic, readonly) IKFourTuple *borderRadius;
 @property (nonatomic, readonly) struct UIEdgeInsets { float x1; float x2; float x3; float x4; } borderWidths;
 @property (nonatomic, readonly) NSString *cardType;
-@property (nonatomic, retain) NSString *classSelector;
+@property (nonatomic, readonly) NSString *classDescriptorString;
 @property (nonatomic, readonly) UIColor *color;
 @property (nonatomic, readonly) int columnCount;
 @property (nonatomic, readonly) NSString *columnItemType;
 @property (nonatomic, readonly) NSString *columnType;
+@property (nonatomic, retain) IKCSSRule *cssRule;
 @property (nonatomic, readonly) NSString *dividerType;
 @property (nonatomic, readonly) unsigned int elementAlignment;
 @property (nonatomic, readonly) struct UIEdgeInsets { float x1; float x2; float x3; float x4; } elementMargin;
@@ -28,6 +31,7 @@
 @property (nonatomic, readonly) int fillImage;
 @property (nonatomic, readonly) float fontSize;
 @property (nonatomic, readonly) NSString *fontWeight;
+@property (nonatomic, readonly) BOOL hidden;
 @property (nonatomic, readonly) IKColor *ikBackgroundColor;
 @property (nonatomic, readonly) IKColor *ikBorderColor;
 @property (nonatomic, readonly) IKColor *ikColor;
@@ -61,30 +65,33 @@
 
 // Image: /System/Library/PrivateFrameworks/ITMLKit.framework/ITMLKit
 
++ (void)addBlockedStyle:(id)arg1;
 + (unsigned int)alignmentFromString:(id)arg1;
++ (void)clearBlockedStyles;
 + (id)elementStyleWithParentStyle:(id)arg1 elementStyle:(id)arg2 elementStyleOverrides:(id)arg3;
 + (id)elementStyleWithSelector:(id)arg1 aggregatingStyles:(id)arg2;
-+ (id)elementStyleWithSelector:(id)arg1 styleString:(id)arg2;
++ (id)elementStyleWithSelector:(id)arg1 cssRule:(id)arg2 filterBlockedStyles:(BOOL)arg3;
++ (id)elementStyleWithSelector:(id)arg1 inlineStyleString:(id)arg2 filterBlockedStyles:(BOOL)arg3;
 + (unsigned int)imageTreatmentFromString:(id)arg1;
 + (void)initialize;
++ (BOOL)isHiddenStyleRegistered;
++ (id)normalizeClassSelectorString:(id)arg1;
 + (unsigned int)positionFromString:(id)arg1;
++ (void)registerHiddenStyle:(id)arg1;
++ (void)registerStyle:(id)arg1 aliasName:(id)arg2 withType:(unsigned int)arg3 inherited:(BOOL)arg4;
 + (void)registerStyle:(id)arg1 withType:(unsigned int)arg2 inherited:(BOOL)arg3;
++ (id)registeredAliases;
++ (id)registeredStyles;
 + (unsigned int)transitionFromString:(id)arg1;
++ (void)unregisterStyles;
 
 - (void).cxx_destruct;
 - (void)_addElementStyle:(id)arg1;
 - (void)_addParentStyle:(id)arg1;
-- (id)_doubleFromString:(id)arg1;
 - (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })_edgeInsetsForStyleKey:(id)arg1;
-- (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })_edgeInsetsFromString:(id)arg1;
-- (id)_fontSizeFromString:(id)arg1;
 - (id)_gradientFromString:(id)arg1;
 - (id)_newColorFromString:(id)arg1;
-- (id)_numberFromString:(id)arg1;
-- (void)_parse:(id)arg1;
-- (void)_setValue:(id)arg1 forKey:(id)arg2;
-- (struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; })_transformFromString:(id)arg1;
-- (id)_urlFromString:(id)arg1;
+- (id)_styleNameForAlias:(id)arg1;
 - (id)backgroundColor;
 - (id)badgeTreatment;
 - (id)borderColor;
@@ -92,11 +99,13 @@
 - (id)borderRadius;
 - (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })borderWidths;
 - (id)cardType;
-- (id)classSelector;
+- (id)classDescriptorString;
 - (id)color;
 - (int)columnCount;
 - (id)columnItemType;
 - (id)columnType;
+- (id)cssRule;
+- (id)debugDescription;
 - (id)description;
 - (id)dividerType;
 - (unsigned int)elementAlignment;
@@ -106,6 +115,7 @@
 - (int)fillImage;
 - (float)fontSize;
 - (id)fontWeight;
+- (BOOL)hidden;
 - (id)ikBackgroundColor;
 - (id)ikBorderColor;
 - (id)ikColor;
@@ -115,8 +125,8 @@
 - (id)imagePlaceholderURL;
 - (unsigned int)imagePosition;
 - (id)imageTreatment;
+- (id)initWithCSSRule:(id)arg1 filterBlockedStyles:(BOOL)arg2 selStr:(id)arg3;
 - (id)initWithClassSelector:(id)arg1;
-- (id)initWithString:(id)arg1 classSelector:(id)arg2;
 - (id)initWithStyle:(id)arg1 classSelector:(id)arg2;
 - (id)itemHeight;
 - (id)itemWidth;
@@ -130,7 +140,7 @@
 - (unsigned int)ordinalMaxLength;
 - (int)reflectImage;
 - (id)rowHeight;
-- (void)setClassSelector:(id)arg1;
+- (void)setCssRule:(id)arg1;
 - (void)setMediaQueryList:(id)arg1;
 - (void)setStyleDict:(id)arg1;
 - (id)styleDict;
@@ -145,7 +155,63 @@
 - (id)valueForStyle:(id)arg1;
 - (id)visibility;
 
-// Image: /System/Library/PrivateFrameworks/MediaPlayerUI.framework/MediaPlayerUI
+// Image: /System/Library/PrivateFrameworks/TVMLKit.framework/TVMLKit
+
+- (BOOL)tv_adjustsFontSizeToFitWidth;
+- (int)tv_alignment;
+- (id)tv_associatedViewElementStyle;
+- (id)tv_backgroundColor;
+- (id)tv_borderColor;
+- (BOOL)tv_borderContinuous;
+- (id)tv_borderRadius;
+- (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })tv_borderWidths;
+- (id)tv_color;
+- (unsigned int)tv_columnCount;
+- (int)tv_contentAlignment;
+- (id)tv_focusAlign;
+- (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })tv_focusMargin;
+- (unsigned int)tv_focusSizeIncrease;
+- (struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; })tv_focusTransform;
+- (id)tv_fontFamily;
+- (float)tv_fontSize;
+- (id)tv_fontWeight;
+- (id)tv_group;
+- (BOOL)tv_hasFocusMargin;
+- (float)tv_height;
+- (id)tv_highlightColor;
+- (id)tv_imageTreatment;
+- (float)tv_imageUpscaleFactor;
+- (float)tv_interitemSpacing;
+- (float)tv_lineSpacing;
+- (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })tv_margin;
+- (float)tv_maxHeight;
+- (unsigned int)tv_maxLines;
+- (unsigned int)tv_maxTextLines;
+- (float)tv_maxWidth;
+- (float)tv_minHeight;
+- (float)tv_minWidth;
+- (float)tv_minimumScaleFactor;
+- (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })tv_padding;
+- (int)tv_position;
+- (id)tv_progressStyle;
+- (id)tv_ratingStyle;
+- (unsigned int)tv_rowCount;
+- (id)tv_searchStyle;
+- (id)tv_shadow;
+- (int)tv_textAlignment;
+- (id)tv_textHighlightStyle;
+- (id)tv_textShadow;
+- (id)tv_textStyle;
+- (id)tv_textTransform;
+- (id)tv_tintColor;
+- (id)tv_tintColor2;
+- (struct CGAffineTransform { float x1; float x2; float x3; float x4; float x5; float x6; })tv_transform;
+- (id)tv_transition;
+- (float)tv_transitionInterval;
+- (id)tv_visualEffect;
+- (float)tv_width;
+
+// Image: /System/Library/PrivateFrameworks/VideosExtras.framework/VideosExtras
 
 + (id)positionConstraintsForView:(id)arg1 insets:(struct UIEdgeInsets { float x1; float x2; float x3; float x4; })arg2 position:(unsigned int)arg3;
 

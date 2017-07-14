@@ -3,10 +3,11 @@
  */
 
 @interface SSUpdatableAssetCacheManager : NSObject {
-    NSString *_clientIdentifier;
+    NSString * _clientIdentifier;
 }
 
 - (void).cxx_destruct;
+- (id)allCachedManifests;
 - (id)assetFileName:(id)arg1;
 - (id)assetFileURL:(id)arg1;
 - (id)assetsDirectoryURL;

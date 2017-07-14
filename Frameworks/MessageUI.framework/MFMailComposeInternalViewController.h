@@ -3,25 +3,25 @@
  */
 
 @interface MFMailComposeInternalViewController : UIViewController <MFMailComposeRemoteViewControllerDelegate> {
-    NSMutableArray *_attachments;
-    id _autorotationDelegate;
-    _UIAsyncInvocation *_cancellationInvocation;
-    int _composeResult;
-    NSError *_composeResultError;
-    NSMutableDictionary *_compositionValues;
-    unsigned int _compositionValuesAreFinalized;
-    unsigned int _delegateRespondsToBodyFinishedLoadingWithResult;
-    unsigned int _didAppear;
-    unsigned int _didEndDelayedPresentation;
-    unsigned int _didFinish;
-    unsigned int _hasDelayedPresentation;
-    unsigned int _isAppearing;
-    <MFMailComposeViewControllerDelegate> *_mailComposeDelegate;
-    NSString *_placeholderSubject;
-    MFMailComposePlaceholderViewController *_placeholderViewController;
-    double _presentationDelayBeganTimestamp;
-    unsigned int _remoteViewControllerIsConfigured;
-    MFMailComposeRemoteViewController *_serviceViewController;
+    NSMutableArray * _attachments;
+    id  _autorotationDelegate;
+    _UIAsyncInvocation * _cancellationInvocation;
+    int  _composeResult;
+    NSError * _composeResultError;
+    NSMutableDictionary * _compositionValues;
+    unsigned int  _compositionValuesAreFinalized;
+    unsigned int  _delegateRespondsToBodyFinishedLoadingWithResult;
+    unsigned int  _didAppear;
+    unsigned int  _didEndDelayedPresentation;
+    unsigned int  _didFinish;
+    unsigned int  _hasDelayedPresentation;
+    unsigned int  _isAppearing;
+    <MFMailComposeViewControllerDelegate> * _mailComposeDelegate;
+    NSString * _placeholderSubject;
+    MFMailComposePlaceholderViewController * _placeholderViewController;
+    double  _presentationDelayBeganTimestamp;
+    unsigned int  _remoteViewControllerIsConfigured;
+    MFMailComposeRemoteViewController * _serviceViewController;
 }
 
 @property (nonatomic) id autorotationDelegate;
@@ -38,21 +38,26 @@
 - (void)_loadContentViewControllerForcingPlaceholder:(BOOL)arg1;
 - (void)_notifyBodyDidFinishLoadingWithResult:(BOOL)arg1;
 - (void)_notifyCompositionDidFinish;
+- (void)_processAttachmentsViaProxy:(id)arg1 withHandler:(id /* block */)arg2;
 - (void)_serviceViewControllerReady:(id)arg1 error:(id)arg2;
 - (void)_setCompositionValue:(id)arg1 forKey:(id)arg2;
 - (void)_setPlaceHolderSubject:(id)arg1;
 - (id)addAttachmentData:(id)arg1 mimeType:(id)arg2 fileName:(id)arg3;
+- (id)addAttachmentFileURL:(id)arg1 mimeType:(id)arg2;
 - (BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers;
 - (id)autorotationDelegate;
 - (void)autosaveWithHandler:(id /* block */)arg1;
 - (void)compositionFinishedWithResult:(int)arg1 error:(id)arg2;
+- (void)compositionRequestsSendWithBody:(id)arg1 recipients:(id)arg2 completion:(id /* block */)arg3;
 - (void)compositionViewServiceTerminatedWithError:(id)arg1;
 - (void)dealloc;
 - (void)finalizeCompositionValues;
 - (id)initWithNibName:(id)arg1 bundle:(id)arg2;
 - (void)loadView;
 - (id)mailComposeDelegate;
+- (id)placeholderForFileName:(id)arg1 fileSize:(int)arg2 mimeType:(id)arg3 contentID:(id)arg4 proxy:(id)arg5;
 - (void)requestFramesForAttachmentsWithIdentifiers:(id)arg1 resultHandler:(id /* block */)arg2;
+- (id)securityScopeForURL:(id)arg1 proxy:(id)arg2;
 - (void)setAutorotationDelegate:(id)arg1;
 - (void)setAutosaveIdentifier:(id)arg1;
 - (void)setBccRecipients:(id)arg1;

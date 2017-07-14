@@ -5,8 +5,7 @@
 
 @required
 
-- (void)rowActivatedLink:(void *)arg1 attributes:(void *)arg2 completion:(void *)arg3; // needs 3 arg types, found 9: NSString *, NSDictionary *, id /* block */, /* Warning: Unrecognized filer type: '<' using 'void*' */ void*, void, id /* block */, BOOL, NSError *, void*
-- (void)rowDidChange:(RUITableViewRow *)arg1;
+- (void)rowDidChange:(RUITableViewRow *)arg1 action:(int)arg2;
 - (void)rowDidEndEditing:(RUITableViewRow *)arg1;
 - (void)rowIsFirstResponder:(RUITableViewRow *)arg1;
 - (NSURL *)sourceURLForRUITableViewRow;

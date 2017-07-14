@@ -3,10 +3,10 @@
  */
 
 @interface TSUFakeProgress : TSUBasicProgress {
-    NSObject<OS_dispatch_queue> *_accessQueue;
-    unsigned int _currentStage;
-    unsigned int _numberOfStages;
-    BOOL _stopped;
+    NSObject<OS_dispatch_queue> * _accessQueue;
+    unsigned int  _currentStage;
+    unsigned int  _numberOfStages;
+    BOOL  _stopped;
 }
 
 - (void)advanceToStage:(unsigned int)arg1;

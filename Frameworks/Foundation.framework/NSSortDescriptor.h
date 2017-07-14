@@ -3,10 +3,10 @@
  */
 
 @interface NSSortDescriptor : NSObject <NSCopying, NSSecureCoding> {
-    NSString *_key;
-    SEL _selector;
-    id _selectorOrBlock;
-    unsigned int _sortDescriptorFlags;
+    NSString * _key;
+    SEL  _selector;
+    id  _selectorOrBlock;
+    unsigned int  _sortDescriptorFlags;
 }
 
 @property (readonly) BOOL ascending;
@@ -48,8 +48,16 @@
 - (id)reversedSortDescriptor;
 - (SEL)selector;
 
+// Image: /System/Library/Frameworks/MediaPlayer.framework/MediaPlayer
+
+- (int)_MPMediaLibraryEntityTranslator_MLCoreSortDescriptorOrdering;
+
 // Image: /System/Library/PrivateFrameworks/CloudKitDaemon.framework/CloudKitDaemon
 
 - (id)CKDPQuerySort;
+
+// Image: /System/Library/PrivateFrameworks/NewsCore.framework/NewsCore
+
+- (id)FCCKPQuerySort;
 
 @end

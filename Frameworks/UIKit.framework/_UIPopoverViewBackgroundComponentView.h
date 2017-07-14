@@ -3,15 +3,18 @@
  */
 
 @interface _UIPopoverViewBackgroundComponentView : UIView {
-    NSString *directionSelector;
+    NSString * _directionSelector;
+    NSMutableArray * _replicants;
 }
 
-@property (nonatomic, retain) NSString *directionSelector;
+@property (nonatomic, copy) NSString *directionSelector;
 
-- (id)_generateBackdropMaskViewForFlag:(int)arg1;
+- (void).cxx_destruct;
+- (id)_newReplicant;
 - (BOOL)_shouldAnimatePropertyWithKey:(id)arg1;
-- (void)dealloc;
 - (id)directionSelector;
+- (id)replicate;
 - (void)setDirectionSelector:(id)arg1;
+- (void)updateReplicants;
 
 @end

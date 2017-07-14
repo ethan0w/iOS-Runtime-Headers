@@ -3,12 +3,12 @@
  */
 
 @interface EKTimeZoneViewController : UITableViewController <UISearchControllerDelegate> {
-    int _chooserStyle;
-    NSArray *_cities;
-    <EKTimeZoneViewControllerDelegate> *_delegate;
-    UISearchController *_searchController;
-    int _style;
-    NSTimeZone *_timeZone;
+    int  _chooserStyle;
+    NSArray * _cities;
+    <EKTimeZoneViewControllerDelegate> * _delegate;
+    UISearchController * _searchController;
+    int  _style;
+    NSTimeZone * _timeZone;
 }
 
 @property (nonatomic, readonly) int chooserStyle;
@@ -34,6 +34,7 @@
 - (void)tableView:(id)arg1 didSelectRowAtIndexPath:(id)arg2;
 - (int)tableView:(id)arg1 numberOfRowsInSection:(int)arg2;
 - (id)timeZone;
+- (void)viewDidAppear:(BOOL)arg1;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)arg1;
 - (void)willDismissSearchController:(id)arg1;

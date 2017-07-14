@@ -3,10 +3,14 @@
  */
 
 @interface NEVPNApp : NEVPN {
-    NSArray *_appRules;
+    NSArray * _appRules;
+    BOOL  _noRestriction;
+    int  _tunnelType;
 }
 
 @property (copy) NSArray *appRules;
+@property BOOL noRestriction;
+@property int tunnelType;
 
 + (BOOL)supportsSecureCoding;
 
@@ -17,13 +21,19 @@
 - (id)copyAppRuleBySigningIdentifier:(id)arg1;
 - (id)copyAppRuleIDs;
 - (id)copyLegacyDictionary;
+- (id)copyUniqueSigningIdentifiers;
 - (id)copyWithZone:(struct _NSZone { }*)arg1;
-- (id)descriptionWithIndent:(int)arg1;
+- (id)descriptionWithIndent:(int)arg1 options:(unsigned int)arg2;
 - (void)encodeWithCoder:(id)arg1;
 - (id)init;
 - (id)initFromLegacyDictionary:(id)arg1;
 - (id)initWithCoder:(id)arg1;
+- (BOOL)installSigningIdentifiersWithFlowDivertControlSocket:(int)arg1;
+- (BOOL)noRestriction;
 - (BOOL)removeAppRuleByID:(id)arg1;
 - (void)setAppRules:(id)arg1;
+- (void)setNoRestriction:(BOOL)arg1;
+- (void)setTunnelType:(int)arg1;
+- (int)tunnelType;
 
 @end

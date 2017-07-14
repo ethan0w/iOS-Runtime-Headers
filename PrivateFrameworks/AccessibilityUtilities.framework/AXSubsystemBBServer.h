@@ -2,9 +2,8 @@
    Image: /System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities
  */
 
-@interface AXSubsystemBBServer : AXSubsystem
+@interface AXSubsystemBBServer : AXLoggingSubsystem
 
-+ (int)defaultLogLevel;
 + (id)identifier;
 
 @end

@@ -3,30 +3,38 @@
  */
 
 @interface AlarmManager : NSObject {
-    NSMutableArray *_alarms;
-    NSString *_defaultSound;
-    int _defaultSoundType;
-    BOOL _dirty;
-    BOOL invalidAlarmsDetected;
-    NSDate *lastModified;
-    NSMutableArray *logMessageList;
+    NSMutableArray * _alarms;
+    NSString * _defaultSound;
+    int  _defaultSoundType;
+    BOOL  _dirty;
+    NSHashTable * _observers;
+    Alarm * _sleepAlarm;
+    BOOL  invalidAlarmsDetected;
+    NSDate * lastModified;
+    NSMutableArray * logMessageList;
 }
 
-@property (nonatomic, readonly, retain) NSArray *alarms;
+@property (nonatomic, readonly) NSArray *alarms;
 @property (nonatomic, readonly) NSString *defaultSound;
 @property (nonatomic, readonly) int defaultSoundType;
+@property (nonatomic, retain) NSString *defaultVibrationID;
 @property (nonatomic) BOOL invalidAlarmsDetected;
 @property (nonatomic, retain) NSDate *lastModified;
 @property (nonatomic, retain) NSMutableArray *logMessageList;
+@property (nonatomic, readonly) Alarm *sleepAlarm;
 
 + (id)copyReadAlarmsFromPreferences;
++ (id)copySleepAlarmFromPreferences;
 + (BOOL)discardOldVersion;
 + (BOOL)isAlarmNotification:(id)arg1;
 + (id)sharedManager;
 + (BOOL)upgrade;
 + (void)writeAlarmsToPreferences:(id)arg1;
++ (void)writeSleepAlarmToPreferences:(id)arg1;
 
+- (void).cxx_destruct;
 - (void)addAlarm:(id)arg1 active:(BOOL)arg2;
+- (void)addObserver:(id)arg1;
 - (id)alarmWithId:(id)arg1;
 - (id)alarmWithIdUrl:(id)arg1;
 - (id)alarms;
@@ -35,6 +43,7 @@
 - (void)dealloc;
 - (id)defaultSound;
 - (int)defaultSoundType;
+- (id)defaultVibrationID;
 - (void)handleAlarm:(id)arg1 startedUsingSong:(id)arg2;
 - (void)handleAlarm:(id)arg1 stoppedUsingSong:(id)arg2;
 - (void)handleAnyNotificationChanges;
@@ -50,16 +59,23 @@
 - (void)loadScheduledNotificationsWithCancelUnused:(BOOL)arg1;
 - (id)logMessageList;
 - (id)nextAlarmForDate:(id)arg1 activeOnly:(BOOL)arg2 allowRepeating:(BOOL)arg3;
+- (id)nextAlarmForDate:(id)arg1 activeOnly:(BOOL)arg2 allowRepeating:(BOOL)arg3 allowSnoozed:(BOOL)arg4;
+- (id)nextAlarmForDate:(id)arg1 activeOnly:(BOOL)arg2 allowRepeating:(BOOL)arg3 allowSnoozed:(BOOL)arg4 allowSleepAlarm:(BOOL)arg5;
+- (void)reloadDefaultSoundAndType;
 - (void)reloadScheduledNotifications;
 - (void)reloadScheduledNotificationsWithRefreshActive:(BOOL)arg1 cancelUnused:(BOOL)arg2;
 - (void)removeAlarm:(id)arg1;
+- (void)removeObserver:(id)arg1;
 - (void)saveAlarms;
 - (void)setAlarm:(id)arg1 active:(BOOL)arg2;
 - (void)setDefaultSound:(id)arg1 ofType:(int)arg2;
+- (void)setDefaultVibrationID:(id)arg1;
 - (void)setInvalidAlarmsDetected:(BOOL)arg1;
 - (void)setLastModified:(id)arg1;
 - (void)setLogMessageList:(id)arg1;
+- (id)sleepAlarm;
 - (void)unloadAlarms;
 - (void)updateAlarm:(id)arg1 active:(BOOL)arg2;
+- (void)updateSleepAlarm:(id)arg1 active:(BOOL)arg2;
 
 @end

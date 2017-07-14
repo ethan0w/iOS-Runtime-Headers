@@ -3,10 +3,10 @@
  */
 
 @interface CKDKeyValueDiskCache : NSObject {
-    CKDClientContext *_context;
-    PQLConnection *_db;
-    double _expirationTimeout;
-    NSString *_identifier;
+    CKDClientContext * _context;
+    PQLConnection * _db;
+    double  _expirationTimeout;
+    NSString * _identifier;
 }
 
 @property (nonatomic) CKDClientContext *context;
@@ -23,7 +23,6 @@
 - (void)dealloc;
 - (void)deleteCachedValuesBecauseOfLowDisk;
 - (double)expirationTimeout;
-- (long)expirationTimeoutAsTime;
 - (id)identifier;
 - (id)initWithIdentifier:(id)arg1 context:(id)arg2;
 - (void)removeCachedValueForKey:(id)arg1;

@@ -3,21 +3,28 @@
  */
 
 @interface CMNatalimeter : NSObject {
-    CMNatalimeterInternal *_internal;
+    CMNatalimeterInternal * _internal;
 }
 
 @property (nonatomic, readonly) CMNatalimeterInternal *_internal;
 
++ (double)activeMetsThreshold;
++ (double)briskMinuteMetsThreshold;
++ (id)computeRestingCaloriesAtRate:(unsigned int)arg1 user:(id)arg2 duration:(double)arg3;
 + (id)defaultUserProfile;
 + (BOOL)isNatalimeterAvailable;
 + (id)maxNatalieEntries;
++ (BOOL)resetCalibrationDataWithError:(id*)arg1;
++ (BOOL)setUserInfo:(id)arg1 error:(id*)arg2;
 + (BOOL)setUserProfile:(id)arg1 error:(id*)arg2;
 + (id)userProfile;
 
 - (id)_internal;
+- (bool)_shouldAllowMotionCalibrationPromptsForSession:(int)arg1;
 - (void)dealloc;
 - (unsigned int)getSupportedMetricsForSession:(int)arg1;
 - (id)init;
+- (unsigned int)promptsNeededForSession:(int)arg1;
 - (void)queryAbsoluteNatalimetryDataSinceDataRecord:(id)arg1 withHandler:(id /* block */)arg2;
 - (void)queryAbsoluteNatalimetryDataSinceRecord:(int)arg1 withHandler:(id /* block */)arg2;
 - (void)setSession:(int)arg1 withCompletionHandler:(id /* block */)arg2;

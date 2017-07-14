@@ -2,26 +2,28 @@
    Image: /System/Library/PrivateFrameworks/ChatKit.framework/ChatKit
  */
 
-@interface CKRecipientSelectionController : CKViewController <ABPeoplePickerNavigationControllerDelegate, CKRecipientSearchListControllerDelegate, MFComposeRecipientTextViewDelegate, MFGroupDetailViewControllerDelegate, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate> {
-    NSArray *_addressBookProperties;
-    CKPendingConversation *_conversation;
-    <CKRecipientSelectionControllerDelegate> *_delegate;
-    BOOL _didShowOneTimeErrorAlert;
-    BOOL _editable;
-    BOOL _forceMMS;
-    BOOL _homogenizePreferredServiceForiMessage;
-    float _keyboardHeightWithAccessoryView;
-    ABPeoplePickerNavigationController *_peoplePickerController;
-    BOOL _peoplePickerHidden;
-    BOOL _preventAtomization;
-    MFComposeRecipient *_recentContactForPresentedABCard;
-    NSMutableDictionary *_recipientAvailabilities;
-    NSMutableDictionary *_recipientAvailibityTimers;
-    CKRecipientSearchListController *_searchListController;
-    BOOL _shouldSuppressSearchResultsTable;
-    CKComposeRecipientView *_toField;
-    UIView *_toFieldContainerView;
-    UIScrollView *_toFieldScrollingView;
+@interface CKRecipientSelectionController : CKViewController <ABPeoplePickerNavigationControllerDelegate, CKRecipientSearchListControllerDelegate, MFComposeRecipientTextViewDelegate, MFGroupDetailViewControllerDelegate> {
+    NSArray * _addressBookProperties;
+    CKPendingConversation * _conversation;
+    <CKRecipientSelectionControllerDelegate> * _delegate;
+    BOOL  _didShowOneTimeErrorAlert;
+    BOOL  _editable;
+    BOOL  _forceMMS;
+    id /* block */  _gameCenterPickerBlock;
+    BOOL  _homogenizePreferredServiceForiMessage;
+    float  _keyboardHeightWithAccessoryView;
+    ABPeoplePickerNavigationController * _peoplePickerController;
+    BOOL  _peoplePickerHidden;
+    BOOL  _preventAtomization;
+    MFComposeRecipient * _recentContactForPresentedABCard;
+    NSMutableDictionary * _recipientAvailabilities;
+    NSMutableDictionary * _recipientAvailibityTimers;
+    CKRecipientSearchListController * _searchListController;
+    BOOL  _shouldSuppressSearchResultsTable;
+    CKComposeRecipientView * _toField;
+    UIView * _toFieldContainerView;
+    UILabel * _toFieldPlaceholderLabel;
+    UIScrollView * _toFieldScrollingView;
 }
 
 @property (nonatomic, retain) NSArray *addressBookProperties;
@@ -33,6 +35,7 @@
 @property (nonatomic) BOOL didShowOneTimeErrorAlert;
 @property (getter=isEditable, nonatomic) BOOL editable;
 @property (nonatomic) BOOL forceMMS;
+@property (nonatomic, copy) id /* block */ gameCenterPickerBlock;
 @property (readonly) unsigned int hash;
 @property (nonatomic, readonly) BOOL homogenizePreferredServiceForiMessage;
 @property (nonatomic, retain) ABPeoplePickerNavigationController *peoplePickerController;
@@ -46,15 +49,18 @@
 @property (nonatomic, readonly) BOOL shouldSuppressSearchResultsTable;
 @property (readonly) Class superclass;
 @property (nonatomic, retain) CKComposeRecipientView *toField;
-@property (nonatomic, retain) UIView *toFieldContainerView;
+@property (nonatomic, readonly) UIView *toFieldContainerView;
 @property (nonatomic, readonly) BOOL toFieldIsFirstResponder;
+@property (nonatomic, retain) UILabel *toFieldPlaceholderLabel;
 @property (nonatomic, retain) UIScrollView *toFieldScrollingView;
 
+- (void).cxx_destruct;
 - (void)_adjustToFieldPositionIfNecessary;
 - (id)_alternateAddressesForRecipient:(id)arg1;
 - (id)_alternateiMessagableAddressesForRecipient:(id)arg1;
 - (unsigned int)_atomPresentationOptionsForRecipient:(id)arg1;
 - (BOOL)_availibilityForRecipient:(id)arg1 onService:(id)arg2;
+- (id)_canonicalRecipientAddresses;
 - (void)_dismissPeoplePicker;
 - (void)_handleConversationPreferredServiceDidChangeNotification:(id)arg1;
 - (void)_handleRecipientAvailabilityTimeout:(id)arg1;
@@ -63,16 +69,14 @@
 - (BOOL)_isToFieldPushedUp;
 - (void)_keyboardWillShowOrHide:(id)arg1;
 - (struct UIEdgeInsets { float x1; float x2; float x3; float x4; })_navigationBarInsets;
-- (id)_navigationControllerForSearchResults;
 - (id)_recipientCausingTooManyRecipientsError;
 - (void)_refreshActionSheet;
 - (void)_removeAvailabilityTimeoutTimerForRecipient:(id)arg1;
 - (void)_removeRecent;
 - (void)_resetSearchResultsInsets;
-- (BOOL)_shouldShowCardForPerson:(void*)arg1;
 - (void)_showActionSheetForRecipient:(id)arg1 animated:(BOOL)arg2;
 - (void)_showDetailsForGroup:(id)arg1;
-- (void)_showDetailsForRecipient:(id)arg1 canDelete:(BOOL)arg2 presentInPopover:(BOOL)arg3;
+- (void)_showDetailsForRecipient:(id)arg1 canDelete:(BOOL)arg2;
 - (void)_showOneTimeErrorAlertForAddedRecipient:(id)arg1 service:(id)arg2 withError:(BOOL)arg3;
 - (void)_showSearchField;
 - (void)_startAvailabilityTimeoutTimerForRecipient:(id)arg1;
@@ -86,9 +90,12 @@
 - (void)addRecipients:(id)arg1;
 - (id)addressBookProperties;
 - (void)alertView:(id)arg1 clickedButtonAtIndex:(int)arg2;
+- (void)autocompleteResultsController:(id)arg1 didRequestInfoAboutRecipient:(id)arg2;
+- (void)autocompleteResultsController:(id)arg1 didSelectRecipient:(id)arg2 atIndex:(unsigned int)arg3;
 - (float)collapsedHeight;
 - (id)composeRecipientView:(id)arg1 composeRecipientForAddress:(id)arg2;
 - (id)composeRecipientView:(id)arg1 composeRecipientForRecord:(void*)arg2 property:(int)arg3 identifier:(int)arg4;
+- (void)composeRecipientView:(id)arg1 didAddRecipient:(id)arg2;
 - (void)composeRecipientView:(id)arg1 didChangeSize:(struct CGSize { float x1; float x2; })arg2;
 - (void)composeRecipientView:(id)arg1 didFinishEnteringAddress:(id)arg2;
 - (void)composeRecipientView:(id)arg1 didRemoveRecipient:(id)arg2;
@@ -104,6 +111,7 @@
 - (BOOL)didShowOneTimeErrorAlert;
 - (BOOL)finishedComposingRecipients;
 - (BOOL)forceMMS;
+- (id /* block */)gameCenterPickerBlock;
 - (void)groupDetailViewController:(id)arg1 didAskToRemoveGroup:(id)arg2;
 - (void)groupDetailViewController:(id)arg1 didTapComposeRecipient:(id)arg2;
 - (void)groupDetailViewControllerDidCancel:(id)arg1;
@@ -116,17 +124,15 @@
 - (id)initWithConversation:(id)arg1;
 - (void)invalidateOutstandingIDStatusRequests;
 - (BOOL)isEditable;
+- (BOOL)isGameCenterRecipient:(id)arg1;
 - (BOOL)isPeoplePickerHidden;
 - (BOOL)isSearchResultsHidden;
 - (void)loadView;
-- (void)navigationController:(id)arg1 didShowViewController:(id)arg2 animated:(BOOL)arg3;
 - (void)parentControllerDidResume:(BOOL)arg1 animating:(BOOL)arg2;
 - (id)peoplePickerController;
-- (BOOL)peoplePickerNavigationController:(id)arg1 shouldContinueAfterSelectingPerson:(void*)arg2;
-- (BOOL)peoplePickerNavigationController:(id)arg1 shouldContinueAfterSelectingPerson:(void*)arg2 property:(int)arg3 identifier:(int)arg4;
+- (void)peoplePickerNavigationController:(id)arg1 didSelectPerson:(const void*)arg2;
+- (void)peoplePickerNavigationController:(id)arg1 didSelectPerson:(void*)arg2 property:(int)arg3 identifier:(int)arg4;
 - (void)peoplePickerNavigationControllerDidCancel:(id)arg1;
-- (void)popoverPresentationController:(id)arg1 willRepositionPopoverToRect:(inout struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; }*)arg2 inView:(inout id*)arg3;
-- (void)popoverPresentationControllerDidDismissPopover:(id)arg1;
 - (unsigned int)presentationOptionsForRecipient:(id)arg1;
 - (BOOL)preventAtomization;
 - (id)recentContactForPresentedABCard;
@@ -142,9 +148,7 @@
 - (void)removeRecipient:(id)arg1;
 - (void)reset;
 - (id)searchListController;
-- (void)searchListController:(id)arg1 accessoryPickedForRecipient:(id)arg2;
 - (void)searchListController:(id)arg1 destinationsUpdated:(id)arg2;
-- (void)searchListController:(id)arg1 didSelectRecipient:(id)arg2;
 - (int)searchListController:(id)arg1 idStatusForIDSID:(id)arg2;
 - (void)searchListControllerDidFinishSearch:(id)arg1;
 - (void)searchListControllerDidScroll:(id)arg1;
@@ -154,6 +158,8 @@
 - (void)setDidShowOneTimeErrorAlert:(BOOL)arg1;
 - (void)setEditable:(BOOL)arg1;
 - (void)setForceMMS:(BOOL)arg1;
+- (void)setGameCenterPickedHandles:(id)arg1 playerNames:(id)arg2;
+- (void)setGameCenterPickerBlock:(id /* block */)arg1;
 - (void)setPeoplePickerController:(id)arg1;
 - (void)setPeoplePickerHidden:(BOOL)arg1;
 - (void)setPreventAtomization:(BOOL)arg1;
@@ -163,19 +169,21 @@
 - (void)setSearchListController:(id)arg1;
 - (void)setSearchResultsHidden:(BOOL)arg1;
 - (void)setToField:(id)arg1;
-- (void)setToFieldContainerView:(id)arg1;
+- (void)setToFieldPlaceholderLabel:(id)arg1;
 - (void)setToFieldScrollingView:(id)arg1;
 - (BOOL)shouldSuppressSearchResultsTable;
 - (void)stopCheckingRecipientAvailabilityAndRemoveAllTimers;
 - (id)toField;
 - (id)toFieldContainerView;
 - (BOOL)toFieldIsFirstResponder;
+- (id)toFieldPlaceholderLabel;
 - (id)toFieldScrollingView;
+- (void)traitCollectionDidChange:(id)arg1;
 - (void)viewDidAppearDeferredSetup;
 - (void)viewDidDisappear:(BOOL)arg1;
 - (void)viewDidLoad;
-- (void)viewServiceWillAnimateRotationToInterfaceOrientation:(int)arg1 duration:(double)arg2;
 - (void)viewWillDisappear:(BOOL)arg1;
+- (void)viewWillLayoutSubviews;
 - (void)viewWillTransitionToSize:(struct CGSize { float x1; float x2; })arg1 withTransitionCoordinator:(id)arg2;
 
 @end

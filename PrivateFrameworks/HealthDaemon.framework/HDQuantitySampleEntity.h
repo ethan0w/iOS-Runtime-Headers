@@ -4,12 +4,13 @@
 
 @interface HDQuantitySampleEntity : HDSampleEntity
 
-+ (Class)_associatedDataObjectClass;
-+ (id)_columnsSQL;
 + (id)_databaseTable;
-+ (id)_propertySettersForDataObject;
-+ (id)_tableValuesFromDataObject:(id)arg1;
++ (BOOL)addCodableObject:(id)arg1 toCollection:(id)arg2;
 + (id)codableObjectsFromObjectCollection:(id)arg1;
-+ (id)sumOfSamplesWithDataType:(id)arg1 inDatabase:(id)arg2 predicate:(id)arg3;
++ (id)columnsDefinition;
++ (id)entityEncoderForProfile:(id)arg1 database:(id)arg2 purpose:(int)arg3 encodingOptions:(id)arg4 authorizationFilter:(id /* block */)arg5;
++ (BOOL)enumerateQuantityValuesForPredicate:(id)arg1 database:(id)arg2 error:(id*)arg3 handler:(id /* block */)arg4;
++ (id)insertDataObject:(id)arg1 withProvenance:(id)arg2 inDatabase:(id)arg3 persistentID:(id)arg4 error:(id*)arg5;
++ (id)joinClausesForProperty:(id)arg1;
 
 @end

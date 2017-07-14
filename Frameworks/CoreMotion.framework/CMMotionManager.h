@@ -3,7 +3,7 @@
  */
 
 @interface CMMotionManager : NSObject {
-    id _internal;
+    id  _internal;
 }
 
 @property (getter=isAccelerometerActive, nonatomic, readonly) BOOL accelerometerActive;
@@ -20,6 +20,7 @@
 @property (getter=isGyroAvailable, nonatomic, readonly) BOOL gyroAvailable;
 @property (readonly) CMGyroData *gyroData;
 @property (nonatomic) double gyroUpdateInterval;
+@property (getter=isDeviceMotionLiteAvailable, nonatomic, readonly) BOOL isDeviceMotionLiteAvailable;
 @property (getter=isMagnetometerActive, nonatomic, readonly) BOOL magnetometerActive;
 @property (getter=isMagnetometerAvailable, nonatomic, readonly) BOOL magnetometerAvailable;
 @property (readonly) CMMagnetometerData *magnetometerData;
@@ -30,10 +31,12 @@
 + (unsigned int)availableAttitudeReferenceFrames;
 + (BOOL)configureM7Activity:(BOOL)arg1 stepCounting:(BOOL)arg2 activityForceCodeTransition:(BOOL)arg3 stepCountingForceCodeTransition:(BOOL)arg4 threshold:(BOOL)arg5 impulse:(BOOL)arg6 onBodyDetection:(BOOL)arg7 ispMode:(unsigned char)arg8 predictionInterval:(float)arg9 logLevel:(BOOL)arg10 proactiveRevisitTime:(unsigned short)arg11;
 + (void)dummySelector:(id)arg1;
-+ (struct { struct { float x_1_1_1; float x_1_1_2; float x_1_1_3; } x1; struct { float x_2_1_1; float x_2_1_2; float x_2_1_3; } x2; double x3; })gyroCalibrationDatabaseGetBiasFit;
++ (struct { int x1; double x2; union { struct { struct { float x_1_3_1; float x_1_3_2; float x_1_3_3; } x_1_2_1; struct { float x_2_3_1; float x_2_3_2; float x_2_3_3; } x_1_2_2; } x_3_1_1; struct { bool x_2_2_1; BOOL x_2_2_2[241]; } x_3_1_2; } x3; })gyroCalibrationDatabaseGetBiasFit;
++ (struct { int x1; double x2; union { struct { struct { float x_1_3_1; float x_1_3_2; float x_1_3_3; } x_1_2_1; struct { float x_2_3_1; float x_2_3_2; float x_2_3_3; } x_1_2_2; } x_3_1_1; struct { bool x_2_2_1; BOOL x_2_2_2[241]; } x_3_1_2; } x3; })gyroCalibrationDatabaseGetBiasFitAndEstimate:(struct { double x1; double x2; double x3; }*)arg1 atTemperature:(float)arg2;
 + (BOOL)hasRunMiniCal;
 + (void)initialize;
 + (void)setAllowInBackground:(BOOL)arg1;
++ (BOOL)setUrgentCalFlag;
 + (BOOL)startGyroMiniCalibration;
 + (BOOL)supportsGyroMiniCalibration;
 
@@ -42,19 +45,16 @@
 - (id)ambientPressureData;
 - (double)ambientPressureUpdateInterval;
 - (unsigned int)attitudeReferenceFrame;
+- (void)captureStarting;
+- (void)connect;
 - (void)dealloc;
 - (void)deallocPrivate;
 - (id)deviceMotion;
-- (double)deviceMotionGyroDt;
-- (double)deviceMotionRequestedAccelerometerUpdateInterval;
-- (double)deviceMotionRequestedCompassUpdateInterval;
-- (double)deviceMotionRequestedGyroUpdateInterval;
 - (double)deviceMotionUpdateInterval;
 - (void)didBecomeActive:(id)arg1;
 - (void)didBecomeActivePrivate:(id)arg1;
 - (void)dismissDeviceMovementDisplay;
 - (id)gyroData;
-- (int)gyroStartupLatency;
 - (double)gyroUpdateInterval;
 - (int)gyttNumTemperatures;
 - (id)init;
@@ -67,6 +67,7 @@
 - (BOOL)isAmbientPressureAvailable;
 - (BOOL)isDeviceMotionActive;
 - (BOOL)isDeviceMotionAvailable;
+- (BOOL)isDeviceMotionLiteAvailable;
 - (BOOL)isGyroActive;
 - (BOOL)isGyroAvailable;
 - (BOOL)isMagnetometerActive;
@@ -86,22 +87,19 @@
 - (void)setAccelerometerUpdateIntervalPrivate:(double)arg1;
 - (void)setAmbientPressureUpdateInterval:(double)arg1;
 - (void)setAmbientPressureUpdateIntervalPrivate:(double)arg1;
+- (void)setCaptureMode:(int)arg1;
 - (void)setDeviceMotionCallback:(int (*)arg1 info:(void*)arg2 interval:(double)arg3 fsync:(BOOL)arg4;
-- (void)setDeviceMotionCompassAlignmentCallback:(int (*)arg1 info:(void*)arg2;
-- (void)setDeviceMotionCompassDataCallback:(int (*)arg1 info:(void*)arg2;
 - (void)setDeviceMotionUpdateInterval:(double)arg1;
 - (void)setDeviceMotionUpdateIntervalPrivate:(double)arg1;
-- (void)setGyroBiasAndVarianceCallback:(int (*)arg1 info:(void*)arg2;
 - (void)setGyroDataCallback:(int (*)arg1 info:(void*)arg2 interval:(double)arg3;
 - (void)setGyroUpdateInterval:(double)arg1;
 - (void)setGyroUpdateIntervalPrivate:(double)arg1;
 - (void)setMagnetometerDataCallback:(int (*)arg1 info:(void*)arg2 interval:(double)arg3;
 - (void)setMagnetometerUpdateInterval:(double)arg1;
 - (void)setMagnetometerUpdateIntervalPrivate:(double)arg1;
-- (void)setMaxAccelerationVarianceForStability:(float)arg1;
+- (bool)setMotionThreadPriority:(int)arg1;
 - (void)setNotificationCallback:(int (*)arg1 info:(void*)arg2;
-- (void)setSensorThrottleTime:(double)arg1;
-- (void)setSensorTurnOffTime:(double)arg1;
+- (void)setPowerConservationMode:(int)arg1;
 - (void)setShowsDeviceMovementDisplay:(BOOL)arg1;
 - (void)setShowsDeviceMovementDisplayPrivate:(BOOL)arg1;
 - (BOOL)setSidebandSensorFusionEnable:(BOOL)arg1;
@@ -109,7 +107,6 @@
 - (BOOL)setSidebandSensorFusionEnable:(BOOL)arg1 withSnoopHandler:(id /* block */)arg2;
 - (void)setSidebandTimeSyncHandler:(id /* block */)arg1;
 - (void)setUseAccelerometer:(BOOL)arg1;
-- (void)setWantsPowerConservativeDeviceMotion:(BOOL)arg1;
 - (void)showDeviceMovementDisplay;
 - (BOOL)showsDeviceMovementDisplay;
 - (void)startAccelerometerUpdates;
@@ -118,6 +115,9 @@
 - (void)startAmbientPressureUpdates;
 - (void)startAmbientPressureUpdatesPrivateToQueue:(id)arg1 withHandler:(id /* block */)arg2;
 - (void)startAmbientPressureUpdatesToQueue:(id)arg1 withHandler:(id /* block */)arg2;
+- (void)startDeviceMotionLiteDebugUpdatesForDeviceID:(id)arg1 toQueue:(id)arg2 withHandler:(id /* block */)arg3;
+- (void)startDeviceMotionLiteFusedUpdatesForDeviceID:(id)arg1 toQueue:(id)arg2 withHandler:(id /* block */)arg3;
+- (void)startDeviceMotionLiteUpdatesForDeviceID:(id)arg1 usingConfiguration:(struct { int x1; })arg2 toQueue:(id)arg3 withFusedHandler:(id /* block */)arg4 debugHandler:(id /* block */)arg5;
 - (void)startDeviceMotionUpdates;
 - (void)startDeviceMotionUpdatesPrivateUsingReferenceFrame:(unsigned int)arg1 toQueue:(id)arg2 withHandler:(id /* block */)arg3;
 - (void)startDeviceMotionUpdatesToQueue:(id)arg1 withHandler:(id /* block */)arg2;
@@ -134,6 +134,7 @@
 - (void)stopAccelerometerUpdatesPrivate;
 - (void)stopAmbientPressureUpdates;
 - (void)stopAmbientPressureUpdatesPrivate;
+- (void)stopDeviceMotionLiteUpdatesForDeviceID:(id)arg1;
 - (void)stopDeviceMotionUpdates;
 - (void)stopDeviceMotionUpdatesPrivate;
 - (void)stopGyroUpdates;

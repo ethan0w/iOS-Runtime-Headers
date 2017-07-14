@@ -3,11 +3,11 @@
  */
 
 @interface _UITextFieldPasscodeCutoutBackground : UITextFieldBackgroundView {
-    float _cornerRadius;
-    BOOL _customFillColor;
-    BOOL _customStrokeColor;
-    CAShapeLayer *_lighteningOutline;
-    float _outlineAlpha;
+    float  _cornerRadius;
+    BOOL  _customFillColor;
+    BOOL  _customStrokeColor;
+    CAShapeLayer * _lighteningOutline;
+    float  _outlineAlpha;
 }
 
 @property (nonatomic) float cornerRadius;
@@ -18,17 +18,16 @@
 + (id)_strokeColor:(BOOL)arg1;
 + (Class)layerClass;
 
+- (void).cxx_destruct;
 - (id)_fillColor:(BOOL)arg1;
 - (id)_layer;
 - (float)_pathInset;
-- (float)_pixelAlignment;
 - (BOOL)_shouldAnimatePropertyWithKey:(id)arg1;
 - (id)_strokeColor:(BOOL)arg1;
 - (void)_updateLightingOutlinePath;
 - (void)_updatePath;
 - (float)cornerRadius;
 - (id)customPath;
-- (void)dealloc;
 - (id)fillColor;
 - (id)initWithFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1;
 - (id)initWithFrame:(struct CGRect { struct CGPoint { float x_1_1_1; float x_1_1_2; } x1; struct CGSize { float x_2_1_1; float x_2_1_2; } x2; })arg1 active:(BOOL)arg2;

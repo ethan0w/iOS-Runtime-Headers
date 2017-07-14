@@ -3,9 +3,9 @@
  */
 
 @interface GKPreferences : NSObject {
-    NSDictionary *_overrideValues;
-    BOOL _shouldSynchronizeOnNextRead;
-    BOOL _webKitInspectElementEnabled;
+    NSDictionary * _overrideValues;
+    BOOL  _shouldSynchronizeOnNextRead;
+    BOOL  _webKitInspectElementEnabled;
 }
 
 @property (nonatomic, readonly) BOOL HTTPShouldUsePipelining;
@@ -15,6 +15,7 @@
 @property (nonatomic) BOOL allowUnsignedBag;
 @property (getter=isAppInstallationRestricted, nonatomic, readonly) BOOL appInstallationRestricted;
 @property (nonatomic) double cacheTTLOverride;
+@property (getter=isClipGestureEnabled, nonatomic) BOOL clipGestureEnabled;
 @property (getter=isComprehensiveLoggingEnabled, nonatomic) BOOL comprehensiveLoggingEnabled;
 @property (nonatomic) double debugRequestTimeout;
 @property (nonatomic) int environment;
@@ -35,6 +36,8 @@
 @property (nonatomic) unsigned int maxPlayersHosted;
 @property (nonatomic) unsigned int maxPlayersP2P;
 @property (nonatomic) unsigned int maxPlayersTurnBased;
+@property (nonatomic) unsigned int maxRecentPlayersCount;
+@property (nonatomic) double maxRecentPlayersTime;
 @property (nonatomic) unsigned int mescalSetupRetries;
 @property (nonatomic) double minimumCacheTTL;
 @property (getter=isMultiplayerGamingRestricted, nonatomic, readonly) BOOL multiplayerGamingRestricted;
@@ -51,7 +54,6 @@
 @property (nonatomic) <GKPreferencesDelegate> *preferencesDelegate;
 @property (nonatomic) int pushEnvironment;
 @property (nonatomic) BOOL shouldAddPlayerInfoToAddressBook;
-@property (nonatomic) BOOL shouldAllowGameInvites;
 @property (nonatomic) BOOL shouldAllowNearbyMultiplayer;
 @property (nonatomic) BOOL shouldAnnotateImageUsage;
 @property (nonatomic, readonly) BOOL shouldDisallowInvitesFromStrangers;
@@ -59,11 +61,11 @@
 @property (nonatomic) BOOL shouldLinkPlayerToICloud;
 @property (nonatomic) BOOL shouldLinkPlayerToTwitter;
 @property (nonatomic) BOOL shouldTrackAtlasImageUsage;
-@property (nonatomic) BOOL shouldUseSandboxServer;
 @property (nonatomic) BOOL shouldUseTestIcons;
 @property (nonatomic, retain) NSString *storeBagURL;
 @property (getter=isStoreDemoModeEnabled, nonatomic, readonly) BOOL storeDemoModeEnabled;
 @property (nonatomic) double terminationInterval;
+@property (nonatomic, copy) NSString *testRunID;
 @property (nonatomic) BOOL useInternalHeader;
 @property (nonatomic) BOOL useTestProtocols;
 @property (nonatomic) BOOL verboseLogging;
@@ -98,6 +100,7 @@
 - (BOOL)isAccountModificationRestricted;
 - (BOOL)isAddingFriendsRestricted;
 - (BOOL)isAppInstallationRestricted;
+- (BOOL)isClipGestureEnabled;
 - (BOOL)isComprehensiveLoggingEnabled;
 - (BOOL)isGameCenterRestricted;
 - (BOOL)isInternalBuild;
@@ -115,6 +118,8 @@
 - (unsigned int)maxPlayersHosted;
 - (unsigned int)maxPlayersP2P;
 - (unsigned int)maxPlayersTurnBased;
+- (unsigned int)maxRecentPlayersCount;
+- (double)maxRecentPlayersTime;
 - (unsigned int)mescalSetupRetries;
 - (double)minimumCacheTTL;
 - (BOOL)notificationAlertsEnabled;
@@ -135,6 +140,7 @@
 - (void)setAllowUnsignedBag:(BOOL)arg1;
 - (void)setBooleanValue:(BOOL)arg1 forKey:(struct __CFString { }*)arg2;
 - (void)setCacheTTLOverride:(double)arg1;
+- (void)setClipGestureEnabled:(BOOL)arg1;
 - (void)setComprehensiveLoggingEnabled:(BOOL)arg1;
 - (void)setDebugRequestTimeout:(double)arg1;
 - (void)setEnvironment:(int)arg1;
@@ -149,6 +155,8 @@
 - (void)setMaxPlayersHosted:(unsigned int)arg1;
 - (void)setMaxPlayersP2P:(unsigned int)arg1;
 - (void)setMaxPlayersTurnBased:(unsigned int)arg1;
+- (void)setMaxRecentPlayersCount:(unsigned int)arg1;
+- (void)setMaxRecentPlayersTime:(double)arg1;
 - (void)setMescalSetupRetries:(unsigned int)arg1;
 - (void)setMinimumCacheTTL:(double)arg1;
 - (void)setNotificationAlertsEnabled:(BOOL)arg1;
@@ -164,18 +172,17 @@
 - (void)setPreferencesDelegate:(id)arg1;
 - (void)setPushEnvironment:(int)arg1;
 - (void)setShouldAddPlayerInfoToAddressBook:(BOOL)arg1;
-- (void)setShouldAllowGameInvites:(BOOL)arg1;
 - (void)setShouldAllowNearbyMultiplayer:(BOOL)arg1;
 - (void)setShouldAnnotateImageUsage:(BOOL)arg1;
 - (void)setShouldLinkPlayerToFacebook:(BOOL)arg1;
 - (void)setShouldLinkPlayerToICloud:(BOOL)arg1;
 - (void)setShouldLinkPlayerToTwitter:(BOOL)arg1;
 - (void)setShouldTrackAtlasImageUsage:(BOOL)arg1;
-- (void)setShouldUseSandboxServer:(BOOL)arg1;
 - (void)setShouldUseTestIcons:(BOOL)arg1;
 - (void)setStoreBagURL:(id)arg1;
 - (void)setStringValue:(id)arg1 forKey:(struct __CFString { }*)arg2;
 - (void)setTerminationInterval:(double)arg1;
+- (void)setTestRunID:(id)arg1;
 - (void)setTimeInterval:(double)arg1 forKey:(struct __CFString { }*)arg2;
 - (void)setUnsignedIntegerValue:(int)arg1 forKey:(struct __CFString { }*)arg2;
 - (void)setUseInternalHeader:(BOOL)arg1;
@@ -184,7 +191,6 @@
 - (void)setWebKitInspectElementEnabled:(BOOL)arg1;
 - (void)set_shouldSynchronizeOnNextRead:(BOOL)arg1;
 - (BOOL)shouldAddPlayerInfoToAddressBook;
-- (BOOL)shouldAllowGameInvites;
 - (BOOL)shouldAllowNearbyMultiplayer;
 - (BOOL)shouldAnnotateImageUsage;
 - (BOOL)shouldDisallowInvitesFromStrangers;
@@ -192,12 +198,12 @@
 - (BOOL)shouldLinkPlayerToICloud;
 - (BOOL)shouldLinkPlayerToTwitter;
 - (BOOL)shouldTrackAtlasImageUsage;
-- (BOOL)shouldUseSandboxServer;
 - (BOOL)shouldUseTestIcons;
 - (id)storeBagURL;
 - (id)stringValueForKey:(struct __CFString { }*)arg1 defaultValue:(id)arg2;
 - (void)synchronize;
 - (double)terminationInterval;
+- (id)testRunID;
 - (double)timeIntervalForKey:(struct __CFString { }*)arg1 defaultValue:(double)arg2;
 - (int)unsignedIntegerValueForKey:(struct __CFString { }*)arg1 defaultValue:(int)arg2;
 - (BOOL)useInternalHeader;
